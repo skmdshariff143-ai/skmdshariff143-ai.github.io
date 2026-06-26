@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ----------------------------------------------------------------------
        Scroll Reveal Animations (Intersection Observer)
        ---------------------------------------------------------------------- */
-    const revealElements = document.querySelectorAll('.card, .section-title, .about-text, .about-stats, .timeline-item, .lang-card');
+    const revealElements = document.querySelectorAll('.card, .cert-card, .section-title, .about-text, .about-stats, .timeline-item, .lang-card');
     
     // Initial state setup for animation
     revealElements.forEach(el => {
@@ -94,4 +94,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     revealElements.forEach(el => revealObserver.observe(el));
+
+    /* ------------------------------------------------------------------
+       Certificate Modal / Lightbox
+       ------------------------------------------------------------------ */
+    const certModal = document.getElementById('cert-modal');
+    const certModalImg = document.getElementById('cert-modal-img');
+    const certModalClose = document.getElementById('cert-modal-close');
+
+    // Open modal on expand button or image click
+    document.querySelectorAll('.cert-card .cert-preview').forEach(preview => {
+        preview.addEventListener('click', () => {
+            const img = preview.querySelector('img');
+            if (img && certModal) {
+                certModalImg.src = img.src;
+                certModalImg.alt = img.alt;
+                certModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    if (certModalClose) {
+        certModalClose.addEventListener('click', () => {
+            certModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (certModal) {
+        certModal.addEventListener('click', (e) => {
+            if (e.target === certModal) {
+                certModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && certModal && certModal.classList.contains('active')) {
+            certModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    /* ------------------------------------------------------------------
+       Certificate Filter Buttons
+       ------------------------------------------------------------------ */
+    const filterBtns = document.querySelectorAll('.cert-filters .filter-btn');
+    const certCards = document.querySelectorAll('.cert-card');
+    const certCountEl = document.querySelector('.cert-count span');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            let visibleCount = 0;
+
+            certCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (certCountEl) {
+                certCountEl.textContent = visibleCount;
+            }
+        });
+    });
 });

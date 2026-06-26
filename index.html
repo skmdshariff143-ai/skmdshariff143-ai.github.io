@@ -260,82 +260,366 @@
         <section id="certificates" class="certificates section bg-darker">
             <div class="container">
                 <h2 class="section-title">Certifications</h2>
+                <p class="cert-count">Showing <span>22</span> certificates</p>
+
+                <!-- Filter Buttons -->
+                <div class="cert-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="cloud">Cloud & Data</button>
+                    <button class="filter-btn" data-filter="programming">Programming</button>
+                    <button class="filter-btn" data-filter="ai">AI & GenAI</button>
+                    <button class="filter-btn" data-filter="tools">Tools & Workshops</button>
+                    <button class="filter-btn" data-filter="academic">Academic</button>
+                </div>
+
                 <div class="cert-grid">
-                    
-                    <!-- Cert 1 -->
-                    <div class="cert-card card">
-                        <div class="cert-icon"><i class="fas fa-award"></i></div>
-                        <div class="cert-info">
+
+                    <!-- 1. AWS Data Engineering Virtual Internship -->
+                    <div class="cert-card" data-category="cloud">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
                             <h3>AWS Data Engineering Virtual Internship</h3>
                             <p class="cert-provider">EduSkills</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/aws-data-engineering.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
                         </div>
-                        <!-- TODO: Update href with actual certificate link -->
-                        <a href="#" class="cert-link" target="_blank" title="View Certificate"><i class="fas fa-arrow-right"></i></a>
                     </div>
 
-                    <!-- Cert 2 -->
-                    <div class="cert-card card">
-                        <div class="cert-icon"><i class="fas fa-award"></i></div>
-                        <div class="cert-info">
+                    <!-- 2. AWS Academy Data Engineering Training Badge -->
+                    <div class="cert-card" data-category="cloud">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>AWS Academy Data Engineering Training Badge</h3>
+                            <p class="cert-provider">AWS Academy</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/aws_academy_graduate___data_engineering___training_badge_badge20260327-32-qr179v.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Google Cloud Skills Boost -->
+                    <div class="cert-card" data-category="cloud">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
                             <h3>Google Cloud Skills Boost</h3>
                             <p class="cert-provider">Google Cloud</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/shaik-mahammad-sharif_20261772946116-(1).pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
                         </div>
-                        <a href="#" class="cert-link" target="_blank" title="View Certificate"><i class="fas fa-arrow-right"></i></a>
                     </div>
 
-                    <!-- Cert 3 -->
-                    <div class="cert-card card">
-                        <div class="cert-icon"><i class="fas fa-award"></i></div>
-                        <div class="cert-info">
-                            <h3>Generative AI and Prompt Engineering</h3>
-                            <p class="cert-provider">NxtWave (Hands-on Project)</p>
+                    <!-- 4. AI Tools & ChatGPT Workshop (has image) -->
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-preview">
+                            <img src="assets/certificates/certificate_page-0001.jpg" alt="AI Tools and ChatGPT Workshop Certificate - Be10X" loading="lazy">
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
-                        <a href="#" class="cert-link" target="_blank" title="View Certificate"><i class="fas fa-arrow-right"></i></a>
+                        <div class="cert-body">
+                            <h3>AI Tools & ChatGPT Workshop</h3>
+                            <p class="cert-provider">Be10X</p>
+                            <p class="cert-date"><i class="fas fa-calendar-alt"></i> June 14, 2026</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Cert 4 -->
-                    <div class="cert-card card">
-                        <div class="cert-icon"><i class="fas fa-award"></i></div>
-                        <div class="cert-info">
+                    <!-- 5. NxtWave - Build Your Own Generative AI Model (has image) -->
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-preview">
+                            <img src="assets/certificates/nxtwave-certificate.jpeg" alt="AI for Students: Build Your Own Generative AI Model Certificate - NxtWave" loading="lazy">
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Build Your Own Generative AI Model</h3>
+                            <p class="cert-provider">NxtWave</p>
+                            <p class="cert-date"><i class="fas fa-calendar-alt"></i> April 3, 2026</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/nxtwave-certificate.jpeg" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Generative AI in Be10X -->
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Generative AI Workshop</h3>
+                            <p class="cert-provider">Be10X</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/gen-ai-in-be10x.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. Prompt Engineering -->
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Prompt Engineering</h3>
+                            <p class="cert-provider">Online Platform</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/prompt-engineering.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. Prompt Certificate -->
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Prompt Design & Engineering</h3>
+                            <p class="cert-provider">Online Platform</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/prompt-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 9. Master AI -->
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Master AI</h3>
+                            <p class="cert-provider">Online Platform</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/master-ai.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 10. CodeChef - Learn Java Programming (has image) -->
+                    <div class="cert-card" data-category="programming">
+                        <div class="cert-preview">
+                            <img src="assets/certificates/code-chef-course-certificate.jpg" alt="Learn Java Programming Certificate - CodeChef" loading="lazy">
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Learn Java Programming</h3>
+                            <p class="cert-provider">CodeChef</p>
+                            <p class="cert-date"><i class="fas fa-calendar-alt"></i> April 2, 2026</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/code-chef-course-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 11. CodeChef - 500 Difficulty Rating (has image) -->
+                    <div class="cert-card" data-category="programming">
+                        <div class="cert-preview">
+                            <img src="assets/certificates/code-chef-500-difficulty-rating_page-0001.jpg" alt="500 Difficulty Rating Certificate - CodeChef" loading="lazy">
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>500 Difficulty Rating Problems</h3>
+                            <p class="cert-provider">CodeChef</p>
+                            <p class="cert-date"><i class="fas fa-calendar-alt"></i> March 22, 2026</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/code-chef-500-difficulty-rating.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 12. Practice Basic Math - CodeChef -->
+                    <div class="cert-card" data-category="programming">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Practice Basic Math</h3>
+                            <p class="cert-provider">CodeChef</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/vvit23bq1a04f2-practice-basic-math.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 13. Python Beginner to Master -->
+                    <div class="cert-card" data-category="programming">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Python Beginner to Master</h3>
+                            <p class="cert-provider">Online Platform</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/python-beginner-to-master.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 14. The Joy of Computing using Python (NPTEL/SWAYAM) -->
+                    <div class="cert-card" data-category="programming">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>The Joy of Computing using Python</h3>
+                            <p class="cert-provider">NPTEL / SWAYAM</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/the-joy-of-computing-using-python.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 15. Git & GitHub Bootcamp - Udemy -->
+                    <div class="cert-card" data-category="tools">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
                             <h3>Git & GitHub Bootcamp</h3>
                             <p class="cert-provider">Udemy</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/udemy.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
                         </div>
-                        <a href="#" class="cert-link" target="_blank" title="View Certificate"><i class="fas fa-arrow-right"></i></a>
                     </div>
 
-                    <!-- Cert 5 -->
-                    <div class="cert-card card">
-                        <div class="cert-icon"><i class="fas fa-award"></i></div>
-                        <div class="cert-info">
-                            <h3>Java Programming</h3>
-                            <p class="cert-provider">CodeChef</p>
+                    <!-- 16. GitHub Certificate -->
+                    <div class="cert-card" data-category="tools">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
-                        <a href="#" class="cert-link" target="_blank" title="View Certificate"><i class="fas fa-arrow-right"></i></a>
+                        <div class="cert-body">
+                            <h3>GitHub Foundations</h3>
+                            <p class="cert-provider">GitHub</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/github.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Cert 6 -->
-                    <div class="cert-card card">
-                        <div class="cert-icon"><i class="fas fa-award"></i></div>
-                        <div class="cert-info">
-                            <h3>Problem Solving with Python</h3>
+                    <!-- 17. Problem Solving using Python Boot Camp (has image) -->
+                    <div class="cert-card" data-category="academic">
+                        <div class="cert-preview">
+                            <img src="assets/certificates/4.jpg" alt="Problem Solving using Python Boot Camp Certificate - VVIT &amp; IETE" loading="lazy">
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Problem Solving using Python Boot Camp</h3>
+                            <p class="cert-provider">VVIT & IETE Student Forum</p>
+                            <p class="cert-date"><i class="fas fa-calendar-alt"></i> Jan 20 – 25, 2025</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/boot-camp-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 18. Data Analyst - PEARL Lab (has image) -->
+                    <div class="cert-card" data-category="cloud">
+                        <div class="cert-preview">
+                            <img src="assets/certificates/data-analyst-perals-lab.jpeg" alt="Data Analyst Course Certificate - Pasteur Education and Research Training Laboratory (PEARL)" loading="lazy">
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Data Analyst Course</h3>
+                            <p class="cert-provider">PEARL Training Laboratory</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/data-analyst-perals-lab.jpeg" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 19. Business Analysis & Process Management -->
+                    <div class="cert-card" data-category="tools">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Business Analysis & Process Management</h3>
                             <p class="cert-provider">Online Platform</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/business-analysis-process-management.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
                         </div>
-                        <a href="#" class="cert-link" target="_blank" title="View Certificate"><i class="fas fa-arrow-right"></i></a>
                     </div>
 
-                    <!-- Cert 7 -->
-                    <div class="cert-card card">
-                        <div class="cert-icon"><i class="fas fa-award"></i></div>
-                        <div class="cert-info">
-                            <h3>AI Tools Workshop</h3>
-                            <p class="cert-provider">Be10X</p>
+                    <!-- 20. Palo Alto Networks Cybersecurity -->
+                    <div class="cert-card" data-category="tools">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
-                        <a href="#" class="cert-link" target="_blank" title="View Certificate"><i class="fas fa-arrow-right"></i></a>
+                        <div class="cert-body">
+                            <h3>Cybersecurity Fundamentals</h3>
+                            <p class="cert-provider">Palo Alto Networks</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/paloalto-final-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 21. PCB Design Workshop (has image) -->
+                    <div class="cert-card" data-category="academic">
+                        <div class="cert-preview">
+                            <img src="assets/certificates/student-workshop-pcb-design-participant.png" alt="Student Workshop PCB Design Participant Badge - Siemens Empowers Education" loading="lazy">
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>PCB Design Workshop</h3>
+                            <p class="cert-provider">Siemens Empowers Education</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/student-workshop-pcb-design-participant.png" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 22. L4G Certificate -->
+                    <div class="cert-card" data-category="tools">
+                        <div class="cert-preview pdf-only">
+                            <i class="fas fa-file-pdf pdf-icon"></i>
+                            <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
+                        </div>
+                        <div class="cert-body">
+                            <h3>Laptop 4 Good (L4G) Program</h3>
+                            <p class="cert-provider">L4G Initiative</p>
+                            <div class="cert-actions">
+                                <a href="assets/certificates/l4g-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
         </section>
+
+        <!-- Certificate Modal / Lightbox -->
+        <div id="cert-modal" class="cert-modal" role="dialog" aria-label="Certificate Preview">
+            <div class="modal-content">
+                <button id="cert-modal-close" class="modal-close" aria-label="Close"><i class="fas fa-times"></i></button>
+                <img id="cert-modal-img" src="" alt="Certificate Preview">
+            </div>
+        </div>
 
         <!-- Achievements & Profiles Section combined for better flow -->
         <section id="achievements" class="achievements section">
