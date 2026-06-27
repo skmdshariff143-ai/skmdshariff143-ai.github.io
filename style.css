@@ -1150,7 +1150,6 @@ img {
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
-
 .footer-links a:hover {
     color: var(--accent-teal);
 }
@@ -1163,24 +1162,269 @@ img {
     font-size: 0.85rem;
 }
 
-/* --------------------------------------------------------------------------
+/* ==========================================================================
+   3D & Creative Effects
+   ========================================================================== */
+
+/* Hero Particle Canvas */
+#hero-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Custom Cursor Glow */
+.cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.cursor-glow.visible {
+    opacity: 1;
+}
+
+/* 3D Tilt Card Effect */
+.tilt-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+}
+
+.tilt-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 229, 255, 0.1), 0 0 30px rgba(0, 229, 255, 0.05);
+}
+
+/* 3D Button Hover */
+.btn-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-3d:hover {
+    transform: translateY(-4px) rotateX(5deg);
+    box-shadow: 0 10px 25px rgba(0, 229, 255, 0.2);
+}
+
+.btn-3d:active {
+    transform: translateY(-1px) rotateX(2deg);
+}
+
+/* Orbiting Icons Around Avatar */
+.avatar-3d {
+    perspective: 800px;
+    transform-style: preserve-3d;
+}
+
+.orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 350px;
+    height: 350px;
+    margin-top: -175px;
+    margin-left: -175px;
+    border-radius: 50%;
+    border: 1px dashed rgba(0, 229, 255, 0.15);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.orbit-ring-1 {
+    animation: orbit3d-1 8s linear infinite;
+}
+
+.orbit-ring-2 {
+    width: 400px;
+    height: 400px;
+    margin-top: -200px;
+    margin-left: -200px;
+    animation: orbit3d-2 12s linear infinite;
+    border-color: rgba(0, 229, 255, 0.1);
+}
+
+.orbit-ring-3 {
+    width: 320px;
+    height: 320px;
+    margin-top: -160px;
+    margin-left: -160px;
+    animation: orbit3d-3 10s linear infinite;
+    border-color: rgba(0, 229, 255, 0.08);
+}
+
+.orbit-icon {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    margin-left: -15px;
+    width: 30px;
+    height: 30px;
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-teal);
+    font-size: 0.8rem;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+}
+
+@keyframes orbit3d-1 {
+    from { transform: rotateX(60deg) rotateZ(0deg); }
+    to   { transform: rotateX(60deg) rotateZ(360deg); }
+}
+@keyframes orbit3d-2 {
+    from { transform: rotateX(45deg) rotateZ(60deg); }
+    to   { transform: rotateX(45deg) rotateZ(420deg); }
+}
+@keyframes orbit3d-3 {
+    from { transform: rotateX(75deg) rotateZ(-30deg); }
+    to   { transform: rotateX(75deg) rotateZ(330deg); }
+}
+
+/* Avatar 3D Float */
+.avatar-3d .avatar-placeholder {
+    animation: float3d 6s ease-in-out infinite;
+}
+
+@keyframes float3d {
+    0%, 100% { transform: translateY(0) rotateY(0deg); }
+    25%  { transform: translateY(-12px) rotateY(5deg); }
+    50%  { transform: translateY(-6px) rotateY(0deg); }
+    75%  { transform: translateY(-15px) rotateY(-5deg); }
+}
+
+/* Typing cursor effect */
+#typed-tagline::after {
+    content: '|';
+    animation: blink-cursor 0.7s infinite;
+    color: var(--accent-teal);
+    font-weight: 300;
+}
+
+@keyframes blink-cursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Glowing animated border for cards on hover */
+.project-card::before,
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 229, 255, 0.3) 50%, transparent 70%);
+    border-radius: calc(var(--border-radius) + 2px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background-size: 200% 200%;
+    animation: shimmer-border 3s ease infinite;
+}
+
+.project-card:hover::before,
+.achievement-card:hover::before {
+    opacity: 1;
+}
+
+@keyframes shimmer-border {
+    0%   { background-position: -200% -200%; }
+    100% { background-position: 200% 200%; }
+}
+
+/* Section title subtle glow */
+.section-title {
+    text-shadow: 0 0 40px rgba(0, 229, 255, 0.08);
+}
+
+/* Animated gradient text on hero name */
+.name {
+    background: linear-gradient(135deg, #fff 0%, var(--accent-teal) 50%, #fff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%   { background-position: 0% center; }
+    50%  { background-position: 100% center; }
+    100% { background-position: 0% center; }
+}
+
+/* Stat card counter glow */
+.stat-card h3 {
+    text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+}
+
+/* Skill chips 3D hover */
+.chip {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+    transform-style: preserve-3d;
+}
+
+.chip:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 229, 255, 0.15);
+}
+
+/* Lang card 3D hover */
+.lang-card {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lang-card:hover {
+    transform: translateY(-8px) rotateX(5deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
    Responsive Design
-   -------------------------------------------------------------------------- */
+   ========================================================================== */
 @media (max-width: 992px) {
     .name { font-size: 3rem; }
-    .hero-container { flex-direction: column-reverse; text-align: center; padding-top: 2rem;}
+    .hero-container { flex-direction: column-reverse; text-align: center; padding-top: 2rem; }
     .hero-actions { justify-content: center; }
     .about-content { grid-template-columns: 1fr; }
-    .about-stats { flex-direction: row; justify-content: center; flex-wrap: wrap;}
+    .about-stats { flex-direction: row; justify-content: center; flex-wrap: wrap; }
     .highlight-panel, .nss-panel { flex-direction: column; align-items: center; text-align: center; }
     .feature-list li { justify-content: center; text-align: left; }
     .nss-highlights { justify-content: center; }
     .contact-wrapper { grid-template-columns: 1fr; }
+    .orbit-ring { display: none; }
 }
 
 @media (max-width: 768px) {
     .nav-links {
-        display: none; /* Hide for mobile by default, toggled via JS */
+        display: none;
         position: absolute;
         top: 80px;
         left: 0;
@@ -1195,26 +1439,28 @@ img {
         display: flex;
     }
     .hamburger { display: block; }
-    
+
     .name { font-size: 2.5rem; }
     .role { font-size: 1.2rem; }
-    
+
     .skills-grid { grid-template-columns: 1fr; }
-    
+
     .timeline::before { left: 15px; }
     .timeline-dot { left: 8px; }
     .timeline-item { padding-left: 2.5rem; }
-    
+
     .cert-grid { grid-template-columns: 1fr; }
     .cert-modal .modal-content { padding: 1rem; }
-    
+
     .footer-container { flex-direction: column; text-align: center; }
     .footer-links ul { justify-content: center; flex-wrap: wrap; }
+
+    .cursor-glow { display: none; }
 }
 
 @media (max-width: 480px) {
     .avatar-container { width: 220px; height: 220px; }
     .btn { padding: 0.6rem 1.2rem; width: 100%; margin-bottom: 0.5rem; }
-    .btn-icon { width: 100%; border-radius: 30px; margin-bottom: 0.5rem;}
+    .btn-icon { width: 100%; border-radius: 30px; margin-bottom: 0.5rem; }
     .section-title { font-size: 2rem; }
 }

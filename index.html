@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Three.js for 3D particle background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -37,29 +39,41 @@
     <main>
         <!-- Hero Section -->
         <section id="hero" class="hero section">
+            <!-- 3D Particle Canvas Background -->
+            <canvas id="hero-particles"></canvas>
             <div class="container hero-container">
                 <div class="hero-content">
                     <p class="greeting">Hello, I'm</p>
                     <h1 class="name">Shaik Mahammad Shariff</h1>
                     <h2 class="role">Electronics and Communication Engineering Undergraduate</h2>
-                    <p class="tagline">Passionate about applying data-driven approaches to solve real-world problems and building efficient software solutions.</p>
+                    <p class="tagline" id="typed-tagline"></p>
                     <div class="hero-actions">
-                        <a href="#contact" class="btn btn-primary">Contact Me</a>
-                        <a href="#projects" class="btn btn-secondary">View Projects</a>
+                        <a href="#contact" class="btn btn-primary btn-3d">Contact Me</a>
+                        <a href="#projects" class="btn btn-secondary btn-3d">View Projects</a>
                         <!-- TODO: Update href with link to actual resume PDF -->
-                        <a href="#" class="btn btn-outline" download>Download Resume</a>
-                        <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" class="btn btn-icon" aria-label="GitHub">
+                        <a href="#" class="btn btn-outline btn-3d" download>Download Resume</a>
+                        <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" class="btn btn-icon btn-3d" aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <!-- Avatar Placeholder - To update, replace image source -->
-                    <div class="avatar-container">
+                    <!-- 3D Avatar with orbiting elements -->
+                    <div class="avatar-container avatar-3d">
                         <div class="avatar-placeholder">
                             <i class="fas fa-user-astronaut"></i>
                         </div>
                         <div class="glow-ring"></div>
+                        <!-- Orbiting tech icons -->
+                        <div class="orbit-ring orbit-ring-1">
+                            <span class="orbit-icon"><i class="fab fa-python"></i></span>
+                        </div>
+                        <div class="orbit-ring orbit-ring-2">
+                            <span class="orbit-icon"><i class="fab fa-java"></i></span>
+                        </div>
+                        <div class="orbit-ring orbit-ring-3">
+                            <span class="orbit-icon"><i class="fab fa-aws"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,16 +90,16 @@
                         <p><strong>Career Objective:</strong> To leverage my technical skills and problem-solving abilities in a dynamic professional environment, contributing to impactful projects while continuously advancing my expertise in software development and data engineering.</p>
                     </div>
                     <div class="about-stats">
-                        <div class="stat-card">
-                            <h3>8.21</h3>
+                        <div class="stat-card tilt-card">
+                            <h3 class="counter" data-target="8.21" data-decimal="true">0</h3>
                             <p>CGPA</p>
                         </div>
-                        <div class="stat-card">
-                            <h3>500+</h3>
+                        <div class="stat-card tilt-card">
+                            <h3><span class="counter" data-target="500">0</span>+</h3>
                             <p>Problems Solved</p>
                         </div>
-                        <div class="stat-card">
-                            <h3>3 <i class="fas fa-star" style="color:#ffd700;"></i></h3>
+                        <div class="stat-card tilt-card">
+                            <h3><span class="counter" data-target="3">0</span> <i class="fas fa-star" style="color:#ffd700;"></i></h3>
                             <p>CodeChef Rating</p>
                         </div>
                     </div>
@@ -782,6 +796,8 @@
         </div>
     </footer>
 
+    <!-- Custom cursor follower -->
+    <div class="cursor-glow" id="cursor-glow"></div>
     <script src="script.js"></script>
 </body>
 </html>
