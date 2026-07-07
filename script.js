@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
        Certificate Filter Buttons
        ------------------------------------------------------------------ */
     const filterBtns = document.querySelectorAll('.cert-filters .filter-btn');
-    const certCards = document.querySelectorAll('.cert-card');
+    const certCards = document.querySelectorAll('#certificates .cert-card');
     const certCountNum = document.getElementById('cert-count-num');
 
     // Initialize certificate count
