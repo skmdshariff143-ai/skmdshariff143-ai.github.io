@@ -41,27 +41,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         // Sticky Navbar styling
-        if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.5)';
-            navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-        } else {
-            navbar.style.boxShadow = 'none';
-            navbar.style.background = 'rgba(10, 10, 10, 0.8)';
+        if (navbar) {
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.5)';
+                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+            } else {
+                navbar.style.boxShadow = 'none';
+                navbar.style.background = 'rgba(10, 10, 10, 0.8)';
+            }
         }
 
         // Active Link Highlight
         let current = '';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (scrollY >= (sectionTop - 150)) {
+            if (window.scrollY >= (sectionTop - 150)) {
                 current = section.getAttribute('id');
             }
         });
 
         navItems.forEach(item => {
             item.classList.remove('active');
-            if (item.getAttribute('href').includes(current) && current !== '') {
+            const href = item.getAttribute('href');
+            if (href && href.includes(current) && current !== '') {
                 item.classList.add('active');
             }
         });
@@ -107,8 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
         preview.addEventListener('click', () => {
             const img = preview.querySelector('img');
             if (img && certModal) {
-                certModalImg.src = img.src;
-                certModalImg.alt = img.alt;
+                if (certModalImg) {
+                    certModalImg.src = img.src;
+                    certModalImg.alt = img.alt;
+                }
                 certModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
@@ -256,13 +260,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Helper to check WebGL support
+    const hasWebGLSupport = (canvasEl) => {
+        try {
+            return !!(window.WebGLRenderingContext && (canvasEl.getContext('webgl') || canvasEl.getContext('experimental-webgl')));
+        } catch (e) {
+            return false;
+        }
+    };
+
     // 5. Three.js Particle Background
     const canvas = document.getElementById('hero-particles');
     // We check if THREE is available globally
-    if (canvas) {
+    if (canvas && hasWebGLSupport(canvas)) {
         // Wait for Three.js to load since it's defer
         const initThree = () => {
-            if (typeof THREE === 'undefined') {
+            if (typeof THREE === 'undefined' || !window.THREE) {
                 setTimeout(initThree, 100);
                 return;
             }
@@ -370,10 +383,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     contactForm.reset();
                     contactForm.innerHTML = `
-                        <div class="form-success-message" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem 1rem;">
-                            <i class="fas fa-check-circle" style="font-size: 4rem; color: #00e676; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.3));"></i>
-                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--text-primary); font-family: var(--font-heading);">Message Sent!</h3>
-                            <p style="color: var(--text-secondary); line-height: 1.6;">Thanks! Your message has been sent — I'll get back to you soon.</p>
+                        <div class="form-success-message">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Message Sent!</h3>
+                            <p>Thanks! Your message has been sent — I'll get back to you soon.</p>
                         </div>
                     `;
                 } else {

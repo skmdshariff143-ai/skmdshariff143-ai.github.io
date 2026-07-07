@@ -1548,6 +1548,52 @@ img {
 }
 
 /* ==========================================================================
+   Utility & Form Status Styles
+   ========================================================================== */
+.rating-star {
+    color: #ffd700;
+}
+
+.honeypot-field {
+    display: none;
+}
+
+.form-status-message {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: none;
+}
+
+.form-success-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.form-success-message i {
+    font-size: 4rem;
+    color: #00e676;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.3));
+}
+
+.form-success-message h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+}
+
+.form-success-message p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
    Responsive Design
    ========================================================================== */
 @media (max-width: 992px) {
