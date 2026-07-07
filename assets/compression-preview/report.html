@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Compression Report</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #00e5ff; border-bottom: 2px solid #333; padding-bottom: 0.5rem; }
+        .summary-card { background-color: #1e1e1e; padding: 1.5rem; border-radius: 8px; border: 1px solid #333; margin-bottom: 2rem; display: flex; gap: 2rem; flex-wrap: wrap; }
+        .summary-item { flex: 1; min-width: 200px; }
+        .summary-item h3 { margin-top: 0; color: #aaa; font-size: 0.9rem; text-transform: uppercase; }
+        .summary-item p { font-size: 1.8rem; margin: 0.5rem 0 0 0; font-weight: bold; color: #fff; }
+        .summary-item p.savings { color: #00e676; }
+        .item-card { background-color: #1a1a1a; border-radius: 8px; border: 1px solid #333; margin-bottom: 1.5rem; overflow: hidden; }
+        .item-header { background-color: #222; padding: 1rem; font-weight: bold; font-family: monospace; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+        .item-meta { color: #00e5ff; }
+        .item-body { display: flex; gap: 2rem; padding: 1.5rem; flex-wrap: wrap; }
+        .image-col { flex: 1; min-width: 280px; text-align: center; }
+        .image-col h4 { margin-top: 0; color: #888; margin-bottom: 0.5rem; }
+        .image-container { background-color: #0c0c0c; border: 1px solid #444; border-radius: 4px; padding: 0.5rem; display: inline-block; max-width: 100%; }
+        .image-container img { max-width: 100%; max-height: 250px; display: block; border-radius: 2px; }
+        .stats-col { flex: 1; min-width: 250px; display: flex; flex-direction: column; justify-content: center; }
+        .stat-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #333; }
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { color: #aaa; }
+        .stat-value { font-weight: bold; }
+        .reduction-badge { background-color: rgba(0, 230, 118, 0.15); color: #00e676; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Asset Compression Report</h1>
+        <div class="summary-card">
+            <div class="summary-item">
+                <h3>Original Size</h3>
+                <p>14.02 MB</p>
+            </div>
+            <div class="summary-item">
+                <h3>Compressed Size</h3>
+                <p>11.88 MB</p>
+            </div>
+            <div class="summary-item">
+                <h3>Total Savings</h3>
+                <p class="savings">2.14 MB (15.28%)</p>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>23bq1a04f2.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.0%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-23bq1a04f2.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-23bq1a04f2.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">832.25 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">832.25 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>4.jpg</span>
+                <span class="item-meta"><span class="reduction-badge">-1.76%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-4.jpg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-4.jpg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">232.55 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">228.47 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">1.76%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>aws-data-engineering.jpg</span>
+                <span class="item-meta"><span class="reduction-badge">-44.43%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-aws-data-engineering.jpg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-aws-data-engineering.jpg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">404.38 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">224.71 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">44.43%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>aws-data-engineering.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-0.0%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-aws-data-engineering.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-aws-data-engineering.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">785.19 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">785.19 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">0.0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>aws_academy_graduate___data_engineering___training_badge_badge20260327-32-qr179v.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-0.0%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-aws_academy_graduate___data_engineering___training_badge_badge20260327-32-qr179v.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-aws_academy_graduate___data_engineering___training_badge_badge20260327-32-qr179v.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">953.38 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">953.35 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">0.0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>boot-camp-certificate.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-6.15%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-boot-camp-certificate.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-boot-camp-certificate.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">201.9 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">189.49 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">6.15%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>business-analysis-process-management.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-5.03%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-business-analysis-process-management.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-business-analysis-process-management.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">404.23 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">383.9 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">5.03%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>certificate.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-6.46%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-certificate.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-certificate.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">198.55 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">185.72 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">6.46%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>certificate_page-0001.jpg</span>
+                <span class="item-meta"><span class="reduction-badge">-63.67%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-certificate_page-0001.jpg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-certificate_page-0001.jpg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">440.39 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">160.01 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">63.67%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>code-chef-500-difficulty-rating.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-0.39%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-code-chef-500-difficulty-rating.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-code-chef-500-difficulty-rating.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">292.59 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">291.44 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">0.39%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>code-chef-500-difficulty-rating_page-0001.jpg</span>
+                <span class="item-meta"><span class="reduction-badge">-73.25%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-code-chef-500-difficulty-rating_page-0001.jpg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-code-chef-500-difficulty-rating_page-0001.jpg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">437.37 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">117.01 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">73.25%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>code-chef-course-certificate.jpg</span>
+                <span class="item-meta"><span class="reduction-badge">-73.22%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-code-chef-course-certificate.jpg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-code-chef-course-certificate.jpg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">438.77 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">117.52 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">73.22%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>code-chef-course-certificate.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-0.38%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-code-chef-course-certificate.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-code-chef-course-certificate.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">292.07 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">290.96 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">0.38%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>codtech-internship.jpg</span>
+                <span class="item-meta"><span class="reduction-badge">-45.47%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-codtech-internship.jpg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-codtech-internship.jpg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">522.63 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">284.98 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">45.47%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>codtech-internship.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.86%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-codtech-internship.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-codtech-internship.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">1053.87 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">1062.97 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.86%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>data-analyst-perals-lab.jpeg</span>
+                <span class="item-meta"><span class="reduction-badge">--18.23%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-data-analyst-perals-lab.jpeg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-data-analyst-perals-lab.jpeg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">115.4 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">136.44 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-18.23%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>gen-ai-in-be10x.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-0.14%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-gen-ai-in-be10x.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-gen-ai-in-be10x.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">157.93 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">157.71 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">0.14%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>github.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.01%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-github.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-github.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">178.34 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">178.35 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.01%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>l4g-certificate.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-0.04%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-l4g-certificate.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-l4g-certificate.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">86.48 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">86.45 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">0.04%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>master-ai.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.01%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-master-ai.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-master-ai.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">214.54 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">214.55 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.01%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>nic.jpeg</span>
+                <span class="item-meta"><span class="reduction-badge">--15.15%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-nic.jpeg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-nic.jpeg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">175.52 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">202.12 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-15.15%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>nxtwave-certificate.jpeg</span>
+                <span class="item-meta"><span class="reduction-badge">-81.55%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-nxtwave-certificate.jpeg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-nxtwave-certificate.jpeg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">794.66 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">146.63 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">81.55%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>paloalto-final-certificate.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.0%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-paloalto-final-certificate.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-paloalto-final-certificate.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">832.25 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">832.25 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>prompt-certificate.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-0.14%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-prompt-certificate.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-prompt-certificate.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">157.47 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">157.25 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">0.14%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>prompt-engineering.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.0%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-prompt-engineering.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-prompt-engineering.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">240.42 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">240.43 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>python-beginner-to-master.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.01%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-python-beginner-to-master.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-python-beginner-to-master.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">207.19 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">207.2 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.01%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>shaik-mahammad-sharif_20261772946116-(1).pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-1.02%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-shaik-mahammad-sharif_20261772946116-(1).pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-shaik-mahammad-sharif_20261772946116-(1).pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">1166.18 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">1154.24 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">1.02%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>skillcraft-internship.jpg</span>
+                <span class="item-meta"><span class="reduction-badge">-46.19%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-skillcraft-internship.jpg.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-skillcraft-internship.jpg.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">253.54 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">136.43 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">46.19%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>skillcraft-internship.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-6.14%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-skillcraft-internship.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-skillcraft-internship.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">198.41 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">186.22 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">6.14%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>the-joy-of-computing-using-python.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-5.9%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-the-joy-of-computing-using-python.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-the-joy-of-computing-using-python.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">1152.22 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">1084.26 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">5.9%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>uc-7a386e7c-8047-4eb9-a55c-e6153f11d81a.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.01%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-uc-7a386e7c-8047-4eb9-a55c-e6153f11d81a.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-uc-7a386e7c-8047-4eb9-a55c-e6153f11d81a.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">169.41 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">169.42 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.01%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>uc-b0f22e86-0e1d-4102-89d5-b4d56df786fe.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.01%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-uc-b0f22e86-0e1d-4102-89d5-b4d56df786fe.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-uc-b0f22e86-0e1d-4102-89d5-b4d56df786fe.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">188.53 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">188.54 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.01%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>udemy.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">--0.0%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-udemy.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-udemy.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">284.49 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">284.5 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">-0.0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="item-header">
+                <span>vvit23bq1a04f2-practice-basic-math.pdf</span>
+                <span class="item-meta"><span class="reduction-badge">-0.38%</span></span>
+            </div>
+            <div class="item-body">
+                <div class="image-col">
+                    <h4>Original</h4>
+                    <div class="image-container">
+                        <img src="original-vvit23bq1a04f2-practice-basic-math.pdf.png" alt="Original preview">
+                    </div>
+                </div>
+                <div class="image-col">
+                    <h4>Compressed</h4>
+                    <div class="image-container">
+                        <img src="compressed-vvit23bq1a04f2-practice-basic-math.pdf.png" alt="Compressed preview">
+                    </div>
+                </div>
+                <div class="stats-col">
+                    <div class="stat-row">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value">292.06 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Compressed Size</span>
+                        <span class="stat-value">290.95 KB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Reduction</span>
+                        <span class="stat-value" style="color: #00e676;">0.38%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
