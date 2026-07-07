@@ -368,22 +368,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    if (formStatus) {
-                        formStatus.style.color = '#00e676'; // success green
-                        formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.';
-                    }
                     contactForm.reset();
+                    contactForm.innerHTML = `
+                        <div class="form-success-message" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem 1rem;">
+                            <i class="fas fa-check-circle" style="font-size: 4rem; color: #00e676; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.3));"></i>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--text-primary); font-family: var(--font-heading);">Message Sent!</h3>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">Thanks! Your message has been sent — I'll get back to you soon.</p>
+                        </div>
+                    `;
                 } else {
-                    const result = await response.json();
                     if (formStatus) {
                         formStatus.style.color = '#ff1744'; // error red
-                        formStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> Oops! ${result.errors ? result.errors.map(err => err.message).join(', ') : 'Something went wrong.'}`;
+                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:mahammadsharifshaik@gmail.com" style="color: var(--accent-teal); text-decoration: underline;">mahammadsharifshaik@gmail.com</a> instead.';
                     }
                 }
             } catch (error) {
                 if (formStatus) {
                     formStatus.style.color = '#ff1744';
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try again later.';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:mahammadsharifshaik@gmail.com" style="color: var(--accent-teal); text-decoration: underline;">mahammadsharifshaik@gmail.com</a> instead.';
                 }
             }
         });
