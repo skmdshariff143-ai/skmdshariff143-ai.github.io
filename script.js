@@ -144,7 +144,12 @@ document.addEventListener('DOMContentLoaded', () => {
        ------------------------------------------------------------------ */
     const filterBtns = document.querySelectorAll('.cert-filters .filter-btn');
     const certCards = document.querySelectorAll('.cert-card');
-    const certCountEl = document.querySelector('.cert-count span');
+    const certCountNum = document.getElementById('cert-count-num');
+
+    // Initialize certificate count
+    if (certCountNum) {
+        certCountNum.textContent = certCards.length;
+    }
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -162,8 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            if (certCountEl) {
-                certCountEl.textContent = visibleCount;
+            if (certCountNum) {
+                certCountNum.textContent = visibleCount;
             }
         });
     });
