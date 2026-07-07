@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (certModalClose) {
+    if (certModalClose && certModal) {
         certModalClose.addEventListener('click', () => {
             certModal.classList.remove('active');
             document.body.style.overflow = '';
@@ -263,7 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Helper to check WebGL support
     const hasWebGLSupport = (canvasEl) => {
         try {
-            return !!(window.WebGLRenderingContext && (canvasEl.getContext('webgl') || canvasEl.getContext('experimental-webgl')));
+            if (!canvasEl || !window.WebGLRenderingContext) return false;
+            return !!(canvasEl.getContext('webgl') || canvasEl.getContext('experimental-webgl'));
         } catch (e) {
             return false;
         }
@@ -271,83 +272,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. Three.js Particle Background
     const canvas = document.getElementById('hero-particles');
-    // We check if THREE is available globally
+    
+    // Check if browser supports WebGL before continuing
     if (canvas && hasWebGLSupport(canvas)) {
-        // Wait for Three.js to load since it's defer
+        let attempts = 0;
+        const maxAttempts = 50; // Wait maximum 5 seconds (50 * 100ms)
+        
+        // Wait for Three.js to load since it's deferred
         const initThree = () => {
             if (typeof THREE === 'undefined' || !window.THREE) {
-                setTimeout(initThree, 100);
+                attempts++;
+                if (attempts < maxAttempts) {
+                    setTimeout(initThree, 100);
+                } else {
+                    console.warn("Three.js failed to load within timeout. Skipping particle background.");
+                }
                 return;
             }
             
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-            
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 300;
-            const posArray = new Float32Array(particlesCount * 3);
-            
-            for (let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 10;
-            }
-            
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.02,
-                color: 0x00e5ff,
-                transparent: true,
-                opacity: 0.5,
-                blending: THREE.AdditiveBlending
-            });
-            
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
-            
-            camera.position.z = 3;
-            
-            let mouseX = 0;
-            let mouseY = 0;
-            let targetX = 0;
-            let targetY = 0;
-            let windowHalfX = window.innerWidth / 2;
-            let windowHalfY = window.innerHeight / 2;
-            
-            document.addEventListener('mousemove', (event) => {
-                mouseX = (event.clientX - windowHalfX);
-                mouseY = (event.clientY - windowHalfY);
-            });
-            
-            const clock = new THREE.Clock();
-            
-            function animate() {
-                requestAnimationFrame(animate);
+            try {
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
                 
-                targetX = mouseX * 0.001;
-                targetY = mouseY * 0.001;
-                
-                particlesMesh.rotation.y += 0.001;
-                particlesMesh.rotation.x += 0.0005;
-                
-                particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
-                particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
-                
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-            
-            window.addEventListener('resize', () => {
-                windowHalfX = window.innerWidth / 2;
-                windowHalfY = window.innerHeight / 2;
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
-            });
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                
+                const particlesGeometry = new THREE.BufferGeometry();
+                const particlesCount = 300;
+                const posArray = new Float32Array(particlesCount * 3);
+                
+                for (let i = 0; i < particlesCount * 3; i++) {
+                    posArray[i] = (Math.random() - 0.5) * 10;
+                }
+                
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                
+                const particlesMaterial = new THREE.PointsMaterial({
+                    size: 0.02,
+                    color: 0x00e5ff,
+                    transparent: true,
+                    opacity: 0.5,
+                    blending: THREE.AdditiveBlending
+                });
+                
+                const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+                scene.add(particlesMesh);
+                
+                camera.position.z = 3;
+                
+                let mouseX = 0;
+                let mouseY = 0;
+                let targetX = 0;
+                let targetY = 0;
+                let windowHalfX = window.innerWidth / 2;
+                let windowHalfY = window.innerHeight / 2;
+                
+                document.addEventListener('mousemove', (event) => {
+                    mouseX = (event.clientX - windowHalfX);
+                    mouseY = (event.clientY - windowHalfY);
+                });
+                
+                const clock = new THREE.Clock();
+                
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    targetX = mouseX * 0.001;
+                    targetY = mouseY * 0.001;
+                    
+                    particlesMesh.rotation.y += 0.001;
+                    particlesMesh.rotation.x += 0.0005;
+                    
+                    particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+                    particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+                    
+                    renderer.render(scene, camera);
+                }
+                
+                animate();
+                
+                window.addEventListener('resize', () => {
+                    windowHalfX = window.innerWidth / 2;
+                    windowHalfY = window.innerHeight / 2;
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+            } catch (error) {
+                console.error("Error initializing Three.js particle background:", error);
+            }
         };
         initThree();
     }
