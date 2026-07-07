@@ -1,23 +1,26 @@
-# Shaik Mahammad Shariff Portfolio
+# Shaik Mahammad Shariff — Portfolio
 
-The professional personal portfolio website of Shaik Mahammad Shariff, an Electronics and Communication Engineering undergraduate.
+Personal portfolio website showcasing my projects, internships, certifications, and technical skills as an Electronics and Communication Engineering undergraduate and aspiring AI/Software Developer.
 
 🔗 **Live Site:** [https://skmdshariff143-ai.github.io](https://skmdshariff143-ai.github.io)
 
 ## 🛠️ Built With
 
-* HTML5 & CSS3 (Custom Variables)
-* Vanilla JavaScript (ES6+)
-* Three.js (3D Interactive Particle Background)
-* Font Awesome Icons & Google Fonts
+* HTML5
+* CSS3
+* Vanilla JavaScript
+* Three.js (3D particle background)
+* Font Awesome
+* Google Fonts (Inter & Outfit)
 
 ## ✨ Features
 
-* **Responsive Layout:** Optimized for all screen sizes (mobile, tablet, desktop).
-* **3D Visuals:** Interactive particle canvas and 3D floating hero avatar.
-* **Filterable Certifications:** Gallery displaying 20+ certificates filterable by category.
-* **Education & Journey Timeline:** Chronological timeline showing education and internships.
-* **Formspree Contact Form:** Asynchronous submission support with honeypot spam protection.
+* Responsive dark-themed design
+* Interactive 3D particle background (hero section)
+* Filterable certificate gallery with category tabs
+* Animated education/experience timeline
+* Formspree-powered contact form
+* Smooth scroll navigation with active-link highlighting
 
 ## 🚀 Run Locally
 
