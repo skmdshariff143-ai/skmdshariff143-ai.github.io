@@ -362,7 +362,7 @@ img {
     height: 300px;
 }
 
-.avatar-placeholder, .avatar-photo {
+.avatar-placeholder {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -378,7 +378,11 @@ img {
 }
 
 .avatar-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
     object-fit: cover;
+    object-position: center top;
 }
 
 .glow-ring {
@@ -1310,7 +1314,7 @@ img {
 }
 
 /* Avatar 3D Float */
-.avatar-3d .avatar-placeholder, .avatar-3d .avatar-photo {
+.avatar-3d .avatar-placeholder {
     animation: float3d 6s ease-in-out infinite;
 }
 
