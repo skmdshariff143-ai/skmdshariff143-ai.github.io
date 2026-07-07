@@ -1413,7 +1413,11 @@ img {
 /* ==========================================================================
    New Internship Section Sub-Styles
    ========================================================================== */
-.highlight-panel.card + .highlight-panel.card {
+.highlight-panel--spaced-bottom {
+    margin-bottom: 2rem;
+}
+
+.highlight-panel--spaced-top {
     margin-top: 2rem;
 }
 
