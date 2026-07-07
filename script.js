@@ -333,4 +333,54 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         initThree();
     }
+
+    /* ------------------------------------------------------------------
+       Contact Form Submission (Formspree AJAX)
+       ------------------------------------------------------------------ */
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show sending status
+            if (formStatus) {
+                formStatus.style.display = 'block';
+                formStatus.style.color = 'var(--text-secondary)';
+                formStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending message...';
+            }
+
+            const data = new FormData(contactForm);
+            
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: contactForm.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    if (formStatus) {
+                        formStatus.style.color = '#00e676'; // success green
+                        formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.';
+                    }
+                    contactForm.reset();
+                } else {
+                    const result = await response.json();
+                    if (formStatus) {
+                        formStatus.style.color = '#ff1744'; // error red
+                        formStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> Oops! ${result.errors ? result.errors.map(err => err.message).join(', ') : 'Something went wrong.'}`;
+                    }
+                }
+            } catch (error) {
+                if (formStatus) {
+                    formStatus.style.color = '#ff1744';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try again later.';
+                }
+            }
+        });
+    }
 });
