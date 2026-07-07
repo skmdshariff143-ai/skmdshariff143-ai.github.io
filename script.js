@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const certModalClose = document.getElementById('cert-modal-close');
 
     // Open modal on expand button or image click
-    document.querySelectorAll('.cert-card .cert-preview').forEach(preview => {
+    document.querySelectorAll('.cert-preview').forEach(preview => {
         preview.addEventListener('click', () => {
             const img = preview.querySelector('img');
             if (img && certModal) {

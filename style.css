@@ -1407,6 +1407,39 @@ img {
 }
 
 /* ==========================================================================
+   New Internship Section Sub-Styles
+   ========================================================================== */
+.internship-meta-inline i {
+    color: var(--accent-teal);
+    margin-right: 0.25rem;
+}
+
+.status-badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.badge-success {
+    background: rgba(0, 230, 118, 0.1);
+    color: #00e676;
+    border: 1px solid rgba(0, 230, 118, 0.2);
+}
+
+.cert-preview:hover .cert-overlay {
+    opacity: 1 !important;
+}
+
+.cert-preview:hover img {
+    transform: scale(1.05) !important;
+}
+
+/* ==========================================================================
    Responsive Design
    ========================================================================== */
 @media (max-width: 992px) {
