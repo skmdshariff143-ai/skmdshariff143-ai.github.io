@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="canonical" href="https://skmdshariff143-ai.github.io/">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="manifest" href="manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shaik Mahammad Shariff | Portfolio</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
-    <meta name="description" content="Personal portfolio of Shaik Mahammad Shariff, Electronics and Communication Engineering undergraduate passionate about data analysis and software development.">
+    <meta name="description" content="Portfolio of Shaik Mahammad Shariff — ECE Undergraduate and AI & Software Developer. Explore projects, certifications, and experience in Python, Generative AI, and cloud technologies.">
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content="Shaik Mahammad Shariff | Portfolio">
-    <meta property="og:description" content="Electronics and Communication Engineering undergraduate — Software Engineer, AI Developer, Python Programmer. Passionate about Generative AI, Prompt Engineering, and data analysis.">
+    <meta property="og:description" content="ECE Undergraduate and AI & Software Developer. Explore projects in Python, Generative AI, Prompt Engineering, and cloud technologies.">
     <meta property="og:image" content="https://skmdshariff143-ai.github.io/assets/og-preview.png">
     <meta property="og:url" content="https://skmdshariff143-ai.github.io">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Shaik Mahammad Shariff | Portfolio">
-    <meta name="twitter:description" content="Software Engineer | AI Developer | Python Programmer — ECE undergraduate specializing in Generative AI and Prompt Engineering.">
+    <meta name="twitter:description" content="ECE Undergraduate | AI & Software Developer — Projects in Python, Generative AI, and cloud technologies.">
     <meta name="twitter:image" content="https://skmdshariff143-ai.github.io/assets/og-preview.png">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,8 +30,37 @@
     <link rel="stylesheet" href="style.css">
     <!-- Three.js for 3D particle background -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Shaik Mahammad Shariff",
+        "url": "https://skmdshariff143-ai.github.io/",
+        "jobTitle": "ECE Undergraduate",
+        "sameAs": [
+            "https://github.com/skmdshariff143-ai",
+            "https://linkedin.com/in/mahammad-shariff-shaik-32903934a",
+            "https://www.codechef.com/users/vvit23bq1a04f2"
+        ],
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Vasireddy Venkatadri Institute of Technology (VVIT)"
+        },
+        "knowsAbout": ["Python", "Java", "Artificial Intelligence", "Machine Learning", "Generative AI", "Prompt Engineering"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Shaik Mahammad Shariff | Portfolio",
+        "url": "https://skmdshariff143-ai.github.io/"
+    }
+    </script>
 </head>
 <body>
+    <a href="#hero" class="skip-link">Skip to main content</a>
     <!-- Navbar -->
     <header class="navbar">
         <div class="nav-container container">
@@ -42,9 +74,9 @@
                     <li><a href="#certificates">Certificates</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <div class="hamburger">
+                <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" type="button">
                     <i class="fas fa-bars"></i>
-                </div>
+                </button>
             </nav>
         </div>
     </header>
@@ -56,14 +88,20 @@
             <canvas id="hero-particles"></canvas>
             <div class="container hero-container">
                 <div class="hero-content">
+                    <div class="hero-status-badge">
+                        <span class="status-dot"></span> Open to Opportunities
+                    </div>
                     <p class="greeting">Hello, I'm</p>
                     <h1 class="name">Shaik Mahammad Shariff</h1>
-                    <h2 class="role">Software Engineer | AI Developer | Python Programmer</h2>
-                    <p class="tagline" id="typed-tagline"></p>
+                    <h2 class="role">ECE Undergraduate | AI & Software Developer</h2>
+                    <p class="tagline">Building AI-driven software, predictive ML models, and scalable applications with Python, Java, and modern web frameworks.</p>
                     <div class="hero-actions">
                         <a href="#contact" class="btn btn-primary btn-3d">Contact Me</a>
                         <a href="#projects" class="btn btn-secondary btn-3d">View Projects</a>
                         <a href="assets/resume.pdf" class="btn btn-outline btn-3d" download="Shaik_Mahammad_Shariff_Resume.pdf">Download Resume</a>
+                        <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" rel="noopener noreferrer" class="btn btn-icon btn-3d" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
                         <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" class="btn btn-icon btn-3d" aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
@@ -103,16 +141,16 @@
                     </div>
                     <div class="about-stats">
                         <div class="stat-card tilt-card">
-                            <h3 class="counter" data-target="8.21" data-decimal="true">0</h3>
-                            <p>CGPA</p>
+                            <h3 class="counter" data-target="2">2</h3>
+                            <p>Projects</p>
                         </div>
                         <div class="stat-card tilt-card">
-                            <h3><span class="counter" data-target="500">0</span>+</h3>
+                            <h3 class="counter" data-target="25">25</h3>
+                            <p>Certificates</p>
+                        </div>
+                        <div class="stat-card tilt-card">
+                            <h3><span class="counter" data-target="500">500</span>+</h3>
                             <p>Problems Solved</p>
-                        </div>
-                        <div class="stat-card tilt-card">
-                            <h3><span class="counter" data-target="3">0</span> <i class="fas fa-star rating-star"></i></h3>
-                            <p>CodeChef Rating</p>
                         </div>
                     </div>
                 </div>
@@ -269,7 +307,7 @@
                         </div>
 
                         <div class="internship-actions">
-                            <a href="assets/certificates/skillcraft-internship.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            <a href="assets/certificates/skillcraft-internship.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                         </div>
                     </div>
                 </div>
@@ -311,7 +349,7 @@
                         </div>
 
                         <div class="internship-actions">
-                            <a href="assets/certificates/codtech-internship.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                            <a href="assets/certificates/codtech-internship.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                         </div>
                     </div>
                 </div>
@@ -330,8 +368,8 @@
                             <div class="project-header">
                                 <h3>Credit Card Approval Prediction (CreditGuard AI)</h3>
                                 <div class="project-links">
-                                    <a href="https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                                    <a href="https://skmdshariff143-ai.github.io/Credit-Card-Approval-Prediction/" target="_blank" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                    <a href="https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                    <a href="https://skmdshariff143-ai.github.io/Credit-Card-Approval-Prediction/" target="_blank" rel="noopener noreferrer" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                                 </div>
                             </div>
                             <p class="project-desc">An enterprise-grade, end-to-end Machine Learning solution evaluating credit applicant delinquency risk with explainable AI and robust testing.</p>
@@ -357,8 +395,8 @@
                             <div class="project-header">
                                 <h3>FarmaLink-AI</h3>
                                 <div class="project-links">
-                                    <a href="https://github.com/skmdshariff143-ai/farmlink-ai" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                                    <a href="https://farmlink-umber.vercel.app" target="_blank" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                    <a href="https://github.com/skmdshariff143-ai/farmlink-ai" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                    <a href="https://farmlink-umber.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                                 </div>
                             </div>
                             <p class="project-desc">Developed a premium Next.js 15 + React 19 decentralized agricultural SaaS platform that connects farmers directly with buyers, logistics networks, and cold storages.</p>
@@ -387,20 +425,30 @@
                 <h2 class="section-title">Certifications</h2>
                 <p class="cert-count">Showing <span id="cert-count-num">0</span> certificates</p>
 
-                <!-- Filter Buttons -->
-                <div class="cert-filters">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="cloud">Cloud & Data</button>
-                    <button class="filter-btn" data-filter="programming">Programming</button>
-                    <button class="filter-btn" data-filter="ai">AI & GenAI</button>
-                    <button class="filter-btn" data-filter="tools">Tools & Workshops</button>
-                    <button class="filter-btn" data-filter="academic">Academic</button>
+                <!-- Controls: Search & Category Filters -->
+                <div class="cert-controls">
+                    <div class="cert-search">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="cert-search-input" placeholder="Search certificates by title, issuer, or category..." aria-label="Search certificates">
+                    </div>
+                    <div class="cert-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="cloud">Cloud & Data</button>
+                        <button class="filter-btn" data-filter="programming">Programming</button>
+                        <button class="filter-btn" data-filter="ai">AI & GenAI</button>
+                        <button class="filter-btn" data-filter="tools">Tools & Workshops</button>
+                        <button class="filter-btn" data-filter="academic">Academic</button>
+                    </div>
                 </div>
 
                 <div class="cert-grid">
+                    <div id="cert-empty-state" class="cert-empty-state" style="display: none;">
+                        <i class="fas fa-search-minus" style="font-size: 2rem; margin-bottom: 0.5rem; display: block;"></i>
+                        No certificates found matching your search.
+                    </div>
 
                     <!-- 1. AWS Data Engineering Virtual Internship -->
-                    <div class="cert-card" data-category="cloud">
+                    <div class="cert-card" data-category="cloud" data-featured="true">
                         <div class="cert-preview">
                             <img src="assets/certificates/aws-data-engineering-thumb.jpg" alt="AWS Data Engineering Virtual Internship Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -409,13 +457,13 @@
                             <h3>AWS Data Engineering Virtual Internship</h3>
                             <p class="cert-provider">EduSkills</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/aws-data-engineering.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/aws-data-engineering.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- 2. AWS Academy Data Engineering Training Badge -->
-                    <div class="cert-card" data-category="cloud">
+                    <div class="cert-card" data-category="cloud" data-featured="true">
                         <div class="cert-preview">
                             <img src="assets/certificates/aws_academy_graduate___data_engineering___training_badge_badge20260327-32-qr179v-thumb.jpg" alt="AWS Academy Data Engineering Training Badge Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -424,13 +472,13 @@
                             <h3>AWS Academy Data Engineering Training Badge</h3>
                             <p class="cert-provider">AWS Academy</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/aws_academy_graduate___data_engineering___training_badge_badge20260327-32-qr179v.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/aws_academy_graduate___data_engineering___training_badge_badge20260327-32-qr179v.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- 3. Google Cloud Skills Boost -->
-                    <div class="cert-card" data-category="cloud">
+                    <div class="cert-card" data-category="cloud" data-featured="true">
                         <div class="cert-preview">
                             <img src="assets/certificates/shaik-mahammad-sharif_20261772946116-(1)-thumb.jpg" alt="Google Cloud Skills Boost Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -439,7 +487,7 @@
                             <h3>Google Cloud Skills Boost</h3>
                             <p class="cert-provider">Google Cloud</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/shaik-mahammad-sharif_20261772946116-(1).pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/shaik-mahammad-sharif_20261772946116-(1).pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -455,7 +503,7 @@
                             <p class="cert-provider">Be10X</p>
                             <p class="cert-date"><i class="fas fa-calendar-alt"></i> June 14, 2026</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -471,7 +519,7 @@
                             <p class="cert-provider">NxtWave</p>
                             <p class="cert-date"><i class="fas fa-calendar-alt"></i> April 3, 2026</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/nxtwave-certificate.jpeg" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/nxtwave-certificate.jpeg" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -486,7 +534,7 @@
                             <h3>Generative AI Workshop</h3>
                             <p class="cert-provider">Be10X</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/gen-ai-in-be10x.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/gen-ai-in-be10x.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -501,7 +549,7 @@
                             <h3>Prompt Engineering</h3>
                             <p class="cert-provider">Online Platform</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/prompt-engineering.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/prompt-engineering.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -516,7 +564,7 @@
                             <h3>Prompt Design & Engineering</h3>
                             <p class="cert-provider">Online Platform</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/prompt-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/prompt-certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -531,7 +579,7 @@
                             <h3>Master AI</h3>
                             <p class="cert-provider">Online Platform</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/master-ai.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/master-ai.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -547,7 +595,7 @@
                             <p class="cert-provider">CodeChef</p>
                             <p class="cert-date"><i class="fas fa-calendar-alt"></i> April 2, 2026</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/code-chef-course-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/code-chef-course-certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -563,7 +611,7 @@
                             <p class="cert-provider">CodeChef</p>
                             <p class="cert-date"><i class="fas fa-calendar-alt"></i> March 22, 2026</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/code-chef-500-difficulty-rating.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/code-chef-500-difficulty-rating.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -578,7 +626,7 @@
                             <h3>Practice Basic Math</h3>
                             <p class="cert-provider">CodeChef</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/vvit23bq1a04f2-practice-basic-math.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/vvit23bq1a04f2-practice-basic-math.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -593,7 +641,7 @@
                             <h3>Python Beginner to Master</h3>
                             <p class="cert-provider">Online Platform</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/python-beginner-to-master.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/python-beginner-to-master.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -608,7 +656,7 @@
                             <h3>The Joy of Computing using Python</h3>
                             <p class="cert-provider">NPTEL / SWAYAM</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/the-joy-of-computing-using-python.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/the-joy-of-computing-using-python.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -623,7 +671,7 @@
                             <h3>Git & GitHub Bootcamp</h3>
                             <p class="cert-provider">Udemy</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/udemy.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/udemy.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -638,7 +686,7 @@
                             <h3>GitHub Foundations</h3>
                             <p class="cert-provider">GitHub</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/github.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/github.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -654,7 +702,7 @@
                             <p class="cert-provider">VVIT & IETE Student Forum</p>
                             <p class="cert-date"><i class="fas fa-calendar-alt"></i> Jan 20 – 25, 2025</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/boot-camp-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/boot-camp-certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -669,7 +717,7 @@
                             <h3>Data Analyst Course</h3>
                             <p class="cert-provider">PEARL Training Laboratory</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/data-analyst-perals-lab.jpeg" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/data-analyst-perals-lab.jpeg" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -684,7 +732,7 @@
                             <h3>Business Analysis & Process Management</h3>
                             <p class="cert-provider">Online Platform</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/business-analysis-process-management.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/business-analysis-process-management.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -699,7 +747,7 @@
                             <h3>Cybersecurity Fundamentals</h3>
                             <p class="cert-provider">Palo Alto Networks</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/paloalto-final-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/paloalto-final-certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -714,7 +762,7 @@
                             <h3>PCB Design Workshop</h3>
                             <p class="cert-provider">Siemens Empowers Education</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/student-workshop-pcb-design-participant.png" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/student-workshop-pcb-design-participant.png" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -729,7 +777,7 @@
                             <h3>Laptop 4 Good (L4G) Program</h3>
                             <p class="cert-provider">L4G Initiative</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/l4g-certificate.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/l4g-certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -745,7 +793,7 @@
                             <p class="cert-provider">Datacom (via Forage)</p>
                             <p class="cert-date"><i class="fas fa-calendar-alt"></i> July 11, 2026</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/datacom-ai-accelerator-forage.jpg" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/datacom-ai-accelerator-forage.jpg" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -761,7 +809,7 @@
                             <p class="cert-provider">Tata (via Forage)</p>
                             <p class="cert-date"><i class="fas fa-calendar-alt"></i> July 10, 2026</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/tata-genai-data-analytics-forage.jpg" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/tata-genai-data-analytics-forage.jpg" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
@@ -776,11 +824,15 @@
                             <h3>AWS Academy Graduate — Data Engineering (Trained Badge)</h3>
                             <p class="cert-provider">AWS Academy</p>
                             <div class="cert-actions">
-                                <a href="assets/certificates/aws-data-engineering-badge.pdf" target="_blank" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                <a href="assets/certificates/aws-data-engineering-badge.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
                             </div>
                         </div>
                     </div>
 
+                </div>
+
+                <div class="cert-toggle-container">
+                    <button id="cert-toggle-btn" class="btn btn-outline"><i class="fas fa-th-list"></i> View All Certificates</button>
                 </div>
             </div>
         </section>
@@ -803,14 +855,14 @@
                         <div class="ach-icon codechef"><i class="fas fa-code"></i></div>
                         <h3>CodeChef 3-Star Programmer</h3>
                         <p>Achieved a 3-star rating by successfully solving 500+ programming problems using Java and Python. Demonstrated strong algorithmic and problem-solving skills.</p>
-                        <a href="https://www.codechef.com/users/vvit23bq1a04f2" target="_blank" class="btn btn-outline btn-sm mt-3">View Profile</a>
+                        <a href="https://www.codechef.com/users/vvit23bq1a04f2" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm mt-3">View Profile</a>
                     </div>
 
                     <div class="achievement-card card">
                         <div class="ach-icon github"><i class="fab fa-github"></i></div>
                         <h3>GitHub Open Source</h3>
                         <p>Maintained a professional GitHub profile showcasing academic projects, version-controlled source code, and continuous learning progression.</p>
-                        <a href="https://github.com/skmdshariff143-ai" target="_blank" class="btn btn-outline btn-sm mt-3">View GitHub</a>
+                        <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm mt-3">View GitHub</a>
                     </div>
 
                     <div class="achievement-card card">
@@ -888,10 +940,10 @@
                                 </div>
                             </div>
                             <div class="contact-method">
-                                <i class="fas fa-phone-alt"></i>
+                                <i class="fab fa-linkedin"></i>
                                 <div>
-                                    <h4>Phone</h4>
-                                    <a href="tel:+917842238548">+91-7842238548</a>
+                                    <h4>LinkedIn</h4>
+                                    <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
                                 </div>
                             </div>
                             <div class="contact-method">
@@ -904,14 +956,14 @@
                         </div>
 
                         <div class="social-links mt-4">
-                            <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://github.com/skmdshariff143-ai" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
 
                     <div class="contact-form-container card">
                         <form id="contact-form" class="contact-form" action="https://formspree.io/f/mvzjyllq" method="POST">
-                            <input type="text" name="_gotcha" class="honeypot-field">
+                            <input type="text" name="_gotcha" class="honeypot-field" aria-hidden="true" tabindex="-1">
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" id="name" name="name" placeholder="Your Name" required>

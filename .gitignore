@@ -1,2 +1,23 @@
+# Python & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# IDEs & OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Temp Files & Logs
+*.log
+*.tmp
+.tempmediaStorage/
+.gemini/
+
+# Utility Backups & Previews
 assets/certificates-backup/
 assets/compression-preview/

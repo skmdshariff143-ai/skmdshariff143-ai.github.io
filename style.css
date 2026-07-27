@@ -37,6 +37,23 @@
     --border-subtle: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1.5rem;
+    background: var(--accent-teal);
+    color: var(--bg-main);
+    font-weight: 600;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    z-index: 10000;
+    transition: top var(--transition-fast);
+}
+.skip-link:focus {
+    top: 0;
+}
+
 /* --------------------------------------------------------------------------
    Global Reset & Base
    -------------------------------------------------------------------------- */
@@ -70,6 +87,11 @@ a {
     text-decoration: none;
     color: var(--accent-teal);
     transition: var(--transition-fast);
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-teal);
+    outline-offset: 4px;
 }
 
 ul {
@@ -310,6 +332,28 @@ img {
 
 .hero-content {
     flex: 1;
+}
+
+.hero-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    background-color: rgba(0, 229, 255, 0.1);
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    color: var(--accent-teal);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+}
+
+.hero-status-badge .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-teal);
+    box-shadow: 0 0 8px var(--accent-teal);
 }
 
 .greeting {
@@ -711,12 +755,54 @@ img {
    Certificates Section
    -------------------------------------------------------------------------- */
 
-/* Certificate Filter Buttons */
+/* Certificate Search & Filters */
+.cert-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.cert-search {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+}
+
+.cert-search input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.cert-search input:focus {
+    outline: none;
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+}
+
+.cert-search .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+
 .cert-filters {
     display: flex;
     justify-content: center;
     gap: 0.75rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     flex-wrap: wrap;
 }
 
@@ -744,6 +830,19 @@ img {
     color: var(--text-muted);
     font-size: 0.9rem;
     margin-bottom: 2rem;
+}
+
+.cert-empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    grid-column: 1 / -1;
+}
+
+.cert-toggle-container {
+    text-align: center;
+    margin-top: 2.5rem;
 }
 
 /* Certificate Gallery Grid */
@@ -1513,27 +1612,14 @@ img {
     transition: opacity 0.3s ease;
 }
 
-.cert-preview:hover .cert-overlay {
-    opacity: 1 !important;
+.cert-card .cert-preview:hover .cert-overlay {
+    opacity: 1;
 }
 
-.cert-preview:hover img {
-    transform: scale(1.05) !important;
+.cert-card .cert-preview:hover img {
+    transform: scale(1.05);
 }
 
-.cert-preview-container .cert-overlay .expand-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(0, 229, 255, 0.2);
-    backdrop-filter: blur(5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--accent-teal);
-    border: 1px solid rgba(0, 229, 255, 0.3);
-    font-size: 1rem;
-}
 
 .internship-actions .cert-btn {
     display: inline-flex;
@@ -1650,4 +1736,13 @@ img {
     .btn { padding: 0.6rem 1.2rem; width: 100%; margin-bottom: 0.5rem; }
     .btn-icon { width: 100%; border-radius: 30px; margin-bottom: 0.5rem; }
     .section-title { font-size: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

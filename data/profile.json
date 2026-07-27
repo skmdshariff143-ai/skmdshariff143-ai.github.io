@@ -1,0 +1,130 @@
+{
+  "name": "Shaik Mahammad Shariff",
+  "title": "ECE Undergraduate | AI & Software Developer",
+  "tagline": "Software Engineer | AI Developer | Python Programmer",
+  "about": "Electronics and Communication Engineering undergraduate with a CGPA of 8.21/10 and strong foundations in Python, Java, Object-Oriented Programming, and Software Engineering.\n\nHands-on experience in Generative AI, Prompt Engineering, Large Language Models (LLMs), and cloud fundamentals through academic projects, virtual internships, and industry certifications.\n\nCareer Objective: Passionate about developing AI-powered applications and solving real-world problems using modern software engineering practices.",
+  "_cgpaNote": "TODO: USER CONFIRM CGPA — HTML shows 8.21/10 but earlier commits used 8.61/10. Which is current?",
+  "email": "23BQ1A04F2@vvit.net",
+  "_emailNote": "TODO: USER CONFIRM PERSONAL EMAIL — Using 23BQ1A04F2@vvit.net as primary verified contact.",
+  "linkedin": "https://linkedin.com/in/mahammad-shariff-shaik-32903934a",
+  "github": "https://github.com/skmdshariff143-ai",
+  "codechef": "https://www.codechef.com/users/vvit23bq1a04f2",
+  "location": "Guntur, Andhra Pradesh, India",
+  "education": [
+    {
+      "title": "Bachelor of Technology in ECE",
+      "institution": "Vasireddy Venkatadri Institute of Technology (VVIT)",
+      "dates": "2023 \u2013 Expected May 2027",
+      "description": "Pursuing Electronics and Communication Engineering.",
+      "badge": "CGPA: 8.21/10"
+    }
+  ],
+  "experience": [
+    {
+      "title": "AWS Data Engineering Virtual Internship",
+      "company": "EduSkills",
+      "type": "Virtual Internship",
+      "dates": "",
+      "description": "Completed a virtual internship focused on cloud computing and data engineering fundamentals. Explored AWS cloud services and concepts related to data storage, processing, and analytics. Gained exposure to cloud-based data workflows and modern data engineering practices through guided learning.",
+      "skills": [],
+      "certificateFile": "assets/certificates/aws-data-engineering.pdf"
+    },
+    {
+      "title": "Prompt Engineering Intern",
+      "company": "SkillCraft Technology",
+      "type": "Internship",
+      "dates": "1 June 2026 \u2013 30 June 2026",
+      "description": "Completed a one-month Prompt Engineering internship focused on designing, optimizing, and evaluating AI prompts for Large Language Models. Worked on prompt optimization, AI workflow automation, structured prompting techniques, and practical GenAI applications.",
+      "skills": [
+        "Prompt Engineering",
+        "Generative AI",
+        "ChatGPT",
+        "LLMs",
+        "AI Workflow Automation",
+        "Prompt Optimization"
+      ],
+      "certificateFile": "assets/certificates/skillcraft-internship.pdf"
+    },
+    {
+      "title": "Artificial Intelligence Intern",
+      "company": "CodTech IT Solutions Pvt. Ltd.",
+      "type": "Internship",
+      "dates": "22 June 2026 \u2013 20 July 2026",
+      "description": "Successfully completed an Artificial Intelligence internship involving AI concepts, machine learning fundamentals, intelligent systems, and practical problem-solving. Demonstrated strong technical skills, dedication, and continuous learning throughout the internship.",
+      "skills": [
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Python",
+        "Data Analysis",
+        "AI Fundamentals",
+        "Problem Solving"
+      ],
+      "certificateFile": "assets/certificates/codtech-internship.pdf"
+    }
+  ],
+  "skills": {
+    "Technical Skills": [
+      "Python",
+      "Java",
+      "Object-Oriented Programming",
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "Data Cleaning",
+      "Data Visualization",
+      "Generative AI",
+      "Prompt Engineering",
+      "AI Agents",
+      "LLMs",
+      "AWS Cloud Fundamentals",
+      "Google Cloud Skills Boost",
+      "Git & GitHub",
+      "VS Code",
+      "Microsoft Excel"
+    ],
+    "Professional Skills": [
+      "Analytical Thinking",
+      "Problem Solving",
+      "Attention to Detail",
+      "Collaboration",
+      "Teamwork",
+      "Learning Agility",
+      "Communication",
+      "Adaptability"
+    ]
+  },
+  "achievements": [
+    {
+      "title": "CodeChef 3-Star Programmer",
+      "description": "Achieved a 3-star rating by successfully solving 500+ programming problems using Java and Python. Demonstrated strong algorithmic and problem-solving skills.",
+      "link": "https://www.codechef.com/users/vvit23bq1a04f2"
+    },
+    {
+      "title": "GitHub Open Source",
+      "description": "Maintained a professional GitHub profile showcasing academic projects, version-controlled source code, and continuous learning progression.",
+      "link": "https://github.com/skmdshariff143-ai"
+    },
+    {
+      "title": "National Integration Camp (NIC)",
+      "description": "Proudly represented the state of Andhra Pradesh at the National Integration Camp held in Bihar, fostering cultural exchange and leadership."
+    }
+  ],
+  "languages": [
+    {
+      "name": "English",
+      "proficiency": "Professional"
+    },
+    {
+      "name": "Telugu",
+      "proficiency": "Native / Fluent"
+    },
+    {
+      "name": "Urdu",
+      "proficiency": "Fluent"
+    },
+    {
+      "name": "Hindi",
+      "proficiency": "Conversational"
+    }
+  ]
+}

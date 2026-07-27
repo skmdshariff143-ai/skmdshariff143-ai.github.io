@@ -1,0 +1,39 @@
+[
+  {
+    "id": "credit-card-approval-prediction",
+    "title": "Credit Card Approval Prediction (CreditGuard AI)",
+    "summary": "An end-to-end Machine Learning solution evaluating credit applicant delinquency risk with explainable AI and automated CI/CD testing.",
+    "problem": "Financial institutions face high credit default rates due to inaccurate risk profiling and imbalanced applicant data.",
+    "solution": "Developed a machine learning classification engine using XGBoost and SMOTE oversampling to accurately detect high-risk applicants.",
+    "contribution": "Built custom data preprocessing pipelines, SMOTE oversampling, interactive Flask dashboard, and automated GitHub Actions CI/CD workflows.",
+    "features": [
+      "Designed custom preprocessing pipelines & SMOTE-oversampling, achieving 66.67% delinquency recall.",
+      "Built interactive prediction and metrics dashboards using Flask and Bootstrap 5 with Dark/Light modes.",
+      "Configured automated MLOps CI/CD via GitHub Actions for testing, lints, Docker builds, and Pages deployment."
+    ],
+    "techStack": ["Python", "Scikit-Learn", "XGBoost", "Flask", "Docker", "GitHub Actions"],
+    "verifiedResult": "66.67% Delinquency Recall with automated CI/CD test suite",
+    "github": "https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction",
+    "liveDemo": "https://skmdshariff143-ai.github.io/Credit-Card-Approval-Prediction/",
+    "status": "Completed / Active",
+    "screenshot": "assets/og-preview.png"
+  },
+  {
+    "id": "farmalink-ai",
+    "title": "FarmaLink-AI",
+    "summary": "A Next.js 15 + React 19 agricultural SaaS platform connecting farmers directly with buyers, logistics networks, and cold storages.",
+    "problem": "Agricultural supply chains suffer from intermediary price exploitation, lack of crop disease diagnostics, and opaque transaction escrow.",
+    "solution": "Engineered a platform featuring AI disease diagnostics, crop yield/price prediction, and simulated escrow transaction wallets.",
+    "contribution": "Architected Next.js 15 App Router pages, Prisma + Supabase schema definitions, Zustand store state management, and production CI/CD check guards.",
+    "features": [
+      "Designed AI-powered disease diagnostics, price prediction simulations, and real-time escrow wallet transactions.",
+      "Stabilized production CI/CD check pipelines, ESM migrations, and Next.js App Router middleware guards."
+    ],
+    "techStack": ["Next.js 15", "React 19", "TypeScript", "Prisma", "Supabase", "Vercel"],
+    "verifiedResult": "Deployed production agricultural SaaS prototype",
+    "github": "https://github.com/skmdshariff143-ai/farmlink-ai",
+    "liveDemo": "https://farmlink-umber.vercel.app",
+    "status": "In Active Development",
+    "screenshot": "assets/og-preview.png"
+  }
+]

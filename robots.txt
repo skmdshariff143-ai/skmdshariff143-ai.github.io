@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /assets/certificates-backup/
+
+Sitemap: https://skmdshariff143-ai.github.io/sitemap.xml

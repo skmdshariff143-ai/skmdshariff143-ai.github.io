@@ -1,0 +1,17 @@
+{
+  "name": "Shaik Mahammad Shariff | Portfolio",
+  "short_name": "Shariff",
+  "description": "Portfolio of Shaik Mahammad Shariff — ECE Undergraduate and AI & Software Developer.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00e5ff",
+  "icons": [
+    {
+      "src": "assets/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
