@@ -403,110 +403,311 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Helper to check WebGL support
-    const hasWebGLSupport = (canvasEl) => {
-        try {
-            if (!canvasEl || !window.WebGLRenderingContext) return false;
-            return !!(canvasEl.getContext('webgl') || canvasEl.getContext('experimental-webgl'));
-        } catch (e) {
-            return false;
-        }
-    };
 
-    // 5. Three.js Particle Background
-    const canvas = document.getElementById('hero-particles');
 
-    // Check if browser supports WebGL before continuing
-    if (canvas && hasWebGLSupport(canvas)) {
-        let attempts = 0;
-        const maxAttempts = 50; // Wait maximum 5 seconds (50 * 100ms)
+    /* ------------------------------------------------------------------
+       5. AI-Themed Interactive Canvas Background
+       ------------------------------------------------------------------ */
+    const heroCanvas = document.getElementById('hero-particles');
+    const heroSection = document.getElementById('hero');
 
-        // Wait for Three.js to load since it's deferred
-        const initThree = () => {
-            if (typeof THREE === 'undefined' || !window.THREE) {
-                attempts++;
-                if (attempts < maxAttempts) {
-                    setTimeout(initThree, 100);
-                } else {
-                    console.warn("Three.js failed to load within timeout. Skipping particle background.");
+    if (heroCanvas && heroCanvas.getContext) {
+        const ctx = heroCanvas.getContext('2d');
+        let animationFrameId = null;
+        let isHeroVisible = true;
+        let resizeTimeout = null;
+        let width = 0;
+        let height = 0;
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetMouseX = 0;
+        let targetMouseY = 0;
+
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        const resizeCanvas = () => {
+            width = heroSection ? heroSection.offsetWidth : window.innerWidth;
+            height = heroSection ? heroSection.offsetHeight : window.innerHeight;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            heroCanvas.width = width * dpr;
+            heroCanvas.height = height * dpr;
+            ctx.scale(dpr, dpr);
+        };
+
+        resizeCanvas();
+
+        const onResize = () => {
+            if (resizeTimeout) clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                resizeCanvas();
+                if (mediaQuery.matches) {
+                    renderFrame();
                 }
+            }, 100);
+        };
+        window.addEventListener('resize', onResize, { passive: true });
+
+        if (heroSection) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const rect = heroSection.getBoundingClientRect();
+                targetMouseX = (e.clientX - rect.left) - width / 2;
+                targetMouseY = (e.clientY - rect.top) - height / 2;
+            }, { passive: true });
+        }
+
+        // Nodes & Network initialization (Reduced count on mobile for performance)
+        const isMobile = window.innerWidth <= 768;
+        const nodeCount = isMobile ? 18 : Math.min(Math.floor((width * height) / 24000), 36);
+        const nodes = [];
+        const labels = ['Python', 'AI', 'Machine Learning', 'LLM', 'Cloud', 'GitHub'];
+
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 2 + 1.5,
+                pulse: Math.random() * Math.PI * 2,
+                pulseSpeed: 0.02 + Math.random() * 0.03,
+                label: i < labels.length ? labels[i] : null
+            });
+        }
+
+        // Pulses along connections
+        const pulses = [];
+        const createPulse = (n1, n2) => {
+            if (pulses.length < 8 && Math.random() < 0.03) {
+                pulses.push({
+                    from: n1,
+                    to: n2,
+                    progress: 0,
+                    speed: 0.01 + Math.random() * 0.015
+                });
+            }
+        };
+
+        const stopAnimation = () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        };
+
+        const startAnimation = () => {
+            if (!animationFrameId && isHeroVisible && !document.hidden && !mediaQuery.matches) {
+                animationFrameId = requestAnimationFrame(renderFrame);
+            }
+        };
+
+        const renderFrame = () => {
+            ctx.clearRect(0, 0, width, height);
+
+            // Smooth mouse interpolation
+            mouseX += (targetMouseX - mouseX) * 0.05;
+            mouseY += (targetMouseY - mouseY) * 0.05;
+
+            // Draw Subtle Glowing Core
+            const coreX = width / 2 + mouseX * 0.05;
+            const coreY = height / 2 + mouseY * 0.05;
+            const coreGradient = ctx.createRadialGradient(coreX, coreY, 10, coreX, coreY, Math.max(width, height) * 0.4);
+            coreGradient.addColorStop(0, 'rgba(0, 229, 255, 0.07)');
+            coreGradient.addColorStop(0.5, 'rgba(13, 148, 136, 0.03)');
+            coreGradient.addColorStop(1, 'rgba(10, 15, 29, 0)');
+
+            ctx.fillStyle = coreGradient;
+            ctx.fillRect(0, 0, width, height);
+
+            // Update & Draw Nodes
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+                if (!mediaQuery.matches) {
+                    node.x += node.vx;
+                    node.y += node.vy;
+                    node.pulse += node.pulseSpeed;
+
+                    if (node.x < 0 || node.x > width) node.vx *= -1;
+                    if (node.y < 0 || node.y > height) node.vy *= -1;
+                }
+
+                const currentRadius = node.radius + Math.sin(node.pulse) * 0.7;
+
+                // Node Glow
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, currentRadius * 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 229, 255, 0.12)';
+                ctx.fill();
+
+                // Node Center
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, currentRadius, 0, Math.PI * 2);
+                ctx.fillStyle = node.label ? '#00e5ff' : 'rgba(0, 229, 255, 0.7)';
+                ctx.fill();
+
+                // Label drawing
+                if (node.label) {
+                    ctx.font = '10px Inter, sans-serif';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+                    ctx.fillText(node.label, node.x + 8, node.y + 3);
+                }
+
+                // Connections
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const other = nodes[j];
+                    const dx = other.x - node.x;
+                    const dy = other.y - node.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const maxDist = 140;
+
+                    if (dist < maxDist) {
+                        const alpha = (1 - dist / maxDist) * 0.25;
+                        ctx.beginPath();
+                        ctx.moveTo(node.x, node.y);
+                        ctx.lineTo(other.x, other.y);
+                        ctx.strokeStyle = `rgba(0, 229, 255, ${alpha})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+
+                        if (!mediaQuery.matches) {
+                            createPulse(node, other);
+                        }
+                    }
+                }
+            }
+
+            // Signal Pulses
+            for (let p = pulses.length - 1; p >= 0; p--) {
+                const pulse = pulses[p];
+                pulse.progress += pulse.speed;
+
+                if (pulse.progress >= 1) {
+                    pulses.splice(p, 1);
+                    continue;
+                }
+
+                const px = pulse.from.x + (pulse.to.x - pulse.from.x) * pulse.progress;
+                const py = pulse.from.y + (pulse.to.y - pulse.from.y) * pulse.progress;
+
+                ctx.beginPath();
+                ctx.arc(px, py, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowColor = '#00e5ff';
+                ctx.shadowBlur = 6;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            animationFrameId = null;
+            if (isHeroVisible && !document.hidden && !mediaQuery.matches) {
+                animationFrameId = requestAnimationFrame(renderFrame);
+            }
+        };
+
+        // IntersectionObserver to pause off-screen animation
+        if ('IntersectionObserver' in window && heroSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    isHeroVisible = entry.isIntersecting;
+                    if (isHeroVisible) {
+                        startAnimation();
+                    } else {
+                        stopAnimation();
+                    }
+                });
+            }, { threshold: 0.05 });
+            observer.observe(heroSection);
+        }
+
+        // Document visibility change listener
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopAnimation();
+            } else {
+                startAnimation();
+            }
+        });
+
+        if (!mediaQuery.matches) {
+            startAnimation();
+        } else {
+            // Static single render for reduced motion
+            renderFrame();
+        }
+    }
+
+    /* ------------------------------------------------------------------
+       6. AI-Assisted Introduction Modal Controller (Transcript-Only Preview)
+       ------------------------------------------------------------------ */
+    const btnOpenIntro = document.getElementById('btn-open-intro');
+    const btnCloseIntro = document.getElementById('btn-close-intro');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const introModal = document.getElementById('ai-intro-modal');
+    let previouslyFocusedElement = null;
+
+    if (introModal && btnOpenIntro) {
+        const openModal = () => {
+            previouslyFocusedElement = (document.activeElement && document.activeElement !== document.body)
+                ? document.activeElement
+                : btnOpenIntro;
+            introModal.hidden = false;
+            introModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+
+            if (btnCloseIntro) {
+                btnCloseIntro.focus();
+            } else {
+                const container = introModal.querySelector('.modal-container');
+                if (container) container.focus();
+            }
+        };
+
+        const closeModal = () => {
+            introModal.hidden = true;
+            introModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+
+            const elementToFocus = (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function')
+                ? previouslyFocusedElement
+                : btnOpenIntro;
+            elementToFocus.focus();
+        };
+
+        btnOpenIntro.addEventListener('click', openModal);
+        if (btnCloseIntro) btnCloseIntro.addEventListener('click', closeModal);
+        if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+
+        // Escape Key & Focus Trap
+        document.addEventListener('keydown', (e) => {
+            if (introModal.hidden || introModal.getAttribute('aria-hidden') === 'true') return;
+
+            if (e.key === 'Escape') {
+                closeModal();
                 return;
             }
 
-            try {
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-                const particlesGeometry = new THREE.BufferGeometry();
-                const particlesCount = 300;
-                const posArray = new Float32Array(particlesCount * 3);
-
-                for (let i = 0; i < particlesCount * 3; i++) {
-                    posArray[i] = (Math.random() - 0.5) * 10;
+            if (e.key === 'Tab') {
+                const focusables = Array.from(introModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'));
+                if (focusables.length === 0) {
+                    e.preventDefault();
+                    return;
                 }
 
-                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                const first = focusables[0];
+                const last = focusables[focusables.length - 1];
 
-                const particlesMaterial = new THREE.PointsMaterial({
-                    size: 0.02,
-                    color: 0x00e5ff,
-                    transparent: true,
-                    opacity: 0.5,
-                    blending: THREE.AdditiveBlending
-                });
-
-                const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-                scene.add(particlesMesh);
-
-                camera.position.z = 3;
-
-                let mouseX = 0;
-                let mouseY = 0;
-                let targetX = 0;
-                let targetY = 0;
-                let windowHalfX = window.innerWidth / 2;
-                let windowHalfY = window.innerHeight / 2;
-
-                document.addEventListener('mousemove', (event) => {
-                    mouseX = (event.clientX - windowHalfX);
-                    mouseY = (event.clientY - windowHalfY);
-                });
-
-                const clock = new THREE.Clock();
-
-                function animate() {
-                    requestAnimationFrame(animate);
-
-                    targetX = mouseX * 0.001;
-                    targetY = mouseY * 0.001;
-
-                    particlesMesh.rotation.y += 0.001;
-                    particlesMesh.rotation.x += 0.0005;
-
-                    particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
-                    particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
-
-                    renderer.render(scene, camera);
+                if (e.shiftKey) {
+                    if (document.activeElement === first || !introModal.contains(document.activeElement)) {
+                        last.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === last || !introModal.contains(document.activeElement)) {
+                        first.focus();
+                        e.preventDefault();
+                    }
                 }
-
-                animate();
-
-                window.addEventListener('resize', () => {
-                    windowHalfX = window.innerWidth / 2;
-                    windowHalfY = window.innerHeight / 2;
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                });
-            } catch (error) {
-                console.error("Error initializing Three.js particle background:", error);
             }
-        };
-        initThree();
+        });
     }
 
     /* ------------------------------------------------------------------

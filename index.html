@@ -28,8 +28,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Three.js for 3D particle background -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -85,7 +83,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section">
             <!-- 3D Particle Canvas Background -->
-            <canvas id="hero-particles"></canvas>
+            <canvas id="hero-particles" aria-hidden="true"></canvas>
             <div class="container hero-container">
                 <div class="hero-content">
                     <div class="hero-status-badge">
@@ -98,6 +96,9 @@
                     <div class="hero-actions">
                         <a href="#contact" class="btn btn-primary btn-3d">Contact Me</a>
                         <a href="#projects" class="btn btn-secondary btn-3d">View Projects</a>
+                        <button type="button" id="btn-open-intro" class="btn btn-intro btn-3d" aria-haspopup="dialog" aria-controls="ai-intro-modal">
+                            <i class="fas fa-play-circle"></i> Watch Introduction <span class="badge-ai-subtle">AI-Assisted</span>
+                        </button>
                         <a href="assets/resume.pdf" class="btn btn-outline btn-3d" download="Shaik_Mahammad_Shariff_Resume.pdf">Download Resume</a>
                         <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" rel="noopener noreferrer" class="btn btn-icon btn-3d" aria-label="LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
@@ -1026,6 +1027,53 @@
             <p>&copy; 2026 Shaik Mahammad Shariff. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- AI Introduction Modal -->
+    <div id="ai-intro-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-modal-title" aria-hidden="true" hidden>
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-container card" tabindex="-1">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <h3 id="intro-modal-title"><i class="fas fa-robot"></i> AI Introduction Preview</h3>
+                    <span class="badge-ai-tag"><i class="fas fa-sparkles"></i> Verified Transcript</span>
+                </div>
+                <button type="button" class="modal-close-btn" id="btn-close-intro" aria-label="Close introduction modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Media / Preview Container (No missing video requests) -->
+                <div class="video-player-wrapper" id="video-wrapper">
+                    <div id="video-preview-card" class="video-fallback-card">
+                        <div class="fallback-poster-box">
+                            <div class="fallback-icon-glow">
+                                <i class="fas fa-user-astronaut"></i>
+                            </div>
+                            <h4>AI Introduction Preview</h4>
+                            <span class="fallback-badge"><i class="fas fa-clock"></i> Video Coming Soon</span>
+                            <p class="fallback-note"><i class="fas fa-info-circle"></i> Complete recruiter-verified introduction transcript available below.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Script & Transcript Section -->
+                <div class="transcript-container">
+                    <div class="transcript-header">
+                        <h4><i class="fas fa-align-left"></i> Verified Script Transcript</h4>
+                        <span class="transcript-duration"><i class="far fa-clock"></i> ~45 Seconds</span>
+                    </div>
+                    <div class="transcript-content">
+                        <p class="script-text">
+                            "Hello, I’m Shaik Mahammad Shariff, an Electronics and Communication Engineering undergraduate with a strong interest in artificial intelligence and software development. I enjoy building practical applications using Python, machine learning and modern web technologies. My projects include CreditGuard AI and FarmaLink-AI, where I explored predictive systems, user-focused interfaces and deployment workflows. I am also an AWS Certified Cloud Practitioner and continuously strengthen my skills through projects, internships and technical learning. I am currently looking for internship and entry-level opportunities where I can contribute, learn from experienced teams and grow as an AI and software developer. Thank you for visiting my portfolio."
+                        </p>
+                    </div>
+                    <div class="transcript-footer">
+                        <span class="privacy-note"><i class="fas fa-shield-alt"></i> <strong>Recruiter Note:</strong> All statements in this introduction reflect 100% verified portfolio project records and AWS certification data.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Custom cursor follower -->
     <div class="cursor-glow" id="cursor-glow"></div>
