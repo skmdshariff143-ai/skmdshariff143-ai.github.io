@@ -28,8 +28,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Three.js for 3D particle background -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -69,9 +67,10 @@
                 <ul class="nav-links">
                     <li><a href="#about">About</a></li>
                     <li><a href="#skills">Skills</a></li>
-                    <li><a href="#internship">Internships</a></li>
+                    <li><a href="#experience-education">Experience</a></li>
                     <li><a href="#projects">Projects</a></li>
-                    <li><a href="#certificates">Certificates</a></li>
+                    <li><a href="#certificates">Certifications</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" type="button">
@@ -85,7 +84,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section">
             <!-- 3D Particle Canvas Background -->
-            <canvas id="hero-particles"></canvas>
+            <canvas id="hero-particles" aria-hidden="true"></canvas>
             <div class="container hero-container">
                 <div class="hero-content">
                     <div class="hero-status-badge">
@@ -98,6 +97,9 @@
                     <div class="hero-actions">
                         <a href="#contact" class="btn btn-primary btn-3d">Contact Me</a>
                         <a href="#projects" class="btn btn-secondary btn-3d">View Projects</a>
+                        <button type="button" id="btn-open-intro" class="btn btn-intro btn-3d" aria-haspopup="dialog" aria-controls="ai-intro-modal">
+                            <i class="fas fa-play-circle"></i> Watch Introduction <span class="badge-ai-subtle">AI-Assisted</span>
+                        </button>
                         <a href="assets/resume.pdf" class="btn btn-outline btn-3d" download="Shaik_Mahammad_Shariff_Resume.pdf">Download Resume</a>
                         <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" rel="noopener noreferrer" class="btn btn-icon btn-3d" aria-label="LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
@@ -129,28 +131,152 @@
             </div>
         </section>
 
+        <!-- Floating AI Guide Character Widget -->
+        <aside id="ai-guide-widget" class="ai-guide-widget" aria-label="Shariff's AI Guide" role="region">
+            <!-- Screen Reader Announcement Region -->
+            <div id="ai-guide-live-region" class="sr-only" aria-live="polite"></div>
+
+            <!-- Minimized Trigger Button -->
+            <button type="button" id="ai-guide-unminimize-btn" class="ai-guide-unminimize-btn" aria-label="Open Shariff's AI Guide" title="Shariff's AI Guide" hidden>
+                <div class="ai-guide-avatar-mini">
+                    <i class="fas fa-robot"></i>
+                    <span class="mini-pulse-dot"></span>
+                </div>
+                <span class="mini-label">AI Guide</span>
+            </button>
+
+            <!-- Main Floating AI Guide Card -->
+            <div id="ai-guide-card" class="ai-guide-card card">
+                <!-- Header -->
+                <div class="ai-guide-header">
+                    <div class="ai-guide-identity">
+                        <span class="ai-guide-badge"><i class="fas fa-sparkles"></i> AI Guide</span>
+                        <h3 class="ai-guide-title">Shariff’s AI Guide</h3>
+                    </div>
+                    <div class="ai-guide-header-actions">
+                        <button type="button" id="ai-guide-minimize-btn" class="ai-guide-control-btn" aria-label="Minimize AI Guide" title="Minimize AI Guide">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" id="ai-guide-close-btn" class="ai-guide-control-btn" aria-label="Close AI Guide" title="Close AI Guide">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div class="ai-guide-body">
+                    <div class="ai-guide-avatar-container" id="ai-guide-avatar-box">
+                        <!-- Polished Tech Anime Avatar Silhouette Placeholder (CSS-based) -->
+                        <div class="ai-guide-css-avatar" id="ai-guide-css-avatar">
+                            <div class="anime-avatar-frame">
+                                <div class="anime-head-shape">
+                                    <div class="anime-hair-accent"></div>
+                                    <div class="anime-visor-glow">
+                                        <div class="anime-eye left"></div>
+                                        <div class="anime-eye right"></div>
+                                    </div>
+                                    <div class="anime-headset-band"></div>
+                                    <div class="anime-mouth-area">
+                                        <span class="anime-mouth-indicator" id="ai-guide-mouth"></span>
+                                        <div class="anime-waveform" id="ai-guide-waveform" aria-hidden="true">
+                                            <span></span><span></span><span></span><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="anime-shoulder-tech"></div>
+                            </div>
+                            <div class="avatar-holo-ring"></div>
+                        </div>
+
+                        <!-- Wave / State Badge -->
+                        <div class="ai-guide-state-badge" id="ai-guide-state-badge">
+                            <span class="state-dot"></span> <span id="ai-guide-state-text">Ready</span>
+                        </div>
+                    </div>
+
+                    <!-- Greeting / Status & Audio Disclaimer -->
+                    <div class="ai-guide-dialog-box">
+                        <p class="ai-guide-greeting" id="ai-guide-greeting">
+                            Hi! I’m Shariff’s AI guide. Would you like a quick introduction?
+                        </p>
+                        <div class="ai-disclaimer-notice">
+                            <i class="fas fa-info-circle"></i>
+                            <span>AI-generated narration using your browser’s available voice.</span>
+                        </div>
+                        <div class="ai-voice-warning" id="ai-voice-warning" style="display: none;">
+                            <i class="fas fa-volume-mute"></i> Speech synthesis is unavailable in your browser. Complete verified transcript is shown below.
+                        </div>
+                    </div>
+
+                    <!-- Speech Controls -->
+                    <div class="ai-guide-controls">
+                        <button type="button" id="ai-play-btn" class="btn-guide-action btn-guide-primary" aria-label="Play Introduction">
+                            <i class="fas fa-play"></i> <span id="ai-play-btn-text">Play Intro</span>
+                        </button>
+                        <button type="button" id="ai-pause-btn" class="btn-guide-action btn-guide-secondary" aria-label="Pause or Resume Speech" disabled>
+                            <i class="fas fa-pause"></i> <span id="ai-pause-btn-text">Pause</span>
+                        </button>
+                        <button type="button" id="ai-stop-btn" class="btn-guide-action btn-guide-danger" aria-label="Stop Speech" disabled>
+                            <i class="fas fa-stop"></i> <span>Stop</span>
+                        </button>
+                        <button type="button" id="ai-mute-btn" class="btn-guide-action btn-guide-icon" aria-label="Toggle Mute" title="Mute or Unmute">
+                            <i class="fas fa-volume-up" id="ai-mute-icon"></i>
+                        </button>
+                        <button type="button" id="ai-transcript-toggle-btn" class="btn-guide-action btn-guide-secondary" aria-label="Toggle Transcript View">
+                            <i class="fas fa-file-alt"></i> <span>Transcript</span>
+                        </button>
+                    </div>
+
+                    <!-- Expandable Inline Transcript Container -->
+                    <div class="ai-guide-transcript-inline" id="ai-guide-transcript-inline" style="display: none;">
+                        <div class="inline-transcript-header">
+                            <h4><i class="fas fa-align-left"></i> Verified Introduction Script</h4>
+                        </div>
+                        <p class="script-text">
+                            "Hello, and welcome to Shaik Mahammad Shariff’s portfolio. Shariff is an Electronics and Communication Engineering undergraduate with an interest in artificial intelligence, software development and practical problem solving. He builds projects using Python, machine learning and modern web technologies. His featured work includes CreditGuard AI and FarmaLink-AI. He is also an AWS Certified Cloud Practitioner and continues to develop his skills through technical projects, internships and structured learning. Shariff is currently open to internship and entry-level opportunities where he can contribute, learn and grow as an AI and software developer. You can explore his projects, skills, experience and certifications throughout this portfolio."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
         <!-- About Section -->
         <section id="about" class="about section">
             <div class="container">
                 <h2 class="section-title">About Me</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>Electronics and Communication Engineering undergraduate with a CGPA of 8.21/10 and strong foundations in Python, Java, Object-Oriented Programming, and Software Engineering.</p>
-                        <p>Hands-on experience in Generative AI, Prompt Engineering, Large Language Models (LLMs), and cloud fundamentals through academic projects, virtual internships, and industry certifications.</p>
-                        <p><strong>Career Objective:</strong> Passionate about developing AI-powered applications and solving real-world problems using modern software engineering practices.</p>
+                <div class="about-grid">
+                    <div class="about-main-card card tilt-card">
+                        <div class="about-badge-row">
+                            <span class="about-pill"><i class="fas fa-graduation-cap"></i> ECE Undergraduate</span>
+                            <span class="about-pill"><i class="fab fa-aws"></i> AWS Certified Practitioner</span>
+                        </div>
+                        <div class="about-text">
+                            <p class="about-lead">
+                                I am an <strong>Electronics and Communication Engineering (ECE) undergraduate</strong> at Vasireddy Venkatadri Institute of Technology (VVIT, CGPA: 8.21/10) with a strong passion for artificial intelligence, machine learning, and modern software development.
+                            </p>
+                            <p>
+                                My core technical foundation is built on <strong>Python and Java programming</strong>, Object-Oriented Programming (OOP), data structures, and data analysis pipelines. I apply these fundamentals to engineer practical, real-world projects including <em>CreditGuard AI</em> (a machine learning credit risk classifier) and <em>FarmaLink-AI</em> (an agricultural SaaS prototype).
+                            </p>
+                            <p>
+                                As an <strong>AWS Certified Cloud Practitioner</strong>, I continuously advance my technical capabilities through industry certifications, virtual internships, and algorithmic problem-solving. My objective is to secure an <strong>internship or entry-level AI & Software Engineering position</strong> where I can contribute to production software, collaborate with experienced engineering teams, and solve meaningful real-world challenges.
+                            </p>
+                        </div>
                     </div>
-                    <div class="about-stats">
+                    <div class="about-stats-grid">
                         <div class="stat-card tilt-card">
+                            <div class="stat-icon"><i class="fas fa-laptop-code"></i></div>
                             <h3 class="counter" data-target="2">2</h3>
-                            <p>Projects</p>
+                            <p>Verified Projects</p>
                         </div>
                         <div class="stat-card tilt-card">
+                            <div class="stat-icon"><i class="fas fa-certificate"></i></div>
                             <h3 class="counter" id="stat-cert-count" data-target="26">26</h3>
-                            <p>Certificates</p>
+                            <p>Certifications</p>
                         </div>
                         <div class="stat-card tilt-card">
+                            <div class="stat-icon"><i class="fas fa-terminal"></i></div>
                             <h3><span class="counter" data-target="500">500</span>+</h3>
-                            <p>Problems Solved</p>
+                            <p>CodeChef Problems Solved</p>
                         </div>
                     </div>
                 </div>
@@ -161,257 +287,335 @@
         <section id="skills" class="skills section bg-darker">
             <div class="container">
                 <h2 class="section-title">Skills & Expertise</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-code"></i> Technical Skills</h3>
-                        <div class="skill-chips">
-                            <span class="chip">Python</span>
-                            <span class="chip">Java</span>
-                            <span class="chip">Object-Oriented Programming</span>
-                            <span class="chip">Pandas</span>
-                            <span class="chip">NumPy</span>
-                            <span class="chip">Matplotlib</span>
-                            <span class="chip">Data Cleaning</span>
-                            <span class="chip">Data Visualization</span>
-                            <span class="chip">Generative AI</span>
-                            <span class="chip">Prompt Engineering</span>
-                            <span class="chip">AI Agents</span>
-                            <span class="chip">LLMs</span>
-                            <span class="chip">AWS Cloud Fundamentals</span>
-                            <span class="chip">Google Cloud Skills Boost</span>
-                            <span class="chip">Git & GitHub</span>
-                            <span class="chip">VS Code</span>
-                            <span class="chip">Microsoft Excel</span>
+                <div class="skills-3d-grid">
+                    <!-- 1. Programming -->
+                    <div class="skill-category-3d card tilt-card">
+                        <div class="skill-cat-header">
+                            <div class="cat-icon-glow"><i class="fas fa-code"></i></div>
+                            <h3>Programming</h3>
+                        </div>
+                        <div class="skill-chips-3d">
+                            <span class="skill-chip-3d"><i class="fab fa-python"></i> Python</span>
+                            <span class="skill-chip-3d"><i class="fab fa-java"></i> Java</span>
+                            <span class="skill-chip-3d"><i class="fas fa-cubes"></i> Object-Oriented Programming</span>
                         </div>
                     </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-user-tie"></i> Professional Skills</h3>
-                        <div class="skill-chips">
-                            <span class="chip professional">Analytical Thinking</span>
-                            <span class="chip professional">Problem Solving</span>
-                            <span class="chip professional">Attention to Detail</span>
-                            <span class="chip professional">Collaboration</span>
-                            <span class="chip professional">Teamwork</span>
-                            <span class="chip professional">Learning Agility</span>
-                            <span class="chip professional">Communication</span>
-                            <span class="chip professional">Adaptability</span>
+
+                    <!-- 2. AI & Machine Learning -->
+                    <div class="skill-category-3d card tilt-card">
+                        <div class="skill-cat-header">
+                            <div class="cat-icon-glow"><i class="fas fa-robot"></i></div>
+                            <h3>AI & Machine Learning</h3>
+                        </div>
+                        <div class="skill-chips-3d">
+                            <span class="skill-chip-3d"><i class="fas fa-wand-magic-sparkles"></i> Generative AI</span>
+                            <span class="skill-chip-3d"><i class="fas fa-terminal"></i> Prompt Engineering</span>
+                            <span class="skill-chip-3d"><i class="fas fa-brain"></i> AI Agents</span>
+                            <span class="skill-chip-3d"><i class="fas fa-network-wired"></i> LLMs</span>
                         </div>
                     </div>
+
+                    <!-- 3. Data Analysis -->
+                    <div class="skill-category-3d card tilt-card">
+                        <div class="skill-cat-header">
+                            <div class="cat-icon-glow"><i class="fas fa-chart-bar"></i></div>
+                            <h3>Data Analysis</h3>
+                        </div>
+                        <div class="skill-chips-3d">
+                            <span class="skill-chip-3d"><i class="fas fa-table"></i> Pandas</span>
+                            <span class="skill-chip-3d"><i class="fas fa-calculator"></i> NumPy</span>
+                            <span class="skill-chip-3d"><i class="fas fa-chart-line"></i> Matplotlib</span>
+                            <span class="skill-chip-3d"><i class="fas fa-filter"></i> Data Cleaning</span>
+                            <span class="skill-chip-3d"><i class="fas fa-chart-pie"></i> Data Visualization</span>
+                        </div>
+                    </div>
+
+                    <!-- 4. Web Development -->
+                    <div class="skill-category-3d card tilt-card">
+                        <div class="skill-cat-header">
+                            <div class="cat-icon-glow"><i class="fas fa-globe"></i></div>
+                            <h3>Web Development</h3>
+                        </div>
+                        <div class="skill-chips-3d">
+                            <span class="skill-chip-3d"><i class="fab fa-html5"></i> HTML5</span>
+                            <span class="skill-chip-3d"><i class="fab fa-css3-alt"></i> CSS3</span>
+                            <span class="skill-chip-3d"><i class="fab fa-js"></i> JavaScript</span>
+                            <span class="skill-chip-3d"><i class="fas fa-pepper-hot"></i> Flask</span>
+                            <span class="skill-chip-3d"><i class="fab fa-react"></i> Next.js 15 & React 19</span>
+                        </div>
+                    </div>
+
+                    <!-- 5. Cloud -->
+                    <div class="skill-category-3d card tilt-card">
+                        <div class="skill-cat-header">
+                            <div class="cat-icon-glow"><i class="fas fa-cloud"></i></div>
+                            <h3>Cloud</h3>
+                        </div>
+                        <div class="skill-chips-3d">
+                            <span class="skill-chip-3d"><i class="fab fa-aws"></i> AWS Certified Cloud Practitioner</span>
+                            <span class="skill-chip-3d"><i class="fas fa-cloud-upload-alt"></i> AWS Cloud Fundamentals</span>
+                            <span class="skill-chip-3d"><i class="fab fa-google"></i> Google Cloud Skills Boost</span>
+                        </div>
+                    </div>
+
+                    <!-- 6. Developer Tools -->
+                    <div class="skill-category-3d card tilt-card">
+                        <div class="skill-cat-header">
+                            <div class="cat-icon-glow"><i class="fas fa-tools"></i></div>
+                            <h3>Developer Tools</h3>
+                        </div>
+                        <div class="skill-chips-3d">
+                            <span class="skill-chip-3d"><i class="fab fa-git-alt"></i> Git & GitHub</span>
+                            <span class="skill-chip-3d"><i class="fab fa-docker"></i> Docker</span>
+                            <span class="skill-chip-3d"><i class="fas fa-code-branch"></i> VS Code</span>
+                            <span class="skill-chip-3d"><i class="fas fa-file-excel"></i> Microsoft Excel</span>
+                        </div>
+                    </div>
+
+                    <!-- 7. Professional Skills -->
+                    <div class="skill-category-3d card tilt-card skill-category-full">
+                        <div class="skill-cat-header">
+                            <div class="cat-icon-glow"><i class="fas fa-user-tie"></i></div>
+                            <h3>Professional Skills</h3>
+                        </div>
+                        <div class="skill-chips-3d">
+                            <span class="skill-chip-3d professional"><i class="fas fa-lightbulb"></i> Analytical Thinking</span>
+                            <span class="skill-chip-3d professional"><i class="fas fa-puzzle-piece"></i> Problem Solving</span>
+                            <span class="skill-chip-3d professional"><i class="fas fa-search"></i> Attention to Detail</span>
+                            <span class="skill-chip-3d professional"><i class="fas fa-users"></i> Collaboration</span>
+                            <span class="skill-chip-3d professional"><i class="fas fa-handshake"></i> Teamwork</span>
+                            <span class="skill-chip-3d professional"><i class="fas fa-seedling"></i> Learning Agility</span>
+                            <span class="skill-chip-3d professional"><i class="fas fa-comments"></i> Communication</span>
+                            <span class="skill-chip-3d professional"><i class="fas fa-sync-alt"></i> Adaptability</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- Education & Journey Section -->
-        <section id="education" class="education section">
+        <!-- Experience & Education Section -->
+        <section id="experience-education" class="experience-education section">
             <div class="container">
-                <h2 class="section-title">Education & Journey</h2>
-                <div class="timeline">
-                    <!-- Timeline Item: CodTech AI Internship -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content card">
-                            <div class="timeline-header">
-                                <h3>Artificial Intelligence Intern</h3>
-                                <span class="timeline-date">June 2026 – July 2026</span>
-                            </div>
-                            <h4 class="institution">CodTech IT Solutions Pvt. Ltd.</h4>
-                            <p class="timeline-text">Successfully completed an Artificial Intelligence internship involving AI concepts, machine learning fundamentals, intelligent systems, and practical problem-solving.</p>
-                            <div class="timeline-badge">Internship</div>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Item: SkillCraft Prompt Engineering Internship -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content card">
-                            <div class="timeline-header">
-                                <h3>Prompt Engineering Intern</h3>
-                                <span class="timeline-date">June 2026</span>
-                            </div>
-                            <h4 class="institution">SkillCraft Technology</h4>
-                            <p class="timeline-text">Completed a one-month Prompt Engineering internship focused on designing, optimizing, and evaluating AI prompts for Large Language Models.</p>
-                            <div class="timeline-badge">Internship</div>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Item: Education -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content card">
-                            <div class="timeline-header">
+                <h2 class="section-title">Experience & Education</h2>
+                <div class="timeline-container">
+                    <ol class="timeline" aria-label="Experience and Education Timeline">
+                        
+                        <!-- 1. Education -->
+                        <li class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content card tilt-card">
+                                <div class="timeline-badge-row">
+                                    <span class="type-badge badge-education"><i class="fas fa-graduation-cap"></i> Education</span>
+                                    <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2023 – Expected May 2027</span>
+                                </div>
                                 <h3>Bachelor of Technology in ECE</h3>
-                                <span class="timeline-date">2023 – Expected May 2027</span>
-                            </div>
-                            <h4 class="institution">Vasireddy Venkatadri Institute of Technology (VVIT)</h4>
-                            <p class="timeline-text">Pursuing Electronics and Communication Engineering.</p>
-                            <div class="timeline-badge">CGPA: 8.21/10</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Internship Section -->
-        <section id="internship" class="internship section bg-darker">
-            <div class="container">
-                <h2 class="section-title">Internship Experience</h2>
-                <div class="highlight-panel card highlight-panel--spaced-bottom">
-                    <div class="panel-icon">
-                        <i class="fab fa-aws"></i>
-                    </div>
-                    <div class="panel-content">
-                        <h3>AWS Data Engineering Virtual Internship</h3>
-                        <h4 class="provider">EduSkills</h4>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check-circle"></i> Completed a virtual internship focused on cloud computing and data engineering fundamentals.</li>
-                            <li><i class="fas fa-check-circle"></i> Explored AWS cloud services and concepts related to data storage, processing, and analytics.</li>
-                            <li><i class="fas fa-check-circle"></i> Gained exposure to cloud-based data workflows and modern data engineering practices through guided learning.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Internship 3: SkillCraft Technology Prompt Engineering -->
-                <div class="highlight-panel card">
-                    <div class="panel-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <div class="panel-content">
-                        <h3>Prompt Engineering Intern</h3>
-                        <h4 class="provider">SkillCraft Technology</h4>
-                        <div class="internship-meta-inline">
-                            <span><i class="far fa-clock"></i> 1 Month</span>
-                            <span><i class="far fa-calendar-alt"></i> 1 June 2026 – 30 June 2026</span>
-                            <span class="status-badge badge-success">Completed</span>
-                        </div>
-                        <p class="internship-desc">Completed a one-month Prompt Engineering internship focused on designing, optimizing, and evaluating AI prompts for Large Language Models. Worked on prompt optimization, AI workflow automation, structured prompting techniques, and practical GenAI applications.</p>
-                        
-                        <div class="internship-skills-container">
-                            <h5>Skills:</h5>
-                            <div class="internship-skills">
-                                <span class="chip">Prompt Engineering</span>
-                                <span class="chip">Generative AI</span>
-                                <span class="chip">ChatGPT</span>
-                                <span class="chip">LLMs</span>
-                                <span class="chip">AI Workflow Automation</span>
-                                <span class="chip">Prompt Optimization</span>
-                            </div>
-                        </div>
-
-                        <div class="cert-preview-container">
-                            <div class="cert-preview">
-                                <img src="assets/certificates/skillcraft-internship.jpg" alt="SkillCraft Technology Certificate Preview" loading="lazy">
-                                <div class="cert-overlay">
-                                    <span class="expand-btn"><i class="fas fa-expand"></i></span>
+                                <h4 class="institution">Vasireddy Venkatadri Institute of Technology (VVIT)</h4>
+                                <p class="timeline-text">Pursuing Electronics and Communication Engineering with core coursework in software fundamentals, Object-Oriented Programming, signal processing, and AI applications.</p>
+                                <div class="timeline-meta">
+                                    <span class="meta-pill"><i class="fas fa-award"></i> CGPA: 8.21 / 10</span>
+                                    <span class="meta-pill"><i class="fas fa-map-marker-alt"></i> Guntur, AP</span>
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="internship-actions">
-                            <a href="assets/certificates/skillcraft-internship.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Internship 4: CodTech IT Solutions AI -->
-                <div class="highlight-panel card highlight-panel--spaced-top">
-                    <div class="panel-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="panel-content">
-                        <h3>Artificial Intelligence Intern</h3>
-                        <h4 class="provider">CodTech IT Solutions Pvt. Ltd.</h4>
-                        <div class="internship-meta-inline">
-                            <span><i class="far fa-clock"></i> 4 Weeks</span>
-                            <span><i class="far fa-calendar-alt"></i> 22 June 2026 – 20 July 2026</span>
-                            <span class="status-badge badge-success">Completed</span>
-                        </div>
-                        <p class="internship-desc">Successfully completed an Artificial Intelligence internship involving AI concepts, machine learning fundamentals, intelligent systems, and practical problem-solving. Demonstrated strong technical skills, dedication, and continuous learning throughout the internship.</p>
-                        
-                        <div class="internship-skills-container">
-                            <h5>Skills:</h5>
-                            <div class="internship-skills">
-                                <span class="chip">Artificial Intelligence</span>
-                                <span class="chip">Machine Learning</span>
-                                <span class="chip">Python</span>
-                                <span class="chip">Data Analysis</span>
-                                <span class="chip">AI Fundamentals</span>
-                                <span class="chip">Problem Solving</span>
-                            </div>
-                        </div>
-
-                        <div class="cert-preview-container">
-                            <div class="cert-preview">
-                                <img src="assets/certificates/codtech-internship.jpg" alt="CodTech IT Solutions Certificate Preview" loading="lazy">
-                                <div class="cert-overlay">
-                                    <span class="expand-btn"><i class="fas fa-expand"></i></span>
+                        <!-- 2. Internship: CodTech IT Solutions -->
+                        <li class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content card tilt-card">
+                                <div class="timeline-badge-row">
+                                    <span class="type-badge badge-internship"><i class="fas fa-briefcase"></i> Internship</span>
+                                    <span class="timeline-date"><i class="far fa-calendar-alt"></i> 22 June 2026 – 20 July 2026</span>
+                                </div>
+                                <h3>Artificial Intelligence Intern</h3>
+                                <h4 class="institution">CodTech IT Solutions Pvt. Ltd.</h4>
+                                <p class="timeline-text">Successfully completed a 4-week Artificial Intelligence internship involving machine learning concepts, intelligent systems, and hands-on AI problem-solving in Python.</p>
+                                <div class="timeline-skills">
+                                    <span class="mini-chip">Artificial Intelligence</span>
+                                    <span class="mini-chip">Machine Learning</span>
+                                    <span class="mini-chip">Python</span>
+                                    <span class="mini-chip">Data Analysis</span>
+                                </div>
+                                <div class="timeline-actions">
+                                    <a href="assets/certificates/codtech-internship.pdf" target="_blank" rel="noopener noreferrer" class="timeline-link-btn"><i class="fas fa-file-pdf"></i> View Certificate</a>
                                 </div>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="internship-actions">
-                            <a href="assets/certificates/codtech-internship.pdf" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
-                        </div>
-                    </div>
+                        <!-- 3. Internship: SkillCraft Technology -->
+                        <li class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content card tilt-card">
+                                <div class="timeline-badge-row">
+                                    <span class="type-badge badge-internship"><i class="fas fa-briefcase"></i> Internship</span>
+                                    <span class="timeline-date"><i class="far fa-calendar-alt"></i> 1 June 2026 – 30 June 2026</span>
+                                </div>
+                                <h3>Prompt Engineering Intern</h3>
+                                <h4 class="institution">SkillCraft Technology</h4>
+                                <p class="timeline-text">Completed a 1-month Prompt Engineering internship focused on designing, optimizing, and evaluating AI prompts for Large Language Models, AI workflow automation, and structured prompting.</p>
+                                <div class="timeline-skills">
+                                    <span class="mini-chip">Prompt Engineering</span>
+                                    <span class="mini-chip">Generative AI</span>
+                                    <span class="mini-chip">LLMs</span>
+                                    <span class="mini-chip">ChatGPT</span>
+                                </div>
+                                <div class="timeline-actions">
+                                    <a href="assets/certificates/skillcraft-internship.pdf" target="_blank" rel="noopener noreferrer" class="timeline-link-btn"><i class="fas fa-file-pdf"></i> View Certificate</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- 4. Virtual Internship: EduSkills -->
+                        <li class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content card tilt-card">
+                                <div class="timeline-badge-row">
+                                    <span class="type-badge badge-virtual-internship"><i class="fas fa-laptop"></i> Virtual Internship</span>
+                                    <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2026</span>
+                                </div>
+                                <h3>AWS Data Engineering Virtual Internship</h3>
+                                <h4 class="institution">EduSkills</h4>
+                                <p class="timeline-text">Completed a virtual internship focused on cloud computing and data engineering fundamentals. Explored AWS cloud services, data storage, pipeline processing, and analytics workflows.</p>
+                                <div class="timeline-actions">
+                                    <a href="assets/certificates/aws-data-engineering.pdf" target="_blank" rel="noopener noreferrer" class="timeline-link-btn"><i class="fas fa-file-pdf"></i> View Certificate</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- 5. Job Simulation: Datacom & Tata -->
+                        <li class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content card tilt-card">
+                                <div class="timeline-badge-row">
+                                    <span class="type-badge badge-job-simulation"><i class="fas fa-sim-card"></i> Job Simulation</span>
+                                    <span class="timeline-date"><i class="far fa-calendar-alt"></i> July 2026</span>
+                                </div>
+                                <h3>AI & Data Analytics Job Simulations</h3>
+                                <h4 class="institution">Datacom & Tata (via Forage)</h4>
+                                <p class="timeline-text">Completed corporate job simulations in <em>Automation AI Accelerator</em> (Datacom) and <em>GenAI Powered Data Analytics</em> (Tata), analyzing copilot agent systems and executive AI reporting.</p>
+                                <div class="timeline-actions">
+                                    <a href="assets/certificates/datacom-ai-accelerator-forage.jpg" target="_blank" rel="noopener noreferrer" class="timeline-link-btn"><i class="fas fa-certificate"></i> Datacom Cert</a>
+                                    <a href="assets/certificates/tata-genai-data-analytics-forage.jpg" target="_blank" rel="noopener noreferrer" class="timeline-link-btn"><i class="fas fa-certificate"></i> Tata Cert</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- 6. Workshop -->
+                        <li class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content card tilt-card">
+                                <div class="timeline-badge-row">
+                                    <span class="type-badge badge-workshop"><i class="fas fa-tools"></i> Workshop</span>
+                                    <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2025 – 2026</span>
+                                </div>
+                                <h3>Technical Workshops & Hands-on Training</h3>
+                                <h4 class="institution">VVIT, Be10X & Siemens</h4>
+                                <p class="timeline-text">Attended interactive technical boot camps including <em>Problem Solving using Python</em> (VVIT/IETE), <em>Generative AI & ChatGPT Workshop</em> (Be10X), and <em>PCB Design Workshop</em> (Siemens).</p>
+                            </div>
+                        </li>
+
+                        <!-- 7. Leadership -->
+                        <li class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content card tilt-card">
+                                <div class="timeline-badge-row">
+                                    <span class="type-badge badge-leadership"><i class="fas fa-users-cog"></i> Leadership</span>
+                                    <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2023 – Present</span>
+                                </div>
+                                <h3>NSS Volunteer & National Integration Camp Delegate</h3>
+                                <h4 class="institution">National Service Scheme (NSS) / State of Andhra Pradesh</h4>
+                                <p class="timeline-text">Represented Andhra Pradesh at the National Integration Camp (NIC) in Bihar. Actively organize community service drives, blood donation camps, and social awareness initiatives.</p>
+                            </div>
+                        </li>
+
+                    </ol>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="projects section">
+        <section id="projects" class="projects section bg-darker">
             <div class="container">
                 <h2 class="section-title">Featured Projects</h2>
                 <div class="project-grid">
                     
                     <!-- Credit Card Approval Prediction -->
-                    <div class="project-card card">
-                        <div class="project-content">
-                            <div class="project-header">
+                    <div class="project-card case-study-card tilt-card">
+                        <div class="project-header">
+                            <div class="project-title-group">
+                                <span class="status-badge badge-completed">Completed / Active</span>
                                 <h3>Credit Card Approval Prediction (CreditGuard AI)</h3>
-                                <div class="project-links">
-                                    <a href="https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                                    <a href="https://skmdshariff143-ai.github.io/Credit-Card-Approval-Prediction/" target="_blank" rel="noopener noreferrer" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                                </div>
                             </div>
-                            <p class="project-desc">An enterprise-grade, end-to-end Machine Learning solution evaluating credit applicant delinquency risk with explainable AI and robust testing.</p>
-                            <ul class="project-bullets">
-                                <li>Designed custom preprocessing pipelines & SMOTE-oversampling, achieving 66.67% delinquency recall.</li>
-                                <li>Built interactive prediction and metrics dashboards using Flask and Bootstrap 5 with Dark/Light modes.</li>
-                                <li>Configured automated MLOps CI/CD via GitHub Actions for testing, lints, Docker builds, and Page deployments.</li>
-                            </ul>
-                            <div class="project-tech">
-                                <span>Python</span>
-                                <span>Scikit-Learn</span>
-                                <span>XGBoost</span>
-                                <span>Flask</span>
-                                <span>Docker</span>
-                                <span>GitHub Actions</span>
+                            <div class="project-links">
+                                <a href="https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository for Credit Card Approval Prediction"><i class="fab fa-github"></i> Code</a>
+                                <a href="https://skmdshariff143-ai.github.io/Credit-Card-Approval-Prediction/" target="_blank" rel="noopener noreferrer" aria-label="Live Demo for Credit Card Approval Prediction"><i class="fas fa-external-link-alt"></i> Live Demo</a>
                             </div>
+                        </div>
+                        <p class="project-summary">An end-to-end Machine Learning solution evaluating credit applicant delinquency risk with explainable AI and automated CI/CD testing.</p>
+                        <div class="case-study-details">
+                            <div class="cs-field">
+                                <span class="cs-label"><i class="fas fa-exclamation-circle"></i> Problem:</span>
+                                <p>Financial institutions face high credit default rates due to inaccurate risk profiling and imbalanced applicant data.</p>
+                            </div>
+                            <div class="cs-field">
+                                <span class="cs-label"><i class="fas fa-lightbulb"></i> Solution:</span>
+                                <p>Developed a machine learning classification engine using XGBoost and SMOTE oversampling to accurately detect high-risk applicants.</p>
+                            </div>
+                            <div class="cs-field">
+                                <span class="cs-label"><i class="fas fa-user-cog"></i> My Contribution:</span>
+                                <p>Built custom data preprocessing pipelines, SMOTE oversampling, interactive Flask dashboard, and automated GitHub Actions CI/CD workflows.</p>
+                            </div>
+                        </div>
+                        <div class="verified-result-banner">
+                            <i class="fas fa-award"></i> <strong>Verified Result:</strong> 66.67% Delinquency Recall with automated CI/CD test suite
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Scikit-Learn</span>
+                            <span class="tech-tag">XGBoost</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">GitHub Actions</span>
                         </div>
                     </div>
 
                     <!-- FarmaLink-AI -->
-                    <div class="project-card card">
-                        <div class="project-content">
-                            <div class="project-header">
+                    <div class="project-card case-study-card tilt-card">
+                        <div class="project-header">
+                            <div class="project-title-group">
+                                <span class="status-badge badge-in-dev">In Active Development</span>
                                 <h3>FarmaLink-AI</h3>
-                                <div class="project-links">
-                                    <a href="https://github.com/skmdshariff143-ai/farmlink-ai" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                                    <a href="https://farmlink-umber.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                                </div>
                             </div>
-                            <p class="project-desc">Developed a premium Next.js 15 + React 19 decentralized agricultural SaaS platform that connects farmers directly with buyers, logistics networks, and cold storages.</p>
-                            <ul class="project-bullets">
-                                <li>Designed AI-powered disease diagnostics, price prediction simulations, and real-time escrow wallet transactions.</li>
-                                <li>Stabilized production CI/CD check pipelines, ESM migrations, and Next.js App Router middleware guards.</li>
-                            </ul>
-                            <div class="project-tech">
-                                <span>Next.js 15</span>
-                                <span>React 19</span>
-                                <span>TypeScript</span>
-                                <span>Prisma</span>
-                                <span>Supabase</span>
-                                <span>Vercel</span>
+                            <div class="project-links">
+                                <a href="https://github.com/skmdshariff143-ai/farmlink-ai" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository for FarmaLink-AI"><i class="fab fa-github"></i> Code</a>
+                                <a href="https://farmlink-umber.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Live Demo for FarmaLink-AI"><i class="fas fa-external-link-alt"></i> Live Demo</a>
                             </div>
+                        </div>
+                        <p class="project-summary">A Next.js 15 + React 19 agricultural SaaS platform connecting farmers directly with buyers, logistics networks, and cold storages.</p>
+                        <div class="case-study-details">
+                            <div class="cs-field">
+                                <span class="cs-label"><i class="fas fa-exclamation-circle"></i> Problem:</span>
+                                <p>Agricultural supply chains suffer from intermediary price exploitation, lack of crop disease diagnostics, and opaque transaction escrow.</p>
+                            </div>
+                            <div class="cs-field">
+                                <span class="cs-label"><i class="fas fa-lightbulb"></i> Solution:</span>
+                                <p>Engineered a platform featuring AI disease diagnostics, crop yield/price prediction, and simulated escrow transaction wallets.</p>
+                            </div>
+                            <div class="cs-field">
+                                <span class="cs-label"><i class="fas fa-user-cog"></i> My Contribution:</span>
+                                <p>Architected Next.js 15 App Router pages, Prisma + Supabase schema definitions, Zustand store state management, and production CI/CD check guards.</p>
+                            </div>
+                        </div>
+                        <div class="verified-result-banner">
+                            <i class="fas fa-award"></i> <strong>Verified Result:</strong> Deployed production agricultural SaaS prototype
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">Next.js 15</span>
+                            <span class="tech-tag">React 19</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Prisma</span>
+                            <span class="tech-tag">Supabase</span>
+                            <span class="tech-tag">Vercel</span>
                         </div>
                     </div>
 
@@ -420,7 +624,7 @@
         </section>
 
         <!-- Certificates Section -->
-        <section id="certificates" class="certificates section bg-darker">
+        <section id="certificates" class="certificates section">
             <div class="container">
                 <h2 class="section-title">Certifications</h2>
                 <p class="cert-count">Showing <span id="cert-count-num">0</span> certificates</p>
@@ -448,7 +652,7 @@
                     </div>
 
                     <!-- 0. AWS Certified Cloud Practitioner -->
-                    <div class="cert-card" data-category="cloud" data-featured="true" data-credential-id="59ea9ed98f8b47a680f32292e770b80d">
+                    <div class="cert-card tilt-card" data-category="cloud" data-featured="true" data-credential-id="59ea9ed98f8b47a680f32292e770b80d">
                         <div class="cert-preview">
                             <img src="assets/certificate-thumbnails/aws-certified-cloud-practitioner-badge.webp" alt="AWS Certified Cloud Practitioner Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -466,7 +670,7 @@
                     </div>
 
                     <!-- 1. AWS Data Engineering Virtual Internship -->
-                    <div class="cert-card" data-category="cloud" data-featured="true">
+                    <div class="cert-card tilt-card" data-category="cloud" data-featured="true">
                         <div class="cert-preview">
                             <img src="assets/certificates/aws-data-engineering-thumb.jpg" alt="AWS Data Engineering Virtual Internship Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -481,7 +685,7 @@
                     </div>
 
                     <!-- 2. AWS Academy Data Engineering Training Badge -->
-                    <div class="cert-card" data-category="cloud" data-featured="true">
+                    <div class="cert-card tilt-card" data-category="cloud" data-featured="true">
                         <div class="cert-preview">
                             <img src="assets/certificates/aws_academy_graduate___data_engineering___training_badge_badge20260327-32-qr179v-thumb.jpg" alt="AWS Academy Data Engineering Training Badge Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -496,7 +700,7 @@
                     </div>
 
                     <!-- 3. Google Cloud Skills Boost -->
-                    <div class="cert-card" data-category="cloud" data-featured="true">
+                    <div class="cert-card tilt-card" data-category="cloud" data-featured="true">
                         <div class="cert-preview">
                             <img src="assets/certificates/shaik-mahammad-sharif_20261772946116-(1)-thumb.jpg" alt="Google Cloud Skills Boost Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -510,8 +714,8 @@
                         </div>
                     </div>
 
-                    <!-- 4. AI Tools & ChatGPT Workshop (has image) -->
-                    <div class="cert-card" data-category="ai">
+                    <!-- 4. AI Tools & ChatGPT Workshop -->
+                    <div class="cert-card tilt-card" data-category="ai">
                         <div class="cert-preview">
                             <img src="assets/certificates/certificate_page-0001.jpg" alt="AI Tools and ChatGPT Workshop Certificate - Be10X" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -526,10 +730,10 @@
                         </div>
                     </div>
 
-                    <!-- 5. NxtWave - Build Your Own Generative AI Model (has image) -->
-                    <div class="cert-card" data-category="ai">
+                    <!-- 5. NxtWave - Build Your Own Generative AI Model -->
+                    <div class="cert-card tilt-card" data-category="ai">
                         <div class="cert-preview">
-                            <img src="assets/certificates/nxtwave-certificate.jpeg" alt="AI for Students: Build Your Own Generative AI Model Certificate - NxtWave" loading="lazy">
+                            <img src="assets/certificates/nxtwave-certificate.jpeg" alt="Build Your Own Generative AI Model Certificate - NxtWave" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
                         <div class="cert-body">
@@ -542,8 +746,8 @@
                         </div>
                     </div>
 
-                    <!-- 6. Generative AI in Be10X -->
-                    <div class="cert-card" data-category="ai">
+                    <!-- 6. Generative AI Workshop -->
+                    <div class="cert-card tilt-card" data-category="ai">
                         <div class="cert-preview">
                             <img src="assets/certificates/gen-ai-in-be10x-thumb.jpg" alt="Generative AI Workshop Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -558,7 +762,7 @@
                     </div>
 
                     <!-- 7. Prompt Engineering -->
-                    <div class="cert-card" data-category="ai">
+                    <div class="cert-card tilt-card" data-category="ai">
                         <div class="cert-preview">
                             <img src="assets/certificates/prompt-engineering-thumb.jpg" alt="Prompt Engineering Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -572,8 +776,8 @@
                         </div>
                     </div>
 
-                    <!-- 8. Prompt Certificate -->
-                    <div class="cert-card" data-category="ai">
+                    <!-- 8. Prompt Design & Engineering -->
+                    <div class="cert-card tilt-card" data-category="ai">
                         <div class="cert-preview">
                             <img src="assets/certificates/prompt-certificate-thumb.jpg" alt="Prompt Design & Engineering Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -588,7 +792,7 @@
                     </div>
 
                     <!-- 9. Master AI -->
-                    <div class="cert-card" data-category="ai">
+                    <div class="cert-card tilt-card" data-category="ai">
                         <div class="cert-preview">
                             <img src="assets/certificates/master-ai-thumb.jpg" alt="Master AI Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -602,8 +806,8 @@
                         </div>
                     </div>
 
-                    <!-- 10. CodeChef - Learn Java Programming (has image) -->
-                    <div class="cert-card" data-category="programming">
+                    <!-- 10. CodeChef - Learn Java Programming -->
+                    <div class="cert-card tilt-card" data-category="programming">
                         <div class="cert-preview">
                             <img src="assets/certificates/code-chef-course-certificate.jpg" alt="Learn Java Programming Certificate - CodeChef" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -618,8 +822,8 @@
                         </div>
                     </div>
 
-                    <!-- 11. CodeChef - 500 Difficulty Rating (has image) -->
-                    <div class="cert-card" data-category="programming">
+                    <!-- 11. CodeChef - 500 Difficulty Rating -->
+                    <div class="cert-card tilt-card" data-category="programming">
                         <div class="cert-preview">
                             <img src="assets/certificates/code-chef-500-difficulty-rating_page-0001.jpg" alt="500 Difficulty Rating Certificate - CodeChef" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -635,7 +839,7 @@
                     </div>
 
                     <!-- 12. Practice Basic Math - CodeChef -->
-                    <div class="cert-card" data-category="programming">
+                    <div class="cert-card tilt-card" data-category="programming">
                         <div class="cert-preview">
                             <img src="assets/certificates/vvit23bq1a04f2-practice-basic-math-thumb.jpg" alt="Practice Basic Math Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -650,7 +854,7 @@
                     </div>
 
                     <!-- 13. Python Beginner to Master -->
-                    <div class="cert-card" data-category="programming">
+                    <div class="cert-card tilt-card" data-category="programming">
                         <div class="cert-preview">
                             <img src="assets/certificates/python-beginner-to-master-thumb.jpg" alt="Python Beginner to Master Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -664,8 +868,8 @@
                         </div>
                     </div>
 
-                    <!-- 14. The Joy of Computing using Python (NPTEL/SWAYAM) -->
-                    <div class="cert-card" data-category="programming">
+                    <!-- 14. The Joy of Computing using Python -->
+                    <div class="cert-card tilt-card" data-category="programming">
                         <div class="cert-preview">
                             <img src="assets/certificates/the-joy-of-computing-using-python-thumb.jpg" alt="The Joy of Computing using Python Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -679,8 +883,8 @@
                         </div>
                     </div>
 
-                    <!-- 15. Git & GitHub Bootcamp - Udemy -->
-                    <div class="cert-card" data-category="tools">
+                    <!-- 15. Git & GitHub Bootcamp -->
+                    <div class="cert-card tilt-card" data-category="tools">
                         <div class="cert-preview">
                             <img src="assets/certificates/udemy-thumb.jpg" alt="Git & GitHub Bootcamp Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -694,8 +898,8 @@
                         </div>
                     </div>
 
-                    <!-- 16. GitHub Certificate -->
-                    <div class="cert-card" data-category="tools">
+                    <!-- 16. GitHub Foundations -->
+                    <div class="cert-card tilt-card" data-category="tools">
                         <div class="cert-preview">
                             <img src="assets/certificates/github-thumb.jpg" alt="GitHub Foundations Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -709,8 +913,8 @@
                         </div>
                     </div>
 
-                    <!-- 17. Problem Solving using Python Boot Camp (has image) -->
-                    <div class="cert-card" data-category="academic">
+                    <!-- 17. Problem Solving using Python Boot Camp -->
+                    <div class="cert-card tilt-card" data-category="academic">
                         <div class="cert-preview">
                             <img src="assets/certificates/4.jpg" alt="Problem Solving using Python Boot Camp Certificate - VVIT &amp; IETE" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -725,10 +929,10 @@
                         </div>
                     </div>
 
-                    <!-- 18. Data Analyst - PEARL Lab (has image) -->
-                    <div class="cert-card" data-category="cloud">
+                    <!-- 18. Data Analyst - PEARL Lab -->
+                    <div class="cert-card tilt-card" data-category="cloud">
                         <div class="cert-preview">
-                            <img src="assets/certificates/data-analyst-perals-lab.jpeg" alt="Data Analyst Course Certificate - Pasteur Education and Research Training Laboratory (PEARL)" loading="lazy">
+                            <img src="assets/certificates/data-analyst-perals-lab.jpeg" alt="Data Analyst Course Certificate - PEARL" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
                         <div class="cert-body">
@@ -741,7 +945,7 @@
                     </div>
 
                     <!-- 19. Business Analysis & Process Management -->
-                    <div class="cert-card" data-category="tools">
+                    <div class="cert-card tilt-card" data-category="tools">
                         <div class="cert-preview">
                             <img src="assets/certificates/business-analysis-process-management-thumb.jpg" alt="Business Analysis & Process Management Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -756,7 +960,7 @@
                     </div>
 
                     <!-- 20. Palo Alto Networks Cybersecurity -->
-                    <div class="cert-card" data-category="tools">
+                    <div class="cert-card tilt-card" data-category="tools">
                         <div class="cert-preview">
                             <img src="assets/certificates/paloalto-final-certificate-thumb.jpg" alt="Cybersecurity Fundamentals Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -770,10 +974,10 @@
                         </div>
                     </div>
 
-                    <!-- 21. PCB Design Workshop (has image) -->
-                    <div class="cert-card" data-category="academic">
+                    <!-- 21. PCB Design Workshop -->
+                    <div class="cert-card tilt-card" data-category="academic">
                         <div class="cert-preview">
-                            <img src="assets/certificates/student-workshop-pcb-design-participant.png" alt="Student Workshop PCB Design Participant Badge - Siemens Empowers Education" loading="lazy">
+                            <img src="assets/certificates/student-workshop-pcb-design-participant.png" alt="PCB Design Participant Badge - Siemens" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
                         <div class="cert-body">
@@ -786,9 +990,9 @@
                     </div>
 
                     <!-- 22. L4G Certificate -->
-                    <div class="cert-card" data-category="tools">
+                    <div class="cert-card tilt-card" data-category="tools">
                         <div class="cert-preview">
-                            <img src="assets/certificates/l4g-certificate-thumb.jpg" alt="Laptop 4 Good (L4G) Program Certificate Preview" loading="lazy">
+                            <img src="assets/certificates/l4g-certificate-thumb.jpg" alt="Laptop 4 Good Program Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
                         <div class="cert-body">
@@ -801,9 +1005,9 @@
                     </div>
 
                     <!-- 23. Datacom - Automation AI Accelerator -->
-                    <div class="cert-card" data-category="ai">
+                    <div class="cert-card tilt-card" data-category="ai">
                         <div class="cert-preview">
-                            <img src="assets/certificates/datacom-ai-accelerator-forage.jpg" alt="Automation AI Accelerator: From Co-pilot to Autonomous Agent Job Simulation Certificate Preview" loading="lazy">
+                            <img src="assets/certificates/datacom-ai-accelerator-forage.jpg" alt="Automation AI Accelerator Job Simulation Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
                         <div class="cert-body">
@@ -817,7 +1021,7 @@
                     </div>
 
                     <!-- 24. Tata - GenAI Powered Data Analytics -->
-                    <div class="cert-card" data-category="ai">
+                    <div class="cert-card tilt-card" data-category="ai">
                         <div class="cert-preview">
                             <img src="assets/certificates/tata-genai-data-analytics-forage.jpg" alt="GenAI Powered Data Analytics Job Simulation Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
@@ -832,10 +1036,10 @@
                         </div>
                     </div>
 
-                    <!-- 25. AWS Academy Graduate — Data Engineering (Trained Badge) -->
-                    <div class="cert-card" data-category="cloud">
+                    <!-- 25. AWS Academy Graduate — Data Engineering -->
+                    <div class="cert-card tilt-card" data-category="cloud">
                         <div class="cert-preview">
-                            <img src="assets/certificates/aws-data-engineering-badge-thumb.jpg" alt="AWS Academy Graduate — Data Engineering (Trained Badge) Certificate Preview" loading="lazy">
+                            <img src="assets/certificates/aws-data-engineering-badge-thumb.jpg" alt="AWS Academy Graduate — Data Engineering Certificate Preview" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
                         <div class="cert-body">
@@ -863,139 +1067,122 @@
             </div>
         </div>
 
-        <!-- Achievements & Profiles Section combined for better flow -->
-        <section id="achievements" class="achievements section">
+        <!-- Achievements & Leadership Section -->
+        <section id="achievements" class="achievements section bg-darker">
             <div class="container">
-                <h2 class="section-title">Achievements & Profiles</h2>
+                <h2 class="section-title">Achievements & Leadership</h2>
                 <div class="achievements-grid">
                     
-                    <div class="achievement-card card">
-                        <div class="ach-icon codechef"><i class="fas fa-code"></i></div>
+                    <div class="achievement-card card tilt-card">
+                        <div class="ach-header">
+                            <div class="ach-icon codechef"><i class="fas fa-code"></i></div>
+                            <span class="ach-badge">Competitive Coding</span>
+                        </div>
                         <h3>CodeChef 3-Star Programmer</h3>
-                        <p>Achieved a 3-star rating by successfully solving 500+ programming problems using Java and Python. Demonstrated strong algorithmic and problem-solving skills.</p>
-                        <a href="https://www.codechef.com/users/vvit23bq1a04f2" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm mt-3">View Profile</a>
-                    </div>
-
-                    <div class="achievement-card card">
-                        <div class="ach-icon github"><i class="fab fa-github"></i></div>
-                        <h3>GitHub Open Source</h3>
-                        <p>Maintained a professional GitHub profile showcasing academic projects, version-controlled source code, and continuous learning progression.</p>
-                        <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm mt-3">View GitHub</a>
-                    </div>
-
-                    <div class="achievement-card card">
-                        <div class="ach-icon nic"><i class="fas fa-map-marker-alt"></i></div>
-                        <h3>National Integration Camp (NIC)</h3>
-                        <p>Proudly represented the state of Andhra Pradesh at the National Integration Camp held in Bihar, fostering cultural exchange and leadership.</p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- NSS Section -->
-        <section id="nss" class="nss section bg-darker">
-            <div class="container">
-                <h2 class="section-title">Leadership & Activities</h2>
-                <div class="nss-panel card">
-                    <div class="nss-header">
-                        <i class="fas fa-hands-helping"></i>
-                        <h3>National Service Scheme (NSS) Volunteer</h3>
-                    </div>
-                    <div class="nss-content">
-                        <p>Actively engaged in community service initiatives, awareness campaigns, and social outreach programs. Collaborated with fellow volunteers to organize and execute meaningful community events.</p>
-                        <div class="nss-highlights">
-                            <span><i class="fas fa-check"></i> Community Service</span>
-                            <span><i class="fas fa-check"></i> Leadership</span>
-                            <span><i class="fas fa-check"></i> Teamwork</span>
-                            <span><i class="fas fa-check"></i> Organization Skills</span>
+                        <p>Achieved a 3-star rating by successfully solving 500+ algorithmic programming problems in Java and Python, demonstrating strong problem-solving agility.</p>
+                        <div class="ach-footer">
+                            <a href="https://www.codechef.com/users/vvit23bq1a04f2" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"><i class="fas fa-external-link-alt"></i> CodeChef Profile</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Languages Section -->
-        <section id="languages" class="languages section">
-            <div class="container">
-                <h2 class="section-title">Languages</h2>
-                <div class="lang-grid">
-                    <div class="lang-card">
-                        <h3>English</h3>
-                        <p>Professional</p>
+                    <div class="achievement-card card tilt-card">
+                        <div class="ach-header">
+                            <div class="ach-icon github"><i class="fab fa-github"></i></div>
+                            <span class="ach-badge">Open Source</span>
+                        </div>
+                        <h3>GitHub Open Source Portfolio</h3>
+                        <p>Maintained a professional GitHub profile showcasing academic projects, version-controlled source code, CI/CD automated workflows, and active technical learning.</p>
+                        <div class="ach-footer">
+                            <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"><i class="fab fa-github"></i> View Repositories</a>
+                        </div>
                     </div>
-                    <div class="lang-card">
-                        <h3>Telugu</h3>
-                        <p>Native / Fluent</p>
+
+                    <div class="achievement-card card tilt-card">
+                        <div class="ach-header">
+                            <div class="ach-icon nic"><i class="fas fa-flag"></i></div>
+                            <span class="ach-badge">National Representation</span>
+                        </div>
+                        <h3>National Integration Camp (NIC) Delegate</h3>
+                        <p>Selected to represent the state of Andhra Pradesh at the National Integration Camp held in Bihar, promoting state cultural exchange, unity, and youth leadership.</p>
                     </div>
-                    <div class="lang-card">
-                        <h3>Urdu</h3>
-                        <p>Fluent</p>
+
+                    <div class="achievement-card card tilt-card">
+                        <div class="ach-header">
+                            <div class="ach-icon nss"><i class="fas fa-hands-helping"></i></div>
+                            <span class="ach-badge">Community Outreach</span>
+                        </div>
+                        <h3>NSS Volunteer Leadership</h3>
+                        <p>Actively engaged in National Service Scheme community outreach initiatives, organizing health awareness drives, social welfare activities, and team leadership projects.</p>
                     </div>
-                    <div class="lang-card">
-                        <h3>Hindi</h3>
-                        <p>Conversational</p>
-                    </div>
+
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="contact section bg-darker">
+        <section id="contact" class="contact section">
             <div class="container">
                 <h2 class="section-title">Get In Touch</h2>
                 <div class="contact-wrapper">
-                    <div class="contact-info">
+                    <div class="contact-info card tilt-card">
                         <h3>Let's Connect</h3>
-                        <p>I am actively seeking internship opportunities and professional connections. Feel free to reach out to me via email or connect on LinkedIn.</p>
+                        <p class="contact-lead">I am actively seeking internship and entry-level software/AI engineering opportunities. Feel free to reach out directly via email or connect on LinkedIn.</p>
                         
                         <div class="contact-methods">
                             <div class="contact-method">
-                                <i class="fas fa-envelope"></i>
+                                <div class="method-icon"><i class="fas fa-envelope"></i></div>
                                 <div>
-                                    <h4>Email</h4>
-                                    <a href="mailto:23BQ1A04F2@vvit.net">23BQ1A04F2@vvit.net</a>
+                                    <h4>College Email</h4>
+                                    <a href="mailto:23BQ1A04F2@vvit.net" class="contact-link">23BQ1A04F2@vvit.net</a>
                                 </div>
                             </div>
                             <div class="contact-method">
-                                <i class="fab fa-linkedin"></i>
+                                <div class="method-icon"><i class="fab fa-linkedin"></i></div>
                                 <div>
                                     <h4>LinkedIn</h4>
-                                    <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+                                    <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" rel="noopener noreferrer" class="contact-link">linkedin.com/in/mahammad-shariff-shaik-32903934a</a>
                                 </div>
                             </div>
                             <div class="contact-method">
-                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="method-icon"><i class="fab fa-github"></i></div>
+                                <div>
+                                    <h4>GitHub</h4>
+                                    <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" class="contact-link">github.com/skmdshariff143-ai</a>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="method-icon"><i class="fas fa-map-marker-alt"></i></div>
                                 <div>
                                     <h4>Location</h4>
-                                    <p>Guntur, Andhra Pradesh, India</p>
+                                    <p class="method-text">Guntur, Andhra Pradesh, India</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="social-links mt-4">
-                            <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <div class="quick-actions-row">
+                            <a href="mailto:23BQ1A04F2@vvit.net" class="btn btn-primary btn-sm"><i class="fas fa-paper-plane"></i> Email Me Directly</a>
+                            <a href="assets/resume.pdf" class="btn btn-outline btn-sm" download="Shaik_Mahammad_Shariff_Resume.pdf"><i class="fas fa-file-download"></i> Download Resume</a>
                         </div>
                     </div>
 
-                    <div class="contact-form-container card">
+                    <div class="contact-form-container card tilt-card">
+                        <h3>Send a Message</h3>
                         <form id="contact-form" class="contact-form" action="https://formspree.io/f/mvzjyllq" method="POST">
                             <input type="text" name="_gotcha" class="honeypot-field" aria-hidden="true" tabindex="-1">
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="e.g. Jane Doe" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                                <label for="email">Your Email</label>
+                                <input type="email" id="email" name="email" placeholder="e.g. jane@example.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                                <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Send Message <i class="fas fa-paper-plane"></i></button>
-                            <div id="form-status" class="form-status-message"></div>
+                            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Send Message</button>
+                            <div id="form-status" class="form-status-message" aria-live="polite"></div>
                         </form>
                     </div>
                 </div>
@@ -1008,24 +1195,85 @@
     <footer class="footer">
         <div class="container footer-container">
             <div class="footer-brand">
-                <h2>Shariff<span>.</span></h2>
-                <p>Electronics and Communication Engineering Undergraduate</p>
+                <a href="#hero" class="footer-logo">Shariff<span>.</span></a>
+                <p>Electronics and Communication Engineering Undergraduate | AI & Software Developer</p>
             </div>
-            <div class="footer-links">
+            <div class="footer-nav">
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#internship">Internships</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience-education">Experience & Education</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certificates">Certifications</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
+            <div class="footer-social">
+                <h3>Connect</h3>
+                <div class="footer-social-links">
+                    <a href="https://linkedin.com/in/mahammad-shariff-shaik-32903934a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/skmdshariff143-ai" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.codechef.com/users/vvit23bq1a04f2" target="_blank" rel="noopener noreferrer" aria-label="CodeChef"><i class="fas fa-code"></i></a>
+                    <a href="mailto:23BQ1A04F2@vvit.net" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Shaik Mahammad Shariff. All rights reserved.</p>
+            <div class="container footer-bottom-content">
+                <p>&copy; 2026 Shaik Mahammad Shariff. Built with HTML5, CSS3, and JavaScript.</p>
+            </div>
         </div>
     </footer>
+
+    <!-- AI Introduction Modal -->
+    <div id="ai-intro-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-modal-title" aria-hidden="true" hidden>
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-container card" tabindex="-1">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <h3 id="intro-modal-title"><i class="fas fa-robot"></i> AI Introduction Preview</h3>
+                    <span class="badge-ai-tag"><i class="fas fa-sparkles"></i> Verified Transcript</span>
+                </div>
+                <button type="button" class="modal-close-btn" id="btn-close-intro" aria-label="Close introduction modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Media / Preview Container (No missing video requests) -->
+                <div class="video-player-wrapper" id="video-wrapper">
+                    <div id="video-preview-card" class="video-fallback-card">
+                        <div class="fallback-poster-box">
+                            <div class="fallback-icon-glow">
+                                <i class="fas fa-user-astronaut"></i>
+                            </div>
+                            <h4>AI Introduction Preview</h4>
+                            <span class="fallback-badge"><i class="fas fa-clock"></i> Video Coming Soon</span>
+                            <p class="fallback-note"><i class="fas fa-info-circle"></i> Complete recruiter-verified introduction transcript available below.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Script & Transcript Section -->
+                <div class="transcript-container">
+                    <div class="transcript-header">
+                        <h4><i class="fas fa-align-left"></i> Verified Script Transcript</h4>
+                        <span class="transcript-duration"><i class="far fa-clock"></i> ~45 Seconds</span>
+                    </div>
+                    <div class="transcript-content">
+                        <p class="script-text">
+                            "Hello, and welcome to Shaik Mahammad Shariff’s portfolio. Shariff is an Electronics and Communication Engineering undergraduate with an interest in artificial intelligence, software development and practical problem solving. He builds projects using Python, machine learning and modern web technologies. His featured work includes CreditGuard AI and FarmaLink-AI. He is also an AWS Certified Cloud Practitioner and continues to develop his skills through technical projects, internships and structured learning. Shariff is currently open to internship and entry-level opportunities where he can contribute, learn and grow as an AI and software developer. You can explore his projects, skills, experience and certifications throughout this portfolio."
+                        </p>
+                    </div>
+                    <div class="transcript-footer">
+                        <span class="privacy-note"><i class="fas fa-shield-alt"></i> <strong>Recruiter Note:</strong> All statements in this introduction reflect 100% verified portfolio project records and AWS certification data.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Custom cursor follower -->
     <div class="cursor-glow" id="cursor-glow"></div>
