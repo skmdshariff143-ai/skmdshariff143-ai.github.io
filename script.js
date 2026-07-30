@@ -184,7 +184,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     let showAllCerts = false;
+    let totalPublishedCerts = 26;
     const certToggleBtn = document.getElementById('cert-toggle-btn');
+    const statCertCountEl = document.getElementById('stat-cert-count');
+
+    function updateCertToggleBtnText() {
+        if (certToggleBtn) {
+            certToggleBtn.innerHTML = showAllCerts
+                ? '<i class="fas fa-star"></i> Show Featured Only'
+                : `<i class="fas fa-th-list"></i> View All ${totalPublishedCerts} Certificates`;
+        }
+    }
 
     function applyCertFilters() {
         const certCards = document.querySelectorAll('#certificates .cert-card');
@@ -218,16 +228,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function formatCertDate(dateStr) {
+        if (!dateStr) return '';
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+            const parts = dateStr.split('-');
+            const year = parts[0];
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const month = monthNames[parseInt(parts[1], 10) - 1];
+            const day = parseInt(parts[2], 10);
+            return `${month} ${day}, ${year}`;
+        }
+        return dateStr;
+    }
+
     async function loadCertificatesFromJSON() {
         try {
             const res = await fetch('data/certificates.json');
             if (res.ok) {
                 const certs = await res.json();
                 if (certs && certs.length > 0 && certGrid) {
+                    const publishedCerts = certs.filter(cert => cert.published !== false);
+                    totalPublishedCerts = publishedCerts.length;
+
+                    if (statCertCountEl) {
+                        statCertCountEl.setAttribute('data-target', totalPublishedCerts);
+                        statCertCountEl.textContent = totalPublishedCerts;
+                    }
+
                     const emptyStateHTML = certEmptyState ? certEmptyState.outerHTML : '<div id="cert-empty-state" class="cert-empty-state" style="display: none;"><i class="fas fa-search-minus" style="font-size: 2rem; margin-bottom: 0.5rem; display: block;"></i>No certificates found matching your search.</div>';
 
-                    const cardsHTML = certs.map(cert => `
-                        <div class="cert-card" data-category="${cert.category}" data-featured="${cert.featured}">
+                    const cardsHTML = publishedCerts.map(cert => `
+                        <div class="cert-card" data-category="${cert.category}" data-featured="${cert.featured}" ${cert.credentialId ? `data-credential-id="${cert.credentialId}"` : ''}>
                             <div class="cert-preview">
                                 <img src="${cert.thumbnail}" alt="${cert.title} Certificate Preview" loading="lazy">
                                 <div class="cert-overlay"><span class="expand-btn" role="button" aria-label="Expand certificate preview" tabindex="0"><i class="fas fa-expand"></i></span></div>
@@ -235,9 +266,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="cert-body">
                                 <h3>${cert.title}</h3>
                                 <p class="cert-provider">${cert.issuer}</p>
-                                ${cert.date ? `<p class="cert-date"><i class="fas fa-calendar-alt"></i> ${cert.date}</p>` : ''}
+                                ${cert.date ? `<p class="cert-date"><i class="fas fa-calendar-alt"></i> ${formatCertDate(cert.date)}</p>` : ''}
+                                ${cert.expirationDate ? `<p class="cert-date cert-exp-date"><i class="fas fa-hourglass-end"></i> Expires: ${formatCertDate(cert.expirationDate)}</p>` : ''}
                                 <div class="cert-actions">
                                     <a href="${cert.certificateFile}" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-primary"><i class="fas fa-eye"></i> View Certificate</a>
+                                    ${cert.verificationUrl ? `<a href="${cert.verificationUrl}" target="_blank" rel="noopener noreferrer" class="cert-btn cert-btn-outline"><i class="fas fa-check-circle"></i> Verify Credential</a>` : ''}
                                 </div>
                             </div>
                         </div>
@@ -254,6 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn('Dynamic fetch for certificates.json skipped or failed; using static fallback', err);
         }
 
+        updateCertToggleBtnText();
         bindCertModalEvents();
         applyCertFilters();
     }
@@ -277,9 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (certToggleBtn) {
         certToggleBtn.addEventListener('click', () => {
             showAllCerts = !showAllCerts;
-            certToggleBtn.innerHTML = showAllCerts
-                ? '<i class="fas fa-star"></i> Show Featured Only'
-                : '<i class="fas fa-th-list"></i> View All 25 Certificates';
+            updateCertToggleBtnText();
             applyCertFilters();
         });
     }

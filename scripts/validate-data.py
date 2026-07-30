@@ -134,6 +134,31 @@ def validate_certificates(repo_root=REPO_ROOT):
 
                 errors.append(f"Entry {i} (ID: {cert_id}): Certificate file not found: {c_path}")
 
+        # Optional field validations
+        if "expirationDate" in cert:
+            exp_date = cert["expirationDate"]
+            if not isinstance(exp_date, str):
+                errors.append(f"Entry {i} (ID: {cert_id}): expirationDate must be a string")
+            else:
+                import re
+                if not re.match(r"^\d{4}-\d{2}-\d{2}$", exp_date):
+                    errors.append(f"Entry {i} (ID: {cert_id}): expirationDate '{exp_date}' must be in YYYY-MM-DD ISO format")
+
+        if "credentialId" in cert:
+            cred_id = cert["credentialId"]
+            if not isinstance(cred_id, str):
+                errors.append(f"Entry {i} (ID: {cert_id}): credentialId must be a string")
+
+        if "verificationUrl" in cert:
+            v_url = cert["verificationUrl"]
+            if not isinstance(v_url, str) or not v_url.startswith("https://"):
+                errors.append(f"Entry {i} (ID: {cert_id}): verificationUrl '{v_url}' must be a string starting with https://")
+
+        if "published" in cert:
+            pub = cert["published"]
+            if not isinstance(pub, bool):
+                errors.append(f"Entry {i} (ID: {cert_id}): published must be a boolean")
+
 
 
     return errors

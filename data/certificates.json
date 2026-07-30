@@ -1,5 +1,20 @@
 [
   {
+    "id": "aws-certified-cloud-practitioner",
+    "title": "AWS Certified Cloud Practitioner",
+    "issuer": "Amazon Web Services",
+    "date": "July 17, 2026",
+    "category": "cloud",
+    "thumbnail": "assets/certificate-thumbnails/aws-certified-cloud-practitioner-badge.webp",
+    "certificateFile": "assets/certificates/aws-certified-cloud-practitioner.jpg",
+    "featured": true,
+    "type": "professional-certification",
+    "expirationDate": "2029-07-17",
+    "credentialId": "59ea9ed98f8b47a680f32292e770b80d",
+    "verificationUrl": "https://aws.amazon.com/verification",
+    "published": true
+  },
+  {
     "id": "aws-data-engineering-virtual-internship",
     "title": "AWS Data Engineering Virtual Internship",
     "issuer": "EduSkills",
@@ -179,7 +194,7 @@
     "id": "problem-solving-using-python-boot-camp",
     "title": "Problem Solving using Python Boot Camp",
     "issuer": "VVIT & IETE Student Forum",
-    "date": "Jan 20 \u2013 25, 2025",
+    "date": "Jan 20 – 25, 2025",
     "category": "academic",
     "thumbnail": "assets/certificates/4.jpg",
     "certificateFile": "assets/certificates/boot-camp-certificate.pdf",
@@ -265,7 +280,7 @@
   },
   {
     "id": "aws-academy-graduate-data-engineering-trained-badge",
-    "title": "AWS Academy Graduate \u2014 Data Engineering (Trained Badge)",
+    "title": "AWS Academy Graduate — Data Engineering (Trained Badge)",
     "issuer": "AWS Academy",
     "date": null,
     "category": "cloud",
