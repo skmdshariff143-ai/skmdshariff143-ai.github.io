@@ -83,8 +83,12 @@
     <main>
         <!-- Hero Section -->
         <section id="hero" class="hero section">
-            <!-- 3D Particle Canvas Background -->
-            <canvas id="hero-particles" aria-hidden="true"></canvas>
+            <!-- WebGL 3D Intelligence Core Scene -->
+            <div id="hero-3d-scene" class="hero-3d-scene" data-renderer-status="loading" aria-hidden="true">
+                <canvas id="hero-3d-canvas" class="hero-3d-canvas" aria-hidden="true"></canvas>
+            </div>
+            <!-- 2D Particle Canvas Background Fallback -->
+            <canvas id="hero-particles" class="hero-particles" aria-hidden="true"></canvas>
             <div class="container hero-container">
                 <div class="hero-content">
                     <div class="hero-status-badge">
@@ -1277,6 +1281,8 @@
 
     <!-- Custom cursor follower -->
     <div class="cursor-glow" id="cursor-glow"></div>
+    <!-- Three.js WebGL Engine (Local ES Module v0.185.1) -->
+    <script type="module" src="assets/js/three-hero.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

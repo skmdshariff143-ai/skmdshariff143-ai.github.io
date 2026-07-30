@@ -15,6 +15,7 @@ Thumbs.db
 # Temp Files & Logs
 *.log
 *.tmp
+qa_results.json
 .tempmediaStorage/
 .gemini/
 

@@ -685,9 +685,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!aiGuideCard || !aiGuideUnminimizeBtn) return;
         let isMinimized = false;
         try {
-            isMinimized = sessionStorage.getItem('ai_guide_minimized') === 'true';
+            const stored = sessionStorage.getItem('ai_guide_minimized');
+            if (stored === null) {
+                // Default to compact state on small mobile viewports (< 400px) if user hasn't chosen
+                isMinimized = window.matchMedia('(max-width: 400px)').matches;
+            } else {
+                isMinimized = stored === 'true';
+            }
         } catch (e) {
             console.warn('sessionStorage not available:', e);
+            isMinimized = window.matchMedia('(max-width: 400px)').matches;
         }
 
         if (isMinimized) {
@@ -717,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (aiGuideUnminimizeBtn) {
         aiGuideUnminimizeBtn.addEventListener('click', () => {
             try {
-                sessionStorage.removeItem('ai_guide_minimized');
+                sessionStorage.setItem('ai_guide_minimized', 'false');
             } catch (e) {}
             updateWidgetMinState();
             announceState("AI Guide opened");
