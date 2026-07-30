@@ -2077,3 +2077,616 @@ img {
         gap: 0.3rem;
     }
 }
+
+/* ==========================================================================
+   Shariff's Anime-Style AI Guide Floating Character Component
+   ========================================================================== */
+.ai-guide-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 995;
+    max-width: 360px;
+    width: calc(100vw - 48px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.ai-guide-unminimize-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.1rem;
+    background: rgba(13, 17, 23, 0.92);
+    border: 1px solid var(--accent-teal);
+    border-radius: 30px;
+    color: var(--text-primary);
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-left: auto;
+}
+
+.ai-guide-unminimize-btn:hover, .ai-guide-unminimize-btn:focus-visible {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 229, 255, 0.4);
+    outline: 2px solid var(--accent-teal);
+    outline-offset: 2px;
+}
+
+.ai-guide-avatar-mini {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 229, 255, 0.15);
+    border: 1px solid var(--accent-teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-teal);
+    font-size: 1rem;
+}
+
+.mini-pulse-dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00e676;
+    box-shadow: 0 0 8px #00e676;
+    animation: miniPulse 2s infinite;
+}
+
+@keyframes miniPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.mini-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    letter-spacing: 0.3px;
+}
+
+.ai-guide-card {
+    background: rgba(13, 17, 23, 0.95);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 229, 255, 0.12);
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0;
+}
+
+.ai-guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(18, 22, 31, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ai-guide-identity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ai-guide-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    background: rgba(0, 229, 255, 0.15);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    color: var(--accent-teal);
+    text-transform: uppercase;
+}
+
+.ai-guide-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.ai-guide-header-actions {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.ai-guide-control-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.ai-guide-control-btn:hover, .ai-guide-control-btn:focus-visible {
+    background: rgba(0, 229, 255, 0.2);
+    border-color: var(--accent-teal);
+    color: #ffffff;
+    outline: 2px solid var(--accent-teal);
+    outline-offset: 1px;
+}
+
+.ai-guide-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+/* Avatar Box Container */
+.ai-guide-avatar-container {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, rgba(13, 24, 38, 0.8) 0%, rgba(10, 15, 25, 0.9) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.ai-guide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 12px;
+}
+
+/* Polished Tech Anime CSS Placeholder Avatar */
+.ai-guide-css-avatar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.anime-avatar-frame {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: guideFloat 4s ease-in-out infinite;
+}
+
+@keyframes guideFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.anime-head-shape {
+    position: relative;
+    width: 58px;
+    height: 58px;
+    background: linear-gradient(180deg, #111a2e 0%, #0d1526 100%);
+    border: 2px solid var(--accent-teal);
+    border-radius: 50% 50% 45% 45%;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.anime-hair-accent {
+    position: absolute;
+    top: -6px;
+    width: 44px;
+    height: 14px;
+    background: var(--accent-teal);
+    border-radius: 12px 12px 0 0;
+    clip-path: polygon(0% 100%, 25% 0%, 50% 60%, 75% 0%, 100% 100%);
+    opacity: 0.85;
+}
+
+.anime-visor-glow {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.anime-eye {
+    width: 10px;
+    height: 6px;
+    background: var(--accent-teal);
+    border-radius: 3px;
+    box-shadow: 0 0 8px var(--accent-teal);
+    animation: eyeBlink 5s infinite;
+}
+
+@keyframes eyeBlink {
+    0%, 94%, 98%, 100% { transform: scaleY(1); }
+    96% { transform: scaleY(0.1); }
+}
+
+.anime-headset-band {
+    position: absolute;
+    width: 66px;
+    height: 8px;
+    border-top: 2px solid #8b5cf6;
+    border-radius: 50%;
+    top: 14px;
+}
+
+.anime-mouth-area {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.anime-mouth-indicator {
+    width: 14px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.anime-waveform {
+    display: none;
+    align-items: center;
+    gap: 2px;
+    height: 10px;
+    margin-top: 2px;
+}
+
+.anime-waveform span {
+    display: block;
+    width: 2px;
+    height: 8px;
+    background: var(--accent-teal);
+    border-radius: 1px;
+    animation: wavePulse 0.8s ease-in-out infinite alternate;
+}
+
+.anime-waveform span:nth-child(2) { animation-delay: 0.2s; }
+.anime-waveform span:nth-child(3) { animation-delay: 0.4s; }
+.anime-waveform span:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes wavePulse {
+    0% { height: 3px; }
+    100% { height: 10px; }
+}
+
+.anime-shoulder-tech {
+    width: 76px;
+    height: 18px;
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.15), transparent);
+    border-top: 1px solid rgba(0, 229, 255, 0.3);
+    margin-top: 4px;
+    border-radius: 4px;
+}
+
+.avatar-holo-ring {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border: 1px dashed rgba(0, 229, 255, 0.2);
+    border-radius: 50%;
+    animation: holoRotate 15s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes holoRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* State Badge */
+.ai-guide-state-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    background: rgba(10, 15, 25, 0.85);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    backdrop-filter: blur(4px);
+}
+
+.state-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00e676;
+    box-shadow: 0 0 6px #00e676;
+}
+
+.is-speaking .state-dot {
+    background: var(--accent-teal);
+    box-shadow: 0 0 8px var(--accent-teal);
+    animation: statePulse 1s infinite alternate;
+}
+
+.is-speaking .anime-mouth-indicator {
+    display: none;
+}
+
+.is-speaking .anime-waveform {
+    display: flex;
+}
+
+.is-paused .state-dot {
+    background: #ffb300;
+    box-shadow: 0 0 6px #ffb300;
+}
+
+@keyframes statePulse {
+    0% { opacity: 0.5; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1.3); }
+}
+
+/* Dialog Box */
+.ai-guide-dialog-box {
+    background: rgba(18, 22, 31, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 0.75rem 0.85rem;
+}
+
+.ai-guide-greeting {
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.ai-disclaimer-notice {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.ai-disclaimer-notice i {
+    color: var(--accent-teal);
+}
+
+.ai-voice-warning {
+    font-size: 0.75rem;
+    color: #ffb300;
+    margin-top: 0.4rem;
+    padding: 0.35rem 0.5rem;
+    background: rgba(255, 179, 0, 0.1);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 179, 0, 0.2);
+}
+
+/* Control Buttons */
+.ai-guide-controls {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.btn-guide-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    cursor: pointer;
+    min-height: 36px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-guide-action:focus-visible {
+    outline: 2px solid var(--accent-teal);
+    outline-offset: 2px;
+}
+
+.btn-guide-action:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn-guide-primary {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.25), rgba(139, 92, 246, 0.25));
+    border-color: rgba(0, 229, 255, 0.4);
+    color: #ffffff;
+    flex: 1;
+    min-width: 95px;
+}
+
+.btn-guide-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.4), rgba(139, 92, 246, 0.4));
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+}
+
+.btn-guide-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+}
+
+.btn-guide-secondary:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-guide-danger {
+    background: rgba(255, 23, 68, 0.15);
+    border-color: rgba(255, 23, 68, 0.3);
+    color: #ff5252;
+}
+
+.btn-guide-danger:hover:not(:disabled) {
+    background: rgba(255, 23, 68, 0.3);
+    color: #ffffff;
+}
+
+.btn-guide-icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+}
+
+.btn-guide-icon:hover:not(:disabled) {
+    background: rgba(0, 229, 255, 0.15);
+    border-color: var(--accent-teal);
+    color: var(--accent-teal);
+}
+
+/* Inline Transcript Drawer */
+.ai-guide-transcript-inline {
+    background: rgba(10, 15, 25, 0.9);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.75rem;
+    max-height: 160px;
+    overflow-y: auto;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.inline-transcript-header h4 {
+    font-size: 0.82rem;
+    color: var(--accent-teal);
+    margin-bottom: 0.4rem;
+}
+
+/* Responsive Mobile & Touch Layout for AI Guide */
+@media (max-width: 768px) {
+    .ai-guide-widget {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        max-width: calc(100vw - 32px);
+        width: auto;
+        margin: 0 auto;
+    }
+
+    .btn-guide-action {
+        min-height: 44px;
+        padding: 0.5rem 0.85rem;
+        font-size: 0.85rem;
+    }
+
+    .btn-guide-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .ai-guide-control-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        font-size: 1rem;
+    }
+
+    .modal-close-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .ai-guide-unminimize-btn {
+        min-height: 44px;
+        padding: 0.6rem 1.2rem;
+    }
+
+    .ai-guide-avatar-container {
+        height: 110px;
+    }
+
+    .anime-avatar-frame {
+        transform: scale(0.85);
+    }
+}
+
+@media (pointer: coarse) {
+    .ai-guide-control-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .btn-guide-action {
+        min-height: 44px;
+    }
+
+    .btn-guide-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .modal-close-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .ai-guide-unminimize-btn {
+        min-height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .anime-avatar-frame,
+    .anime-eye,
+    .anime-waveform span,
+    .avatar-holo-ring,
+    .mini-pulse-dot {
+        animation: none !important;
+    }
+
+    .ai-guide-widget {
+        transition: none !important;
+    }
+}

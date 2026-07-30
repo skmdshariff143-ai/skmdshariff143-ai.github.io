@@ -636,7 +636,290 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ------------------------------------------------------------------
-       6. AI-Assisted Introduction Modal Controller (Transcript-Only Preview)
+       6. Shariff's Anime-Style AI Guide Controller & Web Speech API
+       ------------------------------------------------------------------ */
+    // Artwork Configuration Constant: Set to true ONLY when artwork assets (assets/ai-guide/shariff-ai-guide.webp) are physically added.
+    const ENABLE_AI_GUIDE_IMAGE_ARTWORK = false;
+
+    const aiGuideWidget = document.getElementById('ai-guide-widget');
+    const aiGuideCard = document.getElementById('ai-guide-card');
+    const aiGuideUnminimizeBtn = document.getElementById('ai-guide-unminimize-btn');
+    const aiGuideMinimizeBtn = document.getElementById('ai-guide-minimize-btn');
+    const aiGuideCloseBtn = document.getElementById('ai-guide-close-btn');
+
+    const aiGuideCssAvatar = document.getElementById('ai-guide-css-avatar');
+    const aiGuideAvatarBox = document.getElementById('ai-guide-avatar-box');
+    const aiGuideStateText = document.getElementById('ai-guide-state-text');
+    const aiGuideLiveRegion = document.getElementById('ai-guide-live-region');
+
+    const aiPlayBtn = document.getElementById('ai-play-btn');
+    const aiPlayBtnText = document.getElementById('ai-play-btn-text');
+    const aiPauseBtn = document.getElementById('ai-pause-btn');
+    const aiPauseBtnText = document.getElementById('ai-pause-btn-text');
+    const aiStopBtn = document.getElementById('ai-stop-btn');
+    const aiMuteBtn = document.getElementById('ai-mute-btn');
+    const aiMuteIcon = document.getElementById('ai-mute-icon');
+    const aiTranscriptToggleBtn = document.getElementById('ai-transcript-toggle-btn');
+    const aiTranscriptInline = document.getElementById('ai-guide-transcript-inline');
+    const aiVoiceWarning = document.getElementById('ai-voice-warning');
+
+    const scriptText = "Hello, and welcome to Shaik Mahammad Shariff’s portfolio. Shariff is an Electronics and Communication Engineering undergraduate with an interest in artificial intelligence, software development and practical problem solving. He builds projects using Python, machine learning and modern web technologies. His featured work includes CreditGuard AI and FarmaLink-AI. He is also an AWS Certified Cloud Practitioner and continues to develop his skills through technical projects, internships and structured learning. Shariff is currently open to internship and entry-level opportunities where he can contribute, learn and grow as an AI and software developer. You can explore his projects, skills, experience and certifications throughout this portfolio.";
+
+    let isMuted = false;
+    let isSpeaking = false;
+    let currentUtterance = null;
+    let selectedVoice = null;
+
+    // Check reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Announce to Screen Readers via Live Region
+    function announceState(message) {
+        if (aiGuideLiveRegion) {
+            aiGuideLiveRegion.textContent = message;
+        }
+    }
+
+    // Minimized State (sessionStorage with safe try/catch)
+    function updateWidgetMinState() {
+        if (!aiGuideCard || !aiGuideUnminimizeBtn) return;
+        let isMinimized = false;
+        try {
+            isMinimized = sessionStorage.getItem('ai_guide_minimized') === 'true';
+        } catch (e) {
+            console.warn('sessionStorage not available:', e);
+        }
+
+        if (isMinimized) {
+            aiGuideCard.hidden = true;
+            aiGuideCard.style.display = 'none';
+            aiGuideCard.setAttribute('aria-hidden', 'true');
+            aiGuideUnminimizeBtn.hidden = false;
+        } else {
+            aiGuideCard.hidden = false;
+            aiGuideCard.style.display = 'block';
+            aiGuideCard.setAttribute('aria-hidden', 'false');
+            aiGuideUnminimizeBtn.hidden = true;
+        }
+    }
+
+    if (aiGuideMinimizeBtn) {
+        aiGuideMinimizeBtn.addEventListener('click', () => {
+            stopSpeech();
+            try {
+                sessionStorage.setItem('ai_guide_minimized', 'true');
+            } catch (e) {}
+            updateWidgetMinState();
+            announceState("AI Guide minimized");
+        });
+    }
+
+    if (aiGuideUnminimizeBtn) {
+        aiGuideUnminimizeBtn.addEventListener('click', () => {
+            try {
+                sessionStorage.removeItem('ai_guide_minimized');
+            } catch (e) {}
+            updateWidgetMinState();
+            announceState("AI Guide opened");
+        });
+    }
+
+    if (aiGuideCloseBtn) {
+        aiGuideCloseBtn.addEventListener('click', () => {
+            stopSpeech();
+            if (aiGuideWidget) {
+                aiGuideWidget.style.display = 'none';
+            }
+            announceState("AI Guide closed");
+        });
+    }
+
+    // Web Speech API Voice Initialization
+    function initSpeechSynthesis() {
+        if (!('speechSynthesis' in window)) {
+            if (aiVoiceWarning) aiVoiceWarning.style.display = 'block';
+            if (aiTranscriptInline) aiTranscriptInline.style.display = 'block';
+            if (aiPlayBtn) aiPlayBtn.disabled = true;
+            return false;
+        }
+
+        const populateVoices = () => {
+            const voices = window.speechSynthesis.getVoices();
+            if (voices && voices.length > 0) {
+                selectedVoice = voices.find(v => (v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Daniel'))))
+                             || voices.find(v => v.lang.startsWith('en'))
+                             || voices[0];
+            }
+        };
+
+        populateVoices();
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = populateVoices;
+        }
+        return true;
+    }
+
+    // Update Visual Speaking Animations
+    function setSpeakingVisualState(speaking, paused = false) {
+        isSpeaking = speaking;
+        if (!aiGuideAvatarBox) return;
+
+        if (prefersReducedMotion) {
+            aiGuideAvatarBox.classList.remove('is-speaking', 'is-paused');
+            if (aiGuideStateText) aiGuideStateText.textContent = speaking ? (paused ? 'Paused' : 'Speaking') : 'Ready';
+            return;
+        }
+
+        if (speaking) {
+            if (paused) {
+                aiGuideAvatarBox.classList.remove('is-speaking');
+                aiGuideAvatarBox.classList.add('is-paused');
+                if (aiGuideStateText) aiGuideStateText.textContent = 'Paused';
+            } else {
+                aiGuideAvatarBox.classList.remove('is-paused');
+                aiGuideAvatarBox.classList.add('is-speaking');
+                if (aiGuideStateText) aiGuideStateText.textContent = 'Speaking...';
+            }
+        } else {
+            aiGuideAvatarBox.classList.remove('is-speaking', 'is-paused');
+            if (aiGuideStateText) aiGuideStateText.textContent = 'Ready';
+        }
+    }
+
+    function playSpeech() {
+        if (!('speechSynthesis' in window)) return;
+
+        if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+            setSpeakingVisualState(true, false);
+            if (aiPauseBtn) aiPauseBtn.disabled = false;
+            if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
+            if (aiStopBtn) aiStopBtn.disabled = false;
+            announceState("Speech resumed");
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        currentUtterance = new SpeechSynthesisUtterance(scriptText);
+        if (selectedVoice) currentUtterance.voice = selectedVoice;
+        currentUtterance.rate = 1.0;
+        currentUtterance.pitch = 1.0;
+        currentUtterance.volume = isMuted ? 0 : 1.0;
+
+        currentUtterance.onstart = () => {
+            setSpeakingVisualState(true, false);
+            if (aiPauseBtn) aiPauseBtn.disabled = false;
+            if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
+            if (aiStopBtn) aiStopBtn.disabled = false;
+            if (aiPlayBtnText) aiPlayBtnText.textContent = 'Replay';
+            announceState("AI Guide started speaking introduction");
+        };
+
+        currentUtterance.onend = () => {
+            setSpeakingVisualState(false);
+            if (aiPauseBtn) aiPauseBtn.disabled = true;
+            if (aiStopBtn) aiStopBtn.disabled = true;
+            if (aiPlayBtnText) aiPlayBtnText.textContent = 'Replay';
+            announceState("Introduction speech completed");
+        };
+
+        currentUtterance.onerror = (e) => {
+            console.warn('Speech synthesis playback note:', e);
+            setSpeakingVisualState(false);
+            if (aiPauseBtn) aiPauseBtn.disabled = true;
+            if (aiStopBtn) aiStopBtn.disabled = true;
+        };
+
+        currentUtterance.onpause = () => {
+            setSpeakingVisualState(true, true);
+            if (aiPauseBtnText) aiPauseBtnText.textContent = 'Resume';
+            announceState("Speech paused");
+        };
+
+        currentUtterance.onresume = () => {
+            setSpeakingVisualState(true, false);
+            if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
+            announceState("Speech resumed");
+        };
+
+        window.speechSynthesis.speak(currentUtterance);
+    }
+
+    function pauseSpeech() {
+        if (!('speechSynthesis' in window)) return;
+        if (window.speechSynthesis.speaking) {
+            if (window.speechSynthesis.paused) {
+                window.speechSynthesis.resume();
+                setSpeakingVisualState(true, false);
+                if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
+                announceState("Speech resumed");
+            } else {
+                window.speechSynthesis.pause();
+                setSpeakingVisualState(true, true);
+                if (aiPauseBtnText) aiPauseBtnText.textContent = 'Resume';
+                announceState("Speech paused");
+            }
+        }
+    }
+
+    function stopSpeech() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+        setSpeakingVisualState(false);
+        if (aiPauseBtn) aiPauseBtn.disabled = true;
+        if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
+        if (aiStopBtn) aiStopBtn.disabled = true;
+        if (aiPlayBtnText) aiPlayBtnText.textContent = 'Play Intro';
+        if (aiGuideStateText) aiGuideStateText.textContent = 'Stopped';
+        announceState("Speech stopped");
+    }
+
+    function toggleMute() {
+        isMuted = !isMuted;
+        if (aiMuteIcon) {
+            aiMuteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+        }
+        if (currentUtterance && 'speechSynthesis' in window && window.speechSynthesis.speaking) {
+            currentUtterance.volume = isMuted ? 0 : 1.0;
+        }
+        announceState(isMuted ? "Audio muted" : "Audio unmuted");
+    }
+
+    if (aiPlayBtn) aiPlayBtn.addEventListener('click', playSpeech);
+    if (aiPauseBtn) aiPauseBtn.addEventListener('click', pauseSpeech);
+    if (aiStopBtn) aiStopBtn.addEventListener('click', stopSpeech);
+    if (aiMuteBtn) aiMuteBtn.addEventListener('click', toggleMute);
+
+    if (aiTranscriptToggleBtn && aiTranscriptInline) {
+        aiTranscriptToggleBtn.addEventListener('click', () => {
+            const isShown = aiTranscriptInline.style.display !== 'none';
+            aiTranscriptInline.style.display = isShown ? 'none' : 'block';
+            announceState(isShown ? "Transcript hidden" : "Transcript shown");
+        });
+    }
+
+    // Stop speech when tab is hidden or page is unloaded
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopSpeech();
+        }
+    });
+
+    window.addEventListener('beforeunload', () => {
+        stopSpeech();
+    });
+
+    window.addEventListener('pagehide', () => {
+        stopSpeech();
+    });
+
+    updateWidgetMinState();
+    initSpeechSynthesis();
+
+    /* ------------------------------------------------------------------
+       7. AI-Assisted Introduction Modal Controller
        ------------------------------------------------------------------ */
     const btnOpenIntro = document.getElementById('btn-open-intro');
     const btnCloseIntro = document.getElementById('btn-close-intro');
@@ -645,13 +928,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let previouslyFocusedElement = null;
 
     if (introModal && btnOpenIntro) {
-        const openModal = () => {
+        const openModal = (e) => {
             previouslyFocusedElement = (document.activeElement && document.activeElement !== document.body)
                 ? document.activeElement
                 : btnOpenIntro;
             introModal.hidden = false;
             introModal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
+
+            // Unminimize guide widget if user clicked hero intro button
+            try {
+                sessionStorage.removeItem('ai_guide_minimized');
+            } catch (err) {}
+            updateWidgetMinState();
+
+            // Trigger single shared speech controller ONLY on direct user click event
+            if (e && e.isTrusted) {
+                playSpeech();
+            }
 
             if (btnCloseIntro) {
                 btnCloseIntro.focus();
@@ -662,6 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const closeModal = () => {
+            stopSpeech();
             introModal.hidden = true;
             introModal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
