@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (node.y < 0 || node.y > height) node.vy *= -1;
                 }
 
-                const currentRadius = node.radius + Math.sin(node.pulse) * 0.7;
+                const currentRadius = node.radius;
 
                 // Node Glow
                 ctx.beginPath();
@@ -567,10 +567,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         ctx.strokeStyle = `rgba(0, 229, 255, ${alpha})`;
                         ctx.lineWidth = 0.8;
                         ctx.stroke();
-
-                        if (!mediaQuery.matches) {
-                            createPulse(node, other);
-                        }
                     }
                 }
             }

@@ -2188,12 +2188,7 @@ img {
     border-radius: 50%;
     background: #00e676;
     box-shadow: 0 0 8px #00e676;
-    animation: miniPulse 2s infinite;
-}
-
-@keyframes miniPulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.4); opacity: 0.6; }
+    animation: none;
 }
 
 .mini-label {
@@ -2450,7 +2445,7 @@ img {
     transform: rotate(45deg);
     border-radius: 12px;
     box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
-    animation: prismFloat 4s ease-in-out infinite alternate;
+    animation: none;
 }
 
 @keyframes prismFloat {
