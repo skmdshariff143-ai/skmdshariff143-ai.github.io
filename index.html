@@ -135,114 +135,72 @@
             </div>
         </section>
 
-        <!-- Floating AI Guide Character Widget -->
-        <aside id="ai-guide-widget" class="ai-guide-widget" aria-label="Shariff's AI Guide" role="region">
-            <!-- Screen Reader Announcement Region -->
-            <div id="ai-guide-live-region" class="sr-only" aria-live="polite"></div>
-
-            <!-- Minimized Trigger Button -->
-            <button type="button" id="ai-guide-unminimize-btn" class="ai-guide-unminimize-btn" aria-label="Open Shariff's AI Guide" title="Shariff's AI Guide" hidden>
-                <div class="ai-guide-avatar-mini">
-                    <i class="fas fa-robot"></i>
-                    <span class="mini-pulse-dot"></span>
-                </div>
-                <span class="mini-label">AI Guide</span>
-            </button>
-
-            <!-- Main Floating AI Guide Card -->
-            <div id="ai-guide-card" class="ai-guide-card card">
-                <!-- Header -->
-                <div class="ai-guide-header">
-                    <div class="ai-guide-identity">
-                        <span class="ai-guide-badge"><i class="fas fa-sparkles"></i> AI Guide</span>
-                        <h3 class="ai-guide-title">Shariff’s AI Guide</h3>
-                    </div>
-                    <div class="ai-guide-header-actions">
-                        <button type="button" id="ai-guide-minimize-btn" class="ai-guide-control-btn" aria-label="Minimize AI Guide" title="Minimize AI Guide">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" id="ai-guide-close-btn" class="ai-guide-control-btn" aria-label="Close AI Guide" title="Close AI Guide">
-                            <i class="fas fa-times"></i>
+        <!-- AI Innovation Observatory Evidence Panel -->
+        <section id="observatory-panel-section" class="observatory-panel-section" aria-label="AI Innovation Observatory">
+            <div class="container">
+                <div id="observatory-panel" class="observatory-panel">
+                    <div id="observatory-live-region" class="sr-only" aria-live="polite"></div>
+                    <div class="observatory-header">
+                        <div>
+                            <span class="observatory-badge" id="observatory-evidence-badge">Node 1 of 3 • AI & Machine Learning</span>
+                            <h3 class="observatory-title" id="observatory-evidence-title">AI & Machine Learning</h3>
+                            <p class="observatory-subtitle" id="observatory-evidence-subtitle">Predictive Modeling & Neural Workflows</p>
+                        </div>
+                        <button type="button" id="btn-toggle-motion" class="effect-toggle-btn" aria-label="Toggle Reduced Motion">
+                            <i class="fas fa-magic"></i> <span id="motion-toggle-text">Motion Effects: On</span>
                         </button>
                     </div>
-                </div>
 
-                <!-- Body -->
-                <div class="ai-guide-body">
-                    <div class="ai-guide-avatar-container" id="ai-guide-avatar-box">
-                        <!-- Polished Tech Anime Avatar Silhouette Placeholder (CSS-based) -->
-                        <div class="ai-guide-css-avatar" id="ai-guide-css-avatar">
-                            <div class="anime-avatar-frame">
-                                <div class="anime-head-shape">
-                                    <div class="anime-hair-accent"></div>
-                                    <div class="anime-visor-glow">
-                                        <div class="anime-eye left"></div>
-                                        <div class="anime-eye right"></div>
-                                    </div>
-                                    <div class="anime-headset-band"></div>
-                                    <div class="anime-mouth-area">
-                                        <span class="anime-mouth-indicator" id="ai-guide-mouth"></span>
-                                        <div class="anime-waveform" id="ai-guide-waveform" aria-hidden="true">
-                                            <span></span><span></span><span></span><span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="anime-shoulder-tech"></div>
+                    <!-- Interactive Node Selector Buttons -->
+                    <div id="observatory-node-selector" class="observatory-node-selector" role="tablist" aria-label="Select Technical Observatory Node">
+                        <button type="button" class="observatory-node-btn active" role="tab" aria-selected="true" aria-controls="observatory-evidence-list" tabindex="0">
+                            <i class="fas fa-brain node-btn-icon" style="color: #00f2fe;"></i>
+                            <span>AI & Machine Learning</span>
+                        </button>
+                        <button type="button" class="observatory-node-btn" role="tab" aria-selected="false" aria-controls="observatory-evidence-list" tabindex="-1">
+                            <i class="fas fa-code node-btn-icon" style="color: #00f5a0;"></i>
+                            <span>Software Engineering</span>
+                        </button>
+                        <button type="button" class="observatory-node-btn" role="tab" aria-selected="false" aria-controls="observatory-evidence-list" tabindex="-1">
+                            <i class="fab fa-aws node-btn-icon" style="color: #ffb703;"></i>
+                            <span>AWS & Cloud</span>
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Evidence List Grid -->
+                    <div id="observatory-evidence-list" class="observatory-evidence-list" role="tabpanel">
+                        <div class="evidence-card-item">
+                            <div class="evidence-item-icon" style="color: #00f2fe">
+                                <i class="fas fa-check-circle"></i>
                             </div>
-                            <div class="avatar-holo-ring"></div>
+                            <div class="evidence-item-content">
+                                <h4 class="evidence-item-title">CreditGuard AI</h4>
+                                <p class="evidence-item-desc">Financial Risk Assessment Platform</p>
+                            </div>
                         </div>
-
-                        <!-- Wave / State Badge -->
-                        <div class="ai-guide-state-badge" id="ai-guide-state-badge">
-                            <span class="state-dot"></span> <span id="ai-guide-state-text">Ready</span>
+                        <div class="evidence-card-item">
+                            <div class="evidence-item-icon" style="color: #00f2fe">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="evidence-item-content">
+                                <h4 class="evidence-item-title">Core Stack</h4>
+                                <p class="evidence-item-desc">Python, Scikit-learn, XGBoost, Pandas</p>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Greeting / Status & Audio Disclaimer -->
-                    <div class="ai-guide-dialog-box">
-                        <p class="ai-guide-greeting" id="ai-guide-greeting">
-                            Hi! I’m Shariff’s AI guide. Would you like a quick introduction?
-                        </p>
-                        <div class="ai-disclaimer-notice">
-                            <i class="fas fa-info-circle"></i>
-                            <span>AI-generated narration using your browser’s available voice.</span>
+                        <div class="evidence-card-item">
+                            <div class="evidence-item-icon" style="color: #00f2fe">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="evidence-item-content">
+                                <h4 class="evidence-item-title">Focus Areas</h4>
+                                <p class="evidence-item-desc">Predictive modeling, data preprocessing, feature engineering</p>
+                            </div>
                         </div>
-                        <div class="ai-voice-warning" id="ai-voice-warning" style="display: none;">
-                            <i class="fas fa-volume-mute"></i> Speech synthesis is unavailable in your browser. Complete verified transcript is shown below.
-                        </div>
-                    </div>
-
-                    <!-- Speech Controls -->
-                    <div class="ai-guide-controls">
-                        <button type="button" id="ai-play-btn" class="btn-guide-action btn-guide-primary" aria-label="Play Introduction">
-                            <i class="fas fa-play"></i> <span id="ai-play-btn-text">Play Intro</span>
-                        </button>
-                        <button type="button" id="ai-pause-btn" class="btn-guide-action btn-guide-secondary" aria-label="Pause or Resume Speech" disabled>
-                            <i class="fas fa-pause"></i> <span id="ai-pause-btn-text">Pause</span>
-                        </button>
-                        <button type="button" id="ai-stop-btn" class="btn-guide-action btn-guide-danger" aria-label="Stop Speech" disabled>
-                            <i class="fas fa-stop"></i> <span>Stop</span>
-                        </button>
-                        <button type="button" id="ai-mute-btn" class="btn-guide-action btn-guide-icon" aria-label="Toggle Mute" title="Mute or Unmute">
-                            <i class="fas fa-volume-up" id="ai-mute-icon"></i>
-                        </button>
-                        <button type="button" id="ai-transcript-toggle-btn" class="btn-guide-action btn-guide-secondary" aria-label="Toggle Transcript View">
-                            <i class="fas fa-file-alt"></i> <span>Transcript</span>
-                        </button>
-                    </div>
-
-                    <!-- Expandable Inline Transcript Container -->
-                    <div class="ai-guide-transcript-inline" id="ai-guide-transcript-inline" style="display: none;">
-                        <div class="inline-transcript-header">
-                            <h4><i class="fas fa-align-left"></i> Verified Introduction Script</h4>
-                        </div>
-                        <p class="script-text">
-                            "Hello, and welcome to Shaik Mahammad Shariff’s portfolio. Shariff is an Electronics and Communication Engineering undergraduate with an interest in artificial intelligence, software development and practical problem solving. He builds projects using Python, machine learning and modern web technologies. His featured work includes CreditGuard AI and FarmaLink-AI. He is also an AWS Certified Cloud Practitioner and continues to develop his skills through technical projects, internships and structured learning. Shariff is currently open to internship and entry-level opportunities where he can contribute, learn and grow as an AI and software developer. You can explore his projects, skills, experience and certifications throughout this portfolio."
-                        </p>
                     </div>
                 </div>
             </div>
-        </aside>
+        </section>
+
 
         <!-- About Section -->
         <section id="about" class="about section">
@@ -1281,8 +1239,14 @@
 
     <!-- Custom cursor follower -->
     <div class="cursor-glow" id="cursor-glow"></div>
-    <!-- Three.js WebGL Engine (Local ES Module v0.185.1) -->
-    <script type="module" src="assets/js/three-hero.js"></script>
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- AI Innovation Observatory & Motion Modules -->
+    <script src="assets/js/observatory-scene.js"></script>
+    <script src="assets/js/observatory-interactions.js"></script>
+    <script src="assets/js/portfolio-motion.js"></script>
+    <!-- Main Application Script -->
     <script src="script.js"></script>
+
 </body>
 </html>
