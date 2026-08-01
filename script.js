@@ -191,40 +191,51 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCertToggleBtnText() {
         if (certToggleBtn) {
             certToggleBtn.innerHTML = showAllCerts
-                ? '<i class="fas fa-star"></i> Show Featured Only'
-                : `<i class="fas fa-th-list"></i> View All ${totalPublishedCerts} Certificates`;
+                ? '<i class="fas fa-chevron-up"></i> Show Less'
+                : `<i class="fas fa-th-list"></i> Show All Certifications (${totalPublishedCerts})`;
+            certToggleBtn.setAttribute('aria-expanded', showAllCerts ? 'true' : 'false');
         }
     }
 
     function applyCertFilters() {
         const certCards = document.querySelectorAll('#certificates .cert-card');
-        let visibleCount = 0;
+        let matchingCount = 0;
 
         certCards.forEach(card => {
             const category = card.dataset.category || 'all';
-            const isFeatured = card.dataset.featured === 'true';
             const titleEl = card.querySelector('h3');
             const providerEl = card.querySelector('.cert-provider');
             const cardText = ((titleEl ? titleEl.textContent : '') + ' ' + (providerEl ? providerEl.textContent : '')).toLowerCase();
 
             const matchesCategory = (activeFilter === 'all' || category === activeFilter);
             const matchesSearch = (!searchQuery || cardText.includes(searchQuery));
-            const matchesVisibility = (showAllCerts || activeFilter !== 'all' || searchQuery !== '' || isFeatured);
 
-            if (matchesCategory && matchesSearch && matchesVisibility) {
-                card.style.display = '';
-                visibleCount++;
+            if (matchesCategory && matchesSearch) {
+                matchingCount++;
+                if (showAllCerts || matchingCount <= 9) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
             } else {
                 card.style.display = 'none';
             }
         });
 
         if (certCountNum) {
-            certCountNum.textContent = visibleCount;
+            certCountNum.textContent = matchingCount;
         }
 
         if (certEmptyState) {
-            certEmptyState.style.display = (visibleCount === 0) ? 'block' : 'none';
+            certEmptyState.style.display = (matchingCount === 0) ? 'block' : 'none';
+        }
+
+        if (certToggleBtn) {
+            if (matchingCount <= 9) {
+                certToggleBtn.style.display = 'none';
+            } else {
+                certToggleBtn.style.display = '';
+            }
         }
     }
 
@@ -248,6 +259,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const certs = await res.json();
                 if (certs && certs.length > 0 && certGrid) {
                     const publishedCerts = certs.filter(cert => cert.published !== false);
+                    publishedCerts.sort((a, b) => {
+                        const aFeat = (a.featured === true || a.featured === 'true');
+                        const bFeat = (b.featured === true || b.featured === 'true');
+                        if (aFeat && !bFeat) return -1;
+                        if (!aFeat && bFeat) return 1;
+                        return 0;
+                    });
                     totalPublishedCerts = publishedCerts.length;
 
                     if (statCertCountEl) {
@@ -1048,13 +1066,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     if (formStatus) {
                         formStatus.style.color = '#ff1744'; // error red
-                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:sk.md.shariff143@gmail.com" style="color: var(--accent-teal); text-decoration: underline;">sk.md.shariff143@gmail.com</a> instead.';
                     }
                 }
             } catch (error) {
                 if (formStatus) {
                     formStatus.style.color = '#ff1744';
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:sk.md.shariff143@gmail.com" style="color: var(--accent-teal); text-decoration: underline;">sk.md.shariff143@gmail.com</a> instead.';
                 }
             }
         });
