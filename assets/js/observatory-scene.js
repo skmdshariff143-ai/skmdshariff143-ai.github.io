@@ -1,5 +1,5 @@
 /**
- * The AI Innovation Observatory — 3D Scene Module ("AI Systems Constellation")
+ * AI Holographic Command Center — 3D Scene Module
  * Powered by Three.js
  * Author: Shaik Mahammad Shariff Portfolio
  */
@@ -17,8 +17,8 @@
                 id: 'ai-ml',
                 name: 'AI & Machine Learning',
                 subtitle: 'Predictive Modeling & Neural Workflows',
-                color: 0x00f2fe,
-                accentHex: '#00f2fe',
+                color: 0x00e5ff,
+                accentHex: '#00e5ff',
                 proofs: [
                     { title: 'CreditGuard AI', desc: 'Financial Risk Assessment Platform' },
                     { title: 'Core Stack', desc: 'Python, Scikit-learn, XGBoost, Pandas' },
@@ -29,8 +29,8 @@
                 id: 'software-eng',
                 name: 'Software Engineering',
                 subtitle: 'Full-Stack Architecture & Web Systems',
-                color: 0x00f5a0,
-                accentHex: '#00f5a0',
+                color: 0x4f7cff,
+                accentHex: '#4f7cff',
                 proofs: [
                     { title: 'FarmaLink-AI', desc: 'Agricultural Tech & Marketplace Platform' },
                     { title: 'Core Stack', desc: 'Java, JavaScript/TypeScript, React/Next.js, Node.js' },
@@ -41,8 +41,8 @@
                 id: 'aws-cloud',
                 name: 'AWS & Cloud',
                 subtitle: 'Certified Cloud & Data Engineering',
-                color: 0xffb703,
-                accentHex: '#ffb703',
+                color: 0x8b5cf6,
+                accentHex: '#8b5cf6',
                 proofs: [
                     { title: 'AWS Certification', desc: 'AWS Certified Cloud Practitioner (Verified)' },
                     { title: 'Virtual Internship', desc: 'AWS Data Engineering & Cloud Exposure' },
@@ -100,9 +100,10 @@
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         let scene, camera, renderer;
-        let mainConstellationGroup, innerFacetedCore, outerWireframeShell, dataHaloRing;
+        let commandCenterGroup, neuralCoreGroup, innerMetallicCore, outerNeuralCage, dataRingPrimary, dataRingSecondary;
+        let workstationGrid, hudPanelsGroup = [];
         let orbitalGroup, nodeMeshes = [], orbitRings = [];
-        let circuitGrid, starfieldParticles, dataPulseSignals = [];
+        let starfieldParticles, dataPulseSignals = [];
         let ambientLight, pointLightCyan, pointLightViolet, directionalLight;
         let animationFrameId;
         let isPaused = false;
@@ -111,11 +112,11 @@
 
         try {
             scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x0c101d, 0.035);
+            scene.fog = new THREE.FogExp2(0x05070d, 0.03);
 
             const aspect = container.clientWidth / container.clientHeight || 1;
             camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
-            camera.position.set(0, 0.5, 6.5);
+            camera.position.set(0, 0.4, 6.8);
 
             renderer = new THREE.WebGLRenderer({
                 canvas: canvas,
@@ -128,69 +129,85 @@
             renderer.setPixelRatio(maxPixelRatio);
             renderer.setSize(container.clientWidth, container.clientHeight);
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.2;
+            renderer.toneMappingExposure = 1.25;
 
             // STABLE CONSTANT LIGHTING SETUP (No intensity oscillation)
-            ambientLight = new THREE.AmbientLight(0x1a2638, 1.5);
+            ambientLight = new THREE.AmbientLight(0x0b1220, 1.8);
             scene.add(ambientLight);
 
-            pointLightCyan = new THREE.PointLight(0x00f2fe, 3.0, 12);
-            pointLightCyan.position.set(-3, 2, 3);
+            pointLightCyan = new THREE.PointLight(0x00e5ff, 3.2, 14);
+            pointLightCyan.position.set(-3.5, 2.5, 3.5);
             scene.add(pointLightCyan);
 
-            pointLightViolet = new THREE.PointLight(0x7f00ff, 3.0, 12);
-            pointLightViolet.position.set(3, -2, 2);
+            pointLightViolet = new THREE.PointLight(0x8b5cf6, 3.2, 14);
+            pointLightViolet.position.set(3.5, -2.5, 2.5);
             scene.add(pointLightViolet);
 
-            directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
-            directionalLight.position.set(0, 5, 5);
+            directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+            directionalLight.position.set(0, 6, 6);
             scene.add(directionalLight);
 
-            // 1. Central AI Intelligence Structure
-            mainConstellationGroup = new THREE.Group();
-            scene.add(mainConstellationGroup);
+            // Master Group for 3D Holographic Command Center
+            commandCenterGroup = new THREE.Group();
+            scene.add(commandCenterGroup);
+
+            // 1. Central Neural Core (AI Command Center Heart)
+            neuralCoreGroup = new THREE.Group();
+            commandCenterGroup.add(neuralCoreGroup);
 
             // Inner Faceted Metallic Core
-            const coreGeo = new THREE.IcosahedronGeometry(1.1, 0);
+            const coreGeo = new THREE.IcosahedronGeometry(0.95, 1);
             const coreMat = new THREE.MeshStandardMaterial({
-                color: 0x0a1628,
-                metalness: 0.85,
-                roughness: 0.2,
-                emissive: 0x00f2fe,
-                emissiveIntensity: 0.15
+                color: 0x07111e,
+                metalness: 0.9,
+                roughness: 0.15,
+                emissive: 0x00e5ff,
+                emissiveIntensity: 0.25
             });
-            innerFacetedCore = new THREE.Mesh(coreGeo, coreMat);
-            mainConstellationGroup.add(innerFacetedCore);
+            innerMetallicCore = new THREE.Mesh(coreGeo, coreMat);
+            neuralCoreGroup.add(innerMetallicCore);
 
-            // Cyan Wireframe Intelligence Shell
-            const shellGeo = new THREE.IcosahedronGeometry(1.4, 1);
-            const shellMat = new THREE.MeshBasicMaterial({
-                color: 0x00f2fe,
+            // Holographic Neural Outer Cage
+            const cageGeo = new THREE.DodecahedronGeometry(1.35, 1);
+            const cageMat = new THREE.MeshBasicMaterial({
+                color: 0x00e5ff,
                 wireframe: true,
                 transparent: true,
                 opacity: 0.35
             });
-            outerWireframeShell = new THREE.Mesh(shellGeo, shellMat);
-            mainConstellationGroup.add(outerWireframeShell);
+            outerNeuralCage = new THREE.Mesh(cageGeo, cageMat);
+            neuralCoreGroup.add(outerNeuralCage);
 
-            // Thin Data Halo Ring
-            const haloGeo = new THREE.TorusGeometry(1.85, 0.015, 16, 64);
-            const haloMat = new THREE.MeshBasicMaterial({
+            // Primary Glowing Data Ring
+            const ringGeo1 = new THREE.TorusGeometry(1.75, 0.018, 16, 64);
+            const ringMat1 = new THREE.MeshBasicMaterial({
                 color: 0x00e5ff,
                 transparent: true,
-                opacity: 0.5
+                opacity: 0.55
             });
-            dataHaloRing = new THREE.Mesh(haloGeo, haloMat);
-            dataHaloRing.rotation.x = Math.PI / 3;
-            mainConstellationGroup.add(dataHaloRing);
+            dataRingPrimary = new THREE.Mesh(ringGeo1, ringMat1);
+            dataRingPrimary.rotation.x = Math.PI / 3;
+            neuralCoreGroup.add(dataRingPrimary);
 
-            // Inner Core Point Cloud
-            const corePointCount = tier === 'high' ? 300 : 150;
-            totalParticleCount += corePointCount;
+            // Secondary Violet Data Ring
+            const ringGeo2 = new THREE.TorusGeometry(2.1, 0.012, 16, 64);
+            const ringMat2 = new THREE.MeshBasicMaterial({
+                color: 0x8b5cf6,
+                transparent: true,
+                opacity: 0.4
+            });
+            dataRingSecondary = new THREE.Mesh(ringGeo2, ringMat2);
+            dataRingSecondary.rotation.x = -Math.PI / 4;
+            dataRingSecondary.rotation.y = Math.PI / 6;
+            neuralCoreGroup.add(dataRingSecondary);
+
+            // Inner Neural Point Cloud
+            const neuralPointCount = tier === 'high' ? 350 : 180;
+            totalParticleCount += neuralPointCount;
             const pointsGeo = new THREE.BufferGeometry();
-            const positions = new Float32Array(corePointCount * 3);
-            for (let i = 0; i < corePointCount * 3; i += 3) {
-                const r = 0.9 * Math.cbrt(Math.random());
+            const positions = new Float32Array(neuralPointCount * 3);
+            for (let i = 0; i < neuralPointCount * 3; i += 3) {
+                const r = 0.85 * Math.cbrt(Math.random());
                 const theta = Math.random() * Math.PI * 2;
                 const phi = Math.acos(2 * Math.random() - 1);
                 positions[i] = r * Math.sin(phi) * Math.cos(theta);
@@ -199,43 +216,61 @@
             }
             pointsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             const pointsMat = new THREE.PointsMaterial({
-                color: 0x00f2fe,
+                color: 0x00e5ff,
                 size: 0.035,
                 transparent: true,
-                opacity: 0.8
+                opacity: 0.85
             });
-            const innerPointsMesh = new THREE.Points(pointsGeo, pointsMat);
-            mainConstellationGroup.add(innerPointsMesh);
+            const neuralPointsMesh = new THREE.Points(pointsGeo, pointsMat);
+            neuralCoreGroup.add(neuralPointsMesh);
 
-            // 2. Three Technical Domain Satellites (Distinct Procedural Geometries)
+            // 2. Procedural Holographic Workstation Grid Pedestal
+            workstationGrid = new THREE.GridHelper(14, 28, 0x00e5ff, 0x1e293b);
+            workstationGrid.position.y = -2.1;
+            workstationGrid.material.transparent = true;
+            workstationGrid.material.opacity = 0.18;
+            commandCenterGroup.add(workstationGrid);
+
+            // 3. Three Technical Domain Satellites with Procedural HUD Panels
             orbitalGroup = new THREE.Group();
-            scene.add(orbitalGroup);
+            commandCenterGroup.add(orbitalGroup);
 
             const isDesktop = window.innerWidth >= 992;
-            const radii = isDesktop ? [2.5, 3.3, 4.1] : [1.9, 2.4, 2.9];
+            const radii = isDesktop ? [2.4, 3.2, 4.0] : [1.8, 2.3, 2.8];
 
             const nodeGeometries = [
-                new THREE.OctahedronGeometry(0.32, 0),    // AI & ML
-                new THREE.BoxGeometry(0.42, 0.42, 0.42),   // Software Eng
-                new THREE.DodecahedronGeometry(0.3, 0)     // AWS & Cloud
+                new THREE.OctahedronGeometry(0.34, 0),     // AI & ML
+                new THREE.BoxGeometry(0.42, 0.42, 0.42),    // Software Eng
+                new THREE.DodecahedronGeometry(0.32, 0)      // AWS & Cloud
             ];
 
             ObservatoryScene.nodesData.forEach((nodeData, idx) => {
                 const nodeGroup = new THREE.Group();
 
-                // Core Satellite Mesh
+                // Satellite Core Mesh
                 const nodeMat = new THREE.MeshStandardMaterial({
                     color: nodeData.color,
                     emissive: nodeData.color,
-                    emissiveIntensity: 0.7,
-                    metalness: 0.8,
+                    emissiveIntensity: 0.65,
+                    metalness: 0.85,
                     roughness: 0.2
                 });
                 const mesh = new THREE.Mesh(nodeGeometries[idx], nodeMat);
                 nodeGroup.add(mesh);
 
-                // Accent Ring
-                const ringGeo = new THREE.TorusGeometry(0.48, 0.01, 8, 32);
+                // Holographic HUD Wireframe Frame around Node
+                const hudGeo = new THREE.BoxGeometry(0.65, 0.65, 0.65);
+                const hudMat = new THREE.MeshBasicMaterial({
+                    color: nodeData.color,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.3
+                });
+                const hudFrame = new THREE.Mesh(hudGeo, hudMat);
+                nodeGroup.add(hudFrame);
+
+                // Accent Orbit Ring around Node
+                const ringGeo = new THREE.TorusGeometry(0.5, 0.01, 8, 32);
                 const ringMat = new THREE.MeshBasicMaterial({
                     color: nodeData.color,
                     transparent: true,
@@ -250,7 +285,7 @@
                     id: nodeData.id,
                     baseRadius: radii[idx],
                     angle: (idx * Math.PI * 2) / 3,
-                    speed: 0.006 + idx * 0.002,
+                    speed: 0.005 + idx * 0.002,
                     data: nodeData
                 };
 
@@ -264,87 +299,83 @@
                 const orbitLineMat = new THREE.LineBasicMaterial({
                     color: nodeData.color,
                     transparent: true,
-                    opacity: 0.15
+                    opacity: 0.2
                 });
                 const orbitLine = new THREE.Line(orbitLineGeo, orbitLineMat);
                 orbitRings.push(orbitLine);
-                scene.add(orbitLine);
+                commandCenterGroup.add(orbitLine);
 
-                // Signal Pulse along connection line
-                const signalGeo = new THREE.SphereGeometry(0.04, 8, 8);
+                // Signal Pulse Sphere
+                const signalGeo = new THREE.SphereGeometry(0.045, 8, 8);
                 const signalMat = new THREE.MeshBasicMaterial({
                     color: nodeData.color,
                     transparent: true,
-                    opacity: 0.8
+                    opacity: 0.85
                 });
                 const signalMesh = new THREE.Mesh(signalGeo, signalMat);
                 signalMesh.userData = { progress: idx * 0.33, speed: 0.005, radius: radii[idx] };
                 dataPulseSignals.push(signalMesh);
-                scene.add(signalMesh);
+                commandCenterGroup.add(signalMesh);
             });
 
-            // 3. Perspective Circuit Plane / Grid Helper
-            circuitGrid = new THREE.GridHelper(12, 24, 0x00f2fe, 0x0c2038);
-            circuitGrid.position.y = -2.2;
-            circuitGrid.material.transparent = true;
-            circuitGrid.material.opacity = 0.12;
-            scene.add(circuitGrid);
-
-            // 4. Starfield Atmosphere
+            // 4. Background Holographic Atmospheric Particle Field
             if (tier !== 'low') {
-                const bgCount = 180;
+                const bgCount = 220;
                 totalParticleCount += bgCount;
                 const bgGeo = new THREE.BufferGeometry();
                 const bgPos = new Float32Array(bgCount * 3);
                 for (let i = 0; i < bgCount * 3; i += 3) {
-                    bgPos[i] = (Math.random() - 0.5) * 18;
-                    bgPos[i + 1] = (Math.random() - 0.5) * 18;
-                    bgPos[i + 2] = (Math.random() - 0.5) * 12 - 4;
+                    bgPos[i] = (Math.random() - 0.5) * 20;
+                    bgPos[i + 1] = (Math.random() - 0.5) * 20;
+                    bgPos[i + 2] = (Math.random() - 0.5) * 14 - 4;
                 }
                 bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPos, 3));
                 const bgMat = new THREE.PointsMaterial({
-                    color: 0x7f00ff,
-                    size: 0.03,
+                    color: 0x4f7cff,
+                    size: 0.032,
                     transparent: true,
-                    opacity: 0.4
+                    opacity: 0.45
                 });
                 starfieldParticles = new THREE.Points(bgGeo, bgMat);
                 scene.add(starfieldParticles);
             }
 
-            // Layout Adjustment for Portrait Safety
-            const defaultRadii = [2.5, 3.3, 4.1];
+            // Layout Adjustment for Portrait Safety and Clean Side-by-Side Positioning
+            const defaultRadii = [2.4, 3.2, 4.0];
             function updateSceneLayout() {
-                const width = container.clientWidth;
-                const isDesktopLayout = width >= 992;
+                const width = window.innerWidth;
+                const isLargeDesktop = width >= 1200;
+                const isMediumDesktop = width >= 992 && width < 1200;
                 const isTabletLayout = width >= 768 && width < 992;
 
                 let sceneOffsetX = 0;
                 let sceneOffsetY = 0;
-                let camZ = 7.2;
-                let targetRadii = [1.9, 2.4, 2.9];
+                let camZ = 7.0;
+                let targetRadii = [0.85, 1.15, 1.45];
 
-                if (isDesktopLayout) {
-                    sceneOffsetX = -2.8;
+                if (isLargeDesktop) {
+                    sceneOffsetX = 4.2; // Right side on large desktop
                     sceneOffsetY = 0;
-                    camZ = 6.6;
-                    targetRadii = [1.8, 2.3, 2.8];
+                    camZ = 7.0;
+                    targetRadii = [0.85, 1.15, 1.45];
+                } else if (isMediumDesktop) {
+                    sceneOffsetX = -2.8; // Left side on medium desktop (1024px)
+                    sceneOffsetY = 0;
+                    camZ = 7.0;
+                    targetRadii = [0.65, 0.9, 1.15];
                 } else if (isTabletLayout) {
-                    sceneOffsetX = -1.8;
+                    sceneOffsetX = 2.2;
                     sceneOffsetY = 0;
                     camZ = 7.2;
-                    targetRadii = [1.5, 2.0, 2.5];
+                    targetRadii = [0.9, 1.2, 1.5];
                 } else {
                     sceneOffsetX = 0;
                     sceneOffsetY = -1.8;
                     camZ = 7.5;
-                    targetRadii = [1.1, 1.4, 1.7];
+                    targetRadii = [0.85, 1.1, 1.35];
                 }
 
-                if (mainConstellationGroup) mainConstellationGroup.position.set(sceneOffsetX, sceneOffsetY, 0);
-                if (orbitalGroup) orbitalGroup.position.set(sceneOffsetX, sceneOffsetY, 0);
-                orbitRings.forEach(r => r.position.set(sceneOffsetX, sceneOffsetY, 0));
-                if (circuitGrid) circuitGrid.position.set(sceneOffsetX, -2.2 + sceneOffsetY, 0);
+                if (commandCenterGroup) commandCenterGroup.position.set(sceneOffsetX, sceneOffsetY, 0);
                 camera.position.set(0, 0.4, camZ);
 
                 nodeMeshes.forEach((nodeGroup, idx) => {
@@ -420,7 +451,7 @@
                 pointLightCyan.color.setHex(targetNode.userData.data.color);
 
                 nodeMeshes.forEach((n, idx) => {
-                    const scale = idx === index ? 1.4 : 1.0;
+                    const scale = idx === index ? 1.35 : 1.0;
                     n.scale.set(scale, scale, scale);
                 });
 
@@ -440,13 +471,16 @@
                     let intrusions = 0;
                     const tempVec = new THREE.Vector3();
 
+                    const canvasRect = renderer.domElement ? renderer.domElement.getBoundingClientRect() : { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
                     nodeMeshes.forEach(node => {
                         if (node && typeof node.getWorldPosition === 'function') {
                             node.getWorldPosition(tempVec);
                             tempVec.project(camera);
 
-                            const screenX = ((tempVec.x + 1) * window.innerWidth) / 2;
-                            const screenY = ((-tempVec.y + 1) * window.innerHeight) / 2;
+                            if (tempVec.z > 1) return; // Ignore nodes behind camera
+
+                            const screenX = canvasRect.left + ((tempVec.x + 1) * canvasRect.width) / 2;
+                            const screenY = canvasRect.top + ((-tempVec.y + 1) * canvasRect.height) / 2;
 
                             if (screenX >= rect.left - 10 && screenX <= rect.right + 10 &&
                                 screenY >= rect.top - 10 && screenY <= rect.bottom + 10) {
@@ -476,18 +510,26 @@
                     pointer.y += (pointer.targetY - pointer.y) * 0.05;
 
                     if (!reduceMotion) {
-                        camera.position.x += (pointer.x * 0.4 - camera.position.x) * 0.05;
-                        camera.position.y += (pointer.y * 0.3 - camera.position.y) * 0.05;
+                        camera.position.x += (pointer.x * 0.35 - camera.position.x) * 0.05;
+                        camera.position.y += (pointer.y * 0.25 - camera.position.y) * 0.05;
                     }
 
-                    // Central Constellation Rotations (Steady linear time)
-                    if (mainConstellationGroup) {
-                        mainConstellationGroup.rotation.y = elapsedTime * 0.12;
-                        mainConstellationGroup.rotation.x = elapsedTime * 0.05;
+                    // Neural Core Rotations (Steady linear motion)
+                    if (neuralCoreGroup) {
+                        neuralCoreGroup.rotation.y = elapsedTime * 0.12;
+                        neuralCoreGroup.rotation.x = elapsedTime * 0.04;
                     }
 
-                    if (outerWireframeShell) {
-                        outerWireframeShell.rotation.y = -elapsedTime * 0.08;
+                    if (outerNeuralCage) {
+                        outerNeuralCage.rotation.y = -elapsedTime * 0.08;
+                    }
+
+                    if (dataRingPrimary) {
+                        dataRingPrimary.rotation.z = elapsedTime * 0.15;
+                    }
+
+                    if (dataRingSecondary) {
+                        dataRingSecondary.rotation.z = -elapsedTime * 0.1;
                     }
 
                     // Orbital Satellites
@@ -513,7 +555,7 @@
                         }
                         const angle = sig.userData.progress * Math.PI * 2;
                         const r = sig.userData.radius;
-                        sig.position.x = (orbitalGroup.position.x || 0) + Math.cos(angle) * r;
+                        sig.position.x = (commandCenterGroup.position.x || 0) + Math.cos(angle) * r;
                         sig.position.z = Math.sin(angle) * r;
                     });
 
