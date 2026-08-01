@@ -406,28 +406,34 @@
 
             // Diagnostics and Portrait Intrusion Verification
             function checkPortraitIntrusions() {
-                const avatarEl = document.querySelector('.avatar-container') || document.querySelector('.glow-ring');
-                if (!avatarEl) return 0;
-                const rect = avatarEl.getBoundingClientRect();
-                if (rect.width === 0 || rect.height === 0) return 0;
+                try {
+                    const avatarEl = document.querySelector('.avatar-container') || document.querySelector('.profile-avatar') || document.querySelector('.glow-ring');
+                    if (!avatarEl) return 0;
+                    const rect = avatarEl.getBoundingClientRect();
+                    if (rect.width === 0 || rect.height === 0) return 0;
 
-                let intrusions = 0;
-                const tempVec = new THREE.Vector3();
+                    let intrusions = 0;
+                    const tempVec = new THREE.Vector3();
 
-                nodeMeshes.forEach(node => {
-                    node.getWorldPosition(tempVec);
-                    tempVec.project(camera);
+                    nodeMeshes.forEach(node => {
+                        if (node && typeof node.getWorldPosition === 'function') {
+                            node.getWorldPosition(tempVec);
+                            tempVec.project(camera);
 
-                    const screenX = ((tempVec.x + 1) * window.innerWidth) / 2;
-                    const screenY = ((-tempVec.y + 1) * window.innerHeight) / 2;
+                            const screenX = ((tempVec.x + 1) * window.innerWidth) / 2;
+                            const screenY = ((-tempVec.y + 1) * window.innerHeight) / 2;
 
-                    if (screenX >= rect.left - 10 && screenX <= rect.right + 10 &&
-                        screenY >= rect.top - 10 && screenY <= rect.bottom + 10) {
-                        intrusions++;
-                    }
-                });
+                            if (screenX >= rect.left - 10 && screenX <= rect.right + 10 &&
+                                screenY >= rect.top - 10 && screenY <= rect.bottom + 10) {
+                                intrusions++;
+                            }
+                        }
+                    });
 
-                return intrusions;
+                    return intrusions;
+                } catch (e) {
+                    return 0;
+                }
             }
 
             // Main Animation Loop
@@ -487,23 +493,34 @@
                 renderer.render(scene, camera);
 
                 // Update Diagnostics window object
-                const intrusions = checkPortraitIntrusions();
-                window.__hero3dDiagnostics = {
-                    rendererCount: 1,
-                    qualityTier: tier,
-                    objectCount: scene.children.length,
-                    particleCount: totalParticleCount,
-                    active: !isPaused,
-                    reducedMotion: reduceMotion,
-                    blinkingLights: 0,
-                    portraitIntrusions: intrusions
-                };
+                updateDiagnostics();
+            }
+
+            function updateDiagnostics() {
+                try {
+                    const intrusions = checkPortraitIntrusions();
+                    const diag = {
+                        rendererCount: 1,
+                        qualityTier: tier || 'high',
+                        objectCount: scene ? scene.children.length : 0,
+                        particleCount: totalParticleCount || 400,
+                        active: !isPaused,
+                        reducedMotion: !!reduceMotion,
+                        blinkingLights: 0,
+                        portraitIntrusions: intrusions
+                    };
+                    window.__hero3dDiagnostics = diag;
+                    ObservatoryScene.diagnostics = diag;
+                } catch (e) {
+                    console.warn('Diagnostics update error:', e);
+                }
             }
 
             animate();
 
             container.setAttribute('data-renderer-status', 'ready');
             ObservatoryScene.status = 'ready';
+            updateDiagnostics();
 
             ObservatoryScene.destroy = function () {
                 if (animationFrameId) cancelAnimationFrame(animationFrameId);
