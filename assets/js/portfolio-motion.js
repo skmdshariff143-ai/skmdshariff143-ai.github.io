@@ -81,6 +81,12 @@
                 el.classList.add('reveal-on-scroll');
                 revealObserver.observe(el);
             });
+        } else {
+            // Fallback for browsers without IntersectionObserver support
+            const revealElements = document.querySelectorAll('.card, .section-title, .timeline-item, .skill-group');
+            revealElements.forEach(el => {
+                el.classList.add('reveal-visible');
+            });
         }
     }
 
