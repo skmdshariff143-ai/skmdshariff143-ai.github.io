@@ -124,7 +124,7 @@
                 powerPreference: 'high-performance'
             });
 
-            const maxPixelRatio = tier === 'high' ? Math.min(window.devicePixelRatio, 2) : 1;
+            const maxPixelRatio = tier === 'high' ? Math.min(window.devicePixelRatio, 1.75) : (tier === 'balanced' ? Math.min(window.devicePixelRatio, 1.25) : 1.0);
             renderer.setPixelRatio(maxPixelRatio);
             renderer.setSize(container.clientWidth, container.clientHeight);
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
