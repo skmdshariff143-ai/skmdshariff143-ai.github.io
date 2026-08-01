@@ -438,62 +438,74 @@
 
             // Main Animation Loop
             let clock = new THREE.Clock();
+            let isFailed = false;
+
             function animate() {
-                animationFrameId = requestAnimationFrame(animate);
-                if (isPaused) return;
+                if (isPaused || isFailed) return;
 
-                const elapsedTime = clock.getElapsedTime();
+                try {
+                    const elapsedTime = clock.getElapsedTime();
 
-                // Parallax camera damping
-                pointer.x += (pointer.targetX - pointer.x) * 0.05;
-                pointer.y += (pointer.targetY - pointer.y) * 0.05;
+                    // Parallax camera damping
+                    pointer.x += (pointer.targetX - pointer.x) * 0.05;
+                    pointer.y += (pointer.targetY - pointer.y) * 0.05;
 
-                if (!reduceMotion) {
-                    camera.position.x += (pointer.x * 0.4 - camera.position.x) * 0.05;
-                    camera.position.y += (pointer.y * 0.3 - camera.position.y) * 0.05;
-                }
-
-                // Central Constellation Rotations (Steady linear time)
-                if (mainConstellationGroup) {
-                    mainConstellationGroup.rotation.y = elapsedTime * 0.12;
-                    mainConstellationGroup.rotation.x = elapsedTime * 0.05;
-                }
-
-                if (outerWireframeShell) {
-                    outerWireframeShell.rotation.y = -elapsedTime * 0.08;
-                }
-
-                // Orbital Satellites
-                nodeMeshes.forEach((nodeGroup) => {
-                    const userData = nodeGroup.userData;
                     if (!reduceMotion) {
-                        userData.angle += userData.speed;
+                        camera.position.x += (pointer.x * 0.4 - camera.position.x) * 0.05;
+                        camera.position.y += (pointer.y * 0.3 - camera.position.y) * 0.05;
                     }
 
-                    const r = userData.baseRadius;
-                    nodeGroup.position.x = Math.cos(userData.angle) * r;
-                    nodeGroup.position.z = Math.sin(userData.angle) * r;
-                    nodeGroup.position.y = Math.sin(userData.angle * 2) * 0.18;
-
-                    nodeGroup.rotation.x += 0.008;
-                    nodeGroup.rotation.y += 0.012;
-                });
-
-                // Signal pulses along orbits
-                dataPulseSignals.forEach((sig) => {
-                    if (!reduceMotion) {
-                        sig.userData.progress = (sig.userData.progress + sig.userData.speed) % 1;
+                    // Central Constellation Rotations (Steady linear time)
+                    if (mainConstellationGroup) {
+                        mainConstellationGroup.rotation.y = elapsedTime * 0.12;
+                        mainConstellationGroup.rotation.x = elapsedTime * 0.05;
                     }
-                    const angle = sig.userData.progress * Math.PI * 2;
-                    const r = sig.userData.radius;
-                    sig.position.x = (orbitalGroup.position.x || 0) + Math.cos(angle) * r;
-                    sig.position.z = Math.sin(angle) * r;
-                });
 
-                renderer.render(scene, camera);
+                    if (outerWireframeShell) {
+                        outerWireframeShell.rotation.y = -elapsedTime * 0.08;
+                    }
 
-                // Update Diagnostics window object
-                updateDiagnostics();
+                    // Orbital Satellites
+                    nodeMeshes.forEach((nodeGroup) => {
+                        const userData = nodeGroup.userData;
+                        if (!reduceMotion) {
+                            userData.angle += userData.speed;
+                        }
+
+                        const r = userData.baseRadius;
+                        nodeGroup.position.x = Math.cos(userData.angle) * r;
+                        nodeGroup.position.z = Math.sin(userData.angle) * r;
+                        nodeGroup.position.y = Math.sin(userData.angle * 2) * 0.18;
+
+                        nodeGroup.rotation.x += 0.008;
+                        nodeGroup.rotation.y += 0.012;
+                    });
+
+                    // Signal pulses along orbits
+                    dataPulseSignals.forEach((sig) => {
+                        if (!reduceMotion) {
+                            sig.userData.progress = (sig.userData.progress + sig.userData.speed) % 1;
+                        }
+                        const angle = sig.userData.progress * Math.PI * 2;
+                        const r = sig.userData.radius;
+                        sig.position.x = (orbitalGroup.position.x || 0) + Math.cos(angle) * r;
+                        sig.position.z = Math.sin(angle) * r;
+                    });
+
+                    renderer.render(scene, camera);
+
+                    // Update Diagnostics window object
+                    updateDiagnostics();
+
+                    animationFrameId = requestAnimationFrame(animate);
+                } catch (renderError) {
+                    isFailed = true;
+                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                    console.error('Three.js Observatory rendering encountered a fatal error:', renderError);
+                    container.setAttribute('data-renderer-status', 'failed');
+                    ObservatoryScene.status = 'failed';
+                    renderStaticFallback(container);
+                }
             }
 
             function updateDiagnostics() {
@@ -504,7 +516,7 @@
                         qualityTier: tier || 'high',
                         objectCount: scene ? scene.children.length : 0,
                         particleCount: totalParticleCount || 400,
-                        active: !isPaused,
+                        active: !isPaused && !isFailed,
                         reducedMotion: !!reduceMotion,
                         blinkingLights: 0,
                         portraitIntrusions: intrusions
@@ -533,14 +545,20 @@
             };
 
         } catch (err) {
-            console.warn('Three.js Observatory init error:', err);
+            console.error('Three.js Observatory initialization failed:', err);
+            container.setAttribute('data-renderer-status', 'failed');
+            ObservatoryScene.status = 'failed';
             renderStaticFallback(container);
         }
     }
 
     function renderStaticFallback(container) {
-        container.setAttribute('data-renderer-status', 'fallback');
-        ObservatoryScene.status = 'fallback';
+        if (!container.getAttribute('data-renderer-status') || container.getAttribute('data-renderer-status') === 'ready') {
+            container.setAttribute('data-renderer-status', 'fallback');
+            ObservatoryScene.status = 'fallback';
+        } else {
+            ObservatoryScene.status = container.getAttribute('data-renderer-status');
+        }
 
         const fallbackCanvas = document.getElementById('hero-particles');
         if (fallbackCanvas) {
