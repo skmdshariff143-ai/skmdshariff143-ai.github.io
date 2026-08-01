@@ -313,24 +313,49 @@
             }
 
             // Layout Adjustment for Portrait Safety
+            const defaultRadii = [2.5, 3.3, 4.1];
             function updateSceneLayout() {
                 const width = container.clientWidth;
                 const isDesktopLayout = width >= 992;
+                const isTabletLayout = width >= 768 && width < 992;
+
+                let sceneOffsetX = 0;
+                let sceneOffsetY = 0;
+                let camZ = 7.2;
+                let targetRadii = [1.9, 2.4, 2.9];
 
                 if (isDesktopLayout) {
-                    const sceneOffsetX = -1.6;
-                    mainConstellationGroup.position.x = sceneOffsetX;
-                    orbitalGroup.position.x = sceneOffsetX;
-                    orbitRings.forEach(r => r.position.x = sceneOffsetX);
-                    circuitGrid.position.x = sceneOffsetX;
-                    camera.position.set(0, 0.4, 6.5);
+                    sceneOffsetX = -2.8;
+                    sceneOffsetY = 0;
+                    camZ = 6.6;
+                    targetRadii = [1.8, 2.3, 2.8];
+                } else if (isTabletLayout) {
+                    sceneOffsetX = -1.8;
+                    sceneOffsetY = 0;
+                    camZ = 7.2;
+                    targetRadii = [1.5, 2.0, 2.5];
                 } else {
-                    mainConstellationGroup.position.x = 0;
-                    orbitalGroup.position.x = 0;
-                    orbitRings.forEach(r => r.position.x = 0);
-                    circuitGrid.position.x = 0;
-                    camera.position.set(0, 0.2, 7.2);
+                    sceneOffsetX = 0;
+                    sceneOffsetY = -1.8;
+                    camZ = 7.5;
+                    targetRadii = [1.1, 1.4, 1.7];
                 }
+
+                if (mainConstellationGroup) mainConstellationGroup.position.set(sceneOffsetX, sceneOffsetY, 0);
+                if (orbitalGroup) orbitalGroup.position.set(sceneOffsetX, sceneOffsetY, 0);
+                orbitRings.forEach(r => r.position.set(sceneOffsetX, sceneOffsetY, 0));
+                if (circuitGrid) circuitGrid.position.set(sceneOffsetX, -2.2 + sceneOffsetY, 0);
+                camera.position.set(0, 0.4, camZ);
+
+                nodeMeshes.forEach((nodeGroup, idx) => {
+                    if (nodeGroup && targetRadii[idx]) {
+                        nodeGroup.userData.baseRadius = targetRadii[idx];
+                        if (orbitRings[idx]) {
+                            const scale = targetRadii[idx] / defaultRadii[idx];
+                            orbitRings[idx].scale.set(scale, 1, scale);
+                        }
+                    }
+                });
             }
             updateSceneLayout();
 
