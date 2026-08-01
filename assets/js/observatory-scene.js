@@ -1,5 +1,5 @@
 /**
- * The AI Innovation Observatory — 3D Scene Module
+ * The AI Innovation Observatory — 3D Scene Module ("AI Systems Constellation")
  * Powered by Three.js
  * Author: Shaik Mahammad Shariff Portfolio
  */
@@ -97,21 +97,21 @@
 
         const tier = determineQualityTier();
         window.ObservatoryScene.tier = tier;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         let scene, camera, renderer;
-        let mainPrismGroup, outerWireframe, innerCorePoints, dataPulsesMesh;
+        let mainConstellationGroup, innerFacetedCore, outerWireframeShell, dataHaloRing;
         let orbitalGroup, nodeMeshes = [], orbitRings = [];
-        let holographicPlatform, bgParticles;
+        let circuitGrid, starfieldParticles, dataPulseSignals = [];
         let ambientLight, pointLightCyan, pointLightViolet, directionalLight;
         let animationFrameId;
         let isPaused = false;
-        let targetCameraPos = { x: 0, y: 0, z: 6.5 };
-        let currentCameraPos = { x: 0, y: 0, z: 6.5 };
+        let totalParticleCount = 0;
         let pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
 
         try {
             scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x0c101d, 0.04);
+            scene.fog = new THREE.FogExp2(0x0c101d, 0.035);
 
             const aspect = container.clientWidth / container.clientHeight || 1;
             camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
@@ -130,15 +130,15 @@
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
             renderer.toneMappingExposure = 1.2;
 
-            // Lighting Setup
+            // STABLE CONSTANT LIGHTING SETUP (No intensity oscillation)
             ambientLight = new THREE.AmbientLight(0x1a2638, 1.5);
             scene.add(ambientLight);
 
-            pointLightCyan = new THREE.PointLight(0x00f2fe, 3.5, 12);
+            pointLightCyan = new THREE.PointLight(0x00f2fe, 3.0, 12);
             pointLightCyan.position.set(-3, 2, 3);
             scene.add(pointLightCyan);
 
-            pointLightViolet = new THREE.PointLight(0x7f00ff, 3.5, 12);
+            pointLightViolet = new THREE.PointLight(0x7f00ff, 3.0, 12);
             pointLightViolet.position.set(3, -2, 2);
             scene.add(pointLightViolet);
 
@@ -146,185 +146,160 @@
             directionalLight.position.set(0, 5, 5);
             scene.add(directionalLight);
 
-            // 1. Central Crystalline Neural Prism
-            mainPrismGroup = new THREE.Group();
-            scene.add(mainPrismGroup);
+            // 1. Central AI Intelligence Structure
+            mainConstellationGroup = new THREE.Group();
+            scene.add(mainConstellationGroup);
 
-            // Outer Prism Mesh
-            const prismGeo = new THREE.IcosahedronGeometry(1.3, 0);
-            const prismMat = new THREE.MeshPhysicalMaterial({
-                color: 0x0c1e38,
-                metalness: 0.2,
-                roughness: 0.1,
-                transmission: 0.6,
-                ior: 1.4,
-                transparent: true,
-                opacity: 0.85,
-                reflectivity: 0.9,
-                clearcoat: 1.0,
-                clearcoatRoughness: 0.1
+            // Inner Faceted Metallic Core
+            const coreGeo = new THREE.IcosahedronGeometry(1.1, 0);
+            const coreMat = new THREE.MeshStandardMaterial({
+                color: 0x0a1628,
+                metalness: 0.85,
+                roughness: 0.2,
+                emissive: 0x00f2fe,
+                emissiveIntensity: 0.15
             });
-            const outerPrism = new THREE.Mesh(prismGeo, prismMat);
-            mainPrismGroup.add(outerPrism);
+            innerFacetedCore = new THREE.Mesh(coreGeo, coreMat);
+            mainConstellationGroup.add(innerFacetedCore);
 
-            // Outer Wireframe Accent
-            const wireGeo = new THREE.WireframeGeometry(prismGeo);
-            const wireMat = new THREE.LineBasicMaterial({
+            // Cyan Wireframe Intelligence Shell
+            const shellGeo = new THREE.IcosahedronGeometry(1.4, 1);
+            const shellMat = new THREE.MeshBasicMaterial({
                 color: 0x00f2fe,
+                wireframe: true,
                 transparent: true,
-                opacity: 0.4
+                opacity: 0.35
             });
-            outerWireframe = new THREE.LineSegments(wireGeo, wireMat);
-            mainPrismGroup.add(outerWireframe);
+            outerWireframeShell = new THREE.Mesh(shellGeo, shellMat);
+            mainConstellationGroup.add(outerWireframeShell);
 
-            // Inner Neural Point Cloud
-            const pointCount = tier === 'high' ? 450 : 250;
+            // Thin Data Halo Ring
+            const haloGeo = new THREE.TorusGeometry(1.85, 0.015, 16, 64);
+            const haloMat = new THREE.MeshBasicMaterial({
+                color: 0x00e5ff,
+                transparent: true,
+                opacity: 0.5
+            });
+            dataHaloRing = new THREE.Mesh(haloGeo, haloMat);
+            dataHaloRing.rotation.x = Math.PI / 3;
+            mainConstellationGroup.add(dataHaloRing);
+
+            // Inner Core Point Cloud
+            const corePointCount = tier === 'high' ? 300 : 150;
+            totalParticleCount += corePointCount;
             const pointsGeo = new THREE.BufferGeometry();
-            const positions = new Float32Array(pointCount * 3);
-            const colors = new Float32Array(pointCount * 3);
-            const color1 = new THREE.Color(0x00f2fe);
-            const color2 = new THREE.Color(0x7f00ff);
-
-            for (let i = 0; i < pointCount; i++) {
-                // Sphere distribution within radius 0.95
-                const u = Math.random();
-                const r = Math.cbrt(u) * 0.95;
+            const positions = new Float32Array(corePointCount * 3);
+            for (let i = 0; i < corePointCount * 3; i += 3) {
+                const r = 0.9 * Math.cbrt(Math.random());
                 const theta = Math.random() * Math.PI * 2;
                 const phi = Math.acos(2 * Math.random() - 1);
-
-                const x = r * Math.sin(phi) * Math.cos(theta);
-                const y = r * Math.sin(phi) * Math.sin(theta);
-                const z = r * Math.cos(phi);
-
-                positions[i * 3] = x;
-                positions[i * 3 + 1] = y;
-                positions[i * 3 + 2] = z;
-
-                const mixedColor = color1.clone().lerp(color2, Math.random());
-                colors[i * 3] = mixedColor.r;
-                colors[i * 3 + 1] = mixedColor.g;
-                colors[i * 3 + 2] = mixedColor.b;
+                positions[i] = r * Math.sin(phi) * Math.cos(theta);
+                positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+                positions[i + 2] = r * Math.cos(phi);
             }
-
             pointsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            pointsGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
             const pointsMat = new THREE.PointsMaterial({
-                size: 0.04,
-                vertexColors: true,
+                color: 0x00f2fe,
+                size: 0.035,
                 transparent: true,
-                opacity: 0.9,
-                blending: THREE.AdditiveBlending
+                opacity: 0.8
             });
-            innerCorePoints = new THREE.Points(pointsGeo, pointsMat);
-            mainPrismGroup.add(innerCorePoints);
+            const innerPointsMesh = new THREE.Points(pointsGeo, pointsMat);
+            mainConstellationGroup.add(innerPointsMesh);
 
-            // Flowing Data Pulses (Inner core connections)
-            const pulseLinesGeo = new THREE.BufferGeometry();
-            const pulsePositions = [];
-            for (let i = 0; i < pointCount; i += 3) {
-                if (i + 1 < pointCount) {
-                    pulsePositions.push(
-                        positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2],
-                        positions[(i + 1) * 3], positions[(i + 1) * 3 + 1], positions[(i + 1) * 3 + 2]
-                    );
-                }
-            }
-            pulseLinesGeo.setAttribute('position', new THREE.Float32BufferAttribute(pulsePositions, 3));
-            const pulseLinesMat = new THREE.LineBasicMaterial({
-                color: 0x00f5a0,
-                transparent: true,
-                opacity: 0.25,
-                blending: THREE.AdditiveBlending
-            });
-            dataPulsesMesh = new THREE.LineSegments(pulseLinesGeo, pulseLinesMat);
-            mainPrismGroup.add(dataPulsesMesh);
-
-            // 2. Three Interactive Orbital Evidence Nodes
+            // 2. Three Technical Domain Satellites (Distinct Procedural Geometries)
             orbitalGroup = new THREE.Group();
             scene.add(orbitalGroup);
 
-            const radii = [2.4, 3.2, 4.0];
+            const isDesktop = window.innerWidth >= 992;
+            const radii = isDesktop ? [2.5, 3.3, 4.1] : [1.9, 2.4, 2.9];
+
             const nodeGeometries = [
-                new THREE.OctahedronGeometry(0.28, 0),
-                new THREE.TetrahedronGeometry(0.26, 0),
-                new THREE.DodecahedronGeometry(0.25, 0)
+                new THREE.OctahedronGeometry(0.32, 0),    // AI & ML
+                new THREE.BoxGeometry(0.42, 0.42, 0.42),   // Software Eng
+                new THREE.DodecahedronGeometry(0.3, 0)     // AWS & Cloud
             ];
 
             ObservatoryScene.nodesData.forEach((nodeData, idx) => {
                 const nodeGroup = new THREE.Group();
 
-                // Core Node Mesh
+                // Core Satellite Mesh
                 const nodeMat = new THREE.MeshStandardMaterial({
                     color: nodeData.color,
                     emissive: nodeData.color,
-                    emissiveIntensity: 0.8,
+                    emissiveIntensity: 0.7,
                     metalness: 0.8,
                     roughness: 0.2
                 });
                 const mesh = new THREE.Mesh(nodeGeometries[idx], nodeMat);
                 nodeGroup.add(mesh);
 
-                // Orbital Ring accent for node
-                const ringGeo = new THREE.TorusGeometry(0.42, 0.015, 8, 32);
+                // Accent Ring
+                const ringGeo = new THREE.TorusGeometry(0.48, 0.01, 8, 32);
                 const ringMat = new THREE.MeshBasicMaterial({
                     color: nodeData.color,
                     transparent: true,
-                    opacity: 0.6
+                    opacity: 0.5
                 });
                 const ring = new THREE.Mesh(ringGeo, ringMat);
                 ring.rotation.x = Math.PI / 3;
                 nodeGroup.add(ring);
 
-                // Attach metadata
                 nodeGroup.userData = {
                     index: idx,
                     id: nodeData.id,
                     baseRadius: radii[idx],
                     angle: (idx * Math.PI * 2) / 3,
-                    speed: 0.008 + idx * 0.003,
+                    speed: 0.006 + idx * 0.002,
                     data: nodeData
                 };
 
                 nodeMeshes.push(nodeGroup);
                 orbitalGroup.add(nodeGroup);
 
-                // Path Orbit Ring Line
-                const pathGeo = new THREE.RingGeometry(radii[idx] - 0.01, radii[idx] + 0.01, 64);
-                const pathMat = new THREE.MeshBasicMaterial({
+                // Orbit Line
+                const orbitCurve = new THREE.EllipseCurve(0, 0, radii[idx], radii[idx], 0, 2 * Math.PI, false, 0);
+                const orbitPoints = orbitCurve.getPoints(64);
+                const orbitLineGeo = new THREE.BufferGeometry().setFromPoints(orbitPoints.map(p => new THREE.Vector3(p.x, 0, p.y)));
+                const orbitLineMat = new THREE.LineBasicMaterial({
                     color: nodeData.color,
-                    side: THREE.DoubleSide,
                     transparent: true,
                     opacity: 0.15
                 });
-                const pathMesh = new THREE.Mesh(pathGeo, pathMat);
-                pathMesh.rotation.x = Math.PI / 2.2;
-                orbitRings.push(pathMesh);
-                scene.add(pathMesh);
+                const orbitLine = new THREE.Line(orbitLineGeo, orbitLineMat);
+                orbitRings.push(orbitLine);
+                scene.add(orbitLine);
+
+                // Signal Pulse along connection line
+                const signalGeo = new THREE.SphereGeometry(0.04, 8, 8);
+                const signalMat = new THREE.MeshBasicMaterial({
+                    color: nodeData.color,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                const signalMesh = new THREE.Mesh(signalGeo, signalMat);
+                signalMesh.userData = { progress: idx * 0.33, speed: 0.005, radius: radii[idx] };
+                dataPulseSignals.push(signalMesh);
+                scene.add(signalMesh);
             });
 
-            // 3. Holographic Platform
-            const gridGeo = new THREE.RingGeometry(0.8, 4.5, 64, 4);
-            const gridMat = new THREE.MeshBasicMaterial({
-                color: 0x00f2fe,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.08
-            });
-            holographicPlatform = new THREE.Mesh(gridGeo, gridMat);
-            holographicPlatform.rotation.x = -Math.PI / 2;
-            holographicPlatform.position.y = -2.2;
-            scene.add(holographicPlatform);
+            // 3. Perspective Circuit Plane / Grid Helper
+            circuitGrid = new THREE.GridHelper(12, 24, 0x00f2fe, 0x0c2038);
+            circuitGrid.position.y = -2.2;
+            circuitGrid.material.transparent = true;
+            circuitGrid.material.opacity = 0.12;
+            scene.add(circuitGrid);
 
-            // 4. Subtle Background Star/Dust Field
+            // 4. Starfield Atmosphere
             if (tier !== 'low') {
-                const bgCount = 200;
+                const bgCount = 180;
+                totalParticleCount += bgCount;
                 const bgGeo = new THREE.BufferGeometry();
                 const bgPos = new Float32Array(bgCount * 3);
                 for (let i = 0; i < bgCount * 3; i += 3) {
-                    bgPos[i] = (Math.random() - 0.5) * 20;
-                    bgPos[i + 1] = (Math.random() - 0.5) * 20;
-                    bgPos[i + 2] = (Math.random() - 0.5) * 15 - 5;
+                    bgPos[i] = (Math.random() - 0.5) * 18;
+                    bgPos[i + 1] = (Math.random() - 0.5) * 18;
+                    bgPos[i + 2] = (Math.random() - 0.5) * 12 - 4;
                 }
                 bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPos, 3));
                 const bgMat = new THREE.PointsMaterial({
@@ -333,12 +308,35 @@
                     transparent: true,
                     opacity: 0.4
                 });
-                bgParticles = new THREE.Points(bgGeo, bgMat);
-                scene.add(bgParticles);
+                starfieldParticles = new THREE.Points(bgGeo, bgMat);
+                scene.add(starfieldParticles);
             }
+
+            // Layout Adjustment for Portrait Safety
+            function updateSceneLayout() {
+                const width = container.clientWidth;
+                const isDesktopLayout = width >= 992;
+
+                if (isDesktopLayout) {
+                    const sceneOffsetX = -1.6;
+                    mainConstellationGroup.position.x = sceneOffsetX;
+                    orbitalGroup.position.x = sceneOffsetX;
+                    orbitRings.forEach(r => r.position.x = sceneOffsetX);
+                    circuitGrid.position.x = sceneOffsetX;
+                    camera.position.set(0, 0.4, 6.5);
+                } else {
+                    mainConstellationGroup.position.x = 0;
+                    orbitalGroup.position.x = 0;
+                    orbitRings.forEach(r => r.position.x = 0);
+                    circuitGrid.position.x = 0;
+                    camera.position.set(0, 0.2, 7.2);
+                }
+            }
+            updateSceneLayout();
 
             // Pointer Movement listener for smooth camera parallax
             function onPointerMove(e) {
+                if (reduceMotion) return;
                 const rect = container.getBoundingClientRect();
                 if (e.clientX >= rect.left && e.clientX <= rect.right &&
                     e.clientY >= rect.top && e.clientY <= rect.bottom) {
@@ -348,7 +346,6 @@
             }
             window.addEventListener('pointermove', onPointerMove, { passive: true });
 
-            // Resize Handler
             function onResize() {
                 if (!container || !renderer || !camera) return;
                 const width = container.clientWidth;
@@ -358,6 +355,7 @@
                 camera.aspect = width / height;
                 camera.updateProjectionMatrix();
                 renderer.setSize(width, height);
+                updateSceneLayout();
             }
             window.addEventListener('resize', onResize);
 
@@ -374,28 +372,63 @@
                 else if (container.getBoundingClientRect().bottom > 0) isPaused = false;
             });
 
-            // Select Orbital Node API
+            // Coordinate 3D Orbital Node Highlights with Portfolio Scroll Progression
+            window.addEventListener('portfolio-section-active', (e) => {
+                const sectionId = e.detail ? e.detail.sectionId : null;
+                if (!sectionId) return;
+                if (sectionId === 'projects') {
+                    ObservatoryScene.selectNode(0);
+                } else if (sectionId === 'skills' || sectionId === 'about') {
+                    ObservatoryScene.selectNode(1);
+                } else if (sectionId === 'certifications' || sectionId === 'experience') {
+                    ObservatoryScene.selectNode(2);
+                }
+            });
+
+            // Select Node API
             ObservatoryScene.selectNode = function (index) {
                 if (index < 0 || index >= ObservatoryScene.nodesData.length) return;
                 ObservatoryScene.activeNodeIndex = index;
                 const targetNode = nodeMeshes[index];
                 if (!targetNode) return;
 
-                // Shift dynamic light accent to active node color
-                const nodeData = targetNode.userData.data;
-                pointLightCyan.color.setHex(nodeData.color);
+                pointLightCyan.color.setHex(targetNode.userData.data.color);
 
-                // Scale up selected node briefly
                 nodeMeshes.forEach((n, idx) => {
-                    const scale = idx === index ? 1.45 : 1.0;
+                    const scale = idx === index ? 1.4 : 1.0;
                     n.scale.set(scale, scale, scale);
                 });
 
-                // Dispatch event for UI listeners
                 window.dispatchEvent(new CustomEvent('observatory-node-change', {
-                    detail: { index: index, data: nodeData }
+                    detail: { index: index, data: targetNode.userData.data }
                 }));
             };
+
+            // Diagnostics and Portrait Intrusion Verification
+            function checkPortraitIntrusions() {
+                const avatarEl = document.querySelector('.avatar-container') || document.querySelector('.glow-ring');
+                if (!avatarEl) return 0;
+                const rect = avatarEl.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) return 0;
+
+                let intrusions = 0;
+                const tempVec = new THREE.Vector3();
+
+                nodeMeshes.forEach(node => {
+                    node.getWorldPosition(tempVec);
+                    tempVec.project(camera);
+
+                    const screenX = ((tempVec.x + 1) * window.innerWidth) / 2;
+                    const screenY = ((-tempVec.y + 1) * window.innerHeight) / 2;
+
+                    if (screenX >= rect.left - 10 && screenX <= rect.right + 10 &&
+                        screenY >= rect.top - 10 && screenY <= rect.bottom + 10) {
+                        intrusions++;
+                    }
+                });
+
+                return intrusions;
+            }
 
             // Main Animation Loop
             let clock = new THREE.Clock();
@@ -405,56 +438,73 @@
 
                 const elapsedTime = clock.getElapsedTime();
 
-                // Smooth Camera Parallax Damping
+                // Parallax camera damping
                 pointer.x += (pointer.targetX - pointer.x) * 0.05;
                 pointer.y += (pointer.targetY - pointer.y) * 0.05;
 
-                camera.position.x = currentCameraPos.x + pointer.x * 0.6;
-                camera.position.y = currentCameraPos.y + pointer.y * 0.4;
-                camera.lookAt(0, 0, 0);
-
-                // Central Prism Rotations
-                if (mainPrismGroup) {
-                    mainPrismGroup.rotation.y = elapsedTime * 0.25;
-                    mainPrismGroup.rotation.x = Math.sin(elapsedTime * 0.15) * 0.15;
+                if (!reduceMotion) {
+                    camera.position.x += (pointer.x * 0.4 - camera.position.x) * 0.05;
+                    camera.position.y += (pointer.y * 0.3 - camera.position.y) * 0.05;
                 }
 
-                if (outerWireframe) {
-                    outerWireframe.rotation.y = -elapsedTime * 0.1;
+                // Central Constellation Rotations (Steady linear time)
+                if (mainConstellationGroup) {
+                    mainConstellationGroup.rotation.y = elapsedTime * 0.12;
+                    mainConstellationGroup.rotation.x = elapsedTime * 0.05;
                 }
 
-                if (innerCorePoints) {
-                    innerCorePoints.rotation.y = elapsedTime * 0.4;
+                if (outerWireframeShell) {
+                    outerWireframeShell.rotation.y = -elapsedTime * 0.08;
                 }
 
-                // Orbital Node Animations
+                // Orbital Satellites
                 nodeMeshes.forEach((nodeGroup) => {
                     const userData = nodeGroup.userData;
-                    userData.angle += userData.speed;
+                    if (!reduceMotion) {
+                        userData.angle += userData.speed;
+                    }
 
                     const r = userData.baseRadius;
                     nodeGroup.position.x = Math.cos(userData.angle) * r;
                     nodeGroup.position.z = Math.sin(userData.angle) * r;
-                    nodeGroup.position.y = Math.sin(userData.angle * 2 + elapsedTime) * 0.25;
+                    nodeGroup.position.y = Math.sin(userData.angle * 2) * 0.18;
 
-                    nodeGroup.rotation.x += 0.01;
-                    nodeGroup.rotation.y += 0.02;
+                    nodeGroup.rotation.x += 0.008;
+                    nodeGroup.rotation.y += 0.012;
                 });
 
-                if (holographicPlatform) {
-                    holographicPlatform.rotation.z = elapsedTime * 0.05;
-                }
+                // Signal pulses along orbits
+                dataPulseSignals.forEach((sig) => {
+                    if (!reduceMotion) {
+                        sig.userData.progress = (sig.userData.progress + sig.userData.speed) % 1;
+                    }
+                    const angle = sig.userData.progress * Math.PI * 2;
+                    const r = sig.userData.radius;
+                    sig.position.x = (orbitalGroup.position.x || 0) + Math.cos(angle) * r;
+                    sig.position.z = Math.sin(angle) * r;
+                });
 
                 renderer.render(scene, camera);
+
+                // Update Diagnostics window object
+                const intrusions = checkPortraitIntrusions();
+                window.__hero3dDiagnostics = {
+                    rendererCount: 1,
+                    qualityTier: tier,
+                    objectCount: scene.children.length,
+                    particleCount: totalParticleCount,
+                    active: !isPaused,
+                    reducedMotion: reduceMotion,
+                    blinkingLights: 0,
+                    portraitIntrusions: intrusions
+                };
             }
 
             animate();
 
-            // Set Ready Status
             container.setAttribute('data-renderer-status', 'ready');
             ObservatoryScene.status = 'ready';
 
-            // Clean-up API
             ObservatoryScene.destroy = function () {
                 if (animationFrameId) cancelAnimationFrame(animationFrameId);
                 window.removeEventListener('pointermove', onPointerMove);
@@ -480,7 +530,6 @@
             fallbackCanvas.style.display = 'block';
         }
 
-        // Render elegant CSS/SVG diagram of AI Innovation Observatory
         const fallbackHTML = `
             <div class="observatory-static-fallback">
                 <div class="static-prism-core">
@@ -510,7 +559,6 @@
         fallbackWrapper.innerHTML = fallbackHTML;
         container.appendChild(fallbackWrapper);
 
-        // Bind static fallback click listeners
         const staticButtons = fallbackWrapper.querySelectorAll('.static-node-item');
         staticButtons.forEach(btn => {
             btn.addEventListener('click', () => {
