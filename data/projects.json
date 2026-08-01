@@ -14,7 +14,7 @@
     "techStack": ["Python", "Scikit-Learn", "XGBoost", "Flask", "Docker", "GitHub Actions"],
     "verifiedResult": "66.67% Delinquency Recall with automated CI/CD test suite",
     "github": "https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction",
-    "liveDemo": "https://skmdshariff143-ai.github.io/Credit-Card-Approval-Prediction/",
+    "liveDemo": "https://creditguard-ai.vercel.app",
     "status": "Completed / Active",
     "screenshot": "assets/og-preview.png"
   },
