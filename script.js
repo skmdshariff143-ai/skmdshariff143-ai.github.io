@@ -1048,13 +1048,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     if (formStatus) {
                         formStatus.style.color = '#ff1744'; // error red
-                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:YOUR_EMAIL@gmail.com" style="color: var(--accent-teal); text-decoration: underline;">YOUR_EMAIL@gmail.com</a> instead.';
                     }
                 }
             } catch (error) {
                 if (formStatus) {
                     formStatus.style.color = '#ff1744';
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:YOUR_EMAIL@gmail.com" style="color: var(--accent-teal); text-decoration: underline;">YOUR_EMAIL@gmail.com</a> instead.';
                 }
             }
         });
