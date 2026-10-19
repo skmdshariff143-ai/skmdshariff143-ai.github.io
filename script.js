@@ -334,7 +334,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    async function loadProjectsFromJSON() {
+        const projectGrid = document.querySelector('.project-grid');
+        if (!projectGrid) return;
+        try {
+            const res = await fetch('data/projects.json');
+            if (res.ok) {
+                const projects = await res.json();
+                if (projects && projects.length > 0) {
+                    projectGrid.innerHTML = projects.map(proj => `
+                        <div class="project-card case-study-card tilt-card" id="${proj.id}">
+                            <div class="project-header">
+                                <div class="project-title-group">
+                                    <span class="status-badge ${proj.status.includes('Active') ? 'badge-in-dev' : 'badge-completed'}">${proj.badge || proj.status}</span>
+                                    <h3>${proj.title}</h3>
+                                </div>
+                                <div class="project-links">
+                                    ${proj.github ? `<a href="${proj.github}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository for ${proj.title}"><i class="fab fa-github"></i> Code</a>` : ''}
+                                    ${proj.liveDemo ? `<a href="${proj.liveDemo}" target="_blank" rel="noopener noreferrer" aria-label="Live Demo for ${proj.title}"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
+                                </div>
+                            </div>
+                            <p class="project-summary">${proj.summary}</p>
+                            <div class="case-study-details">
+                                <div class="cs-field">
+                                    <span class="cs-label"><i class="fas fa-exclamation-circle"></i> Problem:</span>
+                                    <p>${proj.problem}</p>
+                                </div>
+                                <div class="cs-field">
+                                    <span class="cs-label"><i class="fas fa-lightbulb"></i> Solution:</span>
+                                    <p>${proj.solution}</p>
+                                </div>
+                                ${proj.contribution ? `
+                                <div class="cs-field">
+                                    <span class="cs-label"><i class="fas fa-user-cog"></i> My Contribution:</span>
+                                    <p>${proj.contribution}</p>
+                                </div>` : ''}
+                            </div>
+                            ${proj.verifiedResult ? `
+                            <div class="verified-result-banner">
+                                <i class="fas fa-award"></i> <strong>Verified Result:</strong> ${proj.verifiedResult}
+                            </div>` : ''}
+                            <div class="project-tech">
+                                ${proj.techStack.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+        } catch (err) {
+            console.warn('Dynamic fetch for projects.json skipped or failed; using static fallback', err);
+        }
+    }
+
     loadCertificatesFromJSON();
+    loadProjectsFromJSON();
     /* ------------------------------------------------------------------
        3D & Creative Effects
        ------------------------------------------------------------------ */

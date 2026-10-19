@@ -2,7 +2,7 @@
 
 Personal portfolio website for **Shaik Mahammad Shariff**, Electronics & Communication Engineering Undergraduate at Vasireddy Venkatadri Institute of Technology (VVIT) specializing in **AI & Software Development**.
 
-🔗 **Live Portfolio:** [https://skmdshariff143-ai.github.io/](https://skmdshariff143-ai.github.io/)
+🔗 **Live Portfolio:** [https://skmdshariff143-ai-github-io.vercel.app/](https://skmdshariff143-ai-github-io.vercel.app/)
 
 ---
 

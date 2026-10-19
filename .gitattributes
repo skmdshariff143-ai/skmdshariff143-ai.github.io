@@ -1,0 +1,21 @@
+# Normalize line endings: LF in the repository and in every deployment.
+# (Both source repos use core.autocrlf=true, which produced CRLF/LF drift
+#  between the local worktree and the deployed artifact. Blobs are LF.)
+* text=auto eol=lf
+
+# Explicitly binary assets — defence in depth for auto detection.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.svg   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+*.mp3   binary
+*.wav   binary
+*.zip   binary

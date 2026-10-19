@@ -1,15 +1,58 @@
 [
   {
+    "id": "neurolearn-ai",
+    "title": "NeuroLearn AI",
+    "badge": "Active Hackathon Prototype",
+    "summary": "An intelligent, multi-provider AI learning platform featuring curriculum generation, diagnostic self-checks, concept-level reteaching, and multi-source research coordination.",
+    "problem": "Generic AI learning tools deliver superficial one-shot summaries with high hallucination risk and lack structured pedagogical reteaching loops or student privacy controls.",
+    "solution": "Architected an open-source Next.js 15 + React 19 pedagogical learning system with multi-provider inference (Nebius Token Factory, NVIDIA Nemotron, Google Gemini, Groq), autonomous multi-source academic research coordination, and local-first guest persistence.",
+    "contribution": "Engineered the universal Research-to-Teaching coordinator with SSRF-safe multi-source querying (Wikipedia, OpenAlex, Crossref, OpenStax, Tavily), deterministic multiple-choice grading, diagnostic roadmaps, and WCAG AA accessible UI with Hindi and Telugu multi-lingual support.",
+    "features": [
+      "Engineered multi-source research retrieval pipeline integrating Wikipedia, OpenAlex, Crossref, and OpenStax with strict prompt-injection and SSRF filtering.",
+      "Integrated flexible AI providers including Nebius Token Factory, NVIDIA Nemotron, Gemini API, and Groq with transparent fallback labels.",
+      "Built resilient local-first browser storage and opt-in PostgreSQL repository with row-level security and zero learner data tracking.",
+      "Validated with 10 canonical benchmark evaluation topics across STEM, Humanities, and Financial Literacy."
+    ],
+    "techStack": ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "NVIDIA Nemotron", "Gemini API", "Playwright"],
+    "verifiedResult": "Full test suite passing (typecheck, lint, unit tests, and 10 canonical benchmark evaluation topics)",
+    "github": "https://github.com/skmdshariff143-ai/neurolearn-ai",
+    "liveDemo": "",
+    "status": "In Active Development",
+    "screenshot": "assets/og-preview.png"
+  },
+  {
+    "id": "amazon-ml-2026-entity-resolution",
+    "title": "Amazon ML Challenge 2026 — Entity Resolution",
+    "badge": "Competition Solution",
+    "summary": "A high-throughput, memory-bounded machine learning pipeline resolving merchant identity across millions of noisy commercial records without pretrained embedding models.",
+    "problem": "Matching identical business entities across heterogeneous data sources with noisy names, partial addresses, and severe class imbalance at scale (1.7M+ test anchors).",
+    "solution": "Built a scalable candidate generation inverted index and 19-feature LightGBM classification pipeline with hard-negative mining, calibrated thresholding, and streaming validation.",
+    "contribution": "Developed custom inverted index with token-frequency weighting, 19 rapid pairwise similarity features (RapidFuzz Normalized Indel, token overlap, numeric conflicts), and zero-leakage partition streaming.",
+    "features": [
+      "Engineered multi-token inverted index processing 207M+ candidate links across 1.73M anchors with 0.9118 holdout candidate recall.",
+      "Extracted 19 pairwise similarity and interaction features with memory-mapped Arrow stores and deterministic tie-breaking.",
+      "Trained hard-negative LightGBM achieving 0.8879 Macro F0.5 (0.9563 Precision, 0.8053 Recall) on local 5,000-anchor calibration holdout.",
+      "Validated end-to-end pipeline with 39 automated tests and streaming compliance checks."
+    ],
+    "techStack": ["Python 3.13", "LightGBM", "RapidFuzz", "PyArrow", "NumPy", "Pandas", "Pytest"],
+    "verifiedResult": "0.8879 Local Holdout Macro F0.5 (0.9563 Precision) across 39 verified unit and streaming tests",
+    "github": "",
+    "liveDemo": "",
+    "status": "Completed Research",
+    "screenshot": "assets/og-preview.png"
+  },
+  {
     "id": "credit-card-approval-prediction",
     "title": "Credit Card Approval Prediction (CreditGuard AI)",
+    "badge": "Production ML Prototype",
     "summary": "An end-to-end Machine Learning solution evaluating credit applicant delinquency risk with explainable AI and automated CI/CD testing.",
     "problem": "Financial institutions face high credit default rates due to inaccurate risk profiling and imbalanced applicant data.",
     "solution": "Developed a machine learning classification engine using XGBoost and SMOTE oversampling to accurately detect high-risk applicants.",
     "contribution": "Built custom data preprocessing pipelines, SMOTE oversampling, interactive Flask dashboard, and automated GitHub Actions CI/CD workflows.",
     "features": [
-      "Designed custom preprocessing pipelines & SMOTE-oversampling, achieving 66.67% delinquency recall.",
+      "Designed custom preprocessing pipelines & SMOTE-oversampling, achieving 66.67% delinquency recall on imbalanced credit data.",
       "Built interactive prediction and metrics dashboards using Flask and Bootstrap 5 with Dark/Light modes.",
-      "Configured automated MLOps CI/CD via GitHub Actions for testing, lints, Docker builds, and Pages deployment."
+      "Configured automated MLOps CI/CD via GitHub Actions for testing, lints, Docker builds, and deployment."
     ],
     "techStack": ["Python", "Scikit-Learn", "XGBoost", "Flask", "Docker", "GitHub Actions"],
     "verifiedResult": "66.67% Delinquency Recall with automated CI/CD test suite",
@@ -21,6 +64,7 @@
   {
     "id": "farmalink-ai",
     "title": "FarmaLink-AI",
+    "badge": "Agricultural SaaS Prototype",
     "summary": "A Next.js 15 + React 19 agricultural SaaS platform connecting farmers directly with buyers, logistics networks, and cold storages.",
     "problem": "Agricultural supply chains suffer from intermediary price exploitation, lack of crop disease diagnostics, and opaque transaction escrow.",
     "solution": "Engineered a platform featuring AI disease diagnostics, crop yield/price prediction, and simulated escrow transaction wallets.",
@@ -35,24 +79,5 @@
     "liveDemo": "https://farmlink-umber.vercel.app",
     "status": "In Active Development",
     "screenshot": "assets/og-preview.png"
-  },
-  {
-    "id": "ai-interview-coach",
-    "title": "AI Interview Coach Pro",
-    "summary": "AI-powered interview simulator with real-time feedback.",
-    "problem": "Candidates struggle to get real-time actionable feedback on technical interview performance.",
-    "solution": "Built an interactive AI mock interview platform providing instant feedback on technical accuracy and communication.",
-    "techStack": [
-      "Python",
-      "FastAPI",
-      "React",
-      "Gemini API"
-    ],
-    "github": "https://github.com/skmdshariff143-ai/AI-Interview-Coach-Pro",
-    "liveDemo": "https://ai-interview-coach-pro.vercel.app",
-    "metrics": [
-      "Real-Time Feedback",
-      "Gemini AI"
-    ]
   }
 ]
