@@ -16,25 +16,25 @@
             {
                 id: 'ai-ml',
                 name: 'AI & Machine Learning',
-                subtitle: 'Predictive Modeling & Neural Workflows',
+                subtitle: 'Pedagogical LLMs, Entity Resolution & Predictive ML',
                 color: 0x00e5ff,
                 accentHex: '#00e5ff',
                 proofs: [
-                    { title: 'CreditGuard AI', desc: 'Financial Risk Assessment Platform' },
-                    { title: 'Core Stack', desc: 'Python, Scikit-learn, XGBoost, Pandas' },
-                    { title: 'Focus Areas', desc: 'Predictive modeling, data preprocessing, feature engineering' }
+                    { title: 'NeuroLearn AI', desc: 'Pedagogical Learning System with Multi-Provider LLMs' },
+                    { title: 'Amazon ML Challenge 2026', desc: '1.7M+ Record Scalable Entity Resolution (0.8879 Macro F0.5)' },
+                    { title: 'CreditGuard AI', desc: 'Financial Risk Assessment with XGBoost & SMOTE' }
                 ]
             },
             {
                 id: 'software-eng',
                 name: 'Software Engineering',
-                subtitle: 'Full-Stack Architecture & Web Systems',
+                subtitle: 'Full-Stack Architecture, CI/CD & APIs',
                 color: 0x4f7cff,
                 accentHex: '#4f7cff',
                 proofs: [
-                    { title: 'FarmaLink-AI', desc: 'Agricultural Tech & Marketplace Platform' },
-                    { title: 'Core Stack', desc: 'Java, JavaScript/TypeScript, React/Next.js, Node.js' },
-                    { title: 'Focus Areas', desc: 'Modular design, RESTful APIs, Git workflows, responsive UX' }
+                    { title: 'FarmaLink-AI', desc: 'Next.js 15 + React 19 Agricultural Tech Platform' },
+                    { title: 'Core Stack', desc: 'TypeScript, Python, FastAPI, Prisma, Docker, GitHub Actions' },
+                    { title: 'Engineering Principles', desc: 'Modular architecture, automated testing, WCAG AA accessibility' }
                 ]
             },
             {

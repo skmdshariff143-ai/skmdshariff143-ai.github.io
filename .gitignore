@@ -16,9 +16,12 @@ Thumbs.db
 *.log
 *.tmp
 qa_results.json
+qa-artifacts/
 .tempmediaStorage/
 .gemini/
 
 # Utility Backups & Previews
 assets/certificates-backup/
 assets/compression-preview/
+.vercel
+.env*

@@ -1,0 +1,29 @@
+# Vercel CLI — files excluded from the deployment upload.
+# The site is static: everything not listed here is legitimate public content
+# (HTML/CSS/JS, data/*.json, assets/images, certificates, resume).
+# NOTE: robots.txt is NOT access control — these files must never be uploaded.
+
+# --- Secrets / local credentials (never upload) ---
+.env
+.env.*
+.env.local
+.vercel/
+*.pem
+*.key
+
+# --- Development-only tooling, reports and audit trail ---
+.git/
+.gitignore
+.gitattributes
+run_qa.py
+requirements.txt
+qa_results.json
+qa-artifacts/
+scripts/
+CHECKPOINT*.md
+RECONCILE-PROVENANCE.txt
+CERTIFICATE_WORKFLOW.md
+
+# --- Redundant / legacy trees that must never become the published root ---
+public/
+assets/certificates-backup/
