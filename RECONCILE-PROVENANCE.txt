@@ -1,0 +1,22 @@
+﻿# Phase B: copied-file inventory
+# source: Vercel-production working tree E:\skmdshariff143-ai.github.io
+# dest:   E:\portfolio-reconcile (branch feature/vercel-primary-reconcile)
+# baseline: origin/main 2f535976c195dd9ba3fc0e151294e90c53b044e7
+# recorded: 2026-10-19 19:45:35 +05:30
+# columns: ACTION | path | bytes | sha256-source | sha256-dest | match
+COPY | .gitignore | 328 | 958913E730E12A7131E28459198ABA56ABBBE680AB2F48CF2FC95519F4B8D091 | 958913E730E12A7131E28459198ABA56ABBBE680AB2F48CF2FC95519F4B8D091 | True
+COPY | assets/js/observatory-scene.js | 30273 | A79095B50EACB87A31D750871DC0584159ABFD1418D2B4D45DD6657EE6D9FA5C | A79095B50EACB87A31D750871DC0584159ABFD1418D2B4D45DD6657EE6D9FA5C | True
+COPY | data/projects.json | 6891 | 0A7D55FA4260D72D11D93A09B4A492832D887E55B3AB1D3CEEFAF3748B7DA2D3 | 0A7D55FA4260D72D11D93A09B4A492832D887E55B3AB1D3CEEFAF3748B7DA2D3 | True
+COPY | index.html | 93575 | 77355A4C4422D8228E72339F5B4A463807B330C9089BD9E0C7DA1BE9B901CBEE | 77355A4C4422D8228E72339F5B4A463807B330C9089BD9E0C7DA1BE9B901CBEE | True
+COPY | robots.txt | 81 | 28F2AB24FDF0AE68ADC679AF983C4F8569777F54BE87A654158F71EB96770B6B | 28F2AB24FDF0AE68ADC679AF983C4F8569777F54BE87A654158F71EB96770B6B | True
+COPY | script.js | 49006 | 42DB9FB784A54DDD071ADEF21F47AD213D0B83CB24F8E3FF23F43AF9D6EDC61B | 42DB9FB784A54DDD071ADEF21F47AD213D0B83CB24F8E3FF23F43AF9D6EDC61B | True
+COPY | vercel.json | 104 | FC4F6565AD7B9D1A17B9509CE93FB348092F7467A90156BCCF11137F78056F34 | FC4F6565AD7B9D1A17B9509CE93FB348092F7467A90156BCCF11137F78056F34 | True
+EXCLUDED | .env.local | never copied (secret / ignored / build-state / non-production)
+EXCLUDED | .vercel/.env.production.local | never copied (secret / ignored / build-state / non-production)
+EXCLUDED | .vercel/project.json | never copied (secret / ignored / build-state / non-production)
+EXCLUDED | .vercel/README.txt | never copied (secret / ignored / build-state / non-production)
+EXCLUDED | .vercel/output/** | never copied (secret / ignored / build-state / non-production)
+EXCLUDED | assets/certificates-backup/** | never copied (secret / ignored / build-state / non-production)
+EXCLUDED | qa_results.json | never copied (secret / ignored / build-state / non-production)
+EXCLUDED | scripts/*_preview.* | never copied (secret / ignored / build-state / non-production)
+EXCLUDED | public/** | never copied (secret / ignored / build-state / non-production)
