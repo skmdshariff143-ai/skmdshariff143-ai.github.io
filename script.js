@@ -334,7 +334,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    async function loadProjectsFromJSON() {
+        const projectGrid = document.querySelector('.project-grid');
+        if (!projectGrid) return;
+        try {
+            const res = await fetch('data/projects.json');
+            if (res.ok) {
+                const projects = await res.json();
+                if (projects && projects.length > 0) {
+                    projectGrid.innerHTML = projects.map(proj => `
+                        <div class="project-card case-study-card tilt-card" id="${proj.id}">
+                            <div class="project-header">
+                                <div class="project-title-group">
+                                    <span class="status-badge ${proj.status.includes('Active') ? 'badge-in-dev' : 'badge-completed'}">${proj.badge || proj.status}</span>
+                                    <h3>${proj.title}</h3>
+                                </div>
+                                <div class="project-links">
+                                    ${proj.github ? `<a href="${proj.github}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository for ${proj.title}"><i class="fab fa-github"></i> Code</a>` : ''}
+                                    ${proj.liveDemo ? `<a href="${proj.liveDemo}" target="_blank" rel="noopener noreferrer" aria-label="Live Demo for ${proj.title}"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
+                                </div>
+                            </div>
+                            <p class="project-summary">${proj.summary}</p>
+                            <div class="case-study-details">
+                                <div class="cs-field">
+                                    <span class="cs-label"><i class="fas fa-exclamation-circle"></i> Problem:</span>
+                                    <p>${proj.problem}</p>
+                                </div>
+                                <div class="cs-field">
+                                    <span class="cs-label"><i class="fas fa-lightbulb"></i> Solution:</span>
+                                    <p>${proj.solution}</p>
+                                </div>
+                                ${proj.contribution ? `
+                                <div class="cs-field">
+                                    <span class="cs-label"><i class="fas fa-user-cog"></i> My Contribution:</span>
+                                    <p>${proj.contribution}</p>
+                                </div>` : ''}
+                            </div>
+                            ${proj.verifiedResult ? `
+                            <div class="verified-result-banner">
+                                <i class="fas fa-award"></i> <strong>Verified Result:</strong> ${proj.verifiedResult}
+                            </div>` : ''}
+                            <div class="project-tech">
+                                ${proj.techStack.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+        } catch (err) {
+            console.warn('Dynamic fetch for projects.json skipped or failed; using static fallback', err);
+        }
+    }
+
     loadCertificatesFromJSON();
+    loadProjectsFromJSON();
     /* ------------------------------------------------------------------
        3D & Creative Effects
        ------------------------------------------------------------------ */
@@ -650,383 +703,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ------------------------------------------------------------------
-       6. Shariff's Anime-Style AI Guide Controller & Web Speech API
-       ------------------------------------------------------------------ */
-    // Artwork Configuration Constant: Set to true ONLY when artwork assets (assets/ai-guide/shariff-ai-guide.webp) are physically added.
-    const ENABLE_AI_GUIDE_IMAGE_ARTWORK = false;
-
-    const aiGuideWidget = document.getElementById('ai-guide-widget');
-    const aiGuideCard = document.getElementById('ai-guide-card');
-    const aiGuideUnminimizeBtn = document.getElementById('ai-guide-unminimize-btn');
-    const aiGuideMinimizeBtn = document.getElementById('ai-guide-minimize-btn');
-    const aiGuideCloseBtn = document.getElementById('ai-guide-close-btn');
-
-    const aiGuideCssAvatar = document.getElementById('ai-guide-css-avatar');
-    const aiGuideAvatarBox = document.getElementById('ai-guide-avatar-box');
-    const aiGuideStateText = document.getElementById('ai-guide-state-text');
-    const aiGuideLiveRegion = document.getElementById('ai-guide-live-region');
-
-    const aiPlayBtn = document.getElementById('ai-play-btn');
-    const aiPlayBtnText = document.getElementById('ai-play-btn-text');
-    const aiPauseBtn = document.getElementById('ai-pause-btn');
-    const aiPauseBtnText = document.getElementById('ai-pause-btn-text');
-    const aiStopBtn = document.getElementById('ai-stop-btn');
-    const aiMuteBtn = document.getElementById('ai-mute-btn');
-    const aiMuteIcon = document.getElementById('ai-mute-icon');
-    const aiTranscriptToggleBtn = document.getElementById('ai-transcript-toggle-btn');
-    const aiTranscriptInline = document.getElementById('ai-guide-transcript-inline');
-    const aiVoiceWarning = document.getElementById('ai-voice-warning');
-
-    const scriptText = "Hello, and welcome to Shaik Mahammad Shariff’s portfolio. Shariff is an Electronics and Communication Engineering undergraduate with an interest in artificial intelligence, software development and practical problem solving. He builds projects using Python, machine learning and modern web technologies. His featured work includes CreditGuard AI and FarmaLink-AI. He is also an AWS Certified Cloud Practitioner and continues to develop his skills through technical projects, internships and structured learning. Shariff is currently open to internship and entry-level opportunities where he can contribute, learn and grow as an AI and software developer. You can explore his projects, skills, experience and certifications throughout this portfolio.";
-
-    let isMuted = false;
-    let isSpeaking = false;
-    let currentUtterance = null;
-    let selectedVoice = null;
-
-    // Check reduced motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Announce to Screen Readers via Live Region
-    function announceState(message) {
-        if (aiGuideLiveRegion) {
-            aiGuideLiveRegion.textContent = message;
-        }
-    }
-
-    // Minimized State (sessionStorage with safe try/catch)
-    function updateWidgetMinState() {
-        if (!aiGuideCard || !aiGuideUnminimizeBtn) return;
-        let isMinimized = false;
-        try {
-            const stored = sessionStorage.getItem('ai_guide_minimized');
-            if (stored === null) {
-                // Default to compact state on small mobile viewports (< 400px) if user hasn't chosen
-                isMinimized = window.matchMedia('(max-width: 400px)').matches;
-            } else {
-                isMinimized = stored === 'true';
-            }
-        } catch (e) {
-            console.warn('sessionStorage not available:', e);
-            isMinimized = window.matchMedia('(max-width: 400px)').matches;
-        }
-
-        if (isMinimized) {
-            aiGuideCard.hidden = true;
-            aiGuideCard.style.display = 'none';
-            aiGuideCard.setAttribute('aria-hidden', 'true');
-            aiGuideUnminimizeBtn.hidden = false;
-        } else {
-            aiGuideCard.hidden = false;
-            aiGuideCard.style.display = 'block';
-            aiGuideCard.setAttribute('aria-hidden', 'false');
-            aiGuideUnminimizeBtn.hidden = true;
-        }
-    }
-
-    if (aiGuideMinimizeBtn) {
-        aiGuideMinimizeBtn.addEventListener('click', () => {
-            stopSpeech();
-            try {
-                sessionStorage.setItem('ai_guide_minimized', 'true');
-            } catch (e) {}
-            updateWidgetMinState();
-            announceState("AI Guide minimized");
-        });
-    }
-
-    if (aiGuideUnminimizeBtn) {
-        aiGuideUnminimizeBtn.addEventListener('click', () => {
-            try {
-                sessionStorage.setItem('ai_guide_minimized', 'false');
-            } catch (e) {}
-            updateWidgetMinState();
-            announceState("AI Guide opened");
-        });
-    }
-
-    if (aiGuideCloseBtn) {
-        aiGuideCloseBtn.addEventListener('click', () => {
-            stopSpeech();
-            if (aiGuideWidget) {
-                aiGuideWidget.style.display = 'none';
-            }
-            announceState("AI Guide closed");
-        });
-    }
-
-    // Web Speech API Voice Initialization
-    function initSpeechSynthesis() {
-        if (!('speechSynthesis' in window)) {
-            if (aiVoiceWarning) aiVoiceWarning.style.display = 'block';
-            if (aiTranscriptInline) aiTranscriptInline.style.display = 'block';
-            if (aiPlayBtn) aiPlayBtn.disabled = true;
-            return false;
-        }
-
-        const populateVoices = () => {
-            const voices = window.speechSynthesis.getVoices();
-            if (voices && voices.length > 0) {
-                selectedVoice = voices.find(v => (v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Daniel'))))
-                             || voices.find(v => v.lang.startsWith('en'))
-                             || voices[0];
-            }
-        };
-
-        populateVoices();
-        if (window.speechSynthesis.onvoiceschanged !== undefined) {
-            window.speechSynthesis.onvoiceschanged = populateVoices;
-        }
-        return true;
-    }
-
-    // Update Visual Speaking Animations
-    function setSpeakingVisualState(speaking, paused = false) {
-        isSpeaking = speaking;
-        if (!aiGuideAvatarBox) return;
-
-        if (prefersReducedMotion) {
-            aiGuideAvatarBox.classList.remove('is-speaking', 'is-paused');
-            if (aiGuideStateText) aiGuideStateText.textContent = speaking ? (paused ? 'Paused' : 'Speaking') : 'Ready';
-            return;
-        }
-
-        if (speaking) {
-            if (paused) {
-                aiGuideAvatarBox.classList.remove('is-speaking');
-                aiGuideAvatarBox.classList.add('is-paused');
-                if (aiGuideStateText) aiGuideStateText.textContent = 'Paused';
-            } else {
-                aiGuideAvatarBox.classList.remove('is-paused');
-                aiGuideAvatarBox.classList.add('is-speaking');
-                if (aiGuideStateText) aiGuideStateText.textContent = 'Speaking...';
-            }
-        } else {
-            aiGuideAvatarBox.classList.remove('is-speaking', 'is-paused');
-            if (aiGuideStateText) aiGuideStateText.textContent = 'Ready';
-        }
-    }
-
-    function playSpeech() {
-        if (!('speechSynthesis' in window)) return;
-
-        if (window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-            setSpeakingVisualState(true, false);
-            if (aiPauseBtn) aiPauseBtn.disabled = false;
-            if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
-            if (aiStopBtn) aiStopBtn.disabled = false;
-            announceState("Speech resumed");
-            return;
-        }
-
-        window.speechSynthesis.cancel();
-
-        currentUtterance = new SpeechSynthesisUtterance(scriptText);
-        if (selectedVoice) currentUtterance.voice = selectedVoice;
-        currentUtterance.rate = 1.0;
-        currentUtterance.pitch = 1.0;
-        currentUtterance.volume = isMuted ? 0 : 1.0;
-
-        currentUtterance.onstart = () => {
-            setSpeakingVisualState(true, false);
-            if (aiPauseBtn) aiPauseBtn.disabled = false;
-            if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
-            if (aiStopBtn) aiStopBtn.disabled = false;
-            if (aiPlayBtnText) aiPlayBtnText.textContent = 'Replay';
-            announceState("AI Guide started speaking introduction");
-        };
-
-        currentUtterance.onend = () => {
-            setSpeakingVisualState(false);
-            if (aiPauseBtn) aiPauseBtn.disabled = true;
-            if (aiStopBtn) aiStopBtn.disabled = true;
-            if (aiPlayBtnText) aiPlayBtnText.textContent = 'Replay';
-            announceState("Introduction speech completed");
-        };
-
-        currentUtterance.onerror = (e) => {
-            console.warn('Speech synthesis playback note:', e);
-            setSpeakingVisualState(false);
-            if (aiPauseBtn) aiPauseBtn.disabled = true;
-            if (aiStopBtn) aiStopBtn.disabled = true;
-        };
-
-        currentUtterance.onpause = () => {
-            setSpeakingVisualState(true, true);
-            if (aiPauseBtnText) aiPauseBtnText.textContent = 'Resume';
-            announceState("Speech paused");
-        };
-
-        currentUtterance.onresume = () => {
-            setSpeakingVisualState(true, false);
-            if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
-            announceState("Speech resumed");
-        };
-
-        window.speechSynthesis.speak(currentUtterance);
-    }
-
-    function pauseSpeech() {
-        if (!('speechSynthesis' in window)) return;
-        if (window.speechSynthesis.speaking) {
-            if (window.speechSynthesis.paused) {
-                window.speechSynthesis.resume();
-                setSpeakingVisualState(true, false);
-                if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
-                announceState("Speech resumed");
-            } else {
-                window.speechSynthesis.pause();
-                setSpeakingVisualState(true, true);
-                if (aiPauseBtnText) aiPauseBtnText.textContent = 'Resume';
-                announceState("Speech paused");
-            }
-        }
-    }
-
-    function stopSpeech() {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-        }
-        setSpeakingVisualState(false);
-        if (aiPauseBtn) aiPauseBtn.disabled = true;
-        if (aiPauseBtnText) aiPauseBtnText.textContent = 'Pause';
-        if (aiStopBtn) aiStopBtn.disabled = true;
-        if (aiPlayBtnText) aiPlayBtnText.textContent = 'Play Intro';
-        if (aiGuideStateText) aiGuideStateText.textContent = 'Stopped';
-        announceState("Speech stopped");
-    }
-
-    function toggleMute() {
-        isMuted = !isMuted;
-        if (aiMuteIcon) {
-            aiMuteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
-        }
-        if (currentUtterance && 'speechSynthesis' in window && window.speechSynthesis.speaking) {
-            currentUtterance.volume = isMuted ? 0 : 1.0;
-        }
-        announceState(isMuted ? "Audio muted" : "Audio unmuted");
-    }
-
-    if (aiPlayBtn) aiPlayBtn.addEventListener('click', playSpeech);
-    if (aiPauseBtn) aiPauseBtn.addEventListener('click', pauseSpeech);
-    if (aiStopBtn) aiStopBtn.addEventListener('click', stopSpeech);
-    if (aiMuteBtn) aiMuteBtn.addEventListener('click', toggleMute);
-
-    if (aiTranscriptToggleBtn && aiTranscriptInline) {
-        aiTranscriptToggleBtn.addEventListener('click', () => {
-            const isShown = aiTranscriptInline.style.display !== 'none';
-            aiTranscriptInline.style.display = isShown ? 'none' : 'block';
-            announceState(isShown ? "Transcript hidden" : "Transcript shown");
-        });
-    }
-
-    // Stop speech when tab is hidden or page is unloaded
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            stopSpeech();
-        }
-    });
-
-    window.addEventListener('beforeunload', () => {
-        stopSpeech();
-    });
-
-    window.addEventListener('pagehide', () => {
-        stopSpeech();
-    });
-
-    updateWidgetMinState();
-    initSpeechSynthesis();
-
-    /* ------------------------------------------------------------------
-       7. AI-Assisted Introduction Modal Controller
-       ------------------------------------------------------------------ */
-    const btnOpenIntro = document.getElementById('btn-open-intro');
-    const btnCloseIntro = document.getElementById('btn-close-intro');
-    const modalBackdrop = document.getElementById('modal-backdrop');
-    const introModal = document.getElementById('ai-intro-modal');
-    let previouslyFocusedElement = null;
-
-    if (introModal && btnOpenIntro) {
-        const openModal = (e) => {
-            previouslyFocusedElement = (document.activeElement && document.activeElement !== document.body)
-                ? document.activeElement
-                : btnOpenIntro;
-            introModal.hidden = false;
-            introModal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-
-            // Unminimize guide widget if user clicked hero intro button
-            try {
-                sessionStorage.removeItem('ai_guide_minimized');
-            } catch (err) {}
-            updateWidgetMinState();
-
-            // Trigger single shared speech controller ONLY on direct user click event
-            if (e && e.isTrusted) {
-                playSpeech();
-            }
-
-            if (btnCloseIntro) {
-                btnCloseIntro.focus();
-            } else {
-                const container = introModal.querySelector('.modal-container');
-                if (container) container.focus();
-            }
-        };
-
-        const closeModal = () => {
-            stopSpeech();
-            introModal.hidden = true;
-            introModal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-
-            const elementToFocus = (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function')
-                ? previouslyFocusedElement
-                : btnOpenIntro;
-            elementToFocus.focus();
-        };
-
-        btnOpenIntro.addEventListener('click', openModal);
-        if (btnCloseIntro) btnCloseIntro.addEventListener('click', closeModal);
-        if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
-
-        // Escape Key & Focus Trap
-        document.addEventListener('keydown', (e) => {
-            if (introModal.hidden || introModal.getAttribute('aria-hidden') === 'true') return;
-
-            if (e.key === 'Escape') {
-                closeModal();
-                return;
-            }
-
-            if (e.key === 'Tab') {
-                const focusables = Array.from(introModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'));
-                if (focusables.length === 0) {
-                    e.preventDefault();
-                    return;
-                }
-
-                const first = focusables[0];
-                const last = focusables[focusables.length - 1];
-
-                if (e.shiftKey) {
-                    if (document.activeElement === first || !introModal.contains(document.activeElement)) {
-                        last.focus();
-                        e.preventDefault();
-                    }
-                } else {
-                    if (document.activeElement === last || !introModal.contains(document.activeElement)) {
-                        first.focus();
-                        e.preventDefault();
-                    }
-                }
-            }
-        });
-    }
-
-    /* ------------------------------------------------------------------
        Contact Form Submission (Formspree AJAX)
        ------------------------------------------------------------------ */
     const contactForm = document.getElementById('contact-form');
@@ -1066,15 +742,228 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     if (formStatus) {
                         formStatus.style.color = '#ff1744'; // error red
-                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:sk.md.shariff143@gmail.com" style="color: var(--accent-teal); text-decoration: underline;">sk.md.shariff143@gmail.com</a> instead.';
+                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
                     }
                 }
             } catch (error) {
                 if (formStatus) {
                     formStatus.style.color = '#ff1744';
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:sk.md.shariff143@gmail.com" style="color: var(--accent-teal); text-decoration: underline;">sk.md.shariff143@gmail.com</a> instead.';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
                 }
             }
         });
     }
+
+    /* ------------------------------------------------------------------
+       Developer Command Palette (Cmd/Ctrl + K) & Toast
+       ------------------------------------------------------------------ */
+    const cmdModal = document.getElementById('cmd-palette-modal');
+    const cmdTrigger = document.getElementById('cmd-k-trigger');
+    const cmdInput = document.getElementById('cmd-palette-input');
+    const cmdResults = document.getElementById('cmd-palette-results');
+    const cmdBackdrop = document.getElementById('cmd-palette-backdrop');
+    const cmdCloseBtn = document.getElementById('cmd-palette-close-btn');
+    const cmdToast = document.getElementById('cmd-toast');
+
+    let activeItemIndex = 0;
+    let filteredCommands = [];
+
+    const commandsList = [
+        // Navigation Group
+        { id: 'nav-hero', title: 'Home / Hero Overview', group: 'Navigation', icon: 'fas fa-home', action: () => scrollToSection('#hero') },
+        { id: 'nav-about', title: 'About Me & Education', group: 'Navigation', icon: 'fas fa-user', action: () => scrollToSection('#about') },
+        { id: 'nav-skills', title: 'Technical Skills & Architecture', group: 'Navigation', icon: 'fas fa-code', action: () => scrollToSection('#skills') },
+        { id: 'nav-experience', title: 'Experience & Timeline', group: 'Navigation', icon: 'fas fa-briefcase', action: () => scrollToSection('#experience-education') },
+        { id: 'nav-projects', title: 'Featured Engineering Projects', group: 'Navigation', icon: 'fas fa-layer-group', action: () => scrollToSection('#projects') },
+        { id: 'nav-certifications', title: 'Certifications & Accreditations', group: 'Navigation', icon: 'fas fa-certificate', action: () => scrollToSection('#certificates') },
+        { id: 'nav-achievements', title: 'Competitive Achievements', group: 'Navigation', icon: 'fas fa-trophy', action: () => scrollToSection('#achievements') },
+        { id: 'nav-contact', title: 'Contact & Hire Me', group: 'Navigation', icon: 'fas fa-envelope', action: () => scrollToSection('#contact') },
+
+        // Quick Actions Group
+        { id: 'act-resume', title: 'Download Official Résumé', group: 'Quick Actions', icon: 'fas fa-file-download', shortcut: 'PDF', action: () => {
+            const a = document.createElement('a');
+            a.href = 'assets/resume.pdf';
+            a.download = 'Shaik_Mahammad_Shariff_Resume.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast('Downloading official résumé PDF...');
+        }},
+        { id: 'act-copy-email', title: 'Copy Verified Email Address', group: 'Quick Actions', icon: 'fas fa-copy', shortcut: 'Copy', action: () => {
+            const email = '23BQ1A04F2@vvit.net';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(() => {
+                    showToast('Copied ' + email + ' to clipboard!');
+                }).catch(() => {
+                    showToast('Email: ' + email);
+                });
+            } else {
+                showToast('Email: ' + email);
+            }
+        }},
+        { id: 'act-toggle-motion', title: 'Toggle Motion & Visual Effects', group: 'Quick Actions', icon: 'fas fa-magic', shortcut: 'Toggle', action: () => {
+            const motionBtn = document.getElementById('btn-toggle-motion');
+            if (motionBtn) motionBtn.click();
+            showToast('Toggled visual motion effects');
+        }},
+
+        // External Links Group
+        { id: 'link-github', title: 'GitHub Profile & Repositories', group: 'External Links', icon: 'fab fa-github', action: () => window.open('https://github.com/skmdshariff143-ai', '_blank') },
+        { id: 'link-linkedin', title: 'LinkedIn Profile', group: 'External Links', icon: 'fab fa-linkedin-in', action: () => window.open('https://linkedin.com/in/mahammad-shariff-shaik-32903934a', '_blank') },
+        { id: 'link-codechef', title: 'CodeChef 3-Star Profile', group: 'External Links', icon: 'fas fa-code', action: () => window.open('https://www.codechef.com/users/vvit23bq1a04f2', '_blank') }
+    ];
+
+    function showToast(msg) {
+        if (!cmdToast) return;
+        cmdToast.innerHTML = '<i class="fas fa-check-circle" style="color: var(--accent-teal);"></i> ' + msg;
+        cmdToast.classList.add('active');
+        setTimeout(() => {
+            cmdToast.classList.remove('active');
+        }, 3200);
+    }
+
+    function scrollToSection(selector) {
+        const el = document.querySelector(selector);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    function openCmdPalette() {
+        if (!cmdModal) return;
+        cmdModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        if (cmdInput) {
+            cmdInput.value = '';
+            cmdInput.focus();
+        }
+        renderCmdResults('');
+    }
+
+    function closeCmdPalette() {
+        if (!cmdModal) return;
+        cmdModal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    function renderCmdResults(query) {
+        if (!cmdResults) return;
+        const q = (query || '').toLowerCase().trim();
+        filteredCommands = commandsList.filter(cmd => {
+            return cmd.title.toLowerCase().includes(q) || cmd.group.toLowerCase().includes(q);
+        });
+
+        if (filteredCommands.length === 0) {
+            cmdResults.innerHTML = `
+                <div style="padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                    <i class="fas fa-search" style="margin-bottom: 0.5rem; font-size: 1.25rem; display: block;"></i>
+                    No matching commands found for "${query}"
+                </div>
+            `;
+            return;
+        }
+
+        activeItemIndex = 0;
+
+        const groups = {};
+        filteredCommands.forEach((cmd, idx) => {
+            if (!groups[cmd.group]) groups[cmd.group] = [];
+            groups[cmd.group].push({ cmd, originalIdx: idx });
+        });
+
+        let html = '';
+        Object.keys(groups).forEach(groupName => {
+            html += `<div class="cmd-palette-group-title">${groupName}</div>`;
+            groups[groupName].forEach(({ cmd, originalIdx }) => {
+                const isActive = originalIdx === activeItemIndex;
+                html += `
+                    <div class="cmd-palette-item ${isActive ? 'active' : ''}" data-idx="${originalIdx}" role="option" aria-selected="${isActive}">
+                        <div class="cmd-palette-item-content">
+                            <i class="${cmd.icon} cmd-palette-item-icon"></i>
+                            <span>${cmd.title}</span>
+                        </div>
+                        ${cmd.shortcut ? `<span class="cmd-palette-item-shortcut">${cmd.shortcut}</span>` : ''}
+                    </div>
+                `;
+            });
+        });
+
+        cmdResults.innerHTML = html;
+
+        const items = cmdResults.querySelectorAll('.cmd-palette-item');
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const idx = parseInt(item.dataset.idx, 10);
+                executeCommand(idx);
+            });
+            item.addEventListener('mouseenter', () => {
+                const idx = parseInt(item.dataset.idx, 10);
+                updateActiveIndex(idx);
+            });
+        });
+    }
+
+    function updateActiveIndex(newIdx) {
+        if (filteredCommands.length === 0) return;
+        activeItemIndex = (newIdx + filteredCommands.length) % filteredCommands.length;
+        const items = cmdResults.querySelectorAll('.cmd-palette-item');
+        items.forEach(item => {
+            const idx = parseInt(item.dataset.idx, 10);
+            const isActive = idx === activeItemIndex;
+            item.classList.toggle('active', isActive);
+            item.setAttribute('aria-selected', isActive);
+            if (isActive) {
+                item.scrollIntoView({ block: 'nearest' });
+            }
+        });
+    }
+
+    function executeCommand(index) {
+        if (filteredCommands[index]) {
+            closeCmdPalette();
+            filteredCommands[index].action();
+        }
+    }
+
+    if (cmdTrigger) {
+        cmdTrigger.addEventListener('click', openCmdPalette);
+    }
+    if (cmdBackdrop) {
+        cmdBackdrop.addEventListener('click', closeCmdPalette);
+    }
+    if (cmdCloseBtn) {
+        cmdCloseBtn.addEventListener('click', closeCmdPalette);
+    }
+
+    if (cmdInput) {
+        cmdInput.addEventListener('input', (e) => {
+            renderCmdResults(e.target.value);
+        });
+        cmdInput.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                updateActiveIndex(activeItemIndex + 1);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                updateActiveIndex(activeItemIndex - 1);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                executeCommand(activeItemIndex);
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if (cmdModal && cmdModal.style.display === 'flex') {
+                closeCmdPalette();
+            } else {
+                openCmdPalette();
+            }
+        } else if (e.key === 'Escape' && cmdModal && cmdModal.style.display === 'flex') {
+            closeCmdPalette();
+        }
+    });
+
 });

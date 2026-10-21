@@ -1,26 +1,114 @@
 [
   {
+    "id": "neurolearn-ai",
+    "title": "NeuroLearn AI",
+    "badge": "Active Hackathon Prototype",
+    "summary": "An intelligent, multi-provider AI learning platform featuring curriculum generation, diagnostic self-checks, concept-level reteaching, and multi-source research coordination.",
+    "problem": "Generic AI learning tools deliver superficial one-shot summaries with high hallucination risk and lack structured pedagogical reteaching loops or student privacy controls.",
+    "solution": "Architected an open-source Next.js 15 + React 19 pedagogical learning system with multi-provider inference (Nebius, NVIDIA Nemotron, Gemini, Groq), autonomous multi-source academic research coordination, and local-first guest persistence.",
+    "contribution": "Engineered the universal Research-to-Teaching coordinator with SSRF-safe multi-source querying (Wikipedia, OpenAlex, Crossref, OpenStax, Tavily), deterministic multiple-choice grading, diagnostic roadmaps, and WCAG AA accessible UI with Hindi and Telugu multi-lingual support.",
+    "features": [
+      "Public deployment provides interactive, deterministic fixture tutoring across 3 core STEM tracks (Transformers, Python Loops, Quadratic Equations).",
+      "Engineered multi-source research retrieval pipeline integrating Wikipedia, OpenAlex, Crossref, and OpenStax with strict prompt-injection and SSRF filtering.",
+      "Integrated flexible AI providers including Nebius Token Factory, NVIDIA Nemotron, Gemini API, and Groq with transparent fallback labels.",
+      "Built resilient local-first browser storage and opt-in PostgreSQL repository with row-level security and zero learner data tracking."
+    ],
+    "techStack": ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "NVIDIA Nemotron", "Gemini API", "Playwright"],
+    "verifiedResult": "Full test suite passing (typecheck, lint, unit tests, and 10 canonical benchmark evaluation topics)",
+    "github": "https://github.com/skmdshariff143-ai/neurolearn-ai",
+    "liveDemo": "https://neurolearn-ai-pink.vercel.app",
+    "status": "In Active Development",
+    "screenshot": "assets/og-preview.png"
+  },
+  {
+    "id": "recoverflow-ai",
+    "title": "RecoverFlow AI",
+    "badge": "Razorpay AI Buildathon (Track 3)",
+    "summary": "An enterprise-grade AI revenue recovery platform orchestrating autonomous recovery workflows with integer-paise financial precision, L2 logistic calibration, and Thompson Sampling.",
+    "problem": "Failed recurring subscription payments cause massive revenue leakage, while naïve retry storms trigger bank network penalties, high transaction fees, and customer churn.",
+    "solution": "Architected an autonomous recovery platform with integer-paise financial math, L2 logistic recovery probability calibration, Thompson Sampling Multi-Armed Bandit channel dispatch, transactional outbox pattern, and SHA-256 audit chaining.",
+    "contribution": "Built the Next.js 16 + React 19 web application, Prisma ORM schema, 461 unit and integration tests across 81 suites in Vitest, 65 Playwright e2e tests, and resilient recovery state machines.",
+    "features": [
+      "Integer-paise financial accounting math preventing IEEE-754 floating-point rounding discrepancies across recovery transactions.",
+      "L2 logistic regression probability calibration and Thompson Sampling Multi-Armed Bandit for intelligent multi-channel recovery dispatch (WhatsApp, SMS, Email).",
+      "Transactional outbox pattern with SHA-256 tamper-evident state chain guaranteeing idempotent, auditable event processing.",
+      "Comprehensive test verification with 461 unit and integration tests passing across 81 suites and 65 Playwright end-to-end tests."
+    ],
+    "techStack": ["Next.js 16", "React 19", "TypeScript 5", "Prisma ORM", "Vitest", "Playwright", "Tailwind CSS"],
+    "verifiedResult": "461 Vitest tests across 81 suites & 65 Playwright e2e tests passing; Razorpay AI Buildathon Track 3",
+    "github": "https://github.com/skmdshariff143-ai/recoverflow-ai",
+    "liveDemo": "https://recoverflow-ai-kohl.vercel.app",
+    "status": "Completed / Active",
+    "screenshot": "assets/og-preview.png"
+  },
+  {
+    "id": "resumescore",
+    "title": "ResumeScore — AI Resume Quality & ATS Match Engine",
+    "badge": "Production SaaS Engine",
+    "summary": "A privacy-first, local-client ATS resume analysis and job description matching platform with 7-dimension scoring, 6-layer semantic matching, and optional AI bullet point rewrites.",
+    "problem": "Traditional resume evaluators require users to upload confidential resumes and personal identifiers to third-party servers, creating data privacy, leakage, and compliance risks.",
+    "solution": "Engineered a local-first client architecture using Mozilla PDF.js for 100% in-browser text and layout parsing with zero server data leakage, coupled with a 7-dimension weighted scoring engine and 6-layer semantic skill matcher.",
+    "contribution": "Architected the client-side parsing pipeline, deterministic scoring algorithms, semantic skill extraction, optional Gemini/Claude structured bullet rewrites (X-Y-Z formula), and 35 automated Vitest unit and integration tests.",
+    "features": [
+      "Local-first client parsing via Mozilla PDF.js guaranteeing zero resume data transmission to external servers.",
+      "7-dimension weighted scoring engine evaluating typography, formatting, contact hygiene, ATS parseability, bullet strength, and structural completeness.",
+      "6-layer semantic skill matching engine comparing candidate profiles against target job descriptions.",
+      "Optional Google Gemini 2.5 Flash / Anthropic Claude 3.5 Sonnet structured bullet optimizer implementing Google's X-Y-Z accomplishment formula.",
+      "Comprehensive test suite with 35 passing Vitest unit and integration tests."
+    ],
+    "techStack": ["Next.js 16", "React 19", "TypeScript 5", "Tailwind CSS 4", "Mozilla PDF.js", "Vitest", "Gemini API"],
+    "verifiedResult": "35 automated Vitest tests passing; 100% client-side privacy architecture with zero data transmission",
+    "github": "https://github.com/skmdshariff143-ai/resumescore",
+    "liveDemo": "https://resumescore-phi.vercel.app",
+    "status": "Completed / Active",
+    "screenshot": "assets/og-preview.png"
+  },
+  {
     "id": "credit-card-approval-prediction",
     "title": "Credit Card Approval Prediction (CreditGuard AI)",
-    "summary": "An end-to-end Machine Learning solution evaluating credit applicant delinquency risk with explainable AI and automated CI/CD testing.",
-    "problem": "Financial institutions face high credit default rates due to inaccurate risk profiling and imbalanced applicant data.",
-    "solution": "Developed a machine learning classification engine using XGBoost and SMOTE oversampling to accurately detect high-risk applicants.",
-    "contribution": "Built custom data preprocessing pipelines, SMOTE oversampling, interactive Flask dashboard, and automated GitHub Actions CI/CD workflows.",
+    "badge": "Production ML Pipeline",
+    "summary": "An end-to-end Machine Learning pipeline evaluating applicant credit delinquency risk using a Calibrated Random Forest model with cost-sensitive cutoffs and local SHAP explainability.",
+    "problem": "Financial institutions face severe credit default losses from asymmetric misclassification costs, where false negatives (unflagged defaulters) are far costlier than false positives.",
+    "solution": "Trained and benchmarked multiple classifiers (Random Forest, LightGBM, XGBoost, Logistic Regression); selected Calibrated Random Forest as the production champion achieving 97.97% accuracy, 0.7865 ROC-AUC, 0.015387 Brier score (-14.0% error improvement vs uncalibrated), and a cost-sensitive decision cutoff (p* = 0.0395 at 5:1 penalty) delivering 35.77% delinquency recall with local SHAP interpretability.",
+    "contribution": "Engineered feature pipelines on 438k records, implemented sigmoid probability calibration, optimized 5:1 cost-sensitive decision cutoffs, built Flask 3.0 inference service with Dark/Light dashboard, and integrated de-duplicated local SHAP explanations.",
     "features": [
-      "Designed custom preprocessing pipelines & SMOTE-oversampling, achieving 66.67% delinquency recall.",
-      "Built interactive prediction and metrics dashboards using Flask and Bootstrap 5 with Dark/Light modes.",
-      "Configured automated MLOps CI/CD via GitHub Actions for testing, lints, Docker builds, and Pages deployment."
+      "Production champion Calibrated Random Forest delivering 97.97% accuracy, 0.7865 ROC-AUC, and 0.015387 Brier score (-14.0% probability error reduction).",
+      "Asymmetric 5:1 cost-sensitive decision threshold optimization at p* = 0.0395, capturing 35.77% default recall on imbalanced credit data.",
+      "Local TreeSHAP explainability engine providing transparent feature contribution waterfalls for individual credit decisions.",
+      "Production Flask 3.0 web application with responsive UI, Dark/Light modes, SQLite storage, Docker containerization, and GitHub Actions CI/CD."
     ],
-    "techStack": ["Python", "Scikit-Learn", "XGBoost", "Flask", "Docker", "GitHub Actions"],
-    "verifiedResult": "66.67% Delinquency Recall with automated CI/CD test suite",
+    "techStack": ["Python", "Scikit-Learn", "Random Forest", "SHAP", "Flask", "Docker", "GitHub Actions"],
+    "verifiedResult": "97.97% Accuracy • 0.7865 ROC-AUC • 0.015387 Brier Score (-14% Error) • 35.77% Default Recall",
     "github": "https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction",
     "liveDemo": "https://creditguard-ai.vercel.app",
     "status": "Completed / Active",
     "screenshot": "assets/og-preview.png"
   },
   {
+    "id": "amazon-ml-2026-entity-resolution",
+    "title": "Amazon ML Challenge 2026 — Entity Resolution",
+    "badge": "Competition Research (Private Codebase)",
+    "summary": "A high-throughput, memory-bounded machine learning pipeline resolving merchant identity across millions of noisy commercial records without pretrained embedding models.",
+    "problem": "Matching identical business entities across heterogeneous data sources with noisy names, partial addresses, and severe class imbalance at scale (1.7M+ test anchors).",
+    "solution": "Built a scalable candidate generation inverted index and 19-feature LightGBM classification pipeline with hard-negative mining, calibrated thresholding, and streaming validation.",
+    "contribution": "Developed custom inverted index with token-frequency weighting, 19 rapid pairwise similarity features (RapidFuzz Normalized Indel, token overlap, numeric conflicts), and zero-leakage partition streaming.",
+    "features": [
+      "Engineered multi-token inverted index processing 207M+ candidate links across 1.73M anchors with 0.9118 holdout candidate recall.",
+      "Extracted 19 pairwise similarity and interaction features with memory-mapped Arrow stores and deterministic tie-breaking.",
+      "Trained hard-negative LightGBM achieving 0.8879 Macro F0.5 (0.9563 Precision, 0.8053 Recall) on local 5,000-anchor calibration holdout.",
+      "Validated end-to-end pipeline with 39 automated tests and streaming compliance checks."
+    ],
+    "techStack": ["Python 3.13", "LightGBM", "RapidFuzz", "PyArrow", "NumPy", "Pandas", "Pytest"],
+    "verifiedResult": "0.8879 Local Holdout Macro F0.5 (0.9563 Precision) across 39 verified unit and streaming tests",
+    "github": "",
+    "liveDemo": "",
+    "status": "Completed Research",
+    "screenshot": "assets/og-preview.png"
+  },
+  {
     "id": "farmalink-ai",
     "title": "FarmaLink-AI",
+    "badge": "Agricultural SaaS Prototype",
     "summary": "A Next.js 15 + React 19 agricultural SaaS platform connecting farmers directly with buyers, logistics networks, and cold storages.",
     "problem": "Agricultural supply chains suffer from intermediary price exploitation, lack of crop disease diagnostics, and opaque transaction escrow.",
     "solution": "Engineered a platform featuring AI disease diagnostics, crop yield/price prediction, and simulated escrow transaction wallets.",
@@ -35,24 +123,5 @@
     "liveDemo": "https://farmlink-umber.vercel.app",
     "status": "In Active Development",
     "screenshot": "assets/og-preview.png"
-  },
-  {
-    "id": "ai-interview-coach",
-    "title": "AI Interview Coach Pro",
-    "summary": "AI-powered interview simulator with real-time feedback.",
-    "problem": "Candidates struggle to get real-time actionable feedback on technical interview performance.",
-    "solution": "Built an interactive AI mock interview platform providing instant feedback on technical accuracy and communication.",
-    "techStack": [
-      "Python",
-      "FastAPI",
-      "React",
-      "Gemini API"
-    ],
-    "github": "https://github.com/skmdshariff143-ai/AI-Interview-Coach-Pro",
-    "liveDemo": "https://ai-interview-coach-pro.vercel.app",
-    "metrics": [
-      "Real-Time Feedback",
-      "Gemini AI"
-    ]
   }
 ]

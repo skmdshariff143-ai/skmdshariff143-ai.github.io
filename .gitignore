@@ -22,3 +22,5 @@ qa_results.json
 # Utility Backups & Previews
 assets/certificates-backup/
 assets/compression-preview/
+.vercel
+.env*

@@ -10,6 +10,7 @@ server_proc = subprocess.Popen([sys.executable, "-m", "http.server", "8000"], st
 time.sleep(2)
 
 viewports = [
+    (320, 640, "Mobile Extra Small 320px"),
     (360, 800, "Mobile Small"),
     (390, 844, "Mobile Standard"),
     (768, 1024, "Tablet Portrait"),
@@ -90,7 +91,7 @@ try:
 
         # Overflow element detection at 360 & 390
         overflow_elements = []
-        if width in (360, 390):
+        if width in (320, 360, 390):
             overflow_elements = driver.execute_script("""
                 const docEl = document.documentElement;
                 const bodyRect = document.body.getBoundingClientRect();
@@ -137,7 +138,7 @@ try:
         panel_visible = driver.execute_script("return !arguments[0].hidden && getComputedStyle(arguments[0]).display !== 'none';", obs_panel)
         toggle_visible = driver.execute_script("return !arguments[0].hidden && getComputedStyle(arguments[0]).display !== 'none' && arguments[0].offsetWidth > 0;", toggle_btn)
 
-        if width in (360, 390):
+        if width in (320, 360, 390):
             if toggle_visible:
                 vp_log.append("[PASS] Observatory motion toggle button visible on mobile.")
             else:

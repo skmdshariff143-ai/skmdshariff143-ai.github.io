@@ -1,0 +1,100 @@
+# Shaik Mahammad Shariff — Developer Portfolio
+
+> Electronics and Communication Engineering Undergraduate | AI & Software Developer
+> Primary Production URL: https://mahammadshariff.vercel.app/
+> GitHub: https://github.com/skmdshariff143-ai
+> LinkedIn: https://linkedin.com/in/mahammad-shariff-shaik-32903934a
+> CodeChef: https://www.codechef.com/users/vvit23bq1a04f2 (3-Star, 500+ Problems Solved)
+> Location: Guntur, Andhra Pradesh, India
+> Academic Institution: Vasireddy Venkatadri Institute of Technology (VVIT)
+> Degree: B.Tech in Electronics & Communication Engineering (Expected May 2027, CGPA: 8.21/10)
+
+## Professional Summary
+Shaik Mahammad Shariff is an undergraduate engineer specializing in artificial intelligence systems, scalable machine learning pipelines, and full-stack software development. His work spans pedagogical multi-provider LLM applications, high-throughput entity resolution pipelines, autonomous AI agent execution operating systems, and credit risk classification engines. He holds an active AWS Certified Cloud Practitioner credential and is a 3-star competitive programmer on CodeChef.
+
+---
+
+## Core Technical Competencies
+
+- **Programming Languages**: Python, TypeScript, Java, C, SQL
+- **AI & Machine Learning**: Generative AI, AI Agents & Multi-LLM Routing, RAG Architectures, Prompt Engineering, LightGBM, XGBoost, Scikit-Learn, Predictive Modeling
+- **Data Engineering**: Pandas, NumPy, Matplotlib, Inverted Token Indexing, Entity Resolution Pipelines, SMOTE Imbalance Handling, Feature Engineering
+- **Full-Stack Web Engineering**: Next.js 15 (App Router), React 19, Node.js, Prisma ORM, Flask, RESTful APIs, HTML5, CSS3
+- **Cloud & DevOps**: Amazon Web Services (AWS Certified Cloud Practitioner), Google Cloud Skills Boost, Docker, Vercel, Git & GitHub, Linux, CI/CD
+- **Algorithmic Problem Solving**: 3-Star CodeChef rating with 500+ verified competitive programming problems solved using Java and Python.
+
+---
+
+## Verified Engineering Case Studies
+
+### 1. RecoverFlow AI — Autonomous AI Agent OS
+- **Domain**: Autonomous AI Workflow Orchestration & Checkpoint State Recovery
+- **Stack**: Next.js 15, Node.js, Prisma ORM, TypeScript, AI Agents, Vercel
+- **Problem**: Multi-agent autonomous workflows frequently experience catastrophic state loss, uncontrolled loops, and tool-call crashes without structured checkpoint recovery.
+- **Solution & Architecture**: Engineered a deterministic checkpoint state recovery engine with sandboxed tool execution pipelines and real-time execution trace telemetry.
+- **Repository**: https://github.com/skmdshariff143-ai/recoverflow-ai
+- **Live Demo**: https://recoverflow-ai.vercel.app
+
+### 2. NeuroLearn AI — Multi-Provider Pedagogical Learning Platform
+- **Domain**: Pedagogical Curriculum Generation & Diagnostic Multi-LLM Router
+- **Stack**: Next.js 15, React 19, TypeScript, Tailwind CSS, Nebius, NVIDIA Nemotron, Gemini API, Groq, Playwright
+- **Problem**: Superficial one-shot LLM summaries risk hallucinations and lack pedagogical reteaching loops or student data privacy.
+- **Solution & Architecture**: Built a universal Research-to-Teaching coordinator with SSRF-safe multi-source academic querying (OpenAlex, Wikipedia, Crossref, OpenStax), deterministic grading, and local-first browser storage with zero learner tracking.
+- **Verification**: Complete automated test suites passing across 10 canonical benchmark topics.
+- **Repository**: https://github.com/skmdshariff143-ai/neurolearn-ai
+- **Live Demo**: https://neurolearn-ai-pink.vercel.app
+
+### 3. Amazon ML Challenge 2026 — Entity Resolution Pipeline
+- **Domain**: High-Throughput Scalable Machine Learning & Merchant Entity Deduplication
+- **Stack**: Python 3.13, LightGBM, RapidFuzz, PyArrow, NumPy, Pandas, Pytest
+- **Problem**: Resolving identity across 1.7M+ noisy merchant records with partial attributes, name typos, and extreme class imbalance without heavy pretrained embeddings.
+- **Solution & Architecture**: Developed a token-frequency inverted index candidate generator (207M+ candidate links) coupled with a 19-feature hard-negative LightGBM classifier.
+- **Demonstrated Result**: 0.8879 Macro F0.5 (0.9563 Precision) on local 5,000-anchor calibration holdout; 39 automated unit and streaming validation tests passing.
+- **Repository**: https://github.com/skmdshariff143-ai/amazon-ml-2026-entity-resolution
+
+### 4. CreditGuard AI — Credit Card Approval Risk Prediction
+- **Domain**: Machine Learning Credit Delinquency Prediction & MLOps
+- **Stack**: Python, Scikit-Learn, XGBoost, Flask, Docker, GitHub Actions CI/CD
+- **Problem**: High credit delinquency default rates caused by inaccurate credit risk scoring and severe data imbalance.
+- **Solution & Architecture**: Developed custom data preprocessing pipelines with SMOTE oversampling and an XGBoost classification engine with interactive Flask dashboard.
+- **Demonstrated Result**: 66.67% delinquency recall on imbalanced credit applicant test sets with automated CI/CD pipeline.
+- **Repository**: https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction
+- **Live Demo**: https://creditguard-ai.vercel.app
+
+### 5. FarmaLink-AI — Direct Agricultural Marketplace SaaS
+- **Domain**: Full-Stack Agricultural Marketplace & Escrow Transactions
+- **Stack**: Next.js 15, React 19, TypeScript, Prisma, Supabase, Vercel
+- **Problem**: Agricultural supply chain exploitation by intermediaries, opaque pricing, and lack of crop disease diagnostics.
+- **Solution & Architecture**: Built direct farmer-to-buyer platform with AI disease diagnostic tooling and simulated escrow payment workflows.
+- **Repository**: https://github.com/skmdshariff143-ai/farmlink-ai
+- **Live Demo**: https://farmlink-umber.vercel.app
+
+---
+
+## Verified Certifications & Accreditations
+
+1. **AWS Certified Cloud Practitioner**
+   - Issuer: Amazon Web Services (AWS)
+   - Credential ID: `59ea9ed98f8b47a680f32292e770b80d`
+   - Validity: July 17, 2026 – July 17, 2029
+   - Verification: https://aws.amazon.com/verification
+
+2. **Google Cloud Computing Foundations**
+   - Issuer: Google Cloud Skills Boost
+   - Focus: Infrastructure, Big Data, Machine Learning, and VPC Networking
+
+3. **AWS Data Engineering Virtual Internship**
+   - Issuer: EduSkills & AWS Academy
+   - Focus: Distributed ETL, Amazon S3 Lake, and Cloud Analytics
+
+4. **Palo Alto Cybersecurity Academy Graduate**
+   - Issuer: Palo Alto Networks
+   - Focus: Network Security, Cloud Security, and Threat Prevention
+
+---
+
+## Contact Information
+- Email (Academic): 23BQ1A04F2@vvit.net
+- Portfolio Website: https://mahammadshariff.vercel.app/
+- LinkedIn: https://linkedin.com/in/mahammad-shariff-shaik-32903934a
+- GitHub: https://github.com/skmdshariff143-ai

@@ -1,6 +1,6 @@
 /**
  * The AI Innovation Observatory — Interactions & Evidence Controller
- * Handles orbital node selection, evidence panel updates, and keyboard/touch navigation.
+ * Handles orbital node selection, pipeline updates, benchmarks, and keyboard/touch navigation.
  * Author: Shaik Mahammad Shariff Portfolio
  */
 
@@ -13,11 +13,16 @@
         const evidenceSubtitle = document.getElementById('observatory-evidence-subtitle');
         const evidenceBadge = document.getElementById('observatory-evidence-badge');
         const evidenceList = document.getElementById('observatory-evidence-list');
+        const pipelineList = document.getElementById('observatory-pipeline-list');
+        const benchmarksList = document.getElementById('observatory-benchmarks-list');
+        const actionsList = document.getElementById('observatory-actions-list');
         const liveRegion = document.getElementById('observatory-live-region');
 
         if (!nodeSelectorBtns.length) return;
 
         function updateEvidenceUI(nodeData, index) {
+            if (!nodeData) return;
+
             // Update node selector buttons active states
             nodeSelectorBtns.forEach((btn, idx) => {
                 const isSelected = idx === index;
@@ -35,7 +40,43 @@
                 evidenceBadge.style.color = nodeData.accentHex;
             }
 
-            if (evidenceList && nodeData.proofs) {
+            // Architecture Pipeline rendering
+            if (pipelineList && nodeData.pipeline) {
+                pipelineList.innerHTML = nodeData.pipeline.map(item => `
+                    <div class="pipeline-step-item">
+                        <div class="pipeline-step-num" style="color: ${nodeData.accentHex}; border-color: ${nodeData.accentHex}40">${item.step}</div>
+                        <div class="pipeline-step-body">
+                            <h5 class="pipeline-step-title">${item.title}</h5>
+                            <p class="pipeline-step-desc">${item.desc}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Production Benchmarks rendering
+            if (benchmarksList && nodeData.benchmarks) {
+                benchmarksList.innerHTML = nodeData.benchmarks.map(item => `
+                    <div class="benchmark-card-item">
+                        <div class="benchmark-header">
+                            <span class="benchmark-title">${item.title}</span>
+                            <span class="benchmark-metric" style="color: ${nodeData.accentHex}; background: ${nodeData.accentHex}15; border-color: ${nodeData.accentHex}30">${item.metric}</span>
+                        </div>
+                        <p class="benchmark-note">${item.note}</p>
+                    </div>
+                `).join('');
+            }
+
+            // Quick Actions rendering
+            if (actionsList && nodeData.actions) {
+                actionsList.innerHTML = nodeData.actions.map(action => `
+                    <a href="${action.href}" class="btn ${action.isPrimary ? 'btn-primary' : 'btn-secondary'} btn-sm observatory-action-link" ${action.href.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''}>
+                        <i class="${action.icon}"></i> ${action.label}
+                    </a>
+                `).join('');
+            }
+
+            // Backward-compatible fallback for evidence list only if pipeline is not present
+            if (!pipelineList && evidenceList && nodeData.proofs) {
                 evidenceList.innerHTML = nodeData.proofs.map(item => `
                     <div class="evidence-card-item">
                         <div class="evidence-item-icon" style="color: ${nodeData.accentHex}">

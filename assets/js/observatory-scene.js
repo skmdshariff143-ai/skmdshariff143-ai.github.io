@@ -16,33 +16,78 @@
             {
                 id: 'ai-ml',
                 name: 'AI & Machine Learning',
-                subtitle: 'Predictive Modeling & Neural Workflows',
+                subtitle: 'Pedagogical LLMs, Entity Resolution & Scalable ML Pipelines',
                 color: 0x00e5ff,
                 accentHex: '#00e5ff',
+                pipeline: [
+                    { step: '01', title: 'Data Ingestion', desc: '1.7M+ noisy commerce records & unstructured academic papers' },
+                    { step: '02', title: 'Candidate Index & Features', desc: 'Inverted token indexing with 19 pairwise similarity features' },
+                    { step: '03', title: 'Model Orchestration', desc: 'LightGBM hard-negative ranker + NVIDIA Nemotron / Gemini' },
+                    { step: '04', title: 'Production Metric', desc: '0.8879 Macro F0.5 • 97.97% Accuracy • Calibrated Probabilities' }
+                ],
+                benchmarks: [
+                    { title: 'Amazon ML Challenge 2026', metric: '0.8879 Macro F0.5', note: '0.9563 Precision • 39 verified unit and streaming test suites passing' },
+                    { title: 'CreditGuard AI', metric: '0.7865 ROC-AUC', note: 'Calibrated Random Forest with 5:1 cost-sensitive cutoff & local SHAP explainability' },
+                    { title: 'NeuroLearn AI', metric: 'Multi-LLM Router', note: 'Curated STEM fixture tutoring & SSRF-safe multi-source research retrieval' }
+                ],
+                actions: [
+                    { label: 'View ML Case Studies', href: '#projects', icon: 'fas fa-arrow-down', isPrimary: true },
+                    { label: 'CreditGuard AI Demo', href: 'https://creditguard-ai.vercel.app', icon: 'fas fa-external-link-alt', isPrimary: false }
+                ],
                 proofs: [
-                    { title: 'CreditGuard AI', desc: 'Financial Risk Assessment Platform' },
-                    { title: 'Core Stack', desc: 'Python, Scikit-learn, XGBoost, Pandas' },
-                    { title: 'Focus Areas', desc: 'Predictive modeling, data preprocessing, feature engineering' }
+                    { title: 'NeuroLearn AI', desc: 'Pedagogical Learning System with Multi-Provider LLMs' },
+                    { title: 'Amazon ML Challenge 2026', desc: '1.7M+ Record Scalable Entity Resolution (0.8879 Macro F0.5)' },
+                    { title: 'CreditGuard AI', desc: 'Calibrated Random Forest Risk Engine with SHAP' }
                 ]
             },
             {
                 id: 'software-eng',
                 name: 'Software Engineering',
-                subtitle: 'Full-Stack Architecture & Web Systems',
+                subtitle: 'Full-Stack Architecture, Autonomous Agent OS & CI/CD',
                 color: 0x4f7cff,
                 accentHex: '#4f7cff',
+                pipeline: [
+                    { step: '01', title: 'Client & Edge Request', desc: 'Next.js 15 App Router & React 19 server components' },
+                    { step: '02', title: 'Agent Engine', desc: 'Deterministic state-machine recovery engine with Prisma ORM' },
+                    { step: '03', title: 'Tool Execution', desc: 'Sandboxed tool execution pipelines with crash-resilient checkpoints' },
+                    { step: '04', title: 'Production Metric', desc: 'Zero-downtime Vercel deployment with edge middleware routing' }
+                ],
+                benchmarks: [
+                    { title: 'RecoverFlow AI', metric: '461 Tests Passing', note: 'Razorpay AI Buildathon: Integer-paise math, L2 logistic calibration & Thompson Sampling' },
+                    { title: 'FarmaLink-AI', metric: 'Full-Stack SaaS', note: 'Next.js 15 + React 19 agricultural tech with simulated escrow transactions' },
+                    { title: 'ResumeScore Engine', metric: '100% Client-Side', note: 'Privacy-first ATS resume match engine with Mozilla PDF.js & 35 passing tests' }
+                ],
+                actions: [
+                    { label: 'Explore Full-Stack Projects', href: '#projects', icon: 'fas fa-arrow-down', isPrimary: true },
+                    { label: 'RecoverFlow AI Live', href: 'https://recoverflow-ai-kohl.vercel.app', icon: 'fas fa-external-link-alt', isPrimary: false }
+                ],
                 proofs: [
-                    { title: 'FarmaLink-AI', desc: 'Agricultural Tech & Marketplace Platform' },
-                    { title: 'Core Stack', desc: 'Java, JavaScript/TypeScript, React/Next.js, Node.js' },
-                    { title: 'Focus Areas', desc: 'Modular design, RESTful APIs, Git workflows, responsive UX' }
+                    { title: 'RecoverFlow AI', desc: 'Autonomous Revenue Recovery with 461 Passing Tests' },
+                    { title: 'FarmaLink-AI', desc: 'Next.js 15 + React 19 Agricultural Tech Platform' },
+                    { title: 'ResumeScore Engine', desc: 'Client-Side ATS Evaluation & Semantic Job Matching' }
                 ]
             },
             {
                 id: 'aws-cloud',
                 name: 'AWS & Cloud',
-                subtitle: 'Certified Cloud & Data Engineering',
+                subtitle: 'Certified Cloud Practitioner & Distributed Data Engineering',
                 color: 0x8b5cf6,
                 accentHex: '#8b5cf6',
+                pipeline: [
+                    { step: '01', title: 'Raw Data Ingestion', desc: 'Amazon S3 raw lake & multi-format data storage' },
+                    { step: '02', title: 'Compute & Processing', desc: 'Serverless compute, PySpark distributed ETL pipelines' },
+                    { step: '03', title: 'Security & Identity', desc: 'AWS IAM policy enforcement and zero-trust credential guards' },
+                    { step: '04', title: 'Production Metric', desc: 'AWS Certified Cloud Practitioner (Verified Credential through 2029)' }
+                ],
+                benchmarks: [
+                    { title: 'AWS Cloud Practitioner', metric: 'Certified Credential', note: 'Active Credential ID: 59ea9ed98f8b47a680f32292e770b80d' },
+                    { title: 'AWS Data Engineering', metric: 'EduSkills Virtual', note: 'Cloud storage, distributed compute, and analytics workflows' },
+                    { title: 'Google Cloud Skills', metric: 'Foundations Badges', note: 'Cloud infrastructure, VPC networking, security, and storage architecture' }
+                ],
+                actions: [
+                    { label: 'View AWS Credential', href: '#certificates', icon: 'fas fa-certificate', isPrimary: true },
+                    { label: 'Verify with AWS', href: 'https://aws.amazon.com/verification', icon: 'fas fa-check-circle', isPrimary: false }
+                ],
                 proofs: [
                     { title: 'AWS Certification', desc: 'AWS Certified Cloud Practitioner (Verified)' },
                     { title: 'Virtual Internship', desc: 'AWS Data Engineering & Cloud Exposure' },

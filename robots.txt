@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /assets/certificates-backup/
 
-Sitemap: https://skmdshariff143-ai.github.io/sitemap.xml
+Sitemap: https://mahammadshariff.vercel.app/sitemap.xml
