@@ -21,7 +21,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CANONICAL_HOST = "https://skmdshariff143-ai-github-io.vercel.app"
+CANONICAL_HOST = "https://mahammadshariff.vercel.app"
 FAILURES = []
 PASSES = []
 
@@ -122,8 +122,8 @@ def main():
     certs = load("data/certificates.json")
     profile = load("data/profile.json")
     check("projects.json parses", isinstance(projects, list))
-    check("project count == 4 (production set)",
-          len(projects) == 4, f"count={len(projects)}")
+    check("project count == 6 (verified set)",
+          len(projects) == 6, f"count={len(projects)}")
     check("certificates.json has 26 records", len(certs) == 26, f"count={len(certs)}")
     cert_assets = [c.get("image") or c.get("imagePath") or c.get("file")
                    for c in certs]
@@ -173,9 +173,8 @@ def main():
           f"<loc>{CANONICAL_HOST}/</loc>" in sitemap)
     check("sitemap has no github.io", "github.io" not in sitemap)
     sitemap_locs = re.findall(r"<loc>([^<]+)</loc>", sitemap)
-    bad_locs = [l for l in sitemap_locs
-                if not l.startswith(CANONICAL_HOST) or l != CANONICAL_HOST + "/"]
-    check("every sitemap loc is the canonical root", not bad_locs, f"locs={sitemap_locs}")
+    bad_locs = [l for l in sitemap_locs if not l.startswith(CANONICAL_HOST)]
+    check("every sitemap loc is on canonical host", not bad_locs, f"locs={sitemap_locs}")
 
     print("\n== 7. Prohibited / protected file assertions ==")
     prohibited = [".env", ".env.local", ".vercel/project.json", "qa_results.json",

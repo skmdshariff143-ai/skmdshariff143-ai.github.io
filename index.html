@@ -72,6 +72,8 @@
                     <li><a href="#certificates">Certifications</a></li>
                     <li><a href="#achievements">Achievements</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
                 </ul>
                 <button type="button" id="cmd-k-trigger" class="cmd-k-trigger" aria-label="Open Command Palette (Ctrl+K)">
                     <i class="fas fa-terminal"></i>
@@ -118,7 +120,7 @@
                     <div class="avatar-container avatar-wrapper">
                         <div class="avatar-glow-backdrop"></div>
                         <div class="avatar-frame">
-                            <img src="assets/profile-photo.jpg" alt="Shaik Mahammad Shariff" class="avatar-photo" width="280" height="280">
+                            <img src="assets/profile-photo.jpg" alt="Shaik Mahammad Shariff - ECE Undergraduate and AI Developer" class="avatar-photo" width="280" height="280">
                         </div>
                         <div class="avatar-badge-floating">
                             <i class="fab fa-aws"></i>
@@ -1127,7 +1129,7 @@
                     <!-- 17. Problem Solving using Python Boot Camp -->
                     <div class="cert-card tilt-card" data-category="academic">
                         <div class="cert-preview">
-                            <img src="assets/certificates/4.jpg" alt="Problem Solving using Python Boot Camp Certificate - VVIT &amp; IETE" loading="lazy">
+                            <img src="assets/certificates/4.jpg" alt="Problem Solving using Python Boot Camp Certificate - VVIT & IETE" loading="lazy">
                             <div class="cert-overlay"><span class="expand-btn"><i class="fas fa-expand"></i></span></div>
                         </div>
                         <div class="cert-body">
@@ -1382,15 +1384,15 @@
                             <input type="text" name="_gotcha" class="honeypot-field" aria-hidden="true" tabindex="-1">
                             <div class="form-group">
                                 <label for="name">Your Name</label>
-                                <input type="text" id="name" name="name" placeholder="e.g. Jane Doe" required>
+                                <input type="text" id="name" name="name" placeholder="e.g. Jane Doe" required minlength="2" maxlength="100" autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="email">Your Email</label>
-                                <input type="email" id="email" name="email" placeholder="e.g. jane@example.com" required>
+                                <input type="email" id="email" name="email" placeholder="e.g. jane@example.com" required maxlength="120" autocomplete="email">
                             </div>
                             <div class="form-group">
                                 <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+                                <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required minlength="10" maxlength="3000"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Send Message</button>
                             <div id="form-status" class="form-status-message" aria-live="polite"></div>
@@ -1421,6 +1423,8 @@
                     <li><a href="#certificates">Certifications</a></li>
                     <li><a href="#achievements">Achievements</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
                 </ul>
             </div>
             <div class="footer-social">
@@ -1435,7 +1439,7 @@
         </div>
         <div class="footer-bottom">
             <div class="container footer-bottom-content">
-                <p>&copy; 2026 Shaik Mahammad Shariff. Built with HTML5, CSS3, and JavaScript.</p>
+                <p>&copy; 2026 Shaik Mahammad Shariff. Built with HTML5, CSS3, and JavaScript. &bull; <a href="privacy.html" style="color: var(--text-secondary); text-decoration: underline;">Privacy Policy</a> &bull; <a href="terms.html" style="color: var(--text-secondary); text-decoration: underline;">Terms & Conditions</a></p>
             </div>
         </div>
     </footer>

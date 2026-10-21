@@ -703,23 +703,80 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ------------------------------------------------------------------
-       Contact Form Submission (Formspree AJAX)
+       Contact Form Submission (Formspree AJAX with Validation & Rate-Limit)
        ------------------------------------------------------------------ */
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
+    const submitBtn = contactForm ? contactForm.querySelector('button[type="submit"]') : null;
 
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Show sending status
+            const data = new FormData(contactForm);
+            const honeypot = data.get('_gotcha');
+            const name = (data.get('name') || '').toString().trim();
+            const email = (data.get('email') || '').toString().trim();
+            const message = (data.get('message') || '').toString().trim();
+
+            // 1. Silent Honeypot Bot Trap
+            if (honeypot) {
+                contactForm.reset();
+                contactForm.innerHTML = `
+                    <div class="form-success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Message Sent!</h3>
+                        <p>Thank you for reaching out! I will respond to your inquiry shortly.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 2. Client-Side Input Validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let validationError = '';
+
+            if (!name || name.length < 2) {
+                validationError = 'Please provide a valid name (at least 2 characters).';
+            } else if (!email || !emailRegex.test(email)) {
+                validationError = 'Please provide a valid email address.';
+            } else if (!message || message.length < 10) {
+                validationError = 'Please provide a descriptive message (at least 10 characters).';
+            }
+
+            if (validationError) {
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ff1744';
+                    formStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${validationError}`;
+                }
+                return;
+            }
+
+            // 3. Client-Side Cooldown / Anti-Spam (30s window)
+            const lastSubmit = sessionStorage.getItem('last_contact_submit_ts');
+            const now = Date.now();
+            if (lastSubmit && (now - parseInt(lastSubmit, 10)) < 30000) {
+                const remaining = Math.ceil((30000 - (now - parseInt(lastSubmit, 10))) / 1000);
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ffb703';
+                    formStatus.innerHTML = `<i class="fas fa-hourglass-half"></i> Please wait ${remaining}s before sending another message.`;
+                }
+                return;
+            }
+
+            // 4. Show sending status & disable button
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            }
+
             if (formStatus) {
                 formStatus.style.display = 'block';
                 formStatus.style.color = 'var(--text-secondary)';
-                formStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending message...';
+                formStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Delivering message securely...';
             }
-
-            const data = new FormData(contactForm);
 
             try {
                 const response = await fetch(contactForm.action, {
@@ -731,24 +788,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
+                    sessionStorage.setItem('last_contact_submit_ts', Date.now().toString());
                     contactForm.reset();
                     contactForm.innerHTML = `
                         <div class="form-success-message">
                             <i class="fas fa-check-circle"></i>
                             <h3>Message Sent!</h3>
-                            <p>Thanks! Your message has been sent — I'll get back to you soon.</p>
+                            <p>Thank you! Your message has been delivered directly to my inbox — I will get back to you soon.</p>
                         </div>
                     `;
                 } else {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                    }
                     if (formStatus) {
-                        formStatus.style.color = '#ff1744'; // error red
-                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                        formStatus.style.color = '#ff1744';
+                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Submission issue. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
                     }
                 }
             } catch (error) {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                }
                 if (formStatus) {
                     formStatus.style.color = '#ff1744';
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please email me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a>.';
                 }
             }
         });
