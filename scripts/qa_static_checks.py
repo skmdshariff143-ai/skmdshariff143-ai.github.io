@@ -20,8 +20,8 @@ from fnmatch import fnmatch
 from html.parser import HTMLParser
 from urllib.parse import urlparse
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CANONICAL_HOST = "https://skmdshariff143-ai-github-io.vercel.app"
+ROOT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CANONICAL_HOST = os.environ.get("CANONICAL_HOST", "https://mahammadshariff.vercel.app")
 FAILURES = []
 PASSES = []
 
@@ -122,8 +122,8 @@ def main():
     certs = load("data/certificates.json")
     profile = load("data/profile.json")
     check("projects.json parses", isinstance(projects, list))
-    check("project count == 4 (production set)",
-          len(projects) == 4, f"count={len(projects)}")
+    check("project count == 6 (production set)",
+          len(projects) == 6, f"count={len(projects)}")
     check("certificates.json has 26 records", len(certs) == 26, f"count={len(certs)}")
     cert_assets = [c.get("image") or c.get("imagePath") or c.get("file")
                    for c in certs]
@@ -226,6 +226,32 @@ def main():
         for k, v in links.items():
             print(f"        {k:9} = {v}")
         print(f"        screenshot={shot} exists={shot_ok}")
+
+    print("\n== 9. Accessibility, WCAG 2.5.3 & Form Quality ==")
+    with open(os.path.join(ROOT, "style.css"), encoding="utf-8") as fh:
+        css = fh.read()
+
+    # Form autocomplete attributes
+    check("contact name input has autocomplete='name'",
+          'id="name"' in html and 'autocomplete="name"' in html)
+    check("contact email input has autocomplete='email'",
+          'id="email"' in html and 'autocomplete="email"' in html)
+
+    # WCAG 2.5.3 Label in Name accessible name prefix assertions
+    check("cmd-k-trigger accessible name contains visible label 'Commands Ctrl K'",
+          'id="cmd-k-trigger"' in html and 'aria-label="Commands Ctrl K' in html)
+    check("project static markup contains 'Code — ' prefix in aria-label",
+          'aria-label="Code — ' in html)
+    check("project static markup contains 'Live Demo — ' prefix in aria-label",
+          'aria-label="Live Demo — ' in html)
+
+    # Footer contrast token assertions
+    brand_p = re.search(r'\.footer-brand\s+p\s*\{([^}]+)\}', css)
+    footer_bottom = re.search(r'\.footer-bottom\s*\{([^}]+)\}', css)
+    check("footer-brand p uses high-contrast var(--text-secondary)",
+          brand_p and "var(--text-secondary)" in brand_p.group(1))
+    check("footer-bottom uses high-contrast var(--text-secondary)",
+          footer_bottom and "var(--text-secondary)" in footer_bottom.group(1))
 
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
