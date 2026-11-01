@@ -27,15 +27,15 @@
     "summary": "An enterprise-grade AI revenue recovery platform orchestrating autonomous recovery workflows with integer-paise financial precision, L2 logistic calibration, and Thompson Sampling.",
     "problem": "Failed recurring subscription payments cause massive revenue leakage, while naïve retry storms trigger bank network penalties, high transaction fees, and customer churn.",
     "solution": "Architected an autonomous recovery platform with integer-paise financial math, L2 logistic recovery probability calibration, Thompson Sampling Multi-Armed Bandit channel dispatch, transactional outbox pattern, and SHA-256 audit chaining.",
-    "contribution": "Built the Next.js 16 + React 19 web application, Prisma ORM schema, 461 unit and integration tests across 81 suites in Vitest, 65 Playwright e2e tests, and resilient recovery state machines.",
+    "contribution": "Built the Next.js 16 + React 19 web application, Prisma ORM schema, 601 unit and integration tests across 93 suites in Vitest, 65 Playwright e2e tests, and resilient recovery state machines.",
     "features": [
       "Integer-paise financial accounting math preventing IEEE-754 floating-point rounding discrepancies across recovery transactions.",
       "L2 logistic regression probability calibration and Thompson Sampling Multi-Armed Bandit for intelligent multi-channel recovery dispatch (WhatsApp, SMS, Email).",
       "Transactional outbox pattern with SHA-256 tamper-evident state chain guaranteeing idempotent, auditable event processing.",
-      "Comprehensive test verification with 461 unit and integration tests passing across 81 suites and 65 Playwright end-to-end tests."
+      "Comprehensive test verification with 601 unit and integration tests passing across 93 suites and 65 Playwright end-to-end tests."
     ],
     "techStack": ["Next.js 16", "React 19", "TypeScript 5", "Prisma ORM", "Vitest", "Playwright", "Tailwind CSS"],
-    "verifiedResult": "461 Vitest tests across 81 suites & 65 Playwright e2e tests passing; Razorpay AI Buildathon Track 3",
+    "verifiedResult": "601 Vitest tests across 93 suites & 65 Playwright e2e tests passing; Razorpay AI Buildathon Track 3",
     "github": "https://github.com/skmdshariff143-ai/recoverflow-ai",
     "liveDemo": "https://recoverflow-ai-kohl.vercel.app",
     "status": "Completed / Active",
@@ -72,13 +72,13 @@
     "solution": "Trained and benchmarked multiple classifiers (Random Forest, LightGBM, XGBoost, Logistic Regression); selected Calibrated Random Forest as the production champion achieving 97.97% accuracy, 0.7865 ROC-AUC, 0.015387 Brier score (-14.0% error improvement vs uncalibrated), and a cost-sensitive decision cutoff (p* = 0.0395 at 5:1 penalty) delivering 35.77% delinquency recall with local SHAP interpretability.",
     "contribution": "Engineered feature pipelines on 438k records, implemented sigmoid probability calibration, optimized 5:1 cost-sensitive decision cutoffs, built Flask 3.0 inference service with Dark/Light dashboard, and integrated de-duplicated local SHAP explanations.",
     "features": [
-      "Production champion Calibrated Random Forest delivering 97.97% accuracy, 0.7865 ROC-AUC, and 0.015387 Brier score (-14.0% probability error reduction).",
-      "Asymmetric 5:1 cost-sensitive decision threshold optimization at p* = 0.0395, capturing 35.77% default recall on imbalanced credit data.",
+      "Production champion Calibrated Random Forest delivering 0.7865 ROC-AUC, 35.8% default recall at 5:1 cost-weighted threshold, and 0.015387 Brier score.",
+      "Asymmetric 5:1 cost-sensitive decision threshold optimization at p* = 0.0395, capturing 35.8% default recall on imbalanced credit data.",
       "Local TreeSHAP explainability engine providing transparent feature contribution waterfalls for individual credit decisions.",
       "Production Flask 3.0 web application with responsive UI, Dark/Light modes, SQLite storage, Docker containerization, and GitHub Actions CI/CD."
     ],
     "techStack": ["Python", "Scikit-Learn", "Random Forest", "SHAP", "Flask", "Docker", "GitHub Actions"],
-    "verifiedResult": "97.97% Accuracy • 0.7865 ROC-AUC • 0.015387 Brier Score (-14% Error) • 35.77% Default Recall",
+    "verifiedResult": "0.7865 ROC-AUC • 35.8% Default Recall (at 5:1 Cost-Weighted Threshold) • 97.97% Accuracy & 24.39% Recall (Standard Threshold)",
     "github": "https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction",
     "liveDemo": "https://creditguard-ai.vercel.app",
     "status": "Completed / Active",

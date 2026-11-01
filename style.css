@@ -573,6 +573,70 @@ img {
     flex-wrap: wrap;
 }
 
+/* --------------------------------------------------------------------------
+   Hero Proof Strip & Stack Line
+   -------------------------------------------------------------------------- */
+.hero-stack-line {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    color: var(--accent-teal);
+    letter-spacing: 0.02em;
+}
+
+.hero-proof-strip {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.95rem;
+    background: rgba(13, 19, 32, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.proof-badge:hover {
+    background: rgba(19, 28, 48, 0.95);
+    border-color: rgba(0, 229, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.proof-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-teal);
+    box-shadow: 0 0 8px var(--accent-teal);
+    flex-shrink: 0;
+}
+
+.proof-badge-icon {
+    color: #ff9900;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.proof-badge-metric {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-heading);
+}
+
+.proof-badge-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
 .hero-socials {
     display: flex;
     align-items: center;
@@ -2089,6 +2153,7 @@ img {
     .name { font-size: 3.2rem; }
     .hero-container { flex-direction: column-reverse; text-align: center; padding-top: 1.5rem; gap: 3rem; }
     .hero-actions { justify-content: center; }
+    .hero-proof-strip { justify-content: center; }
     .hero-socials { justify-content: center; width: 100%; margin-left: 0; margin-top: 0.5rem; }
     .about-grid { grid-template-columns: 1fr; }
     .about-stats-grid { flex-direction: row; justify-content: center; flex-wrap: wrap; }
