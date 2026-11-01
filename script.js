@@ -350,8 +350,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <h3>${proj.title}</h3>
                                 </div>
                                 <div class="project-links">
-                                    ${proj.github ? `<a href="${proj.github}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository for ${proj.title}"><i class="fab fa-github"></i> Code</a>` : ''}
-                                    ${proj.liveDemo ? `<a href="${proj.liveDemo}" target="_blank" rel="noopener noreferrer" aria-label="Live Demo for ${proj.title}"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
+                                    ${proj.github ? `<a href="${proj.github}" target="_blank" rel="noopener noreferrer" aria-label="Code — GitHub Repository for ${proj.title}"><i class="fab fa-github"></i> Code</a>` : ''}
+                                    ${proj.liveDemo ? `<a href="${proj.liveDemo}" target="_blank" rel="noopener noreferrer" aria-label="Live Demo — External Application for ${proj.title}"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
                                 </div>
                             </div>
                             <p class="project-summary">${proj.summary}</p>

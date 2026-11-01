@@ -28,9 +28,11 @@
 
             if (effectToggleBtn) {
                 effectToggleBtn.setAttribute('aria-pressed', isReduced ? 'true' : 'false');
+                const stateText = isReduced ? 'Motion Effects: Off' : 'Motion Effects: On';
+                effectToggleBtn.setAttribute('aria-label', `${stateText} — Toggle Reduced Motion`);
                 const label = effectToggleBtn.querySelector('#motion-toggle-text') || effectToggleBtn.querySelector('.effect-btn-label');
                 if (label) {
-                    label.textContent = isReduced ? 'Motion Effects: Off' : 'Motion Effects: On';
+                    label.textContent = stateText;
                 }
             }
         }
