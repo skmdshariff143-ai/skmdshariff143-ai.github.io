@@ -9,23 +9,24 @@
    -------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------
    Font Fallback Metric Overrides (CLS Reduction)
+   Extracted from OpenType tables (OS/2 and hhea) of Arial, Inter, and Outfit
    -------------------------------------------------------------------------- */
 @font-face {
     font-family: 'Outfit Fallback';
     src: local('Arial');
-    ascent-override: 95%;
-    descent-override: 25%;
+    ascent-override: 100%;
+    descent-override: 26%;
     line-gap-override: 0%;
-    size-adjust: 104%;
+    size-adjust: 98.6%;
 }
 
 @font-face {
     font-family: 'Inter Fallback';
     src: local('Arial');
-    ascent-override: 90%;
-    descent-override: 22%;
+    ascent-override: 96.8%;
+    descent-override: 24.1%;
     line-gap-override: 0%;
-    size-adjust: 100%;
+    size-adjust: 101.8%;
 }
 
 :root {

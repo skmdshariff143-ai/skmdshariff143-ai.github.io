@@ -35,6 +35,9 @@
                     label.textContent = stateText;
                 }
             }
+            window.dispatchEvent(new CustomEvent('portfolio-motion-toggle', {
+                detail: { isReduced: isReduced }
+            }));
         }
 
 

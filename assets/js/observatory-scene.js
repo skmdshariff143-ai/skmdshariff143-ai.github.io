@@ -1,6 +1,6 @@
 /**
- * AI Holographic Command Center — 3D Scene Module
- * Powered by Three.js
+ * AI Holographic Command Center — Approach 1 "The Constellation HUD"
+ * Powered by Three.js r134
  * Author: Shaik Mahammad Shariff Portfolio
  */
 
@@ -11,22 +11,24 @@
     window.ObservatoryScene = {
         status: 'loading',
         tier: 'high',
+        particleCount: 0,
+        isPaused: false,
         activeNodeIndex: 0,
+        renderer: null,
         nodesData: [
             {
                 id: 'ai-ml',
                 name: 'AI & Machine Learning',
-                subtitle: 'Pedagogical LLMs, Entity Resolution & Scalable ML Pipelines',
+                subtitle: 'Pedagogical LLMs, Calibrated Risk Engines & Scalable ML Pipelines',
                 color: 0x00e5ff,
                 accentHex: '#00e5ff',
                 pipeline: [
-                    { step: '01', title: 'Data Ingestion', desc: '1.7M+ noisy commerce records & unstructured academic papers' },
-                    { step: '02', title: 'Candidate Index & Features', desc: 'Inverted token indexing with 19 pairwise similarity features' },
-                    { step: '03', title: 'Model Orchestration', desc: 'LightGBM hard-negative ranker + NVIDIA Nemotron / Gemini' },
-                    { step: '04', title: 'Production Metric', desc: '0.8879 Macro F0.5 • 97.97% Accuracy • Calibrated Probabilities' }
+                    { step: '01', title: 'Data Ingestion & Integrity', desc: 'Real ~438k financial records with strict ECOA Reg B demographic fairness guards' },
+                    { step: '02', title: 'Calibration & Stratification', desc: 'Sigmoid probability calibration reducing Brier score to 0.015387 (-14.0%)' },
+                    { step: '03', title: 'Cost-Sensitive Optimization', desc: '5:1 loss-weighted decision cutoff p*=0.0395 catching 35.8% default recall' },
+                    { step: '04', title: 'Local SHAP Drivers', desc: 'Deduplicated parent feature ranking with zero contradictory explanations' }
                 ],
                 benchmarks: [
-                    { title: 'Amazon ML Challenge 2026', metric: '0.8879 Macro F0.5', note: '0.9563 Precision • 39 verified unit and streaming test suites passing' },
                     { title: 'CreditGuard AI', metric: '0.7865 ROC-AUC', note: 'Calibrated Random Forest with 5:1 cost-sensitive cutoff & local SHAP explainability' },
                     { title: 'NeuroLearn AI', metric: 'Multi-LLM Router', note: 'Curated STEM fixture tutoring & SSRF-safe multi-source research retrieval' }
                 ],
@@ -35,61 +37,60 @@
                     { label: 'CreditGuard AI Demo', href: 'https://creditguard-ai.vercel.app', icon: 'fas fa-external-link-alt', isPrimary: false }
                 ],
                 proofs: [
-                    { title: 'NeuroLearn AI', desc: 'Pedagogical Learning System with Multi-Provider LLMs' },
-                    { title: 'Amazon ML Challenge 2026', desc: '1.7M+ Record Scalable Entity Resolution (0.8879 Macro F0.5)' },
-                    { title: 'CreditGuard AI', desc: 'Calibrated Random Forest Risk Engine with SHAP' }
+                    { title: 'CreditGuard AI', desc: 'Calibrated Random Forest Risk Engine with SHAP (0.7865 ROC-AUC)' },
+                    { title: 'NeuroLearn AI', desc: 'Pedagogical Learning System with Multi-Provider LLMs' }
                 ]
             },
             {
                 id: 'software-eng',
                 name: 'Software Engineering',
-                subtitle: 'Full-Stack Architecture, Autonomous Agent OS & CI/CD',
-                color: 0x4f7cff,
-                accentHex: '#4f7cff',
+                subtitle: 'Full-Stack Architecture, Autonomous Agent OS & Resilient CI/CD',
+                color: 0x3b82f6,
+                accentHex: '#3b82f6',
                 pipeline: [
-                    { step: '01', title: 'Client & Edge Request', desc: 'Next.js 15 App Router & React 19 server components' },
-                    { step: '02', title: 'Agent Engine', desc: 'Deterministic state-machine recovery engine with Prisma ORM' },
-                    { step: '03', title: 'Tool Execution', desc: 'Sandboxed tool execution pipelines with crash-resilient checkpoints' },
-                    { step: '04', title: 'Production Metric', desc: 'Zero-downtime Vercel deployment with edge middleware routing' }
+                    { step: '01', title: 'Client & Edge Request', desc: 'Next.js 16 App Router & React 19 server components with integer-paise financial precision' },
+                    { step: '02', title: 'Agent Recovery Engine', desc: 'Deterministic state-machine recovery with L2 calibration and Thompson Sampling dispatch' },
+                    { step: '03', title: 'Transactional Outbox Pattern', desc: 'Idempotent state processing with SHA-256 audit chaining' },
+                    { step: '04', title: 'Automated Test Verification', desc: '601 Vitest unit/integration tests across 93 suites and 82 Playwright e2e tests passing' }
                 ],
                 benchmarks: [
-                    { title: 'RecoverFlow AI', metric: '461 Tests Passing', note: 'Razorpay AI Buildathon: Integer-paise math, L2 logistic calibration & Thompson Sampling' },
-                    { title: 'FarmaLink-AI', metric: 'Full-Stack SaaS', note: 'Next.js 15 + React 19 agricultural tech with simulated escrow transactions' },
-                    { title: 'ResumeScore Engine', metric: '100% Client-Side', note: 'Privacy-first ATS resume match engine with Mozilla PDF.js & 35 passing tests' }
+                    { title: 'RecoverFlow AI', metric: '601 Tests Passing', note: 'Razorpay AI Buildathon Track 3: 93 Vitest suites & 82 Playwright e2e tests' },
+                    { title: 'ResumeScore Engine', metric: '100% Client-Side', note: 'Privacy-first ATS resume match engine with Mozilla PDF.js & 35 passing tests' },
+                    { title: 'FarmaLink-AI', metric: 'Full-Stack SaaS', note: 'Next.js 15 + React 19 agricultural tech with simulated escrow transactions' }
                 ],
                 actions: [
                     { label: 'Explore Full-Stack Projects', href: '#projects', icon: 'fas fa-arrow-down', isPrimary: true },
                     { label: 'RecoverFlow AI Live', href: 'https://recoverflow-ai-kohl.vercel.app', icon: 'fas fa-external-link-alt', isPrimary: false }
                 ],
                 proofs: [
-                    { title: 'RecoverFlow AI', desc: 'Autonomous Revenue Recovery with 461 Passing Tests' },
-                    { title: 'FarmaLink-AI', desc: 'Next.js 15 + React 19 Agricultural Tech Platform' },
-                    { title: 'ResumeScore Engine', desc: 'Client-Side ATS Evaluation & Semantic Job Matching' }
+                    { title: 'RecoverFlow AI', desc: 'Autonomous Revenue Recovery with 601 Vitest & 82 Playwright Tests' },
+                    { title: 'ResumeScore Engine', desc: 'Client-Side ATS Evaluation & Semantic Job Matching' },
+                    { title: 'FarmaLink-AI', desc: 'Next.js 15 + React 19 Agricultural Tech Platform' }
                 ]
             },
             {
                 id: 'aws-cloud',
                 name: 'AWS & Cloud',
-                subtitle: 'Certified Cloud Practitioner & Distributed Data Engineering',
-                color: 0x8b5cf6,
-                accentHex: '#8b5cf6',
+                subtitle: 'Certified Cloud Practitioner & Distributed Cloud Architecture',
+                color: 0xff9900,
+                accentHex: '#ff9900',
                 pipeline: [
-                    { step: '01', title: 'Raw Data Ingestion', desc: 'Amazon S3 raw lake & multi-format data storage' },
-                    { step: '02', title: 'Compute & Processing', desc: 'Serverless compute, PySpark distributed ETL pipelines' },
-                    { step: '03', title: 'Security & Identity', desc: 'AWS IAM policy enforcement and zero-trust credential guards' },
-                    { step: '04', title: 'Production Metric', desc: 'AWS Certified Cloud Practitioner (Verified Credential through 2029)' }
+                    { step: '01', title: 'Raw Ingestion Lake', desc: 'Amazon S3 raw lake & multi-format data storage with lifecycle tiering' },
+                    { step: '02', title: 'Compute & Pipelines', desc: 'Serverless compute, PySpark distributed ETL, and event-driven microservices' },
+                    { step: '03', title: 'Security & Zero Trust', desc: 'AWS IAM least-privilege policy enforcement and zero-trust credential guards' },
+                    { step: '04', title: 'Active Certification', desc: 'AWS Certified Cloud Practitioner (Validation ID: 59ea9ed98f8b47a680f32292e770b80d)' }
                 ],
                 benchmarks: [
-                    { title: 'AWS Cloud Practitioner', metric: 'Certified Credential', note: 'Active Credential ID: 59ea9ed98f8b47a680f32292e770b80d' },
+                    { title: 'AWS Cloud Practitioner', metric: 'Active Credential', note: 'Validation ID: 59ea9ed98f8b47a680f32292e770b80d' },
                     { title: 'AWS Data Engineering', metric: 'EduSkills Virtual', note: 'Cloud storage, distributed compute, and analytics workflows' },
                     { title: 'Google Cloud Skills', metric: 'Foundations Badges', note: 'Cloud infrastructure, VPC networking, security, and storage architecture' }
                 ],
                 actions: [
                     { label: 'View AWS Credential', href: '#certificates', icon: 'fas fa-certificate', isPrimary: true },
-                    { label: 'Verify with AWS', href: 'https://aws.amazon.com/verification', icon: 'fas fa-check-circle', isPrimary: false }
+                    { label: 'Verify Credential ID', href: 'https://aws.amazon.com/verification', icon: 'fas fa-check-circle', isPrimary: false }
                 ],
                 proofs: [
-                    { title: 'AWS Certification', desc: 'AWS Certified Cloud Practitioner (Verified)' },
+                    { title: 'AWS Certification', desc: 'AWS Certified Cloud Practitioner (Validation ID: 59ea9ed98f8b47a680f32292e770b80d)' },
                     { title: 'Virtual Internship', desc: 'AWS Data Engineering & Cloud Exposure' },
                     { title: 'Focus Areas', desc: 'Cloud infrastructure, S3, IAM, Serverless paradigms' }
                 ]
@@ -97,7 +98,6 @@
         ],
         init: null,
         selectNode: null,
-        setTier: null,
         destroy: null
     };
 
@@ -112,18 +112,55 @@
         }
     }
 
-    function determineQualityTier() {
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduceMotion) return 'low';
+    // Approach 1 particle budgets by breakpoint
+    function getParticleBudget() {
+        const width = window.innerWidth;
+        if (width >= 992) return 350; // Desktop
+        if (width >= 768) return 200; // Tablet
+        return 90;                    // Mobile
+    }
 
-        const isMobile = window.innerWidth < 768;
-        const memory = navigator.deviceMemory || 4;
-        const cores = navigator.hardwareConcurrency || 4;
+    function createChipSprite(label, metric, accentColor) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 256;
+        canvas.height = 64;
+        const ctx = canvas.getContext('2d');
 
-        if (isMobile || memory < 4 || cores < 4) {
-            return 'balanced';
-        }
-        return 'high';
+        // Pill backdrop
+        ctx.fillStyle = 'rgba(13, 19, 32, 0.88)';
+        ctx.strokeStyle = accentColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect ? ctx.roundRect(4, 4, 248, 56, 12) : ctx.rect(4, 4, 248, 56);
+        ctx.fill();
+        ctx.stroke();
+
+        // Status indicator dot
+        ctx.fillStyle = accentColor;
+        ctx.beginPath();
+        ctx.arc(20, 32, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Metric line
+        ctx.font = 'bold 18px "Inter", sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(metric, 34, 28);
+
+        // Label line
+        ctx.font = '12px "Inter", sans-serif';
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText(label, 34, 48);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.minFilter = THREE.LinearFilter;
+        const spriteMat = new THREE.SpriteMaterial({
+            map: texture,
+            transparent: true,
+            opacity: 0.92
+        });
+        const sprite = new THREE.Sprite(spriteMat);
+        sprite.scale.set(1.4, 0.35, 1);
+        return sprite;
     }
 
     function initObservatory() {
@@ -140,304 +177,241 @@
             return;
         }
 
-        const tier = determineQualityTier();
-        window.ObservatoryScene.tier = tier;
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // Clean up previous instance if any
+        if (ObservatoryScene.destroy) {
+            ObservatoryScene.destroy();
+        }
+
+        const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+                                document.body.classList.contains('reduce-motion-active');
+
+        const particleBudget = getParticleBudget();
+        window.ObservatoryScene.particleCount = particleBudget;
 
         let scene, camera, renderer;
-        let commandCenterGroup, neuralCoreGroup, innerMetallicCore, outerNeuralCage, dataRingPrimary, dataRingSecondary;
-        let workstationGrid, hudPanelsGroup = [];
-        let orbitalGroup, nodeMeshes = [], orbitRings = [];
-        let starfieldParticles, dataPulseSignals = [];
-        let ambientLight, pointLightCyan, pointLightViolet, directionalLight;
-        let animationFrameId;
-        let isPaused = false;
-        let totalParticleCount = 0;
+        let constellationGroup, particlesMesh, lineMesh;
+        let neuralCoreGroup, innerMetallicCore, outerNeuralCage;
+        let orbitalGroup, nodeMeshes = [], orbitRings = [], orbitChips = [];
+        let ambientLight, pointLightCyan, pointLightAmber;
+        let animationFrameId = null;
+        let isPaused = isReducedMotion;
+        window.ObservatoryScene.isPaused = isPaused;
+
         let pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+        const allocatedDisposables = [];
+
+        function registerDisposable(obj) {
+            if (obj) allocatedDisposables.push(obj);
+            return obj;
+        }
 
         try {
             scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x05070d, 0.03);
+            scene.fog = registerDisposable(new THREE.FogExp2(0x07090e, 0.04));
 
-            const aspect = container.clientWidth / container.clientHeight || 1;
+            const width = container.clientWidth || window.innerWidth;
+            const height = container.clientHeight || window.innerHeight;
+            const aspect = width / height || 1;
             camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
-            camera.position.set(0, 0.4, 6.8);
+            camera.position.set(0, 0.2, 7.0);
 
             renderer = new THREE.WebGLRenderer({
                 canvas: canvas,
                 alpha: true,
-                antialias: tier === 'high',
+                antialias: window.innerWidth >= 992,
                 powerPreference: 'high-performance'
             });
 
-            const maxPixelRatio = tier === 'high' ? Math.min(window.devicePixelRatio, 1.75) : (tier === 'balanced' ? Math.min(window.devicePixelRatio, 1.25) : 1.0);
-            renderer.setPixelRatio(maxPixelRatio);
-            renderer.setSize(container.clientWidth, container.clientHeight);
+            // Strict DPR cap <= 1.5
+            const maxDPR = Math.min(window.devicePixelRatio || 1, 1.5);
+            renderer.setPixelRatio(maxDPR);
+            renderer.setSize(width, height);
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.25;
+            renderer.toneMappingExposure = 1.2;
 
-            // STABLE CONSTANT LIGHTING SETUP (No intensity oscillation)
-            ambientLight = new THREE.AmbientLight(0x0b1220, 1.8);
+            window.ObservatoryScene.renderer = renderer;
+
+            // Stable Non-Oscillating Lighting Setup
+            ambientLight = registerDisposable(new THREE.AmbientLight(0x0b1220, 2.0));
             scene.add(ambientLight);
 
-            pointLightCyan = new THREE.PointLight(0x00e5ff, 3.2, 14);
-            pointLightCyan.position.set(-3.5, 2.5, 3.5);
+            pointLightCyan = registerDisposable(new THREE.PointLight(0x00e5ff, 2.5, 12));
+            pointLightCyan.position.set(-3, 2, 3);
             scene.add(pointLightCyan);
 
-            pointLightViolet = new THREE.PointLight(0x8b5cf6, 3.2, 14);
-            pointLightViolet.position.set(3.5, -2.5, 2.5);
-            scene.add(pointLightViolet);
+            pointLightAmber = registerDisposable(new THREE.PointLight(0xff9900, 2.2, 12));
+            pointLightAmber.position.set(3, -2, 3);
+            scene.add(pointLightAmber);
 
-            directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
-            directionalLight.position.set(0, 6, 6);
-            scene.add(directionalLight);
+            constCenterMaster: {
+                constellationGroup = new THREE.Group();
+                scene.add(constellationGroup);
 
-            // Master Group for 3D Holographic Command Center
-            commandCenterGroup = new THREE.Group();
-            scene.add(commandCenterGroup);
+                // 1. Central Core
+                neuralCoreGroup = new THREE.Group();
+                constellationGroup.add(neuralCoreGroup);
 
-            // 1. Central Neural Core (AI Command Center Heart)
-            neuralCoreGroup = new THREE.Group();
-            commandCenterGroup.add(neuralCoreGroup);
+                const coreGeo = registerDisposable(new THREE.IcosahedronGeometry(0.85, 1));
+                const coreMat = registerDisposable(new THREE.MeshStandardMaterial({
+                    color: 0x07111e,
+                    metalness: 0.9,
+                    roughness: 0.2,
+                    emissive: 0x00e5ff,
+                    emissiveIntensity: 0.25
+                }));
+                innerMetallicCore = registerDisposable(new THREE.Mesh(coreGeo, coreMat));
+                neuralCoreGroup.add(innerMetallicCore);
 
-            // Inner Faceted Metallic Core
-            const coreGeo = new THREE.IcosahedronGeometry(0.95, 1);
-            const coreMat = new THREE.MeshStandardMaterial({
-                color: 0x07111e,
-                metalness: 0.9,
-                roughness: 0.15,
-                emissive: 0x00e5ff,
-                emissiveIntensity: 0.25
-            });
-            innerMetallicCore = new THREE.Mesh(coreGeo, coreMat);
-            neuralCoreGroup.add(innerMetallicCore);
-
-            // Holographic Neural Outer Cage
-            const cageGeo = new THREE.DodecahedronGeometry(1.35, 1);
-            const cageMat = new THREE.MeshBasicMaterial({
-                color: 0x00e5ff,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.35
-            });
-            outerNeuralCage = new THREE.Mesh(cageGeo, cageMat);
-            neuralCoreGroup.add(outerNeuralCage);
-
-            // Primary Glowing Data Ring
-            const ringGeo1 = new THREE.TorusGeometry(1.75, 0.018, 16, 64);
-            const ringMat1 = new THREE.MeshBasicMaterial({
-                color: 0x00e5ff,
-                transparent: true,
-                opacity: 0.55
-            });
-            dataRingPrimary = new THREE.Mesh(ringGeo1, ringMat1);
-            dataRingPrimary.rotation.x = Math.PI / 3;
-            neuralCoreGroup.add(dataRingPrimary);
-
-            // Secondary Violet Data Ring
-            const ringGeo2 = new THREE.TorusGeometry(2.1, 0.012, 16, 64);
-            const ringMat2 = new THREE.MeshBasicMaterial({
-                color: 0x8b5cf6,
-                transparent: true,
-                opacity: 0.4
-            });
-            dataRingSecondary = new THREE.Mesh(ringGeo2, ringMat2);
-            dataRingSecondary.rotation.x = -Math.PI / 4;
-            dataRingSecondary.rotation.y = Math.PI / 6;
-            neuralCoreGroup.add(dataRingSecondary);
-
-            // Inner Neural Point Cloud
-            const neuralPointCount = tier === 'high' ? 350 : 180;
-            totalParticleCount += neuralPointCount;
-            const pointsGeo = new THREE.BufferGeometry();
-            const positions = new Float32Array(neuralPointCount * 3);
-            for (let i = 0; i < neuralPointCount * 3; i += 3) {
-                const r = 0.85 * Math.cbrt(Math.random());
-                const theta = Math.random() * Math.PI * 2;
-                const phi = Math.acos(2 * Math.random() - 1);
-                positions[i] = r * Math.sin(phi) * Math.cos(theta);
-                positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
-                positions[i + 2] = r * Math.cos(phi);
-            }
-            pointsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            const pointsMat = new THREE.PointsMaterial({
-                color: 0x00e5ff,
-                size: 0.035,
-                transparent: true,
-                opacity: 0.85
-            });
-            const neuralPointsMesh = new THREE.Points(pointsGeo, pointsMat);
-            neuralCoreGroup.add(neuralPointsMesh);
-
-            // 2. Procedural Holographic Workstation Grid Pedestal
-            workstationGrid = new THREE.GridHelper(14, 28, 0x00e5ff, 0x1e293b);
-            workstationGrid.position.y = -2.1;
-            workstationGrid.material.transparent = true;
-            workstationGrid.material.opacity = 0.18;
-            commandCenterGroup.add(workstationGrid);
-
-            // 3. Three Technical Domain Satellites with Procedural HUD Panels
-            orbitalGroup = new THREE.Group();
-            commandCenterGroup.add(orbitalGroup);
-
-            const isDesktop = window.innerWidth >= 992;
-            const radii = isDesktop ? [2.4, 3.2, 4.0] : [1.8, 2.3, 2.8];
-
-            const nodeGeometries = [
-                new THREE.OctahedronGeometry(0.34, 0),     // AI & ML
-                new THREE.BoxGeometry(0.42, 0.42, 0.42),    // Software Eng
-                new THREE.DodecahedronGeometry(0.32, 0)      // AWS & Cloud
-            ];
-
-            ObservatoryScene.nodesData.forEach((nodeData, idx) => {
-                const nodeGroup = new THREE.Group();
-
-                // Satellite Core Mesh
-                const nodeMat = new THREE.MeshStandardMaterial({
-                    color: nodeData.color,
-                    emissive: nodeData.color,
-                    emissiveIntensity: 0.65,
-                    metalness: 0.85,
-                    roughness: 0.2
-                });
-                const mesh = new THREE.Mesh(nodeGeometries[idx], nodeMat);
-                nodeGroup.add(mesh);
-
-                // Holographic HUD Wireframe Frame around Node
-                const hudGeo = new THREE.BoxGeometry(0.65, 0.65, 0.65);
-                const hudMat = new THREE.MeshBasicMaterial({
-                    color: nodeData.color,
+                const cageGeo = registerDisposable(new THREE.DodecahedronGeometry(1.2, 1));
+                const cageMat = registerDisposable(new THREE.MeshBasicMaterial({
+                    color: 0x00e5ff,
                     wireframe: true,
                     transparent: true,
                     opacity: 0.3
-                });
-                const hudFrame = new THREE.Mesh(hudGeo, hudMat);
-                nodeGroup.add(hudFrame);
+                }));
+                outerNeuralCage = registerDisposable(new THREE.Mesh(cageGeo, cageMat));
+                neuralCoreGroup.add(outerNeuralCage);
 
-                // Accent Orbit Ring around Node
-                const ringGeo = new THREE.TorusGeometry(0.5, 0.01, 8, 32);
-                const ringMat = new THREE.MeshBasicMaterial({
-                    color: nodeData.color,
-                    transparent: true,
-                    opacity: 0.5
-                });
-                const ring = new THREE.Mesh(ringGeo, ringMat);
-                ring.rotation.x = Math.PI / 3;
-                nodeGroup.add(ring);
+                // 2. Constellation Particles (Strict Budget: 350 / 200 / 90)
+                const pGeo = registerDisposable(new THREE.BufferGeometry());
+                const positions = new Float32Array(particleBudget * 3);
+                const velocities = [];
 
-                nodeGroup.userData = {
-                    index: idx,
-                    id: nodeData.id,
-                    baseRadius: radii[idx],
-                    angle: (idx * Math.PI * 2) / 3,
-                    speed: 0.005 + idx * 0.002,
-                    data: nodeData
-                };
+                for (let i = 0; i < particleBudget; i++) {
+                    const idx = i * 3;
+                    positions[idx] = (Math.random() - 0.5) * 12;
+                    positions[idx + 1] = (Math.random() - 0.5) * 8;
+                    positions[idx + 2] = (Math.random() - 0.5) * 6 - 0.5;
 
-                nodeMeshes.push(nodeGroup);
-                orbitalGroup.add(nodeGroup);
-
-                // Orbit Line
-                const orbitCurve = new THREE.EllipseCurve(0, 0, radii[idx], radii[idx], 0, 2 * Math.PI, false, 0);
-                const orbitPoints = orbitCurve.getPoints(64);
-                const orbitLineGeo = new THREE.BufferGeometry().setFromPoints(orbitPoints.map(p => new THREE.Vector3(p.x, 0, p.y)));
-                const orbitLineMat = new THREE.LineBasicMaterial({
-                    color: nodeData.color,
-                    transparent: true,
-                    opacity: 0.2
-                });
-                const orbitLine = new THREE.Line(orbitLineGeo, orbitLineMat);
-                orbitRings.push(orbitLine);
-                commandCenterGroup.add(orbitLine);
-
-                // Signal Pulse Sphere
-                const signalGeo = new THREE.SphereGeometry(0.045, 8, 8);
-                const signalMat = new THREE.MeshBasicMaterial({
-                    color: nodeData.color,
-                    transparent: true,
-                    opacity: 0.85
-                });
-                const signalMesh = new THREE.Mesh(signalGeo, signalMat);
-                signalMesh.userData = { progress: idx * 0.33, speed: 0.005, radius: radii[idx] };
-                dataPulseSignals.push(signalMesh);
-                commandCenterGroup.add(signalMesh);
-            });
-
-            // 4. Background Holographic Atmospheric Particle Field
-            if (tier !== 'low') {
-                const bgCount = 220;
-                totalParticleCount += bgCount;
-                const bgGeo = new THREE.BufferGeometry();
-                const bgPos = new Float32Array(bgCount * 3);
-                for (let i = 0; i < bgCount * 3; i += 3) {
-                    bgPos[i] = (Math.random() - 0.5) * 20;
-                    bgPos[i + 1] = (Math.random() - 0.5) * 20;
-                    bgPos[i + 2] = (Math.random() - 0.5) * 14 - 4;
+                    velocities.push({
+                        vx: (Math.random() - 0.5) * 0.003,
+                        vy: (Math.random() - 0.5) * 0.003,
+                        vz: (Math.random() - 0.5) * 0.002
+                    });
                 }
-                bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPos, 3));
-                const bgMat = new THREE.PointsMaterial({
-                    color: 0x4f7cff,
-                    size: 0.032,
+                pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+                const pMat = registerDisposable(new THREE.PointsMaterial({
+                    color: 0x00e5ff,
+                    size: window.innerWidth < 768 ? 0.04 : 0.032,
                     transparent: true,
-                    opacity: 0.45
+                    opacity: 0.75
+                }));
+                particlesMesh = registerDisposable(new THREE.Points(pGeo, pMat));
+                constellationGroup.add(particlesMesh);
+
+                // Connection Lines (Desktop & Tablet only; disabled on Mobile)
+                const enableLines = window.innerWidth >= 768;
+                let lineGeo = null;
+                let linePositions = null;
+                if (enableLines) {
+                    const maxConnections = particleBudget * 2;
+                    linePositions = new Float32Array(maxConnections * 6);
+                    lineGeo = registerDisposable(new THREE.BufferGeometry());
+                    lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+                    const lineMat = registerDisposable(new THREE.LineBasicMaterial({
+                        color: 0x3b82f6,
+                        transparent: true,
+                        opacity: 0.16
+                    }));
+                    lineMesh = registerDisposable(new THREE.LineSegments(lineGeo, lineMat));
+                    constellationGroup.add(lineMesh);
+                }
+
+                // 3. Three Technical Domain Satellites & Verified Chips
+                orbitalGroup = new THREE.Group();
+                constellationGroup.add(orbitalGroup);
+
+                const radii = window.innerWidth >= 992 ? [1.9, 2.7, 3.5] : [1.4, 1.9, 2.4];
+                const nodeGeometries = [
+                    registerDisposable(new THREE.OctahedronGeometry(0.28, 0)),
+                    registerDisposable(new THREE.BoxGeometry(0.34, 0.34, 0.34)),
+                    registerDisposable(new THREE.DodecahedronGeometry(0.26, 0))
+                ];
+
+                const chipDefinitions = [
+                    { label: 'RecoverFlow AI • 93 Suites', metric: '601 Tests Passing', color: '#00e5ff' },
+                    { label: 'CreditGuard AI • 5:1 Cost Cutoff', metric: '0.7865 ROC-AUC', color: '#3b82f6' },
+                    { label: 'Validation ID: 59ea9ed98f8b', metric: 'AWS Certified Cloud Practitioner', color: '#ff9900' }
+                ];
+
+                ObservatoryScene.nodesData.forEach((nodeData, idx) => {
+                    const nodeGroup = new THREE.Group();
+
+                    const nodeMat = registerDisposable(new THREE.MeshStandardMaterial({
+                        color: nodeData.color,
+                        emissive: nodeData.color,
+                        emissiveIntensity: 0.6,
+                        metalness: 0.8,
+                        roughness: 0.2
+                    }));
+                    const mesh = registerDisposable(new THREE.Mesh(nodeGeometries[idx], nodeMat));
+                    nodeGroup.add(mesh);
+
+                    // Decorative Orbiting Chip (Aria-Hidden)
+                    const chipSprite = registerDisposable(createChipSprite(
+                        chipDefinitions[idx].label,
+                        chipDefinitions[idx].metric,
+                        chipDefinitions[idx].color
+                    ));
+                    chipSprite.position.set(0, 0.55, 0);
+                    nodeGroup.add(chipSprite);
+                    orbitChips.push(chipSprite);
+
+                    nodeGroup.userData = {
+                        index: idx,
+                        baseRadius: radii[idx],
+                        angle: (idx * Math.PI * 2) / 3,
+                        speed: 0.004 + idx * 0.0015,
+                        data: nodeData
+                    };
+
+                    nodeMeshes.push(nodeGroup);
+                    orbitalGroup.add(nodeGroup);
+
+                    // Orbit Path Ring
+                    const ringCurve = new THREE.EllipseCurve(0, 0, radii[idx], radii[idx], 0, 2 * Math.PI, false, 0);
+                    const ringPoints = ringCurve.getPoints(64);
+                    const ringGeo = registerDisposable(new THREE.BufferGeometry().setFromPoints(ringPoints.map(p => new THREE.Vector3(p.x, 0, p.y))));
+                    const ringMat = registerDisposable(new THREE.LineBasicMaterial({
+                        color: nodeData.color,
+                        transparent: true,
+                        opacity: 0.18
+                    }));
+                    const ringLine = registerDisposable(new THREE.Line(ringGeo, ringMat));
+                    orbitRings.push(ringLine);
+                    constellationGroup.add(ringLine);
                 });
-                starfieldParticles = new THREE.Points(bgGeo, bgMat);
-                scene.add(starfieldParticles);
             }
 
-            // Layout Adjustment for Portrait Safety and Clean Side-by-Side Positioning
-            const defaultRadii = [2.4, 3.2, 4.0];
+            // Layout positioning
             function updateSceneLayout() {
-                const width = window.innerWidth;
-                const isLargeDesktop = width >= 1200;
-                const isMediumDesktop = width >= 992 && width < 1200;
-                const isTabletLayout = width >= 768 && width < 992;
-
-                let sceneOffsetX = 0;
-                let sceneOffsetY = 0;
+                const w = window.innerWidth;
+                let offsetX = 0;
                 let camZ = 7.0;
-                let targetRadii = [0.85, 1.15, 1.45];
 
-                if (isLargeDesktop) {
-                    sceneOffsetX = 4.2; // Right side on large desktop
-                    sceneOffsetY = 0;
+                if (w >= 1200) {
+                    offsetX = 3.6;
+                    camZ = 6.8;
+                } else if (w >= 992) {
+                    offsetX = 3.0;
                     camZ = 7.0;
-                    targetRadii = [0.85, 1.15, 1.45];
-                } else if (isMediumDesktop) {
-                    sceneOffsetX = -2.8; // Left side on medium desktop (1024px)
-                    sceneOffsetY = 0;
-                    camZ = 7.0;
-                    targetRadii = [0.65, 0.9, 1.15];
-                } else if (isTabletLayout) {
-                    sceneOffsetX = 2.2;
-                    sceneOffsetY = 0;
+                } else if (w >= 768) {
+                    offsetX = 2.0;
                     camZ = 7.2;
-                    targetRadii = [0.9, 1.2, 1.5];
                 } else {
-                    sceneOffsetX = 0;
-                    sceneOffsetY = -1.8;
+                    offsetX = 0;
                     camZ = 7.5;
-                    targetRadii = [0.85, 1.1, 1.35];
                 }
 
-                if (commandCenterGroup) commandCenterGroup.position.set(sceneOffsetX, sceneOffsetY, 0);
-                camera.position.set(0, 0.4, camZ);
-
-                nodeMeshes.forEach((nodeGroup, idx) => {
-                    if (nodeGroup && targetRadii[idx]) {
-                        nodeGroup.userData.baseRadius = targetRadii[idx];
-                        if (orbitRings[idx]) {
-                            const scale = targetRadii[idx] / defaultRadii[idx];
-                            orbitRings[idx].scale.set(scale, 1, scale);
-                        }
-                    }
-                });
+                if (constellationGroup) constellationGroup.position.set(offsetX, 0, 0);
+                camera.position.set(0, 0.2, camZ);
             }
             updateSceneLayout();
 
-            // Pointer Movement listener for smooth camera parallax
+            // Pointer Movement for Gentle Parallax
             function onPointerMove(e) {
-                if (reduceMotion) return;
+                if (isPaused) return;
                 const rect = container.getBoundingClientRect();
                 if (e.clientX >= rect.left && e.clientX <= rect.right &&
                     e.clientY >= rect.top && e.clientY <= rect.bottom) {
@@ -449,42 +423,63 @@
 
             function onResize() {
                 if (!container || !renderer || !camera) return;
-                const width = container.clientWidth;
-                const height = container.clientHeight;
-                if (width === 0 || height === 0) return;
+                const newWidth = container.clientWidth || window.innerWidth;
+                const newHeight = container.clientHeight || window.innerHeight;
+                if (newWidth === 0 || newHeight === 0) return;
 
-                camera.aspect = width / height;
+                camera.aspect = newWidth / newHeight;
                 camera.updateProjectionMatrix();
-                renderer.setSize(width, height);
+                renderer.setSize(newWidth, newHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
                 updateSceneLayout();
             }
             window.addEventListener('resize', onResize);
 
-            // Observer for Off-screen Pausing
-            const observer = new IntersectionObserver((entries) => {
+            // Lifecycle & Visibility Pause Handlers
+            function handleVisibilityChange() {
+                if (document.hidden) {
+                    setPaused(true);
+                } else {
+                    const rect = container.getBoundingClientRect();
+                    const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+                    const reduced = document.body.classList.contains('reduce-motion-active');
+                    setPaused(reduced || !inView);
+                }
+            }
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+
+            function handleBlur() {
+                setPaused(true);
+            }
+            function handleFocus() {
+                handleVisibilityChange();
+            }
+            window.addEventListener('blur', handleBlur);
+            window.addEventListener('focus', handleFocus);
+
+            // Motion Toggle & Reduced-Motion Listener
+            function handleMotionToggle(e) {
+                const reduced = e.detail ? e.detail.isReduced : document.body.classList.contains('reduce-motion-active');
+                setPaused(reduced);
+            }
+            window.addEventListener('portfolio-motion-toggle', handleMotionToggle);
+
+            // IntersectionObserver for off-screen pausing
+            const intersectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    isPaused = !entry.isIntersecting;
+                    const reduced = document.body.classList.contains('reduce-motion-active');
+                    setPaused(reduced || !entry.isIntersecting);
                 });
             }, { threshold: 0.1 });
-            observer.observe(container);
+            intersectionObserver.observe(container);
 
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) isPaused = true;
-                else if (container.getBoundingClientRect().bottom > 0) isPaused = false;
-            });
-
-            // Coordinate 3D Orbital Node Highlights with Portfolio Scroll Progression
-            window.addEventListener('portfolio-section-active', (e) => {
-                const sectionId = e.detail ? e.detail.sectionId : null;
-                if (!sectionId) return;
-                if (sectionId === 'projects') {
-                    ObservatoryScene.selectNode(0);
-                } else if (sectionId === 'skills' || sectionId === 'about') {
-                    ObservatoryScene.selectNode(1);
-                } else if (sectionId === 'certifications' || sectionId === 'experience') {
-                    ObservatoryScene.selectNode(2);
+            function setPaused(pause) {
+                isPaused = pause;
+                window.ObservatoryScene.isPaused = isPaused;
+                if (!isPaused && !animationFrameId) {
+                    animate();
                 }
-            });
+            }
 
             // Select Node API
             ObservatoryScene.selectNode = function (index) {
@@ -496,7 +491,7 @@
                 pointLightCyan.color.setHex(targetNode.userData.data.color);
 
                 nodeMeshes.forEach((n, idx) => {
-                    const scale = idx === index ? 1.35 : 1.0;
+                    const scale = idx === index ? 1.25 : 1.0;
                     n.scale.set(scale, scale, scale);
                 });
 
@@ -505,155 +500,150 @@
                 }));
             };
 
-            // Diagnostics and Portrait Intrusion Verification
-            function checkPortraitIntrusions() {
-                try {
-                    const avatarEl = document.querySelector('.avatar-container') || document.querySelector('.profile-avatar') || document.querySelector('.glow-ring');
-                    if (!avatarEl) return 0;
-                    const rect = avatarEl.getBoundingClientRect();
-                    if (rect.width === 0 || rect.height === 0) return 0;
-
-                    let intrusions = 0;
-                    const tempVec = new THREE.Vector3();
-
-                    const canvasRect = renderer.domElement ? renderer.domElement.getBoundingClientRect() : { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
-                    nodeMeshes.forEach(node => {
-                        if (node && typeof node.getWorldPosition === 'function') {
-                            node.getWorldPosition(tempVec);
-                            tempVec.project(camera);
-
-                            if (tempVec.z > 1) return; // Ignore nodes behind camera
-
-                            const screenX = canvasRect.left + ((tempVec.x + 1) * canvasRect.width) / 2;
-                            const screenY = canvasRect.top + ((-tempVec.y + 1) * canvasRect.height) / 2;
-
-                            if (screenX >= rect.left - 10 && screenX <= rect.right + 10 &&
-                                screenY >= rect.top - 10 && screenY <= rect.bottom + 10) {
-                                intrusions++;
-                            }
-                        }
-                    });
-
-                    return intrusions;
-                } catch (e) {
-                    return 0;
-                }
+            // Diagnostics Object
+            function updateDiagnostics() {
+                const diag = {
+                    status: 'ready',
+                    particleCount: particleBudget,
+                    isPaused: isPaused,
+                    pixelRatio: renderer.getPixelRatio(),
+                    activeNodeIndex: ObservatoryScene.activeNodeIndex
+                };
+                window.__hero3dDiagnostics = diag;
             }
 
-            // Main Animation Loop
+            // Animation Loop
             let clock = new THREE.Clock();
-            let isFailed = false;
 
             function animate() {
-                if (isPaused || isFailed) return;
-
-                try {
-                    const elapsedTime = clock.getElapsedTime();
-
-                    // Parallax camera damping
-                    pointer.x += (pointer.targetX - pointer.x) * 0.05;
-                    pointer.y += (pointer.targetY - pointer.y) * 0.05;
-
-                    if (!reduceMotion) {
-                        camera.position.x += (pointer.x * 0.35 - camera.position.x) * 0.05;
-                        camera.position.y += (pointer.y * 0.25 - camera.position.y) * 0.05;
+                if (isPaused) {
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
+                        animationFrameId = null;
                     }
-
-                    // Neural Core Rotations (Steady linear motion)
-                    if (neuralCoreGroup) {
-                        neuralCoreGroup.rotation.y = elapsedTime * 0.12;
-                        neuralCoreGroup.rotation.x = elapsedTime * 0.04;
-                    }
-
-                    if (outerNeuralCage) {
-                        outerNeuralCage.rotation.y = -elapsedTime * 0.08;
-                    }
-
-                    if (dataRingPrimary) {
-                        dataRingPrimary.rotation.z = elapsedTime * 0.15;
-                    }
-
-                    if (dataRingSecondary) {
-                        dataRingSecondary.rotation.z = -elapsedTime * 0.1;
-                    }
-
-                    // Orbital Satellites
-                    nodeMeshes.forEach((nodeGroup) => {
-                        const userData = nodeGroup.userData;
-                        if (!reduceMotion) {
-                            userData.angle += userData.speed;
-                        }
-
-                        const r = userData.baseRadius;
-                        nodeGroup.position.x = Math.cos(userData.angle) * r;
-                        nodeGroup.position.z = Math.sin(userData.angle) * r;
-                        nodeGroup.position.y = Math.sin(userData.angle * 2) * 0.18;
-
-                        nodeGroup.rotation.x += 0.008;
-                        nodeGroup.rotation.y += 0.012;
-                    });
-
-                    // Signal pulses along orbits
-                    dataPulseSignals.forEach((sig) => {
-                        if (!reduceMotion) {
-                            sig.userData.progress = (sig.userData.progress + sig.userData.speed) % 1;
-                        }
-                        const angle = sig.userData.progress * Math.PI * 2;
-                        const r = sig.userData.radius;
-                        sig.position.x = (commandCenterGroup.position.x || 0) + Math.cos(angle) * r;
-                        sig.position.z = Math.sin(angle) * r;
-                    });
-
-                    renderer.render(scene, camera);
-
-                    // Update Diagnostics window object
-                    updateDiagnostics();
-
-                    animationFrameId = requestAnimationFrame(animate);
-                } catch (renderError) {
-                    isFailed = true;
-                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
-                    console.error('Three.js Observatory rendering encountered a fatal error:', renderError);
-                    container.setAttribute('data-renderer-status', 'failed');
-                    ObservatoryScene.status = 'failed';
-                    renderStaticFallback(container);
+                    return;
                 }
+
+                const elapsed = clock.getElapsedTime();
+
+                // Gentle Parallax Camera Motion
+                pointer.x += (pointer.targetX - pointer.x) * 0.05;
+                pointer.y += (pointer.targetY - pointer.y) * 0.05;
+                camera.position.x += (pointer.x * 0.25 - camera.position.x) * 0.04;
+                camera.position.y += (pointer.y * 0.18 - camera.position.y) * 0.04;
+
+                // Core Rotation
+                if (neuralCoreGroup) {
+                    neuralCoreGroup.rotation.y = elapsed * 0.12;
+                    neuralCoreGroup.rotation.x = elapsed * 0.04;
+                }
+                if (outerNeuralCage) {
+                    outerNeuralCage.rotation.y = -elapsed * 0.08;
+                }
+
+                // Particle Motion
+                const posAttr = particlesMesh.geometry.attributes.position;
+                const posArr = posAttr.array;
+                for (let i = 0; i < particleBudget; i++) {
+                    const idx = i * 3;
+                    posArr[idx] += velocities[i].vx;
+                    posArr[idx + 1] += velocities[i].vy;
+                    posArr[idx + 2] += velocities[i].vz;
+
+                    // Bounds bounce
+                    if (posArr[idx] < -6 || posArr[idx] > 6) velocities[i].vx *= -1;
+                    if (posArr[idx + 1] < -4 || posArr[idx + 1] > 4) velocities[i].vy *= -1;
+                    if (posArr[idx + 2] < -3.5 || posArr[idx + 2] > 2.5) velocities[i].vz *= -1;
+                }
+                posAttr.needsUpdate = true;
+
+                // Connect Lines on Desktop & Tablet
+                if (enableLines && linePositions) {
+                    let lineIdx = 0;
+                    const maxDist = 1.6;
+                    const maxDistSq = maxDist * maxDist;
+
+                    for (let i = 0; i < particleBudget && lineIdx < linePositions.length - 6; i++) {
+                        const i3 = i * 3;
+                        for (let j = i + 1; j < particleBudget && lineIdx < linePositions.length - 6; j++) {
+                            const j3 = j * 3;
+                            const dx = posArr[i3] - posArr[j3];
+                            const dy = posArr[i3 + 1] - posArr[j3 + 1];
+                            const dz = posArr[i3 + 2] - posArr[j3 + 2];
+                            const distSq = dx * dx + dy * dy + dz * dz;
+
+                            if (distSq < maxDistSq) {
+                                linePositions[lineIdx++] = posArr[i3];
+                                linePositions[lineIdx++] = posArr[i3 + 1];
+                                linePositions[lineIdx++] = posArr[i3 + 2];
+                                linePositions[lineIdx++] = posArr[j3];
+                                linePositions[lineIdx++] = posArr[j3 + 1];
+                                linePositions[lineIdx++] = posArr[j3 + 2];
+                            }
+                        }
+                    }
+                    lineMesh.geometry.setDrawRange(0, lineIdx / 3);
+                    lineMesh.geometry.attributes.position.needsUpdate = true;
+                }
+
+                // Orbital Satellites & Chips
+                nodeMeshes.forEach((nodeGroup) => {
+                    const userData = nodeGroup.userData;
+                    userData.angle += userData.speed;
+                    const r = userData.baseRadius;
+                    nodeGroup.position.x = Math.cos(userData.angle) * r;
+                    nodeGroup.position.z = Math.sin(userData.angle) * r;
+                    nodeGroup.position.y = Math.sin(userData.angle * 2) * 0.12;
+
+                    nodeGroup.rotation.x += 0.006;
+                    nodeGroup.rotation.y += 0.009;
+                });
+
+                renderer.render(scene, camera);
+                updateDiagnostics();
+
+                animationFrameId = requestAnimationFrame(animate);
             }
 
-            function updateDiagnostics() {
-                try {
-                    const intrusions = checkPortraitIntrusions();
-                    const diag = {
-                        rendererCount: 1,
-                        qualityTier: tier || 'high',
-                        objectCount: scene ? scene.children.length : 0,
-                        particleCount: totalParticleCount || 400,
-                        active: !isPaused && !isFailed,
-                        reducedMotion: !!reduceMotion,
-                        blinkingLights: 0,
-                        portraitIntrusions: intrusions
-                    };
-                    window.__hero3dDiagnostics = diag;
-                    ObservatoryScene.diagnostics = diag;
-                } catch (e) {
-                    console.warn('Diagnostics update error:', e);
-                }
+            if (!isPaused) {
+                animate();
             }
-
-            animate();
 
             container.setAttribute('data-renderer-status', 'ready');
             ObservatoryScene.status = 'ready';
             updateDiagnostics();
 
+            // Full dispose() clean up
             ObservatoryScene.destroy = function () {
-                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
                 window.removeEventListener('pointermove', onPointerMove);
                 window.removeEventListener('resize', onResize);
-                if (renderer) {
-                    renderer.dispose();
-                    renderer.forceContextLoss();
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+                window.removeEventListener('blur', handleBlur);
+                window.removeEventListener('focus', handleFocus);
+                window.removeEventListener('portfolio-motion-toggle', handleMotionToggle);
+                if (intersectionObserver) {
+                    intersectionObserver.disconnect();
                 }
+
+                // Dispose allocated geometries, materials, and textures
+                allocatedDisposables.forEach(d => {
+                    try {
+                        if (d && typeof d.dispose === 'function') d.dispose();
+                    } catch (e) {}
+                });
+
+                if (renderer) {
+                    try {
+                        renderer.dispose();
+                        renderer.forceContextLoss();
+                    } catch (e) {}
+                }
+                ObservatoryScene.renderer = null;
+                ObservatoryScene.status = 'destroyed';
             };
 
         } catch (err) {
@@ -665,60 +655,14 @@
     }
 
     function renderStaticFallback(container) {
-        if (!container.getAttribute('data-renderer-status') || container.getAttribute('data-renderer-status') === 'ready') {
-            container.setAttribute('data-renderer-status', 'fallback');
-            ObservatoryScene.status = 'fallback';
-        } else {
-            ObservatoryScene.status = container.getAttribute('data-renderer-status');
-        }
+        if (!container) return;
+        container.setAttribute('data-renderer-status', 'fallback');
+        ObservatoryScene.status = 'fallback';
 
         const fallbackCanvas = document.getElementById('hero-particles');
         if (fallbackCanvas) {
             fallbackCanvas.style.display = 'block';
         }
-
-        const fallbackHTML = `
-            <div class="observatory-static-fallback">
-                <div class="static-prism-core">
-                    <div class="static-prism-shape"></div>
-                    <div class="static-core-pulse"></div>
-                </div>
-                <div class="static-orbit-ring ring-a"></div>
-                <div class="static-orbit-ring ring-b"></div>
-                <div class="static-nodes-wrapper">
-                    <button class="static-node-item active" data-node-idx="0">
-                        <span class="node-dot ai"></span>
-                        <span class="node-title">AI & ML</span>
-                    </button>
-                    <button class="static-node-item" data-node-idx="1">
-                        <span class="node-dot se"></span>
-                        <span class="node-title">Software Eng</span>
-                    </button>
-                    <button class="static-node-item" data-node-idx="2">
-                        <span class="node-dot aws"></span>
-                        <span class="node-title">AWS & Cloud</span>
-                    </button>
-                </div>
-            </div>
-        `;
-        const fallbackWrapper = document.createElement('div');
-        fallbackWrapper.className = 'observatory-fallback-container';
-        fallbackWrapper.innerHTML = fallbackHTML;
-        container.appendChild(fallbackWrapper);
-
-        const staticButtons = fallbackWrapper.querySelectorAll('.static-node-item');
-        staticButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const idx = parseInt(btn.getAttribute('data-node-idx'), 10);
-                staticButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                if (ObservatoryScene.nodesData[idx]) {
-                    window.dispatchEvent(new CustomEvent('observatory-node-change', {
-                        detail: { index: idx, data: ObservatoryScene.nodesData[idx] }
-                    }));
-                }
-            });
-        });
     }
 
     ObservatoryScene.init = initObservatory;
