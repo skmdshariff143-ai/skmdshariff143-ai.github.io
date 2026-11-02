@@ -603,6 +603,8 @@ img {
     border-radius: var(--border-radius-sm);
     text-decoration: none;
     transition: var(--transition-fast);
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .proof-badge:hover {
@@ -636,6 +638,8 @@ img {
 .proof-badge-label {
     font-size: 0.78rem;
     color: var(--text-secondary);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .hero-socials {
@@ -2227,6 +2231,23 @@ img {
 
 @media (max-width: 480px) {
     .container { padding: 0 1rem; }
+    .hero-container,
+    .hero-content,
+    .hero-proof-strip {
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+    .proof-badge {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+    }
+    .proof-badge-label {
+        word-break: break-all;
+        overflow-wrap: anywhere;
+    }
     .skills-3d-grid,
     .project-grid,
     .spotlight-grid,
