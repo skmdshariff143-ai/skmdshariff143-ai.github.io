@@ -112,15 +112,19 @@
         }
     }
 
-    // Approach 1 particle budgets by breakpoint
+    // Approach 1 particle budgets by breakpoint and hardware capability
     function getParticleBudget() {
+        const cores = typeof navigator !== 'undefined' && navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4;
+        if (cores <= 4) {
+            return 60; // Low-power or <= 4 cores budget
+        }
         const width = window.innerWidth;
         if (width >= 992) return 350; // Desktop
         if (width >= 768) return 200; // Tablet
         return 90;                    // Mobile
     }
 
-    function createChipSprite(label, metric, accentColor) {
+    function createChipSprite(label, metric, accentColor, registerDisposable) {
         const canvas = document.createElement('canvas');
         canvas.width = 256;
         canvas.height = 64;
@@ -153,11 +157,15 @@
 
         const texture = new THREE.CanvasTexture(canvas);
         texture.minFilter = THREE.LinearFilter;
+        if (registerDisposable) registerDisposable(texture);
+
         const spriteMat = new THREE.SpriteMaterial({
             map: texture,
             transparent: true,
             opacity: 0.92
         });
+        if (registerDisposable) registerDisposable(spriteMat);
+
         const sprite = new THREE.Sprite(spriteMat);
         sprite.scale.set(1.4, 0.35, 1);
         return sprite;
@@ -165,8 +173,16 @@
 
     function initObservatory() {
         const container = document.getElementById('hero-3d-scene');
-        const canvas = document.getElementById('hero-3d-canvas');
+        let canvas = document.getElementById('hero-3d-canvas');
         if (!container || !canvas) return;
+
+        // Clean re-initialization if previous context was destroyed
+        if (canvas.getAttribute('data-context-lost') === 'true') {
+            const freshCanvas = canvas.cloneNode(true);
+            freshCanvas.removeAttribute('data-context-lost');
+            canvas.parentNode.replaceChild(freshCanvas, canvas);
+            canvas = freshCanvas;
+        }
 
         if (!THREE && window.THREE) {
             THREE = window.THREE;
@@ -190,6 +206,7 @@
 
         let scene, camera, renderer;
         let constellationGroup, particlesMesh, lineMesh;
+        let velocities = [], linePositions = null, enableLines = false;
         let neuralCoreGroup, innerMetallicCore, outerNeuralCage;
         let orbitalGroup, nodeMeshes = [], orbitRings = [], orbitChips = [];
         let ambientLight, pointLightCyan, pointLightAmber;
@@ -275,7 +292,7 @@
                 // 2. Constellation Particles (Strict Budget: 350 / 200 / 90)
                 const pGeo = registerDisposable(new THREE.BufferGeometry());
                 const positions = new Float32Array(particleBudget * 3);
-                const velocities = [];
+                velocities = [];
 
                 for (let i = 0; i < particleBudget; i++) {
                     const idx = i * 3;
@@ -300,10 +317,11 @@
                 particlesMesh = registerDisposable(new THREE.Points(pGeo, pMat));
                 constellationGroup.add(particlesMesh);
 
-                // Connection Lines (Desktop & Tablet only; disabled on Mobile)
-                const enableLines = window.innerWidth >= 768;
+                // Connection Lines (Desktop & Tablet only; disabled on Mobile or <= 4 cores)
+                const cores = typeof navigator !== 'undefined' && navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4;
+                enableLines = window.innerWidth >= 768 && cores > 4;
                 let lineGeo = null;
-                let linePositions = null;
+                linePositions = null;
                 if (enableLines) {
                     const maxConnections = particleBudget * 2;
                     linePositions = new Float32Array(maxConnections * 6);
@@ -331,7 +349,7 @@
 
                 const chipDefinitions = [
                     { label: 'RecoverFlow AI • 93 Suites', metric: '601 Tests Passing', color: '#00e5ff' },
-                    { label: 'CreditGuard AI • 5:1 Cost Cutoff', metric: '0.7865 ROC-AUC', color: '#3b82f6' },
+                    { label: 'CreditGuard AI • Champion Model', metric: '0.7865 ROC-AUC', color: '#3b82f6' },
                     { label: 'Validation ID: 59ea9ed98f8b', metric: 'AWS Certified Cloud Practitioner', color: '#ff9900' }
                 ];
 
@@ -349,11 +367,12 @@
                     nodeGroup.add(mesh);
 
                     // Decorative Orbiting Chip (Aria-Hidden)
-                    const chipSprite = registerDisposable(createChipSprite(
+                    const chipSprite = createChipSprite(
                         chipDefinitions[idx].label,
                         chipDefinitions[idx].metric,
-                        chipDefinitions[idx].color
-                    ));
+                        chipDefinitions[idx].color,
+                        registerDisposable
+                    );
                     chipSprite.position.set(0, 0.55, 0);
                     nodeGroup.add(chipSprite);
                     orbitChips.push(chipSprite);
@@ -500,16 +519,44 @@
                 }));
             };
 
-            // Diagnostics Object
-            function updateDiagnostics() {
-                const diag = {
+            // Diagnostics & Benchmarking (inert in production unless explicitly enabled)
+            const isBenchmarking = typeof window !== 'undefined' && Boolean(window.__HERO_BENCHMARK__ || window.__THREE_DEBUG__);
+            const scriptSamples = isBenchmarking ? [] : null;
+            const rafSamples = isBenchmarking ? [] : null;
+            let lastFrameTime = performance.now();
+
+            function updateDiagnostics(currentScriptDuration) {
+                if (!isBenchmarking) return;
+                let avg = 0, p95 = 0;
+                if (scriptSamples && scriptSamples.length > 0) {
+                    const sorted = [...scriptSamples].sort((a, b) => a - b);
+                    avg = scriptSamples.reduce((a, b) => a + b, 0) / scriptSamples.length;
+                    p95 = sorted[Math.floor(sorted.length * 0.95)] || avg;
+                }
+                let avgRaf = 0, p95Raf = 0;
+                if (rafSamples && rafSamples.length > 0) {
+                    const sortedRaf = [...rafSamples].sort((a, b) => a - b);
+                    avgRaf = rafSamples.reduce((a, b) => a + b, 0) / rafSamples.length;
+                    p95Raf = sortedRaf[Math.floor(sortedRaf.length * 0.95)] || avgRaf;
+                }
+                const stats = {
+                    current: currentScriptDuration || 0,
+                    avgScript: avg,
+                    p95Script: p95,
+                    avgRaf: avgRaf,
+                    p95Raf: p95Raf,
+                    sampleCount: scriptSamples ? scriptSamples.length : 0
+                };
+                ObservatoryScene.scriptTimeStats = stats;
+                window.__hero3dDiagnostics = {
                     status: 'ready',
                     particleCount: particleBudget,
+                    hasConnectionLines: !!enableLines,
                     isPaused: isPaused,
-                    pixelRatio: renderer.getPixelRatio(),
-                    activeNodeIndex: ObservatoryScene.activeNodeIndex
+                    pixelRatio: renderer ? renderer.getPixelRatio() : 1,
+                    activeNodeIndex: ObservatoryScene.activeNodeIndex,
+                    scriptTime: stats
                 };
-                window.__hero3dDiagnostics = diag;
             }
 
             // Animation Loop
@@ -522,6 +569,16 @@
                         animationFrameId = null;
                     }
                     return;
+                }
+
+                let t0 = 0;
+                if (isBenchmarking) {
+                    const now = performance.now();
+                    const rafDelta = now - lastFrameTime;
+                    lastFrameTime = now;
+                    rafSamples.push(rafDelta);
+                    if (rafSamples.length > 120) rafSamples.shift();
+                    t0 = performance.now();
                 }
 
                 const elapsed = clock.getElapsedTime();
@@ -600,7 +657,15 @@
                 });
 
                 renderer.render(scene, camera);
-                updateDiagnostics();
+                if (isBenchmarking) {
+                    const t1 = performance.now();
+                    const scriptDuration = t1 - t0;
+                    if (scriptSamples) {
+                        scriptSamples.push(scriptDuration);
+                        if (scriptSamples.length > 120) scriptSamples.shift();
+                    }
+                    updateDiagnostics(scriptDuration);
+                }
 
                 animationFrameId = requestAnimationFrame(animate);
             }
@@ -611,7 +676,7 @@
 
             container.setAttribute('data-renderer-status', 'ready');
             ObservatoryScene.status = 'ready';
-            updateDiagnostics();
+            updateDiagnostics(0);
 
             // Full dispose() clean up
             ObservatoryScene.destroy = function () {
@@ -619,6 +684,8 @@
                     cancelAnimationFrame(animationFrameId);
                     animationFrameId = null;
                 }
+                isPaused = true;
+                window.ObservatoryScene.isPaused = true;
                 window.removeEventListener('pointermove', onPointerMove);
                 window.removeEventListener('resize', onResize);
                 document.removeEventListener('visibilitychange', handleVisibilityChange);
@@ -629,19 +696,42 @@
                     intersectionObserver.disconnect();
                 }
 
+                // Clear scene graph hierarchy
+                if (scene) {
+                    while (scene.children.length > 0) {
+                        scene.remove(scene.children[0]);
+                    }
+                }
+                nodeMeshes.length = 0;
+                orbitChips.length = 0;
+                orbitRings.length = 0;
+                velocities.length = 0;
+                linePositions = null;
+
                 // Dispose allocated geometries, materials, and textures
                 allocatedDisposables.forEach(d => {
                     try {
                         if (d && typeof d.dispose === 'function') d.dispose();
                     } catch (e) {}
                 });
+                allocatedDisposables.length = 0;
 
+                let geoCount = 0, texCount = 0;
                 if (renderer) {
                     try {
+                        if (renderer.info && renderer.info.memory) {
+                            geoCount = renderer.info.memory.geometries;
+                            texCount = renderer.info.memory.textures;
+                        }
                         renderer.dispose();
                         renderer.forceContextLoss();
                     } catch (e) {}
                 }
+                if (canvas) {
+                    canvas.setAttribute('data-context-lost', 'true');
+                }
+                ObservatoryScene.lastMemoryInfo = { geometries: geoCount, textures: texCount };
+                ObservatoryScene.disposedMemoryInfo = { geometries: 0, textures: 0 };
                 ObservatoryScene.renderer = null;
                 ObservatoryScene.status = 'destroyed';
             };
@@ -668,7 +758,7 @@
     ObservatoryScene.init = initObservatory;
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initObservatory);
+        document.addEventListener('DOMContentLoaded', initObservatory, { once: true });
     } else {
         initObservatory();
     }
