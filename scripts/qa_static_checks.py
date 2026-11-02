@@ -379,6 +379,16 @@ def main():
     check("script.js validates RFC email pattern",
           'emailregex' in sjs.lower() or 'emailpattern' in sjs.lower() or 'isvalidemail' in sjs.lower())
 
+    print("\n== 15. Touch Target & Layout Accessibility ==")
+    with open(os.path.join(ROOT, "style.css"), encoding="utf-8") as fh:
+        css = fh.read()
+    check("footer nav links declare min-height >= 28px",
+          ".footer-nav a" in css and "min-height: 28px" in css)
+    check("contact links declare min-height >= 28px",
+          ".contact-link" in css and "min-height: 28px" in css)
+    check("footer social links declare 44px tap target",
+          ".footer-social-links a" in css and "width: 44px" in css and "height: 44px" in css)
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:
