@@ -749,9 +749,72 @@ document.addEventListener('DOMContentLoaded', () => {
        ------------------------------------------------------------------ */
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
+    let lastSubmitTime = 0;
+    const SUBMIT_COOLDOWN_MS = 30000;
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const now = Date.now();
+            if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
+                const remaining = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitTime)) / 1000);
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ff9800';
+                    formStatus.innerHTML = `<i class="fas fa-clock"></i> Please wait ${remaining}s before sending another message.`;
+                }
+                return;
+            }
+
+            const data = new FormData(contactForm);
+
+            // Spam honeypot inspection
+            const gotcha = data.get('_gotcha');
+            if (gotcha && gotcha.trim().length > 0) {
+                contactForm.reset();
+                contactForm.innerHTML = `
+                    <div class="form-success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Message Sent!</h3>
+                        <p>Thanks! Your message has been sent — I'll get back to you soon.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Input validation
+            const nameVal = (data.get('name') || '').trim();
+            const emailVal = (data.get('email') || '').trim();
+            const msgVal = (data.get('message') || '').trim();
+
+            if (nameVal.length < 2 || nameVal.length > 100) {
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ff1744';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Name must be between 2 and 100 characters.';
+                }
+                return;
+            }
+
+            if (!emailRegex.test(emailVal)) {
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ff1744';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email address.';
+                }
+                return;
+            }
+
+            if (msgVal.length < 10 || msgVal.length > 5000) {
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ff1744';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Message must be between 10 and 5000 characters.';
+                }
+                return;
+            }
             e.preventDefault();
 
             // Show sending status
@@ -773,6 +836,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
+                    lastSubmitTime = Date.now();
                     contactForm.reset();
                     contactForm.innerHTML = `
                         <div class="form-success-message">

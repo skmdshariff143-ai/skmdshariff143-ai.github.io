@@ -1395,10 +1395,10 @@
                     <div class="contact-form-container card tilt-card">
                         <h3>Send a Message</h3>
                         <form id="contact-form" class="contact-form" action="https://formspree.io/f/mvzjyllq" method="POST">
-                            <input type="text" name="_gotcha" class="honeypot-field" aria-hidden="true" tabindex="-1">
+                            <input type="text" name="_gotcha" class="honeypot-field" aria-hidden="true" tabindex="-1" autocomplete="off">
                             <div class="form-group">
                                 <label for="name">Your Name</label>
-                                <input type="text" id="name" name="name" placeholder="e.g. Jane Doe" autocomplete="name" required>
+                                <input type="text" id="name" name="name" placeholder="e.g. Jane Doe" autocomplete="name" minlength="2" maxlength="100" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Your Email</label>
@@ -1406,10 +1406,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+                                <textarea id="message" name="message" rows="5" placeholder="Write your message here..." minlength="10" maxlength="5000" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Send Message</button>
-                            <div id="form-status" class="form-status-message" aria-live="polite"></div>
+                            <div id="form-status" class="form-status-message" role="status" aria-live="polite"></div>
                             <p class="form-privacy-note"><i class="fas fa-shield-alt"></i> <span><strong>Privacy Notice:</strong> Messages submitted through this form are delivered directly to my inbox via Formspree. Your contact details are used solely to reply to your inquiry.</span></p>
                         </form>
                     </div>

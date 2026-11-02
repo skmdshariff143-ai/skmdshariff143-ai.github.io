@@ -357,6 +357,28 @@ def main():
     check("all certificate thumbnails within 300 KB budget",
           len(oversized_thumbs) == 0, f"oversized={oversized_thumbs}")
 
+    print("\n== 14. Contact Form Validation, Accessible Live Regions & Anti-Spam ==")
+    check("contact form has honeypot with autocomplete='off'",
+          'name="_gotcha"' in html and 'autocomplete="off"' in html)
+    name_input = re.search(r'<input[^>]+id="name"[^>]*>', html)
+    check("name input specifies minlength and maxlength bounds",
+          name_input and 'minlength=' in name_input.group(0) and 'maxlength=' in name_input.group(0))
+    msg_textarea = re.search(r'<textarea[^>]+id="message"[^>]*>', html)
+    check("message textarea specifies minlength and maxlength bounds",
+          msg_textarea and 'minlength=' in msg_textarea.group(0) and 'maxlength=' in msg_textarea.group(0))
+    status_el = re.search(r'<div[^>]+id="form-status"[^>]*>', html)
+    check("form-status has role='status' and aria-live='polite'",
+          status_el and 'role="status"' in status_el.group(0) and 'aria-live="polite"' in status_el.group(0))
+    
+    with open(os.path.join(ROOT, "script.js"), encoding="utf-8") as fh:
+        sjs = fh.read()
+    check("script.js validates honeypot _gotcha before submission",
+          '_gotcha' in sjs)
+    check("script.js enforces client-side submission cooldown",
+          'cooldown' in sjs.lower() or 'lastsubmittime' in sjs.lower())
+    check("script.js validates RFC email pattern",
+          'emailregex' in sjs.lower() or 'emailpattern' in sjs.lower() or 'isvalidemail' in sjs.lower())
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:
