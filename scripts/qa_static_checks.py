@@ -342,6 +342,21 @@ def main():
     check("script.js dynamic cert cards include issuer in alt attribute",
           'alt="${cert.title}' in sjs and 'cert.issuer' in sjs)
 
+    print("\n== 13. Image Size Budget & Performance Guard ==")
+    with open(os.path.join(ROOT, "data", "certificates.json"), encoding="utf-8") as fh:
+        cj = json.load(fh)
+    oversized_thumbs = []
+    for c in cj:
+        thumb_rel = c.get("thumbnail")
+        if thumb_rel:
+            thumb_full = os.path.join(ROOT, thumb_rel.replace("/", os.sep))
+            if os.path.exists(thumb_full):
+                size_kb = os.path.getsize(thumb_full) / 1024
+                if size_kb > 300.0:
+                    oversized_thumbs.append((thumb_rel, round(size_kb, 1)))
+    check("all certificate thumbnails within 300 KB budget",
+          len(oversized_thumbs) == 0, f"oversized={oversized_thumbs}")
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:
