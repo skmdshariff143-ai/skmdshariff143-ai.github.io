@@ -192,6 +192,10 @@ try:
         }
         if not vp_passed:
             all_passed = False
+            os.makedirs("qa-artifacts", exist_ok=True)
+            shot_path = os.path.join("qa-artifacts", f"failure_{width}x{height}.png")
+            driver.save_screenshot(shot_path)
+            vp_log.append(f"[ARTIFACT] Saved failure screenshot to {shot_path}")
 
         for entry in vp_log:
             print(f"  {entry}")
