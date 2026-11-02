@@ -389,6 +389,21 @@ def main():
     check("footer social links declare 44px tap target",
           ".footer-social-links a" in css and "width: 44px" in css and "height: 44px" in css)
 
+    print("\n== 16. Security Headers (HSTS, CSP Report-Only, Permissions-Policy) ==")
+    with open(os.path.join(ROOT, "vercel.json"), encoding="utf-8") as fh:
+        vj = json.load(fh)
+    root_headers = {}
+    for hgroup in vj.get("headers", []):
+        if hgroup.get("source") == "/(.*)":
+            for h in hgroup.get("headers", []):
+                root_headers[h["key"]] = h["value"]
+    check("Strict-Transport-Security declared with >= 1 year max-age and includeSubDomains",
+          "Strict-Transport-Security" in root_headers and "max-age=31536000" in root_headers["Strict-Transport-Security"] and "includeSubDomains" in root_headers["Strict-Transport-Security"])
+    check("Permissions-Policy restricts sensitive device APIs",
+          "Permissions-Policy" in root_headers and "camera=()" in root_headers["Permissions-Policy"])
+    check("Content-Security-Policy-Report-Only declared in report-only mode",
+          "Content-Security-Policy-Report-Only" in root_headers and "formspree.io" in root_headers["Content-Security-Policy-Report-Only"])
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:
