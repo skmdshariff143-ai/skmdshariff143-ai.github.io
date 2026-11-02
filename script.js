@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const cardsHTML = publishedCerts.map(cert => `
                         <div class="cert-card" data-category="${cert.category}" data-featured="${cert.featured}" ${cert.credentialId ? `data-credential-id="${cert.credentialId}"` : ''}>
                             <div class="cert-preview">
-                                <img src="${cert.thumbnail}" alt="${cert.title} Certificate Preview" loading="lazy">
+                                <img src="${cert.thumbnail}" alt="${cert.title} - ${cert.issuer}" loading="lazy">
                                 <div class="cert-overlay"><span class="expand-btn" role="button" aria-label="Expand certificate preview" tabindex="0"><i class="fas fa-expand"></i></span></div>
                             </div>
                             <div class="cert-body">

@@ -318,6 +318,30 @@ def main():
     check("sitemap.xml includes privacy.html",
           f"<loc>{CANONICAL_HOST}/privacy.html</loc>" in sitemap)
 
+    print("\n== 12. Certificate Alt Text Quality & Integrity ==")
+    img_tags = re.findall(r'<img[^>]+>', html)
+    corrupt_alts = [t for t in img_tags if '\ufffd' in t]
+    check("no corrupt unicode replacement characters in img tags",
+          len(corrupt_alts) == 0, f"corrupt={corrupt_alts}")
+    raw_entity_alts = [t for t in img_tags if 'alt="' in t and '&amp;' in re.search(r'alt="([^"]*)"', t).group(1)]
+    check("no raw HTML entity &amp; inside alt text",
+          len(raw_entity_alts) == 0, f"entities={raw_entity_alts}")
+    
+    # Check that cert images in index.html include issuer or descriptive non-generic text
+    cert_img_alts = [
+        re.search(r'alt="([^"]*)"', t).group(1)
+        for t in img_tags
+        if 'assets/cert' in t or 'assets/certificate' in t
+    ]
+    generic_alts = [a for a in cert_img_alts if a.endswith("Certificate Preview") and not any(kw in a for kw in ["-", "by", "from", "AWS", "Google", "Be10X", "CodeChef", "Udemy", "GitHub", "VVIT", "Siemens", "Forage", "NxtWave", "PEARL", "Palo Alto", "NPTEL", "EduSkills", "L4G"])]
+    check("no generic 'Certificate Preview' alt text without issuer context",
+          len(generic_alts) == 0, f"generic_count={len(generic_alts)} sample={generic_alts[:3]}")
+
+    with open(os.path.join(ROOT, "script.js"), encoding="utf-8") as fh:
+        sjs = fh.read()
+    check("script.js dynamic cert cards include issuer in alt attribute",
+          'alt="${cert.title}' in sjs and 'cert.issuer' in sjs)
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:
