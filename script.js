@@ -815,7 +815,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 return;
             }
-            e.preventDefault();
 
             // Show sending status
             if (formStatus) {
@@ -823,8 +822,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 formStatus.style.color = 'var(--text-secondary)';
                 formStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending message...';
             }
-
-            const data = new FormData(contactForm);
 
             try {
                 const response = await fetch(contactForm.action, {
