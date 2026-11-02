@@ -27,6 +27,7 @@ assets/compression-preview/
 .env*
 
 # Agent files, checkpoints, and graph outputs
+PROJECT_ROADMAP.md
 CHECKPOINT*.md
 RECONCILE-PROVENANCE.txt
 CERTIFICATE_WORKFLOW.md

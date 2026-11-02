@@ -30,7 +30,8 @@ The audit branch sits directly on top of `portfolio-upgrade`, which contains all
 | **M5: UX & Form Resilience** | Implement Formspree native honeypot (`_gotcha`), 30s submission cooldown, client-side RFC email validation, accessible live status (`role="status"`). | `[x] Completed (commit b88a84c)` |
 | **M6: Link Integrity & CSP Header** | Verified ResumeScore points to clean repo; configured `Strict-Transport-Security`, `Permissions-Policy`, and `Content-Security-Policy-Report-Only` in `vercel.json`. | `[x] Completed (commit 9b001eb)` |
 | **M7: Adversarial Review & Verification** | CodeRabbit review (removed duplicate preventDefault and const data), 7-viewport QA all passed, 70/70 static checks, 0 elements < 24px touch targets. | `[x] Completed (commits c85c5ce, cbf0919)` |
-| **M8: CI Delivery & Release Prep** | STOP AND REPORT TO USER. Awaiting user review before any push, merge, or deployment. | `[-] In Progress (Awaiting Gate)` |
+| **M8: CI Delivery & Release Prep** | GitHub Actions CI workflow delivered, static & 7-viewport checks pass locally, rollback documented, stacked PR plan drafted. | `[x] Completed (commit 8c9b133)` |
+| **M9: Owner Release Determinations** | Resolve 4 blocking determinations (Items 01, 02, 03, 19) before push/merge approval. | `[-] In Progress (Active Gate)` |
 
 ---
 

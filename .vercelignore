@@ -12,6 +12,7 @@
 *.key
 
 # --- Development-only tooling, reports and audit trail ---
+PROJECT_ROADMAP.md
 .git/
 .gitignore
 .gitattributes
