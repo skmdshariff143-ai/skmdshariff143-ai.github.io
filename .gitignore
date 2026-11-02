@@ -25,3 +25,14 @@ assets/certificates-backup/
 assets/compression-preview/
 .vercel
 .env*
+
+# Agent files, checkpoints, and graph outputs
+CHECKPOINT*.md
+RECONCILE-PROVENANCE.txt
+CERTIFICATE_WORKFLOW.md
+AGENTS.md
+GEMINI.md
+.agent/
+.agents/
+graphify-out/
+

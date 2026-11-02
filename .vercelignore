@@ -23,6 +23,11 @@ scripts/
 CHECKPOINT*.md
 RECONCILE-PROVENANCE.txt
 CERTIFICATE_WORKFLOW.md
+AGENTS.md
+GEMINI.md
+.agent/
+.agents/
+graphify-out/
 
 # --- Redundant / legacy trees that must never become the published root ---
 public/
