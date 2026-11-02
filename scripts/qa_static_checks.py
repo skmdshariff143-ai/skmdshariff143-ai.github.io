@@ -173,9 +173,10 @@ def main():
           f"<loc>{CANONICAL_HOST}/</loc>" in sitemap)
     check("sitemap has no github.io", "github.io" not in sitemap)
     sitemap_locs = re.findall(r"<loc>([^<]+)</loc>", sitemap)
+    ALLOWED_SITEMAP_URLS = {CANONICAL_HOST + "/", f"{CANONICAL_HOST}/privacy.html"}
     bad_locs = [l for l in sitemap_locs
-                if not l.startswith(CANONICAL_HOST) or l != CANONICAL_HOST + "/"]
-    check("every sitemap loc is the canonical root", not bad_locs, f"locs={sitemap_locs}")
+                if not l.startswith(CANONICAL_HOST) or l not in ALLOWED_SITEMAP_URLS]
+    check("every sitemap loc is a verified canonical page", not bad_locs, f"locs={sitemap_locs}")
 
     print("\n== 7. Prohibited / protected file assertions ==")
     # 7.1 Certificates-backup multi-layer guard verification
@@ -295,6 +296,27 @@ def main():
           "threshold tuned on holdout split" in html and "threshold tuned on holdout split" in json.dumps(projects))
     check("project card detail contains 24.39% standard recall and 35.77% cost-weighted recall",
           "24.39%" in html and "35.77%" in html and "34.11%" in html)
+
+    print("\n== 11. Pre-Launch Privacy Policy & Legal Foundations ==")
+    priv_path = os.path.join(ROOT, "privacy.html")
+    check("privacy.html exists locally", os.path.exists(priv_path))
+    if os.path.exists(priv_path):
+        with open(priv_path, encoding="utf-8") as fh:
+            priv_html = fh.read()
+        check("privacy.html contains canonical URL",
+              f'<link rel="canonical" href="{CANONICAL_HOST}/privacy.html">' in priv_html)
+        check("privacy.html marked 'DRAFT — not legal advice — owner review required'",
+              "DRAFT — not legal advice — owner review required" in priv_html)
+        check("privacy.html discloses Formspree data processing",
+              "formspree.io" in priv_html.lower() or "formspree" in priv_html.lower())
+        check("privacy.html discloses Vercel edge access logs",
+              "vercel" in priv_html.lower())
+        check("privacy.html discloses functional localStorage keys",
+              "portfolio-theme" in priv_html and "portfolio-motion-preference" in priv_html)
+    check("index.html footer links to privacy.html",
+          'href="privacy.html"' in html or f'href="{CANONICAL_HOST}/privacy.html"' in html)
+    check("sitemap.xml includes privacy.html",
+          f"<loc>{CANONICAL_HOST}/privacy.html</loc>" in sitemap)
 
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
