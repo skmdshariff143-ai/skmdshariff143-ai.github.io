@@ -94,7 +94,7 @@ Shaik Mahammad Shariff is an undergraduate engineer specializing in artificial i
 ---
 
 ## Contact Information
-- Email (Academic): 23BQ1A04F2@vvit.net
+- Email: [OWNER: contact email]
 - Portfolio Website: https://mahammadshariff.vercel.app/
 - LinkedIn: https://linkedin.com/in/mahammad-shariff-shaik-32903934a
 - GitHub: https://github.com/skmdshariff143-ai

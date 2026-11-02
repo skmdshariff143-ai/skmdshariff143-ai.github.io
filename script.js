@@ -845,13 +845,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     if (formStatus) {
                         formStatus.style.color = '#ff1744'; // error red
-                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try reaching out via LinkedIn instead.';
                     }
                 }
             } catch (error) {
                 if (formStatus) {
                     formStatus.style.color = '#ff1744';
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try reaching out via LinkedIn instead.';
                 }
             }
         });
@@ -893,7 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Downloading official résumé PDF...');
         }},
         { id: 'act-copy-email', title: 'Copy Verified Email Address', group: 'Quick Actions', icon: 'fas fa-copy', shortcut: 'Copy', action: () => {
-            const email = '23BQ1A04F2@vvit.net';
+            const email = '[OWNER: contact email]';
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(email).then(() => {
                     showToast('Copied ' + email + ' to clipboard!');

@@ -407,6 +407,31 @@ def main():
     check("Content-Security-Policy-Report-Only declared in report-only mode",
           "Content-Security-Policy-Report-Only" in root_headers and "formspree.io" in root_headers["Content-Security-Policy-Report-Only"])
 
+    print("\n== 17. College Roll Number & PII Privacy Leak Guard ==")
+    ROLL_PATTERN = re.compile(r'\b23BQ1A[A-Z0-9]{4}\b', re.IGNORECASE)
+    COLLEGE_EMAIL_PATTERN = re.compile(r'\b[A-Za-z0-9._%+-]+@vvit\.net\b', re.IGNORECASE)
+    DEPLOYABLE_EXTS = {".html", ".js", ".json", ".txt"}
+    
+    roll_leaks = []
+    college_email_leaks = []
+    for frel in files:
+        _, ext = os.path.splitext(frel)
+        if ext.lower() in DEPLOYABLE_EXTS and not frel.startswith("scripts/") and not frel.startswith("."):
+            fpath = os.path.join(ROOT, frel.replace("/", os.sep))
+            try:
+                with open(fpath, encoding="utf-8", errors="ignore") as fh:
+                    fcontent = fh.read()
+                    if ROLL_PATTERN.search(fcontent):
+                        roll_leaks.append(frel)
+                    if COLLEGE_EMAIL_PATTERN.search(fcontent):
+                        college_email_leaks.append(frel)
+            except Exception:
+                pass
+    check("no college roll-number pattern in deployable files",
+          len(roll_leaks) == 0, f"leaks={roll_leaks}")
+    check("no college @vvit.net email pattern in deployable files",
+          len(college_email_leaks) == 0, f"leaks={college_email_leaks}")
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:
