@@ -14,19 +14,19 @@
 @font-face {
     font-family: 'Outfit Fallback';
     src: local('Arial');
-    ascent-override: 100%;
-    descent-override: 26%;
+    ascent-override: 109.17%;
+    descent-override: 28.38%;
     line-gap-override: 0%;
-    size-adjust: 98.6%;
+    size-adjust: 91.60%;
 }
 
 @font-face {
     font-family: 'Inter Fallback';
     src: local('Arial');
-    ascent-override: 96.8%;
-    descent-override: 24.1%;
+    ascent-override: 92.02%;
+    descent-override: 22.91%;
     line-gap-override: 0%;
-    size-adjust: 101.8%;
+    size-adjust: 105.27%;
 }
 
 :root {
