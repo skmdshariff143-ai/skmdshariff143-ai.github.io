@@ -178,14 +178,38 @@ def main():
     check("every sitemap loc is the canonical root", not bad_locs, f"locs={sitemap_locs}")
 
     print("\n== 7. Prohibited / protected file assertions ==")
-    prohibited = [".env", ".env.local", ".vercel/project.json", "qa_results.json",
-                  "run_qa.py", "requirements.txt", "CERTIFICATE_WORKFLOW.md",
-                  "assets/certificates-backup", "qa-artifacts", "public"]
+    # 7.1 Certificates-backup multi-layer guard verification
+    gi_path = os.path.join(ROOT, ".gitignore")
+    check(".gitignore exists", os.path.exists(gi_path))
+    with open(gi_path, encoding="utf-8") as fh:
+        gilines = [ln.strip() for ln in fh if ln.strip() and not ln.strip().startswith("#")]
+    check("assets/certificates-backup/ explicitly in .gitignore",
+          any("assets/certificates-backup" in ln for ln in gilines))
+
     vi_path = os.path.join(ROOT, ".vercelignore")
     check(".vercelignore exists", os.path.exists(vi_path))
     with open(vi_path, encoding="utf-8") as fh:
         vlines = [ln.rstrip() for ln in fh]
     vignore = [ln for ln in vlines if ln.strip() and not ln.strip().startswith("#")]
+    check("assets/certificates-backup/ explicitly in .vercelignore",
+          any("assets/certificates-backup" in ln for ln in vignore))
+
+    # git ls-files verification: must return 0 tracked files
+    import subprocess
+    try:
+        git_ls = subprocess.run(
+            ["git", "-C", ROOT, "ls-files", "assets/certificates-backup"],
+            capture_output=True, text=True, check=True
+        )
+        tracked_backup_files = [f for f in git_ls.stdout.splitlines() if f.strip()]
+        check("git ls-files assets/certificates-backup returns nothing",
+              len(tracked_backup_files) == 0, f"tracked={tracked_backup_files}")
+    except Exception as e:
+        check("git ls-files check executed", False, str(e))
+
+    prohibited = [".env", ".env.local", ".vercel/project.json", "qa_results.json",
+                  "run_qa.py", "requirements.txt", "CERTIFICATE_WORKFLOW.md",
+                  "assets/certificates-backup", "qa-artifacts", "public"]
 
     def covered(path):
         """Approximate gitignore matching for the simple patterns we ship."""
@@ -207,6 +231,12 @@ def main():
     not_covered = [p for p in prohibited if not covered(p)]
     check("every prohibited path covered by .vercelignore", not not_covered,
           f"uncovered={not_covered} patterns={vignore}")
+
+    # Assert no file under assets/certificates-backup is in the deploy file list
+    deployable_files = [f for f in files if not covered(f)]
+    deployable_backups = [f for f in deployable_files if f.startswith("assets/certificates-backup/")]
+    check("assets/certificates-backup absent from deploy file list",
+          len(deployable_backups) == 0, f"leaked_into_deploy={deployable_backups}")
 
     required = ["index.html", "style.css", "script.js", "robots.txt", "sitemap.xml",
                 "manifest.json", "404.html", "vercel.json", "data/projects.json",
@@ -252,6 +282,19 @@ def main():
           brand_p and "var(--text-secondary)" in brand_p.group(1))
     check("footer-bottom uses high-contrast var(--text-secondary)",
           footer_bottom and "var(--text-secondary)" in footer_bottom.group(1))
+
+    print("\n== 10. CreditGuard & Model Metrics Guard ==")
+    check("proof strip contains '0.7865 ROC-AUC'", "0.7865 ROC-AUC" in html)
+    check("proof strip does not claim recall percentage on CreditGuard badge",
+          'class="proof-badge-label">CreditGuard AI • Random Forest</span>' in html)
+    check("discarded 40.65% recall absent from index.html and projects.json",
+          "40.65%" not in html and "40.65%" not in json.dumps(projects))
+    check("discarded 0.0278 threshold absent from index.html and projects.json",
+          "0.0278" not in html and "0.0278" not in json.dumps(projects))
+    check("project card detail mentions 'threshold tuned on holdout split'",
+          "threshold tuned on holdout split" in html and "threshold tuned on holdout split" in json.dumps(projects))
+    check("project card detail contains 24.39% standard recall and 35.77% cost-weighted recall",
+          "24.39%" in html and "35.77%" in html and "34.11%" in html)
 
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
