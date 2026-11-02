@@ -389,16 +389,19 @@ def main():
     check("footer social links declare 44px tap target",
           ".footer-social-links a" in css and "width: 44px" in css and "height: 44px" in css)
 
-    print("\n== 16. Security Headers (HSTS, CSP Report-Only, Permissions-Policy) ==")
+    print("\n== 16. Security Headers (Platform Edge HSTS, CSP Report-Only, Permissions-Policy) ==")
     with open(os.path.join(ROOT, "vercel.json"), encoding="utf-8") as fh:
-        vj = json.load(fh)
+        raw_vj = fh.read()
+        vj = json.loads(raw_vj)
     root_headers = {}
     for hgroup in vj.get("headers", []):
         if hgroup.get("source") == "/(.*)":
             for h in hgroup.get("headers", []):
                 root_headers[h["key"]] = h["value"]
-    check("Strict-Transport-Security declared with >= 1 year max-age and includeSubDomains",
-          "Strict-Transport-Security" in root_headers and "max-age=31536000" in root_headers["Strict-Transport-Security"] and "includeSubDomains" in root_headers["Strict-Transport-Security"])
+    check("vercel.json does not contain unapproved 'preload' directive",
+          "preload" not in raw_vj.lower())
+    check("vercel.json does not declare manual HSTS (delegated to platform edge)",
+          "Strict-Transport-Security" not in root_headers)
     check("Permissions-Policy restricts sensitive device APIs",
           "Permissions-Policy" in root_headers and "camera=()" in root_headers["Permissions-Policy"])
     check("Content-Security-Policy-Report-Only declared in report-only mode",
