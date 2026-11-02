@@ -135,6 +135,10 @@
             font-size: 0.875em;
             color: #38bdf8;
         }
+        a.external-link {
+            color: var(--accent-primary, #38bdf8);
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body class="privacy-page">
@@ -144,46 +148,52 @@
         <header class="privacy-header">
             <span class="privacy-badge">DRAFT — not legal advice — owner review required</span>
             <h1 class="privacy-title">Privacy Policy & Data Processing Notice</h1>
-            <p class="privacy-meta">Last Updated: November 2, 2026 &bull; Scope: https://mahammadshariff.vercel.app</p>
+            <p class="privacy-meta">Effective Date: [OWNER: effective date] &bull; Last Technical Audit: November 2, 2026 &bull; Scope: https://mahammadshariff.vercel.app</p>
         </header>
 
         <section class="privacy-section">
-            <h2>1. Overview & Commitment</h2>
-            <p>This privacy notice explains how personal data is handled when you visit the portfolio website of <strong>Shaik Mahammad Shariff</strong> ("I", "me", or "my"). I am committed to respecting your privacy, minimizing data collection, and operating with complete transparency regarding third-party service providers.</p>
-            <p>This portfolio is a personal engineering showcase. I do not run behavioral advertising, third-party analytics trackers, or surveillance cookies.</p>
+            <h2>1. Overview & Scope</h2>
+            <p>This technical privacy disclosure describes how personal data and network telemetry are processed when visiting the personal portfolio website of <strong>Shaik Mahammad Shariff</strong> ("I", "me", or "my"). This document reflects technical codebase architecture; it does not constitute formal legal counsel.</p>
+            <p><strong>This site sets no cookies.</strong> There are zero advertising trackers, zero behavioural telemetry beacons, and zero third-party tracking scripts loaded.</p>
         </section>
 
         <section class="privacy-section">
             <h2>2. Information Collected & Processing Activities</h2>
-            <p>I only process data necessary to serve website assets and receive voluntary communications initiated by you:</p>
+            <p>Processing is limited strictly to serving static web assets and receiving voluntary inquiries submitted by visitors:</p>
 
             <table class="privacy-table">
                 <thead>
                     <tr>
                         <th>Data Category</th>
-                        <th>Specific Fields</th>
-                        <th>Purpose & Lawful Basis</th>
-                        <th>Service Provider</th>
+                        <th>Specific Data Fields</th>
+                        <th>Processing Purpose</th>
+                        <th>Provider / Destination</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Contact Inquiries</strong></td>
                         <td>Name, Email Address, Message Body</td>
-                        <td>Voluntary communication initiated by visitor; responding to professional inquiries.</td>
-                        <td>Formspree (<code>formspree.io</code>)</td>
+                        <td>Voluntary inbound communication; replying to employment or technical collaboration queries.</td>
+                        <td>Formspree Inc. (<code>formspree.io/f/mvzjyllq</code>)</td>
                     </tr>
                     <tr>
                         <td><strong>Server Access Logs</strong></td>
-                        <td>IP address, HTTP request method/path, User-Agent, referer</td>
-                        <td>Security monitoring, DDoS prevention, routing and delivering static assets.</td>
-                        <td>Vercel Inc. (Edge Network)</td>
+                        <td>IP address, HTTP request method/URI, User-Agent, Referrer, timestamp</td>
+                        <td>DDoS mitigation, traffic routing, edge network performance, security incident investigation.</td>
+                        <td>Vercel Inc. (Edge Network infrastructure)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Third-Party Asset Requests</strong></td>
+                        <td>IP address, HTTP User-Agent</td>
+                        <td>Delivering static web fonts and iconography stylesheets to the visitor's browser.</td>
+                        <td>Google Fonts (Google LLC) & cdnjs (Cloudflare Inc.)</td>
                     </tr>
                     <tr>
                         <td><strong>UI State (Local Only)</strong></td>
                         <td>Theme selection (<code>portfolio-theme</code>), motion toggle (<code>portfolio-motion-preference</code>)</td>
-                        <td>Preserving your visual preferences across page navigation. Never sent to any server.</td>
-                        <td>Client-side <code>localStorage</code></td>
+                        <td>Preserving dark/light and reduced motion preferences locally on your browser.</td>
+                        <td>Client-side <code>localStorage</code> (device-only; never transmitted)</td>
                     </tr>
                 </tbody>
             </table>
@@ -191,39 +201,43 @@
 
         <section class="privacy-section">
             <h2>3. Third-Party Service Providers</h2>
-            <p>The following third-party infrastructure providers participate in rendering and supporting this website:</p>
+            <p>The following external service providers participate in delivering assets and form routing:</p>
             <ul>
-                <li><strong>Hosting & Edge Delivery:</strong> The site is deployed on <strong>Vercel Inc.</strong> Edge servers process HTTP requests ephemerally and retain aggregated edge access logs for security operations (typically up to 7 days).</li>
-                <li><strong>Contact Form Processing:</strong> When you submit the contact form, your input is securely transmitted via HTTPS directly to <strong>Formspree Inc.</strong> (<code>formspree.io/f/mnnjgkve</code>), which forwards the notification to my institutional email. Messages remain in Formspree until reviewed or deleted.</li>
-                <li><strong>External Content Delivery Networks:</strong> Static web fonts are delivered via Google Fonts (<code>fonts.googleapis.com</code>) and select third-party icon libraries via CDNJS (<code>cdnjs.cloudflare.com</code>). These requests transmit your IP address to those CDNs solely to deliver the requested asset files.</li>
+                <li><strong>Hosting & Edge Delivery (Vercel Inc.):</strong> Deployed on Vercel's global edge network. Vercel edge servers process HTTP requests ephemerally and automatically maintain server access logs (including visitor IP addresses, timestamps, and HTTP headers) for security monitoring and operational diagnosis. Per Vercel's platform documentation, edge access logs are retained for up to 7 days.</li>
+                <li><strong>Form Routing & Storage (Formspree Inc.):</strong> Submissions through the contact form are transmitted directly via HTTPS to Formspree (endpoint: <code>https://formspree.io/f/mvzjyllq</code>). Formspree processes submissions as a data processor, encrypts data in transit and at rest in the United States, and dispatches email notifications to the site owner. According to published documentation (<a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer" class="external-link">Formspree Privacy Policy</a>), submissions remain stored in Formspree's database until manually deleted or archived by the account owner, or until the form/account is terminated.</li>
+                <li><strong>Typography (Google Fonts — Google LLC):</strong> The website requests Google Font stylesheets (<code>fonts.googleapis.com</code>) and font binary files (<code>fonts.gstatic.com</code>). When downloading these files, your IP address and User-Agent are transmitted directly to Google's servers.</li>
+                <li><strong>Iconography & Vendor Assets (cdnjs — Cloudflare Inc.):</strong> Font Awesome icon stylesheets and assets are retrieved from Cloudflare's cdnjs network (<code>cdnjs.cloudflare.com</code>), which processes the visitor's IP address and browser headers to fulfill static asset delivery.</li>
             </ul>
         </section>
 
         <section class="privacy-section">
-            <h2>4. Cookies & Client-Side Storage</h2>
-            <p>This website uses <strong>zero third-party advertising cookies, zero trackers, and zero analytics scripts</strong>. The only client-side storage utilized is browser <code>localStorage</code>, which stores:</p>
+            <h2>4. Cookie & Local Storage Disclosure</h2>
+            <p><strong>This site sets no cookies.</strong> No HTTP cookies (session, persistent, or third-party) are placed on your browser by this origin.</p>
+            <p>The site uses browser <code>localStorage</code> purely to remember client-side display preferences:</p>
             <ul>
-                <li><code>portfolio-theme</code>: remembers whether you selected Dark or Light theme.</li>
-                <li><code>portfolio-motion-preference</code>: remembers whether you paused the Three.js 3D background animation.</li>
+                <li><code>portfolio-theme</code>: remembers light or dark theme toggle.</li>
+                <li><code>portfolio-motion-preference</code>: remembers whether Three.js 3D canvas animation is enabled or reduced.</li>
             </ul>
-            <p>These values reside purely on your device, are never transmitted to external servers, and can be cleared at any time through your browser settings.</p>
+            <p>These values reside purely on your device, are never transmitted to external servers, and can be cleared at any time via your browser settings.</p>
         </section>
 
         <section class="privacy-section">
-            <h2>5. Your Rights & Data Subject Requests</h2>
-            <p>Depending on your jurisdiction (such as under the <strong>India Digital Personal Data Protection Act, 2023</strong> or the European Union <strong>General Data Protection Regulation (GDPR)</strong>), you may have rights to access, correct, or request deletion of any contact messages you have sent to me.</p>
-            <p>To request deletion of any contact communication or exercise your privacy rights, please email me directly at: <code>23BQ1A04F2@vvit.net</code>. Requests will be fulfilled promptly within 30 days.</p>
+            <h2>5. Data Subject Rights & Inquiries</h2>
+            <p>To request inspection, correction, or deletion of any personal information submitted via the contact form, please contact:</p>
+            <p><strong>Primary Contact:</strong> [OWNER: contact email] (Institutional: <code>23BQ1A04F2@vvit.net</code>)</p>
+            <p>Requests will be processed within thirty (30) business days. Deletion requests will remove messages from both local inboxes and Formspree storage.</p>
         </section>
 
         <section class="privacy-section">
-            <h2>6. Owner Review & Open Legal Items</h2>
+            <h2>6. Open Legal Questions (Owner Review Required)</h2>
             <div class="privacy-callout warning">
-                <h3>Notice to Site Owner (Shaik Mahammad Shariff)</h3>
-                <p>This document is a technical pre-launch draft generated based on codebase analysis. Prior to formal commercial representation or enterprise data collection:</p>
+                <h3>Open Legal Questions for Site Owner (Shaik Mahammad Shariff)</h3>
+                <p>This draft reflects engineering data flows. The owner must confirm the following legal determinations before removing the DRAFT banner:</p>
                 <ul>
-                    <li>Confirm preferred dispute resolution and jurisdiction (Andhra Pradesh, India under India DPDP Act 2023).</li>
-                    <li>Confirm retention schedule for Formspree form inbox (e.g., standard 30-day purge cycle).</li>
-                    <li>If marketing analytics or recruitment tracking tools are added in the future, a consent banner mechanism will be required.</li>
+                    <li><strong>India DPDP Act 2023:</strong> Confirm whether voluntary contact form processing requires explicit consent notice under the Digital Personal Data Protection Act, 2023, and confirm the grievance redressal officer details.</li>
+                    <li><strong>EU / UK GDPR Extraterritoriality:</strong> If visitors from the European Union or United Kingdom contact you, Formspree acts as a US-based processor. Confirm whether Formspree's Data Processing Addendum (DPA) and Standard Contractual Clauses (SCCs) are activated on your Formspree dashboard.</li>
+                    <li><strong>Formspree Retention Policy:</strong> Determine whether form submissions in the Formspree dashboard should follow an automated deletion cadence (e.g., 30-day or 90-day retention schedule).</li>
+                    <li><strong>Dispute Jurisdiction:</strong> Confirm preferred jurisdiction and governing law (Andhra Pradesh, India).</li>
                 </ul>
             </div>
         </section>
