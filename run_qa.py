@@ -7,9 +7,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-print("Starting HTTP Server on port 8000...")
-server_proc = subprocess.Popen([sys.executable, "-m", "http.server", "8000", "--directory", ROOT_DIR], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-time.sleep(2)
+server_proc = None
+driver = None
 
 viewports = [
     (320, 640, "Mobile Extra Small 320px"),
@@ -24,16 +23,19 @@ viewports = [
 results = {}
 all_passed = True
 
-options = webdriver.ChromeOptions()
-options.add_argument("--headless=new")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--autoplay-policy=no-user-gesture-required")
-options.set_capability('goog:loggingPrefs', {'browser': 'ALL', 'performance': 'ALL'})
-
-driver = webdriver.Chrome(options=options)
+print("Starting HTTP Server on port 8000...")
+server_proc = subprocess.Popen([sys.executable, "-m", "http.server", "8000", "--directory", ROOT_DIR], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+time.sleep(2)
 
 try:
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--autoplay-policy=no-user-gesture-required")
+    options.set_capability('goog:loggingPrefs', {'browser': 'ALL', 'performance': 'ALL'})
+
+    driver = webdriver.Chrome(options=options)
     for width, height, name in viewports:
         print(f"\n==========================================")
         print(f"Testing Viewport: {name} ({width}x{height})")
@@ -203,9 +205,21 @@ try:
             print(f"  {entry}")
 
 finally:
-    driver.quit()
-    print("\nStopping HTTP Server...")
-    server_proc.terminate()
+    if driver:
+        try:
+            driver.quit()
+        except Exception:
+            pass
+    if server_proc:
+        print("\nStopping HTTP Server...")
+        try:
+            server_proc.terminate()
+            server_proc.wait(timeout=3)
+        except Exception:
+            try:
+                server_proc.kill()
+            except Exception:
+                pass
 
 print(f"\n==========================================")
 print(f"FINAL QA RESULT: {'ALL PASSED SUCCESS' if all_passed else 'FAILURE DETECTED'}")
