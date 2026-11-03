@@ -107,7 +107,7 @@
   },
   {
     "id": "farmalink-ai",
-    "title": "FarmaLink-AI",
+    "title": "FarmLink AI",
     "badge": "Agricultural SaaS Prototype",
     "summary": "A Next.js 15 + React 19 agricultural SaaS platform connecting farmers directly with buyers, logistics networks, and cold storages.",
     "problem": "Agricultural supply chains suffer from intermediary price exploitation, lack of crop disease diagnostics, and opaque transaction escrow.",

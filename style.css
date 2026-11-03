@@ -41,7 +41,7 @@
     /* Typography Colors */
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    --text-muted: #8090a7;
     
     /* Accents & Brand Palette */
     --accent-teal: #00e5ff;
@@ -1919,13 +1919,17 @@ img {
     letter-spacing: 0.04em;
 }
 
-.contact-method a, .contact-method p {
+.contact-method a, .contact-method p, .contact-link {
     color: var(--text-primary);
     font-weight: 500;
     font-size: 1.02rem;
+    display: inline-block;
+    padding: 0.25rem 0;
+    min-height: 28px;
+    line-height: 1.4;
 }
 
-.contact-method a:hover {
+.contact-method a:hover, .contact-link:hover {
     color: var(--accent-teal);
 }
 
@@ -2030,12 +2034,16 @@ img {
     gap: 0.65rem;
 }
 
-.footer-nav a {
+.footer-nav a, .footer-privacy-link {
     color: var(--text-secondary);
     font-size: 0.92rem;
+    display: inline-block;
+    padding: 0.35rem 0.25rem;
+    min-height: 28px;
+    line-height: 1.4;
 }
 
-.footer-nav a:hover {
+.footer-nav a:hover, .footer-privacy-link:hover {
     color: var(--accent-teal);
 }
 
@@ -2045,8 +2053,8 @@ img {
 }
 
 .footer-social-links a {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2529,7 +2537,8 @@ img {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--border-radius-pill);
-    padding: 0.35rem 0.75rem;
+    padding: 0.4rem 0.75rem;
+    min-height: 38px;
     color: var(--text-secondary);
     font-family: var(--font-body);
     font-size: 0.82rem;

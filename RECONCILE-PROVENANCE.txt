@@ -1,6 +1,6 @@
-﻿# Phase B: copied-file inventory
-# source: Vercel-production working tree E:\skmdshariff143-ai.github.io
-# dest:   E:\portfolio-reconcile (branch feature/vercel-primary-reconcile)
+# Phase B: copied-file inventory
+# source: Vercel-production working tree (skmdshariff143-ai.github.io)
+# dest:   local worktree (branch feature/vercel-primary-reconcile)
 # baseline: origin/main 2f535976c195dd9ba3fc0e151294e90c53b044e7
 # recorded: 2026-10-19 19:45:35 +05:30
 # columns: ACTION | path | bytes | sha256-source | sha256-dest | match

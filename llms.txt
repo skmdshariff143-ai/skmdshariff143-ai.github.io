@@ -1,71 +1,90 @@
 # Shaik Mahammad Shariff — Developer Portfolio
 
-> Electronics and Communication Engineering Undergraduate | AI & Software Developer
+> Electronics and Communication Engineering Undergraduate | AI/ML & Software Engineer
 > Primary Production URL: https://mahammadshariff.vercel.app/
 > GitHub: https://github.com/skmdshariff143-ai
 > LinkedIn: https://linkedin.com/in/mahammad-shariff-shaik-32903934a
-> CodeChef: https://www.codechef.com/users/vvit23bq1a04f2 (3-Star, 500+ Problems Solved)
+> CodeChef: https://www.codechef.com/users/vvit23bq1a04f2 (Rating 1455, 2-Star | 900+ Problems Solved)
 > Location: Guntur, Andhra Pradesh, India
 > Academic Institution: Vasireddy Venkatadri Institute of Technology (VVIT)
 > Degree: B.Tech in Electronics & Communication Engineering (Expected May 2027, CGPA: 8.21/10)
 
 ## Professional Summary
-Shaik Mahammad Shariff is an undergraduate engineer specializing in artificial intelligence systems, scalable machine learning pipelines, and full-stack software development. His work spans pedagogical multi-provider LLM applications, high-throughput entity resolution pipelines, autonomous AI agent execution operating systems, and credit risk classification engines. He holds an active AWS Certified Cloud Practitioner credential and is a 3-star competitive programmer on CodeChef.
+Shaik Mahammad Shariff is an undergraduate engineer building calibrated machine learning pipelines, autonomous agent systems, and resilient web architectures. His work spans pedagogical multi-provider LLM applications, high-throughput entity resolution pipelines, revenue recovery systems, and calibrated credit risk classification engines. He holds an active AWS Certified Cloud Practitioner credential and has solved 900+ competitive programming problems on CodeChef.
 
 ---
 
-## Core Technical Competencies
-
-- **Programming Languages**: Python, TypeScript, Java, C, SQL
-- **AI & Machine Learning**: Generative AI, AI Agents & Multi-LLM Routing, RAG Architectures, Prompt Engineering, LightGBM, XGBoost, Scikit-Learn, Predictive Modeling
-- **Data Engineering**: Pandas, NumPy, Matplotlib, Inverted Token Indexing, Entity Resolution Pipelines, SMOTE Imbalance Handling, Feature Engineering
-- **Full-Stack Web Engineering**: Next.js 15 (App Router), React 19, Node.js, Prisma ORM, Flask, RESTful APIs, HTML5, CSS3
-- **Cloud & DevOps**: Amazon Web Services (AWS Certified Cloud Practitioner), Google Cloud Skills Boost, Docker, Vercel, Git & GitHub, Linux, CI/CD
-- **Algorithmic Problem Solving**: 3-Star CodeChef rating with 500+ verified competitive programming problems solved using Java and Python.
+## Verified Technical Skills
+Core skills verified against candidate résumé and portfolio stack:
+- **Programming Languages**: Python, Java, JavaScript
+- **Core Engineering Foundations**: Data Structures & Algorithms (DSA), Object-Oriented Programming (OOP)
+- **DevOps & Cloud**: Docker, GitHub Actions, Amazon Web Services (AWS Certified Cloud Practitioner)
 
 ---
 
 ## Verified Engineering Case Studies
 
-### 1. RecoverFlow AI — Autonomous AI Agent OS
-- **Domain**: Autonomous AI Workflow Orchestration & Checkpoint State Recovery
-- **Stack**: Next.js 15, Node.js, Prisma ORM, TypeScript, AI Agents, Vercel
-- **Problem**: Multi-agent autonomous workflows frequently experience catastrophic state loss, uncontrolled loops, and tool-call crashes without structured checkpoint recovery.
-- **Solution & Architecture**: Engineered a deterministic checkpoint state recovery engine with sandboxed tool execution pipelines and real-time execution trace telemetry.
-- **Repository**: https://github.com/skmdshariff143-ai/recoverflow-ai
-- **Live Demo**: https://recoverflow-ai.vercel.app
-
-### 2. NeuroLearn AI — Multi-Provider Pedagogical Learning Platform
-- **Domain**: Pedagogical Curriculum Generation & Diagnostic Multi-LLM Router
-- **Stack**: Next.js 15, React 19, TypeScript, Tailwind CSS, Nebius, NVIDIA Nemotron, Gemini API, Groq, Playwright
-- **Problem**: Superficial one-shot LLM summaries risk hallucinations and lack pedagogical reteaching loops or student data privacy.
-- **Solution & Architecture**: Built a universal Research-to-Teaching coordinator with SSRF-safe multi-source academic querying (OpenAlex, Wikipedia, Crossref, OpenStax), deterministic grading, and local-first browser storage with zero learner tracking.
+### 1. NeuroLearn AI
+- **Domain**: Pedagogical Curriculum Generation & Multi-LLM Router
+- **Stack**: Next.js 15, React 19, TypeScript, Tailwind CSS, NVIDIA Nemotron, Gemini API, Playwright
+- **Problem**: Superficial one-shot LLM summaries risk hallucinations and lack structured pedagogical reteaching loops or student privacy controls.
+- **Solution & Architecture**: Architected an open-source pedagogical learning system with multi-provider inference (Nebius, NVIDIA Nemotron, Gemini, Groq), autonomous academic research coordination (Wikipedia, OpenAlex, Crossref, OpenStax), deterministic grading, and local-first guest persistence.
 - **Verification**: Complete automated test suites passing across 10 canonical benchmark topics.
 - **Repository**: https://github.com/skmdshariff143-ai/neurolearn-ai
 - **Live Demo**: https://neurolearn-ai-pink.vercel.app
 
-### 3. Amazon ML Challenge 2026 — Entity Resolution Pipeline
-- **Domain**: High-Throughput Scalable Machine Learning & Merchant Entity Deduplication
-- **Stack**: Python 3.13, LightGBM, RapidFuzz, PyArrow, NumPy, Pandas, Pytest
-- **Problem**: Resolving identity across 1.7M+ noisy merchant records with partial attributes, name typos, and extreme class imbalance without heavy pretrained embeddings.
-- **Solution & Architecture**: Developed a token-frequency inverted index candidate generator (207M+ candidate links) coupled with a 19-feature hard-negative LightGBM classifier.
-- **Demonstrated Result**: 0.8879 Macro F0.5 (0.9563 Precision) on local 5,000-anchor calibration holdout; 39 automated unit and streaming validation tests passing.
-- **Repository**: https://github.com/skmdshariff143-ai/amazon-ml-2026-entity-resolution
+### 2. RecoverFlow AI
+- **README Overview**: "A merchant operations console for reviewing revenue recovery cases, controlling communication policy, and inspecting attributable decisions."
+- **Domain**: Autonomous Revenue Recovery & Communication Policy Console
+- **Stack**: Next.js 16, React 19, TypeScript 5, Tailwind CSS, Vitest, Playwright
+- **Problem**: Failed recurring subscription payments cause massive revenue leakage, while naïve retry storms trigger bank network penalties, high transaction fees, and customer churn.
+- **Solution & Architecture**: Architected an autonomous recovery platform with integer-paise financial math, L2 logistic recovery probability calibration, Thompson Sampling Multi-Armed Bandit channel dispatch, transactional outbox pattern, and SHA-256 audit chaining.
+- **Live Demo Persistence**: In the hosted evaluation demo, the application uses an in-memory sample store (MemoryDatabase) with instant dataset reset via Shift+R.
+- **Verification**: 601 Vitest unit and integration tests passing across 93 suites and 82 Playwright end-to-end tests; Razorpay AI Buildathon Track 3.
+- **Repository**: https://github.com/skmdshariff143-ai/recoverflow-ai
+- **Live Demo**: https://recoverflow-ai-kohl.vercel.app
 
-### 4. CreditGuard AI — Credit Card Approval Risk Prediction
-- **Domain**: Machine Learning Credit Delinquency Prediction & MLOps
-- **Stack**: Python, Scikit-Learn, XGBoost, Flask, Docker, GitHub Actions CI/CD
-- **Problem**: High credit delinquency default rates caused by inaccurate credit risk scoring and severe data imbalance.
-- **Solution & Architecture**: Developed custom data preprocessing pipelines with SMOTE oversampling and an XGBoost classification engine with interactive Flask dashboard.
-- **Demonstrated Result**: 66.67% delinquency recall on imbalanced credit applicant test sets with automated CI/CD pipeline.
+### 3. ResumeScore — AI Resume Quality & ATS Match Engine
+- **Domain**: Privacy-First Client-Side ATS Resume Analysis & Semantic Matching
+- **Stack**: Next.js 16, React 19, TypeScript 5, Tailwind CSS 4, Mozilla PDF.js, Vitest, Gemini API
+- **Problem**: Traditional resume evaluators require users to upload confidential resumes and personal identifiers to third-party servers, creating data privacy and leakage risks.
+- **Solution & Architecture**: Engineered a local-first client architecture using Mozilla PDF.js for 100% in-browser text and layout parsing with zero server data leakage, coupled with a 7-dimension weighted scoring engine and 6-layer semantic skill matcher.
+- **Verification**: 35 automated Vitest unit and integration tests passing; 100% client-side privacy architecture with zero data transmission.
+- **Repository**: https://github.com/skmdshariff143-ai/resumescore
+- **Live Demo**: None (Client-only / repository release)
+
+### 4. Credit Card Approval Prediction (CreditGuard AI)
+- **Domain**: Calibrated Machine Learning Credit Risk Classification
+- **Stack**: Python, Scikit-Learn, Random Forest, SHAP, Flask, Docker, GitHub Actions
+- **Model**: Calibrated Random Forest (Production Champion from models/model_metrics.json)
+- **Problem**: Financial institutions face severe credit default losses from asymmetric misclassification costs, where false negatives are far costlier than false positives.
+- **Solution & Architecture**: Trained and benchmarked multiple classifiers; selected Calibrated Random Forest achieving 97.97% accuracy, 0.7865 ROC-AUC, 0.015387 Brier score (-14.0% error improvement vs uncalibrated), and an asymmetric 5:1 cost-weighted decision cutoff (p* = 0.0395, threshold tuned on holdout split) delivering 35.77% recall with local SHAP interpretability.
+- **Verification**: 0.7865 ROC-AUC • Standard threshold: 24.39% recall, 35.29% precision • 5:1 cost-weighted threshold 0.0395: 35.77% recall, 34.11% precision (threshold tuned on holdout split).
 - **Repository**: https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction
 - **Live Demo**: https://creditguard-ai.vercel.app
 
-### 5. FarmaLink-AI — Direct Agricultural Marketplace SaaS
-- **Domain**: Full-Stack Agricultural Marketplace & Escrow Transactions
+### 5. Amazon ML Challenge 2026 — Entity Resolution
+- **Domain**: High-Throughput Scalable Machine Learning & Merchant Deduplication
+- **Stack**: Python 3.13, LightGBM, RapidFuzz, PyArrow, NumPy, Pandas, Pytest
+- **Summary**: A high-throughput, memory-bounded machine learning pipeline resolving merchant identity across millions of noisy commercial records without pretrained embedding models.
+- **Problem**: Matching identical business entities across heterogeneous data sources with noisy names, partial addresses, and severe class imbalance at scale (1.7M+ test anchors).
+- **Solution & Architecture**: Built a scalable candidate generation inverted index and 19-feature LightGBM classification pipeline with hard-negative mining, calibrated thresholding, and streaming validation.
+- **Contribution**: Developed custom inverted index with token-frequency weighting, 19 rapid pairwise similarity features (RapidFuzz Normalized Indel, token overlap, numeric conflicts), and zero-leakage partition streaming.
+- **Key Features**:
+  - Engineered multi-token inverted index processing 207M+ candidate links across 1.73M anchors with 0.9118 holdout candidate recall.
+  - Extracted 19 pairwise similarity and interaction features with memory-mapped Arrow stores and deterministic tie-breaking.
+  - Trained hard-negative LightGBM achieving 0.8879 Macro F0.5 (0.9563 Precision, 0.8053 Recall) on local 5,000-anchor calibration holdout.
+  - Validated end-to-end pipeline with 39 automated tests and streaming compliance checks.
+- **Headline Verified Result**: 0.8879 Local Holdout Macro F0.5 (0.9563 Precision) across 39 verified unit and streaming tests.
+- **Repository**: Private / competition codebase (hidden from public site)
+- **Live Demo**: None
+
+### 6. FarmLink AI
+- **Domain**: Agricultural Direct Marketplace & SaaS Prototype
 - **Stack**: Next.js 15, React 19, TypeScript, Prisma, Supabase, Vercel
-- **Problem**: Agricultural supply chain exploitation by intermediaries, opaque pricing, and lack of crop disease diagnostics.
+- **Problem**: Agricultural supply chains suffer from intermediary price exploitation, lack of crop disease diagnostics, and opaque transaction escrow.
 - **Solution & Architecture**: Built direct farmer-to-buyer platform with AI disease diagnostic tooling and simulated escrow payment workflows.
+- **Verification**: Deployed production agricultural SaaS prototype.
 - **Repository**: https://github.com/skmdshariff143-ai/farmlink-ai
 - **Live Demo**: https://farmlink-umber.vercel.app
 
@@ -94,7 +113,7 @@ Shaik Mahammad Shariff is an undergraduate engineer specializing in artificial i
 ---
 
 ## Contact Information
-- Email (Academic): 23BQ1A04F2@vvit.net
+- Contact: Direct contact form at https://mahammadshariff.vercel.app/#contact-form
 - Portfolio Website: https://mahammadshariff.vercel.app/
 - LinkedIn: https://linkedin.com/in/mahammad-shariff-shaik-32903934a
 - GitHub: https://github.com/skmdshariff143-ai

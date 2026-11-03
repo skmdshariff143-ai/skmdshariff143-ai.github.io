@@ -173,9 +173,10 @@ def main():
           f"<loc>{CANONICAL_HOST}/</loc>" in sitemap)
     check("sitemap has no github.io", "github.io" not in sitemap)
     sitemap_locs = re.findall(r"<loc>([^<]+)</loc>", sitemap)
+    ALLOWED_SITEMAP_URLS = {CANONICAL_HOST + "/", f"{CANONICAL_HOST}/privacy.html"}
     bad_locs = [l for l in sitemap_locs
-                if not l.startswith(CANONICAL_HOST) or l != CANONICAL_HOST + "/"]
-    check("every sitemap loc is the canonical root", not bad_locs, f"locs={sitemap_locs}")
+                if not l.startswith(CANONICAL_HOST) or l not in ALLOWED_SITEMAP_URLS]
+    check("every sitemap loc is a verified canonical page", not bad_locs, f"locs={sitemap_locs}")
 
     print("\n== 7. Prohibited / protected file assertions ==")
     # 7.1 Certificates-backup multi-layer guard verification
@@ -295,6 +296,304 @@ def main():
           "threshold tuned on holdout split" in html and "threshold tuned on holdout split" in json.dumps(projects))
     check("project card detail contains 24.39% standard recall and 35.77% cost-weighted recall",
           "24.39%" in html and "35.77%" in html and "34.11%" in html)
+
+    print("\n== 11. Pre-Launch Privacy Policy & Legal Foundations ==")
+    priv_path = os.path.join(ROOT, "privacy.html")
+    check("privacy.html exists locally", os.path.exists(priv_path))
+    if os.path.exists(priv_path):
+        with open(priv_path, encoding="utf-8") as fh:
+            priv_html = fh.read()
+        check("privacy.html contains canonical URL",
+              f'<link rel="canonical" href="{CANONICAL_HOST}/privacy.html">' in priv_html)
+        check("privacy.html marked 'DRAFT — not legal advice — owner review required'",
+              "DRAFT — not legal advice — owner review required" in priv_html)
+        check("privacy.html discloses Formspree data processing",
+              "formspree.io" in priv_html.lower() or "formspree" in priv_html.lower())
+        check("privacy.html discloses Vercel edge access logs",
+              "vercel" in priv_html.lower())
+        # Dynamic static scan: extract all localStorage and sessionStorage keys from JS files
+        js_storage_keys = set()
+        for root_dir, _, filenames in os.walk(ROOT):
+            rel = os.path.relpath(root_dir, ROOT)
+            parts = set(rel.split(os.sep))
+            if parts.intersection({".git", "node_modules", ".gemini", "qa-artifacts"}):
+                continue
+            for fn in filenames:
+                if fn.endswith(".js"):
+                    with open(os.path.join(root_dir, fn), encoding="utf-8", errors="ignore") as jf:
+                        jcontent = jf.read()
+                        matches = re.findall(r'(?:localStorage|sessionStorage)\.(?:getItem|setItem|removeItem)\s*\(\s*[\'"]([a-zA-Z0-9_\-]+)[\'"]', jcontent)
+                        for m in matches:
+                            js_storage_keys.add(m)
+
+        missing_keys = [k for k in sorted(js_storage_keys) if k not in priv_html]
+        check("privacy.html discloses all functional web storage keys used in JS",
+              len(missing_keys) == 0, f"missing={missing_keys}, detected={sorted(js_storage_keys)}")
+        check("privacy.html does not list fictitious keys (portfolio-theme, portfolio-motion-preference)",
+              "portfolio-theme" not in priv_html and "portfolio-motion-preference" not in priv_html)
+        check("privacy.html names Vercel Hobby plan for runtime log retention",
+              "Hobby" in priv_html)
+        check("privacy.html spells Formspree plans accurately (Free, Personal, Professional, Business)",
+              "Free" in priv_html and "Personal" in priv_html and "Professional" in priv_html)
+    check("index.html footer links to privacy.html",
+          'href="privacy.html"' in html or f'href="{CANONICAL_HOST}/privacy.html"' in html)
+    check("sitemap.xml includes privacy.html",
+          f"<loc>{CANONICAL_HOST}/privacy.html</loc>" in sitemap)
+
+    print("\n== 12. Certificate Alt Text Quality & Integrity ==")
+    img_tags = re.findall(r'<img[^>]+>', html)
+    corrupt_alts = [t for t in img_tags if '\ufffd' in t]
+    check("no corrupt unicode replacement characters in img tags",
+          len(corrupt_alts) == 0, f"corrupt={corrupt_alts}")
+    raw_entity_alts = [t for t in img_tags if 'alt="' in t and '&amp;' in re.search(r'alt="([^"]*)"', t).group(1)]
+    check("no raw HTML entity &amp; inside alt text",
+          len(raw_entity_alts) == 0, f"entities={raw_entity_alts}")
+    
+    # Check that cert images in index.html include issuer or descriptive non-generic text
+    cert_img_alts = [
+        re.search(r'alt="([^"]*)"', t).group(1)
+        for t in img_tags
+        if 'assets/cert' in t or 'assets/certificate' in t
+    ]
+    generic_alts = [a for a in cert_img_alts if a.endswith("Certificate Preview") and not any(kw in a for kw in ["-", "by", "from", "AWS", "Google", "Be10X", "CodeChef", "Udemy", "GitHub", "VVIT", "Siemens", "Forage", "NxtWave", "PEARL", "Palo Alto", "NPTEL", "EduSkills", "L4G"])]
+    check("no generic 'Certificate Preview' alt text without issuer context",
+          len(generic_alts) == 0, f"generic_count={len(generic_alts)} sample={generic_alts[:3]}")
+
+    with open(os.path.join(ROOT, "script.js"), encoding="utf-8") as fh:
+        sjs = fh.read()
+    check("script.js dynamic cert cards include issuer in alt attribute",
+          'alt="${cert.title}' in sjs and 'cert.issuer' in sjs)
+
+    print("\n== 13. Image Size Budget & Performance Guard ==")
+    with open(os.path.join(ROOT, "data", "certificates.json"), encoding="utf-8") as fh:
+        cj = json.load(fh)
+    oversized_thumbs = []
+    for c in cj:
+        thumb_rel = c.get("thumbnail")
+        if thumb_rel:
+            thumb_full = os.path.join(ROOT, thumb_rel.replace("/", os.sep))
+            if os.path.exists(thumb_full):
+                size_kb = os.path.getsize(thumb_full) / 1024
+                if size_kb > 300.0:
+                    oversized_thumbs.append((thumb_rel, round(size_kb, 1)))
+    check("all certificate thumbnails within 300 KB budget",
+          len(oversized_thumbs) == 0, f"oversized={oversized_thumbs}")
+
+    print("\n== 14. Contact Form Validation, Accessible Live Regions & Anti-Spam ==")
+    check("contact form has honeypot with autocomplete='off'",
+          'name="_gotcha"' in html and 'autocomplete="off"' in html)
+    name_input = re.search(r'<input[^>]+id="name"[^>]*>', html)
+    check("name input specifies minlength and maxlength bounds",
+          name_input and 'minlength=' in name_input.group(0) and 'maxlength=' in name_input.group(0))
+    msg_textarea = re.search(r'<textarea[^>]+id="message"[^>]*>', html)
+    check("message textarea specifies minlength and maxlength bounds",
+          msg_textarea and 'minlength=' in msg_textarea.group(0) and 'maxlength=' in msg_textarea.group(0))
+    status_el = re.search(r'<div[^>]+id="form-status"[^>]*>', html)
+    check("form-status has role='status' and aria-live='polite'",
+          status_el and 'role="status"' in status_el.group(0) and 'aria-live="polite"' in status_el.group(0))
+    
+    with open(os.path.join(ROOT, "script.js"), encoding="utf-8") as fh:
+        sjs = fh.read()
+    check("script.js validates honeypot _gotcha before submission",
+          '_gotcha' in sjs)
+    check("script.js enforces client-side submission cooldown",
+          'cooldown' in sjs.lower() or 'lastsubmittime' in sjs.lower())
+    check("script.js validates RFC email pattern",
+          'emailregex' in sjs.lower() or 'emailpattern' in sjs.lower() or 'isvalidemail' in sjs.lower())
+
+    print("\n== 15. Touch Target & Layout Accessibility ==")
+    with open(os.path.join(ROOT, "style.css"), encoding="utf-8") as fh:
+        css = fh.read()
+    check("footer nav links declare min-height >= 28px",
+          ".footer-nav a" in css and "min-height: 28px" in css)
+    check("contact links declare min-height >= 28px",
+          ".contact-link" in css and "min-height: 28px" in css)
+    check("footer social links declare 44px tap target",
+          ".footer-social-links a" in css and "width: 44px" in css and "height: 44px" in css)
+
+    print("\n== 16. Security Headers (Platform Edge HSTS, CSP Report-Only, Permissions-Policy) ==")
+    with open(os.path.join(ROOT, "vercel.json"), encoding="utf-8") as fh:
+        raw_vj = fh.read()
+        vj = json.loads(raw_vj)
+    root_headers = {}
+    for hgroup in vj.get("headers", []):
+        if hgroup.get("source") == "/(.*)":
+            for h in hgroup.get("headers", []):
+                root_headers[h["key"]] = h["value"]
+    check("vercel.json does not contain unapproved 'preload' directive",
+          "preload" not in raw_vj.lower())
+    check("vercel.json does not declare manual HSTS (delegated to platform edge)",
+          "Strict-Transport-Security" not in root_headers)
+    check("Permissions-Policy restricts sensitive device APIs",
+          "Permissions-Policy" in root_headers and "camera=()" in root_headers["Permissions-Policy"])
+    csp_header = root_headers.get("Content-Security-Policy") or root_headers.get("Content-Security-Policy-Report-Only")
+    check("CSP header declared (accepts Content-Security-Policy or Content-Security-Policy-Report-Only)",
+          csp_header is not None and "formspree.io" in csp_header)
+    if csp_header:
+        script_src_match = re.search(r"script-src\s+([^;]+)", csp_header)
+        if script_src_match:
+            check("script-src does not include unused cdnjs",
+                  "cdnjs.cloudflare.com" not in script_src_match.group(1))
+
+    print("\n== 17. College Roll Number & PII Privacy Leak Guard ==")
+    # Match roll number inside any string without word boundaries
+    RAW_ROLL_PATTERN = re.compile(r'23BQ1A[A-Z0-9]{4}', re.IGNORECASE)
+    COLLEGE_EMAIL_PATTERN = re.compile(r'\b[A-Za-z0-9._%+-]+@vvit\.net\b', re.IGNORECASE)
+    DEPLOYABLE_EXTS = {".html", ".js", ".json", ".txt"}
+    
+    # Approved by design: the public CodeChef profile handle and its practice certificate
+    APPROVED_ROLL_STRINGS = ["vvit23bq1a04f2"]
+    
+    roll_leaks = []
+    college_email_leaks = []
+    for frel in files:
+        _, ext = os.path.splitext(frel)
+        if ext.lower() in DEPLOYABLE_EXTS and not frel.startswith("scripts/") and not frel.startswith("."):
+            fpath = os.path.join(ROOT, frel.replace("/", os.sep))
+            try:
+                with open(fpath, encoding="utf-8", errors="ignore") as fh:
+                    fcontent = fh.read()
+                    # Check for college email leaks
+                    if COLLEGE_EMAIL_PATTERN.search(fcontent):
+                        college_email_leaks.append(frel)
+                    
+                    # Check for raw roll number leaks not part of approved public CodeChef handle
+                    for m in RAW_ROLL_PATTERN.finditer(fcontent):
+                        start = max(0, m.start() - 4)
+                        end = min(len(fcontent), m.end() + 25)
+                        context = fcontent[start:end].lower()
+                        if not any(appr in context for appr in APPROVED_ROLL_STRINGS):
+                            roll_leaks.append(f"{frel} (context: {context})")
+            except Exception:
+                pass
+    check("no unauthorized roll-number occurrences in deployable files (no word boundary)",
+          len(roll_leaks) == 0, f"leaks={roll_leaks}")
+    check("no college @vvit.net email pattern in deployable files",
+          len(college_email_leaks) == 0, f"leaks={college_email_leaks}")
+
+    roll_filename_leaks = []
+    try:
+        git_tracked = subprocess.run(
+            ["git", "-C", ROOT, "ls-files"],
+            capture_output=True, text=True, check=True
+        ).stdout.splitlines()
+    except Exception:
+        git_tracked = [f for f in files if not covered(f)]
+
+    for frel in git_tracked:
+        if covered(frel):
+            continue
+        fname = os.path.basename(frel)
+        # Check without word boundaries
+        if RAW_ROLL_PATTERN.search(fname):
+            # Only the public CodeChef practice basic math certificate is approved
+            if not fname.lower().startswith("vvit23bq1a04f2-practice-basic-math"):
+                roll_filename_leaks.append(frel)
+
+    check("no tracked deployable file name matches unauthorized roll-number pattern",
+          len(roll_filename_leaks) == 0, f"leaks={roll_filename_leaks}")
+
+    print("\n== 18. llms.txt Integrity & Project Synchronization ==")
+    llms_path = os.path.join(ROOT, "llms.txt")
+    check("llms.txt exists", os.path.exists(llms_path))
+    if os.path.exists(llms_path):
+        with open(llms_path, encoding="utf-8") as fh:
+            llms_content = fh.read()
+
+        with open(os.path.join(ROOT, "data", "projects.json"), encoding="utf-8") as fh:
+            projects_data = json.load(fh)
+
+        project_titles = {p["title"].lower(): p for p in projects_data}
+        valid_githubs = {p["github"] for p in projects_data if p.get("github")}
+        valid_demos = {p["liveDemo"] for p in projects_data if p.get("liveDemo")}
+
+        llms_headers = re.findall(r'^###\s+\d+\.\s+([^\n]+)', llms_content, re.MULTILINE)
+        unmatched_projects = []
+        for hdr in llms_headers:
+            clean_hdr = hdr.strip().lower()
+            match = any(
+                clean_hdr in ptitle or ptitle in clean_hdr
+                for ptitle in project_titles
+            )
+            if not match:
+                unmatched_projects.append(hdr.strip())
+        check("all projects in llms.txt match projects.json",
+              len(unmatched_projects) == 0, f"unmatched={unmatched_projects}")
+
+        llms_repos = re.findall(r'https://github\.com/skmdshariff143-ai/[a-zA-Z0-9_\-]+', llms_content)
+        unmatched_repos = [r for r in llms_repos if r not in valid_githubs]
+        check("all project repo URLs in llms.txt exist in projects.json",
+              len(unmatched_repos) == 0, f"unmatched_repos={unmatched_repos}")
+
+        llms_demos = re.findall(r'https://[a-zA-Z0-9_\-]+\.vercel\.app', llms_content)
+        llms_project_demos = [d for d in llms_demos if d != "https://mahammadshariff.vercel.app"]
+        unmatched_demos = [d for d in llms_project_demos if d not in valid_demos]
+        check("all liveDemo URLs in llms.txt exist in projects.json",
+              len(unmatched_demos) == 0, f"unmatched_demos={unmatched_demos}")
+
+        check("llms.txt does not contain unverified OCR or feature-engineering claims for Amazon ML",
+              "ocr" not in llms_content.lower() and "ocr/feature-engineering" not in llms_content.lower())
+        recoverflow_section = ""
+        rf_match = re.search(r'###\s+2\.\s+RecoverFlow AI.*?(?=###\s+3|$)', llms_content, re.DOTALL)
+        if rf_match:
+            recoverflow_section = rf_match.group(0).lower()
+
+        check("llms.txt accurately describes RecoverFlow live demo in-memory persistence without claiming live Prisma/PostgreSQL/Redis",
+              "in-memory" in recoverflow_section and "live demo persistence" in recoverflow_section and not any(kw in recoverflow_section for kw in ["prisma", "postgresql", "redis"]))
+
+    print("\n== 19. Formspree Endpoint, CodeChef Claims & Integrity ==")
+    # Formspree endpoint consistency
+    with open(os.path.join(ROOT, "index.html"), encoding="utf-8") as fh:
+        idx_content = fh.read()
+    form_endpoint_match = re.search(r'<form[^>]*id="contact-form"[^>]*action="([^"]+)"', idx_content)
+    form_endpoint = form_endpoint_match.group(1) if form_endpoint_match else None
+    check("contact form has valid Formspree endpoint", bool(form_endpoint and "formspree.io/f/" in form_endpoint))
+
+    all_formspree_endpoints = set()
+    for frel in files:
+        _, ext = os.path.splitext(frel)
+        if ext.lower() in DEPLOYABLE_EXTS and not frel.startswith("scripts/") and not frel.startswith("."):
+            fpath = os.path.join(ROOT, frel.replace("/", os.sep))
+            try:
+                with open(fpath, encoding="utf-8", errors="ignore") as fh:
+                    for ep in re.findall(r'formspree\.io/f/([a-zA-Z0-9]+)', fh.read()):
+                        all_formspree_endpoints.add(ep)
+            except Exception:
+                pass
+    form_id = form_endpoint.split("/")[-1] if form_endpoint else ""
+    check("all named Formspree endpoints match contact-form endpoint",
+          all_formspree_endpoints == {form_id}, f"found={all_formspree_endpoints} expected={{'{form_id}'}}")
+
+    # CodeChef claims guard
+    codechef_old_claims = []
+    old_claim_pattern = re.compile(r'(3-Star|3 Star|3★|500\+\s*(?:Solved|Problems))', re.IGNORECASE)
+    for frel in ["index.html", "script.js", "data/profile.json", "llms.txt"]:
+        fpath = os.path.join(ROOT, frel.replace("/", os.sep))
+        if os.path.exists(fpath):
+            with open(fpath, encoding="utf-8", errors="ignore") as fh:
+                for line_num, line in enumerate(fh, 1):
+                    # Exclude certificate filenames/alts like "500-difficulty-rating"
+                    if "500-difficulty-rating" in line:
+                        continue
+                    if old_claim_pattern.search(line):
+                        codechef_old_claims.append(f"{frel}:{line_num}: {line.strip()[:60]}")
+    check("no outdated CodeChef 3-Star or 500+ claims remain",
+          len(codechef_old_claims) == 0, f"claims={codechef_old_claims}")
+
+    # FarmLink AI naming guard
+    farmalink_hits = []
+    for frel in files:
+        _, ext = os.path.splitext(frel)
+        if ext.lower() in DEPLOYABLE_EXTS and not frel.startswith("scripts/") and not frel.startswith("."):
+            fpath = os.path.join(ROOT, frel.replace("/", os.sep))
+            try:
+                with open(fpath, encoding="utf-8", errors="ignore") as fh:
+                    if "FarmaLink-AI" in fh.read():
+                        farmalink_hits.append(frel)
+            except Exception:
+                pass
+    check("FarmLink AI uses correct branding without typo FarmaLink-AI",
+          len(farmalink_hits) == 0, f"hits={farmalink_hits}")
 
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")

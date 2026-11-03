@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const cardsHTML = publishedCerts.map(cert => `
                         <div class="cert-card" data-category="${cert.category}" data-featured="${cert.featured}" ${cert.credentialId ? `data-credential-id="${cert.credentialId}"` : ''}>
                             <div class="cert-preview">
-                                <img src="${cert.thumbnail}" alt="${cert.title} Certificate Preview" loading="lazy">
+                                <img src="${cert.thumbnail}" alt="${cert.title} - ${cert.issuer}" loading="lazy">
                                 <div class="cert-overlay"><span class="expand-btn" role="button" aria-label="Expand certificate preview" tabindex="0"><i class="fas fa-expand"></i></span></div>
                             </div>
                             <div class="cert-body">
@@ -362,6 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="project-links">
                                     ${proj.github ? `<a href="${proj.github}" target="_blank" rel="noopener noreferrer" aria-label="Code — GitHub Repository for ${proj.title}"><i class="fab fa-github"></i> Code</a>` : ''}
                                     ${proj.liveDemo ? `<a href="${proj.liveDemo}" target="_blank" rel="noopener noreferrer" aria-label="Live Demo — External Application for ${proj.title}"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
+                                    ${(!proj.github && !proj.liveDemo) ? `<span class="status-badge badge-private" style="background: rgba(255,255,255,0.06); color: var(--text-muted); font-size: 0.8rem; padding: 0.35rem 0.75rem; border-radius: 6px;"><i class="fas fa-lock"></i> Private Research Codebase</span>` : ''}
                                 </div>
                             </div>
                             <p class="project-summary">${proj.summary}</p>
@@ -749,10 +750,98 @@ document.addEventListener('DOMContentLoaded', () => {
        ------------------------------------------------------------------ */
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
+    let isSubmitting = false;
+    const SUBMIT_COOLDOWN_MS = 30000;
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // In-flight concurrency lock
+            if (isSubmitting) return;
+
+            // Cosmetic client-side cooldown check
+            const storedLast = sessionStorage.getItem('portfolio_last_submit_time');
+            const lastTime = storedLast ? parseInt(storedLast, 10) : 0;
+            const now = Date.now();
+            if (now - lastTime < SUBMIT_COOLDOWN_MS) {
+                const remaining = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastTime)) / 1000);
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ff9800';
+                    formStatus.innerHTML = `<i class="fas fa-clock"></i> Please wait ${remaining}s before sending another message.`;
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
+                }
+                return;
+            }
+
+            const data = new FormData(contactForm);
+
+            // Spam honeypot inspection
+            const gotcha = data.get('_gotcha');
+            if (gotcha && gotcha.trim().length > 0) {
+                contactForm.reset();
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#10b981';
+                    formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Thanks! Your message has been sent — I will get back to you soon.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
+                }
+                return;
+            }
+
+            // Input validation
+            const nameVal = (data.get('name') || '').trim();
+            const emailVal = (data.get('email') || '').trim();
+            const msgVal = (data.get('message') || '').trim();
+
+            if (nameVal.length < 2 || nameVal.length > 100) {
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ff1744';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Name must be between 2 and 100 characters.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
+                }
+                return;
+            }
+
+            if (!emailRegex.test(emailVal)) {
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ff1744';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email address.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
+                }
+                return;
+            }
+
+            if (msgVal.length < 10 || msgVal.length > 5000) {
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#ff1744';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Message must be between 10 and 5000 characters.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
+                }
+                return;
+            }
+
+            // Lock submission and set trimmed values
+            isSubmitting = true;
+            data.set('name', nameVal);
+            data.set('email', emailVal);
+            data.set('message', msgVal);
+
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.setAttribute('aria-busy', 'true');
+            }
 
             // Show sending status
             if (formStatus) {
@@ -760,8 +849,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 formStatus.style.color = 'var(--text-secondary)';
                 formStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending message...';
             }
-
-            const data = new FormData(contactForm);
 
             try {
                 const response = await fetch(contactForm.action, {
@@ -773,25 +860,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
+                    sessionStorage.setItem('portfolio_last_submit_time', String(Date.now()));
                     contactForm.reset();
-                    contactForm.innerHTML = `
-                        <div class="form-success-message">
-                            <i class="fas fa-check-circle"></i>
-                            <h3>Message Sent!</h3>
-                            <p>Thanks! Your message has been sent — I'll get back to you soon.</p>
-                        </div>
-                    `;
+                    if (formStatus) {
+                        formStatus.style.display = 'block';
+                        formStatus.style.color = '#10b981';
+                        formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Thanks! Your message has been sent — I will get back to you soon.';
+                        formStatus.setAttribute('tabindex', '-1');
+                        formStatus.focus();
+                    }
                 } else {
                     if (formStatus) {
-                        formStatus.style.color = '#ff1744'; // error red
-                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                        formStatus.style.display = 'block';
+                        formStatus.style.color = '#ff1744';
+                        formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try reaching out via LinkedIn instead.';
+                        formStatus.setAttribute('tabindex', '-1');
+                        formStatus.focus();
                     }
                 }
             } catch (error) {
                 if (formStatus) {
+                    formStatus.style.display = 'block';
                     formStatus.style.color = '#ff1744';
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try emailing me directly at <a href="mailto:23BQ1A04F2@vvit.net" style="color: var(--accent-teal); text-decoration: underline;">23BQ1A04F2@vvit.net</a> instead.';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try reaching out via LinkedIn instead.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
                 }
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.removeAttribute('aria-busy');
+                }
+                isSubmitting = false;
             }
         });
     }
@@ -831,16 +931,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.removeChild(a);
             showToast('Downloading official résumé PDF...');
         }},
-        { id: 'act-copy-email', title: 'Copy Verified Email Address', group: 'Quick Actions', icon: 'fas fa-copy', shortcut: 'Copy', action: () => {
-            const email = '23BQ1A04F2@vvit.net';
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(email).then(() => {
-                    showToast('Copied ' + email + ' to clipboard!');
-                }).catch(() => {
-                    showToast('Email: ' + email);
-                });
-            } else {
-                showToast('Email: ' + email);
+        { id: 'act-copy-email', title: 'Contact via Form / Inquiries', group: 'Quick Actions', icon: 'fas fa-envelope', shortcut: 'Contact', action: () => {
+            const contactSection = document.getElementById('contact-form') || document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+                showToast('Navigating to contact form...');
             }
         }},
         { id: 'act-toggle-motion', title: 'Toggle Motion & Visual Effects', group: 'Quick Actions', icon: 'fas fa-magic', shortcut: 'Toggle', action: () => {
@@ -852,7 +947,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // External Links Group
         { id: 'link-github', title: 'GitHub Profile & Repositories', group: 'External Links', icon: 'fab fa-github', action: () => window.open('https://github.com/skmdshariff143-ai', '_blank') },
         { id: 'link-linkedin', title: 'LinkedIn Profile', group: 'External Links', icon: 'fab fa-linkedin-in', action: () => window.open('https://linkedin.com/in/mahammad-shariff-shaik-32903934a', '_blank') },
-        { id: 'link-codechef', title: 'CodeChef 3-Star Profile', group: 'External Links', icon: 'fas fa-code', action: () => window.open('https://www.codechef.com/users/vvit23bq1a04f2', '_blank') }
+        { id: 'link-codechef', title: 'CodeChef 2-Star Profile', group: 'External Links', icon: 'fas fa-code', action: () => window.open('https://www.codechef.com/users/vvit23bq1a04f2', '_blank') }
     ];
 
     function showToast(msg) {
@@ -888,6 +983,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
+    function escapeHTML(str) {
+        if (typeof str !== 'string') return '';
+        return str.replace(/[&<>"']/g, match => {
+            switch (match) {
+                case '&': return '&amp;';
+                case '<': return '&lt;';
+                case '>': return '&gt;';
+                case '"': return '&quot;';
+                case "'": return '&#39;';
+                default: return match;
+            }
+        });
+    }
+
     function renderCmdResults(query) {
         if (!cmdResults) return;
         const q = (query || '').toLowerCase().trim();
@@ -899,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cmdResults.innerHTML = `
                 <div style="padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
                     <i class="fas fa-search" style="margin-bottom: 0.5rem; font-size: 1.25rem; display: block;"></i>
-                    No matching commands found for "${query}"
+                    No matching commands found for "${escapeHTML(query)}"
                 </div>
             `;
             return;
