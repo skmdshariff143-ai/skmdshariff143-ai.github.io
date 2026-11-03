@@ -426,8 +426,9 @@ class TestRemediationTDD(unittest.TestCase):
         mock_interceptor_found = False
 
         for root_dir, _, files in os.walk(REPO_ROOT):
-            # Skip git/hidden dirs and node_modules
-            if any(skip in root_dir for skip in [".git", ".agents", "node_modules"]):
+            rel = os.path.relpath(root_dir, REPO_ROOT)
+            parts = set(rel.split(os.sep))
+            if parts.intersection({".git", ".agents", "node_modules", "qa-artifacts"}):
                 continue
             for f in files:
                 # Do not scan this test file itself to avoid matching the pattern definitions

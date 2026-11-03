@@ -412,7 +412,9 @@ def run_challenger_verification():
         # 2. Audit all test suites in repository for un-mocked requests
         unmocked_python_calls = []
         for root, _, files in os.walk(ROOT_DIR):
-            if any(skip in root for skip in ['.git', '.agents', 'node_modules']):
+            rel = os.path.relpath(root, ROOT_DIR)
+            parts = set(rel.split(os.sep))
+            if parts.intersection({".git", ".agents", "node_modules", "qa-artifacts"}):
                 continue
             for f in files:
                 if f.endswith('.py') and ('test' in f or 'qa' in f or 'audit' in f or 'smoke' in f):

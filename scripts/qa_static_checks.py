@@ -314,7 +314,9 @@ def main():
         # Dynamic static scan: extract all localStorage and sessionStorage keys from JS files
         js_storage_keys = set()
         for root_dir, _, filenames in os.walk(ROOT):
-            if any(p in root_dir for p in [".git", "node_modules", ".gemini", "qa-artifacts"]):
+            rel = os.path.relpath(root_dir, ROOT)
+            parts = set(rel.split(os.sep))
+            if parts.intersection({".git", "node_modules", ".gemini", "qa-artifacts"}):
                 continue
             for fn in filenames:
                 if fn.endswith(".js"):
