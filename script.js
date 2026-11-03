@@ -362,6 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="project-links">
                                     ${proj.github ? `<a href="${proj.github}" target="_blank" rel="noopener noreferrer" aria-label="Code — GitHub Repository for ${proj.title}"><i class="fab fa-github"></i> Code</a>` : ''}
                                     ${proj.liveDemo ? `<a href="${proj.liveDemo}" target="_blank" rel="noopener noreferrer" aria-label="Live Demo — External Application for ${proj.title}"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
+                                    ${(!proj.github && !proj.liveDemo) ? `<span class="status-badge badge-private" style="background: rgba(255,255,255,0.06); color: var(--text-muted); font-size: 0.8rem; padding: 0.35rem 0.75rem; border-radius: 6px;"><i class="fas fa-lock"></i> Private Research Codebase</span>` : ''}
                                 </div>
                             </div>
                             <p class="project-summary">${proj.summary}</p>
