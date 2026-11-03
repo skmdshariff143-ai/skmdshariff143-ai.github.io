@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-links a');
 
-    window.addEventListener('scroll', () => {
+    function updateScrollState() {
         // Sticky Navbar styling
         if (navbar) {
             if (window.scrollY > 50) {
@@ -73,7 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.classList.add('active');
             }
         });
-    });
+
+        isScrolling = false;
+    }
+
+    let isScrolling = false;
+    window.addEventListener('scroll', () => {
+        if (!isScrolling) {
+            window.requestAnimationFrame(updateScrollState);
+            isScrolling = true;
+        }
+    }, { passive: true });
 
     /* ----------------------------------------------------------------------
        Scroll Reveal Animations (Intersection Observer)
@@ -350,8 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <h3>${proj.title}</h3>
                                 </div>
                                 <div class="project-links">
-                                    ${proj.github ? `<a href="${proj.github}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository for ${proj.title}"><i class="fab fa-github"></i> Code</a>` : ''}
-                                    ${proj.liveDemo ? `<a href="${proj.liveDemo}" target="_blank" rel="noopener noreferrer" aria-label="Live Demo for ${proj.title}"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
+                                    ${proj.github ? `<a href="${proj.github}" target="_blank" rel="noopener noreferrer" aria-label="Code — GitHub Repository for ${proj.title}"><i class="fab fa-github"></i> Code</a>` : ''}
+                                    ${proj.liveDemo ? `<a href="${proj.liveDemo}" target="_blank" rel="noopener noreferrer" aria-label="Live Demo — External Application for ${proj.title}"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
                                 </div>
                             </div>
                             <p class="project-summary">${proj.summary}</p>
@@ -379,6 +389,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     `).join('');
+
+                    initTiltEffect(projectGrid.querySelectorAll('.project-card, .tilt-card'));
                 }
             }
         } catch (err) {
@@ -455,24 +467,54 @@ document.addEventListener('DOMContentLoaded', () => {
     counters.forEach(counter => counterObserver.observe(counter));
 
     // 4. 3D Tilt Effect for Cards
+    function initTiltEffect(cards) {
+        if (!cards) return;
+        cards.forEach(card => {
+            if (card.dataset && card.dataset.tiltInitialized) return;
+            if (card.dataset) card.dataset.tiltInitialized = 'true';
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+    }
+
     const tiltCards = document.querySelectorAll('.tilt-card, .cert-card, .project-card, .lang-card');
-    tiltCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
+    initTiltEffect(tiltCards);
+
+    // Event delegation on project-grid to ensure dynamic cards maintain tilt responsiveness
+    const projectGridContainer = document.querySelector('.project-grid');
+    if (projectGridContainer) {
+        projectGridContainer.addEventListener('mousemove', (e) => {
+            const card = e.target.closest('.tilt-card, .project-card');
+            if (!card) return;
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+            const rotateX = ((y - centerY) / centerY) * -10;
             const rotateY = ((x - centerX) / centerX) * 10;
-
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        projectGridContainer.addEventListener('mouseleave', () => {
+            const cards = projectGridContainer.querySelectorAll('.tilt-card, .project-card');
+            cards.forEach(c => {
+                c.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
         });
-    });
+    }
 
 
 

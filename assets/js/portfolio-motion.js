@@ -28,11 +28,16 @@
 
             if (effectToggleBtn) {
                 effectToggleBtn.setAttribute('aria-pressed', isReduced ? 'true' : 'false');
+                const stateText = isReduced ? 'Motion Effects: Off' : 'Motion Effects: On';
+                effectToggleBtn.setAttribute('aria-label', `${stateText} — Toggle Reduced Motion`);
                 const label = effectToggleBtn.querySelector('#motion-toggle-text') || effectToggleBtn.querySelector('.effect-btn-label');
                 if (label) {
-                    label.textContent = isReduced ? 'Motion Effects: Off' : 'Motion Effects: On';
+                    label.textContent = stateText;
                 }
             }
+            window.dispatchEvent(new CustomEvent('portfolio-motion-toggle', {
+                detail: { isReduced: isReduced }
+            }));
         }
 
 
@@ -56,11 +61,6 @@
                     if (entry.isIntersecting) {
                         const sectionId = entry.target.getAttribute('id');
                         document.body.setAttribute('data-active-section', sectionId);
-
-                        // Signal section change to Observatory scene
-                        window.dispatchEvent(new CustomEvent('portfolio-section-active', {
-                            detail: { sectionId: sectionId }
-                        }));
                     }
                 });
             }, { threshold: 0.3 });
