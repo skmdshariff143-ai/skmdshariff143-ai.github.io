@@ -908,7 +908,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // External Links Group
         { id: 'link-github', title: 'GitHub Profile & Repositories', group: 'External Links', icon: 'fab fa-github', action: () => window.open('https://github.com/skmdshariff143-ai', '_blank') },
         { id: 'link-linkedin', title: 'LinkedIn Profile', group: 'External Links', icon: 'fab fa-linkedin-in', action: () => window.open('https://linkedin.com/in/mahammad-shariff-shaik-32903934a', '_blank') },
-        { id: 'link-codechef', title: 'CodeChef 3-Star Profile', group: 'External Links', icon: 'fas fa-code', action: () => window.open('https://www.codechef.com/users/vvit23bq1a04f2', '_blank') }
+        { id: 'link-codechef', title: 'CodeChef 2-Star Profile', group: 'External Links', icon: 'fas fa-code', action: () => window.open('https://www.codechef.com/users/vvit23bq1a04f2', '_blank') }
     ];
 
     function showToast(msg) {

@@ -313,6 +313,10 @@ def main():
               "vercel" in priv_html.lower())
         check("privacy.html discloses functional localStorage keys",
               "portfolio-theme" in priv_html and "portfolio-motion-preference" in priv_html)
+        check("privacy.html names Vercel Hobby plan for runtime log retention",
+              "Hobby" in priv_html)
+        check("privacy.html spells Formspree plans accurately (Free, Personal, Professional, Business)",
+              "Free" in priv_html and "Personal" in priv_html and "Professional" in priv_html)
     check("index.html footer links to privacy.html",
           'href="privacy.html"' in html or f'href="{CANONICAL_HOST}/privacy.html"' in html)
     check("sitemap.xml includes privacy.html",
@@ -408,9 +412,13 @@ def main():
           "Content-Security-Policy-Report-Only" in root_headers and "formspree.io" in root_headers["Content-Security-Policy-Report-Only"])
 
     print("\n== 17. College Roll Number & PII Privacy Leak Guard ==")
-    ROLL_PATTERN = re.compile(r'\b23BQ1A[A-Z0-9]{4}\b', re.IGNORECASE)
+    # Match roll number inside any string without word boundaries
+    RAW_ROLL_PATTERN = re.compile(r'23BQ1A[A-Z0-9]{4}', re.IGNORECASE)
     COLLEGE_EMAIL_PATTERN = re.compile(r'\b[A-Za-z0-9._%+-]+@vvit\.net\b', re.IGNORECASE)
     DEPLOYABLE_EXTS = {".html", ".js", ".json", ".txt"}
+    
+    # Approved by design: the public CodeChef profile handle and its practice certificate
+    APPROVED_ROLL_STRINGS = ["vvit23bq1a04f2"]
     
     roll_leaks = []
     college_email_leaks = []
@@ -421,13 +429,20 @@ def main():
             try:
                 with open(fpath, encoding="utf-8", errors="ignore") as fh:
                     fcontent = fh.read()
-                    if ROLL_PATTERN.search(fcontent):
-                        roll_leaks.append(frel)
+                    # Check for college email leaks
                     if COLLEGE_EMAIL_PATTERN.search(fcontent):
                         college_email_leaks.append(frel)
+                    
+                    # Check for raw roll number leaks not part of approved public CodeChef handle
+                    for m in RAW_ROLL_PATTERN.finditer(fcontent):
+                        start = max(0, m.start() - 4)
+                        end = min(len(fcontent), m.end() + 25)
+                        context = fcontent[start:end].lower()
+                        if not any(appr in context for appr in APPROVED_ROLL_STRINGS):
+                            roll_leaks.append(f"{frel} (context: {context})")
             except Exception:
                 pass
-    check("no college roll-number pattern in deployable files",
+    check("no unauthorized roll-number occurrences in deployable files (no word boundary)",
           len(roll_leaks) == 0, f"leaks={roll_leaks}")
     check("no college @vvit.net email pattern in deployable files",
           len(college_email_leaks) == 0, f"leaks={college_email_leaks}")
@@ -445,11 +460,13 @@ def main():
         if covered(frel):
             continue
         fname = os.path.basename(frel)
-        fname_base, _ = os.path.splitext(fname)
-        if ROLL_PATTERN.search(fname_base) or ROLL_PATTERN.search(fname):
-            roll_filename_leaks.append(frel)
+        # Check without word boundaries
+        if RAW_ROLL_PATTERN.search(fname):
+            # Only the public CodeChef practice basic math certificate is approved
+            if not fname.lower().startswith("vvit23bq1a04f2-practice-basic-math"):
+                roll_filename_leaks.append(frel)
 
-    check("no tracked deployable file name matches college roll-number pattern",
+    check("no tracked deployable file name matches unauthorized roll-number pattern",
           len(roll_filename_leaks) == 0, f"leaks={roll_filename_leaks}")
 
     print("\n== 18. llms.txt Integrity & Project Synchronization ==")
@@ -489,6 +506,70 @@ def main():
         unmatched_demos = [d for d in llms_project_demos if d not in valid_demos]
         check("all liveDemo URLs in llms.txt exist in projects.json",
               len(unmatched_demos) == 0, f"unmatched_demos={unmatched_demos}")
+
+        check("llms.txt does not contain unverified OCR or feature-engineering claims for Amazon ML",
+              "ocr" not in llms_content.lower() and "ocr/feature-engineering" not in llms_content.lower())
+        recoverflow_section = ""
+        rf_match = re.search(r'###\s+2\.\s+RecoverFlow AI.*?(?=###\s+3|$)', llms_content, re.DOTALL)
+        if rf_match:
+            recoverflow_section = rf_match.group(0).lower()
+
+        check("llms.txt accurately describes RecoverFlow live demo in-memory persistence without claiming live Prisma/PostgreSQL/Redis",
+              "in-memory" in recoverflow_section and "live demo persistence" in recoverflow_section and not any(kw in recoverflow_section for kw in ["prisma", "postgresql", "redis"]))
+
+    print("\n== 19. Formspree Endpoint, CodeChef Claims & Integrity ==")
+    # Formspree endpoint consistency
+    with open(os.path.join(ROOT, "index.html"), encoding="utf-8") as fh:
+        idx_content = fh.read()
+    form_endpoint_match = re.search(r'<form[^>]*id="contact-form"[^>]*action="([^"]+)"', idx_content)
+    form_endpoint = form_endpoint_match.group(1) if form_endpoint_match else None
+    check("contact form has valid Formspree endpoint", bool(form_endpoint and "formspree.io/f/" in form_endpoint))
+
+    all_formspree_endpoints = set()
+    for frel in files:
+        _, ext = os.path.splitext(frel)
+        if ext.lower() in DEPLOYABLE_EXTS and not frel.startswith("scripts/") and not frel.startswith("."):
+            fpath = os.path.join(ROOT, frel.replace("/", os.sep))
+            try:
+                with open(fpath, encoding="utf-8", errors="ignore") as fh:
+                    for ep in re.findall(r'formspree\.io/f/([a-zA-Z0-9]+)', fh.read()):
+                        all_formspree_endpoints.add(ep)
+            except Exception:
+                pass
+    form_id = form_endpoint.split("/")[-1] if form_endpoint else ""
+    check("all named Formspree endpoints match contact-form endpoint",
+          all_formspree_endpoints == {form_id}, f"found={all_formspree_endpoints} expected={{'{form_id}'}}")
+
+    # CodeChef claims guard
+    codechef_old_claims = []
+    old_claim_pattern = re.compile(r'(3-Star|3 Star|3★|500\+\s*(?:Solved|Problems))', re.IGNORECASE)
+    for frel in ["index.html", "script.js", "data/profile.json", "llms.txt"]:
+        fpath = os.path.join(ROOT, frel.replace("/", os.sep))
+        if os.path.exists(fpath):
+            with open(fpath, encoding="utf-8", errors="ignore") as fh:
+                for line_num, line in enumerate(fh, 1):
+                    # Exclude certificate filenames/alts like "500-difficulty-rating"
+                    if "500-difficulty-rating" in line:
+                        continue
+                    if old_claim_pattern.search(line):
+                        codechef_old_claims.append(f"{frel}:{line_num}: {line.strip()[:60]}")
+    check("no outdated CodeChef 3-Star or 500+ claims remain",
+          len(codechef_old_claims) == 0, f"claims={codechef_old_claims}")
+
+    # FarmLink AI naming guard
+    farmalink_hits = []
+    for frel in files:
+        _, ext = os.path.splitext(frel)
+        if ext.lower() in DEPLOYABLE_EXTS and not frel.startswith("scripts/") and not frel.startswith("."):
+            fpath = os.path.join(ROOT, frel.replace("/", os.sep))
+            try:
+                with open(fpath, encoding="utf-8", errors="ignore") as fh:
+                    if "FarmaLink-AI" in fh.read():
+                        farmalink_hits.append(frel)
+            except Exception:
+                pass
+    check("FarmLink AI uses correct branding without typo FarmaLink-AI",
+          len(farmalink_hits) == 0, f"hits={farmalink_hits}")
 
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")

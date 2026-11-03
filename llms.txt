@@ -4,7 +4,7 @@
 > Primary Production URL: https://mahammadshariff.vercel.app/
 > GitHub: https://github.com/skmdshariff143-ai
 > LinkedIn: https://linkedin.com/in/mahammad-shariff-shaik-32903934a
-> CodeChef: https://www.codechef.com/users/vvit23bq1a04f2 (Rating 1455, 900+ Problems Solved)
+> CodeChef: https://www.codechef.com/users/vvit23bq1a04f2 (Rating 1455, 2-Star | 900+ Problems Solved)
 > Location: Guntur, Andhra Pradesh, India
 > Academic Institution: Vasireddy Venkatadri Institute of Technology (VVIT)
 > Degree: B.Tech in Electronics & Communication Engineering (Expected May 2027, CGPA: 8.21/10)
@@ -34,11 +34,12 @@ Core skills verified against candidate résumé and portfolio stack:
 - **Live Demo**: https://neurolearn-ai-pink.vercel.app
 
 ### 2. RecoverFlow AI
-- **README Overview**: "A merchant operations console for reviewing revenue recovery cases, controlling communication policy, and inspecting attributable decisions. Built with Next.js 16, React 19, TypeScript, Prisma/PostgreSQL, and Redis."
+- **README Overview**: "A merchant operations console for reviewing revenue recovery cases, controlling communication policy, and inspecting attributable decisions."
 - **Domain**: Autonomous Revenue Recovery & Communication Policy Console
-- **Stack**: Next.js 16, React 19, TypeScript 5, Prisma ORM, Vitest, Playwright, Tailwind CSS
+- **Stack**: Next.js 16, React 19, TypeScript 5, Tailwind CSS, Vitest, Playwright
 - **Problem**: Failed recurring subscription payments cause massive revenue leakage, while naïve retry storms trigger bank network penalties, high transaction fees, and customer churn.
 - **Solution & Architecture**: Architected an autonomous recovery platform with integer-paise financial math, L2 logistic recovery probability calibration, Thompson Sampling Multi-Armed Bandit channel dispatch, transactional outbox pattern, and SHA-256 audit chaining.
+- **Live Demo Persistence**: In the hosted evaluation demo, the application uses an in-memory sample store (MemoryDatabase) with instant dataset reset via Shift+R.
 - **Verification**: 601 Vitest unit and integration tests passing across 93 suites and 82 Playwright end-to-end tests; Razorpay AI Buildathon Track 3.
 - **Repository**: https://github.com/skmdshariff143-ai/recoverflow-ai
 - **Live Demo**: https://recoverflow-ai-kohl.vercel.app
@@ -65,13 +66,20 @@ Core skills verified against candidate résumé and portfolio stack:
 ### 5. Amazon ML Challenge 2026 — Entity Resolution
 - **Domain**: High-Throughput Scalable Machine Learning & Merchant Deduplication
 - **Stack**: Python 3.13, LightGBM, RapidFuzz, PyArrow, NumPy, Pandas, Pytest
-- **Problem**: Matching identical business entities across heterogeneous data sources with noisy names, partial addresses, and severe class imbalance at scale.
+- **Summary**: A high-throughput, memory-bounded machine learning pipeline resolving merchant identity across millions of noisy commercial records without pretrained embedding models.
+- **Problem**: Matching identical business entities across heterogeneous data sources with noisy names, partial addresses, and severe class imbalance at scale (1.7M+ test anchors).
 - **Solution & Architecture**: Built a scalable candidate generation inverted index and 19-feature LightGBM classification pipeline with hard-negative mining, calibrated thresholding, and streaming validation.
+- **Contribution**: Developed custom inverted index with token-frequency weighting, 19 rapid pairwise similarity features (RapidFuzz Normalized Indel, token overlap, numeric conflicts), and zero-leakage partition streaming.
+- **Key Features**:
+  - Engineered multi-token inverted index processing 207M+ candidate links across 1.73M anchors with 0.9118 holdout candidate recall.
+  - Extracted 19 pairwise similarity and interaction features with memory-mapped Arrow stores and deterministic tie-breaking.
+  - Trained hard-negative LightGBM achieving 0.8879 Macro F0.5 (0.9563 Precision, 0.8053 Recall) on local 5,000-anchor calibration holdout.
+  - Validated end-to-end pipeline with 39 automated tests and streaming compliance checks.
 - **Headline Verified Result**: 0.8879 Local Holdout Macro F0.5 (0.9563 Precision) across 39 verified unit and streaming tests.
 - **Repository**: Private / competition codebase (hidden from public site)
 - **Live Demo**: None
 
-### 6. FarmaLink-AI
+### 6. FarmLink AI
 - **Domain**: Agricultural Direct Marketplace & SaaS Prototype
 - **Stack**: Next.js 15, React 19, TypeScript, Prisma, Supabase, Vercel
 - **Problem**: Agricultural supply chains suffer from intermediary price exploitation, lack of crop disease diagnostics, and opaque transaction escrow.
