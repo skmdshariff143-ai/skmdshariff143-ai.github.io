@@ -982,6 +982,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
+    function escapeHTML(str) {
+        if (typeof str !== 'string') return '';
+        return str.replace(/[&<>"']/g, match => {
+            switch (match) {
+                case '&': return '&amp;';
+                case '<': return '&lt;';
+                case '>': return '&gt;';
+                case '"': return '&quot;';
+                case "'": return '&#39;';
+                default: return match;
+            }
+        });
+    }
+
     function renderCmdResults(query) {
         if (!cmdResults) return;
         const q = (query || '').toLowerCase().trim();
@@ -993,7 +1007,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cmdResults.innerHTML = `
                 <div style="padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
                     <i class="fas fa-search" style="margin-bottom: 0.5rem; font-size: 1.25rem; display: block;"></i>
-                    No matching commands found for "${query}"
+                    No matching commands found for "${escapeHTML(query)}"
                 </div>
             `;
             return;
