@@ -432,6 +432,26 @@ def main():
     check("no college @vvit.net email pattern in deployable files",
           len(college_email_leaks) == 0, f"leaks={college_email_leaks}")
 
+    roll_filename_leaks = []
+    try:
+        git_tracked = subprocess.run(
+            ["git", "-C", ROOT, "ls-files"],
+            capture_output=True, text=True, check=True
+        ).stdout.splitlines()
+    except Exception:
+        git_tracked = [f for f in files if not covered(f)]
+
+    for frel in git_tracked:
+        if covered(frel):
+            continue
+        fname = os.path.basename(frel)
+        fname_base, _ = os.path.splitext(fname)
+        if ROLL_PATTERN.search(fname_base) or ROLL_PATTERN.search(fname):
+            roll_filename_leaks.append(frel)
+
+    check("no tracked deployable file name matches college roll-number pattern",
+          len(roll_filename_leaks) == 0, f"leaks={roll_filename_leaks}")
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:
