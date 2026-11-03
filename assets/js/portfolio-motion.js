@@ -61,11 +61,6 @@
                     if (entry.isIntersecting) {
                         const sectionId = entry.target.getAttribute('id');
                         document.body.setAttribute('data-active-section', sectionId);
-
-                        // Signal section change to Observatory scene
-                        window.dispatchEvent(new CustomEvent('portfolio-section-active', {
-                            detail: { sectionId: sectionId }
-                        }));
                     }
                 });
             }, { threshold: 0.3 });

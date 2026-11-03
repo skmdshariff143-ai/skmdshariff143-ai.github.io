@@ -215,6 +215,8 @@
         window.ObservatoryScene.isPaused = isPaused;
 
         let pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+        let boundX = window.innerWidth < 768 ? 2.0 : (window.innerWidth < 992 ? 3.2 : 6.0);
+        let boundY = window.innerWidth < 768 ? 3.2 : (window.innerWidth < 992 ? 3.6 : 4.0);
         const allocatedDisposables = [];
 
         function registerDisposable(obj) {
@@ -247,6 +249,8 @@
             renderer.toneMappingExposure = 1.2;
 
             window.ObservatoryScene.renderer = renderer;
+            window.ObservatoryScene.camera = camera;
+            window.ObservatoryScene.orbitChips = orbitChips;
 
             // Stable Non-Oscillating Lighting Setup
             ambientLight = registerDisposable(new THREE.AmbientLight(0x0b1220, 2.0));
@@ -296,8 +300,8 @@
 
                 for (let i = 0; i < particleBudget; i++) {
                     const idx = i * 3;
-                    positions[idx] = (Math.random() - 0.5) * 12;
-                    positions[idx + 1] = (Math.random() - 0.5) * 8;
+                    positions[idx] = (Math.random() - 0.5) * (boundX * 2);
+                    positions[idx + 1] = (Math.random() - 0.5) * (boundY * 2);
                     positions[idx + 2] = (Math.random() - 0.5) * 6 - 0.5;
 
                     velocities.push({
@@ -412,15 +416,23 @@
                 if (w >= 1200) {
                     offsetX = 3.6;
                     camZ = 6.8;
+                    boundX = 6.0;
+                    boundY = 4.0;
                 } else if (w >= 992) {
                     offsetX = 3.0;
                     camZ = 7.0;
+                    boundX = 6.0;
+                    boundY = 4.0;
                 } else if (w >= 768) {
                     offsetX = 2.0;
                     camZ = 7.2;
+                    boundX = 3.2;
+                    boundY = 3.6;
                 } else {
                     offsetX = 0;
                     camZ = 7.5;
+                    boundX = 2.0;
+                    boundY = 3.2;
                 }
 
                 if (constellationGroup) constellationGroup.position.set(offsetX, 0, 0);
@@ -608,8 +620,8 @@
                     posArr[idx + 2] += velocities[i].vz;
 
                     // Bounds bounce
-                    if (posArr[idx] < -6 || posArr[idx] > 6) velocities[i].vx *= -1;
-                    if (posArr[idx + 1] < -4 || posArr[idx + 1] > 4) velocities[i].vy *= -1;
+                    if (posArr[idx] < -boundX || posArr[idx] > boundX) velocities[i].vx *= -1;
+                    if (posArr[idx + 1] < -boundY || posArr[idx + 1] > boundY) velocities[i].vy *= -1;
                     if (posArr[idx + 2] < -3.5 || posArr[idx + 2] > 2.5) velocities[i].vz *= -1;
                 }
                 posAttr.needsUpdate = true;
