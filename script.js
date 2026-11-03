@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-links a');
 
-    window.addEventListener('scroll', () => {
+    function updateScrollState() {
         // Sticky Navbar styling
         if (navbar) {
             if (window.scrollY > 50) {
@@ -73,7 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.classList.add('active');
             }
         });
-    });
+
+        isScrolling = false;
+    }
+
+    let isScrolling = false;
+    window.addEventListener('scroll', () => {
+        if (!isScrolling) {
+            window.requestAnimationFrame(updateScrollState);
+            isScrolling = true;
+        }
+    }, { passive: true });
 
     /* ----------------------------------------------------------------------
        Scroll Reveal Animations (Intersection Observer)
