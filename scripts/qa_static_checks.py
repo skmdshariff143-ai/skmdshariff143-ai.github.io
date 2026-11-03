@@ -452,6 +452,44 @@ def main():
     check("no tracked deployable file name matches college roll-number pattern",
           len(roll_filename_leaks) == 0, f"leaks={roll_filename_leaks}")
 
+    print("\n== 18. llms.txt Integrity & Project Synchronization ==")
+    llms_path = os.path.join(ROOT, "llms.txt")
+    check("llms.txt exists", os.path.exists(llms_path))
+    if os.path.exists(llms_path):
+        with open(llms_path, encoding="utf-8") as fh:
+            llms_content = fh.read()
+
+        with open(os.path.join(ROOT, "data", "projects.json"), encoding="utf-8") as fh:
+            projects_data = json.load(fh)
+
+        project_titles = {p["title"].lower(): p for p in projects_data}
+        valid_githubs = {p["github"] for p in projects_data if p.get("github")}
+        valid_demos = {p["liveDemo"] for p in projects_data if p.get("liveDemo")}
+
+        llms_headers = re.findall(r'^###\s+\d+\.\s+([^\n]+)', llms_content, re.MULTILINE)
+        unmatched_projects = []
+        for hdr in llms_headers:
+            clean_hdr = hdr.strip().lower()
+            match = any(
+                clean_hdr in ptitle or ptitle in clean_hdr
+                for ptitle in project_titles
+            )
+            if not match:
+                unmatched_projects.append(hdr.strip())
+        check("all projects in llms.txt match projects.json",
+              len(unmatched_projects) == 0, f"unmatched={unmatched_projects}")
+
+        llms_repos = re.findall(r'https://github\.com/skmdshariff143-ai/[a-zA-Z0-9_\-]+', llms_content)
+        unmatched_repos = [r for r in llms_repos if r not in valid_githubs]
+        check("all project repo URLs in llms.txt exist in projects.json",
+              len(unmatched_repos) == 0, f"unmatched_repos={unmatched_repos}")
+
+        llms_demos = re.findall(r'https://[a-zA-Z0-9_\-]+\.vercel\.app', llms_content)
+        llms_project_demos = [d for d in llms_demos if d != "https://mahammadshariff.vercel.app"]
+        unmatched_demos = [d for d in llms_project_demos if d not in valid_demos]
+        check("all liveDemo URLs in llms.txt exist in projects.json",
+              len(unmatched_demos) == 0, f"unmatched_demos={unmatched_demos}")
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:
