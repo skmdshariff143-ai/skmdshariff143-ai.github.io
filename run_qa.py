@@ -1,12 +1,14 @@
 import sys
+import os
 import time
 import subprocess
 import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 print("Starting HTTP Server on port 8000...")
-server_proc = subprocess.Popen([sys.executable, "-m", "http.server", "8000"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+server_proc = subprocess.Popen([sys.executable, "-m", "http.server", "8000", "--directory", ROOT_DIR], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 time.sleep(2)
 
 viewports = [
