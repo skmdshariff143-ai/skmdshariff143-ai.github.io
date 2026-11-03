@@ -33,7 +33,7 @@ Shaik Mahammad Shariff is an undergraduate engineer specializing in artificial i
 - **Problem**: Multi-agent autonomous workflows frequently experience catastrophic state loss, uncontrolled loops, and tool-call crashes without structured checkpoint recovery.
 - **Solution & Architecture**: Engineered a deterministic checkpoint state recovery engine with sandboxed tool execution pipelines and real-time execution trace telemetry.
 - **Repository**: https://github.com/skmdshariff143-ai/recoverflow-ai
-- **Live Demo**: https://recoverflow-ai.vercel.app
+- **Live Demo**: https://recoverflow-ai-kohl.vercel.app
 
 ### 2. NeuroLearn AI — Multi-Provider Pedagogical Learning Platform
 - **Domain**: Pedagogical Curriculum Generation & Diagnostic Multi-LLM Router
@@ -50,18 +50,24 @@ Shaik Mahammad Shariff is an undergraduate engineer specializing in artificial i
 - **Problem**: Resolving identity across 1.7M+ noisy merchant records with partial attributes, name typos, and extreme class imbalance without heavy pretrained embeddings.
 - **Solution & Architecture**: Developed a token-frequency inverted index candidate generator (207M+ candidate links) coupled with a 19-feature hard-negative LightGBM classifier.
 - **Demonstrated Result**: 0.8879 Macro F0.5 (0.9563 Precision) on local 5,000-anchor calibration holdout; 39 automated unit and streaming validation tests passing.
-- **Repository**: https://github.com/skmdshariff143-ai/amazon-ml-2026-entity-resolution
 
 ### 4. CreditGuard AI — Credit Card Approval Risk Prediction
 - **Domain**: Machine Learning Credit Delinquency Prediction & MLOps
 - **Stack**: Python, Scikit-Learn, XGBoost, Flask, Docker, GitHub Actions CI/CD
 - **Problem**: High credit delinquency default rates caused by inaccurate credit risk scoring and severe data imbalance.
 - **Solution & Architecture**: Developed custom data preprocessing pipelines with SMOTE oversampling and an XGBoost classification engine with interactive Flask dashboard.
-- **Demonstrated Result**: 66.67% delinquency recall on imbalanced credit applicant test sets with automated CI/CD pipeline.
+- **Demonstrated Result**: 0.7865 ROC-AUC; 24.39% standard threshold recall and 35.77% cost-weighted recall (threshold tuned on holdout split).
 - **Repository**: https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction
 - **Live Demo**: https://creditguard-ai.vercel.app
 
-### 5. FarmaLink-AI — Direct Agricultural Marketplace SaaS
+### 5. ResumeScore — AI Resume Quality & ATS Match Engine
+- **Domain**: Natural Language Processing & Automated Resume Evaluation
+- **Stack**: TypeScript, Next.js, Tailwind CSS, Groq API, PDF Parsing
+- **Problem**: Inefficient manual resume screening and opaque ATS compatibility scoring.
+- **Solution & Architecture**: Developed client-first deterministic parsing and multi-dimension criteria scoring with zero server-side credential retention.
+- **Repository**: https://github.com/skmdshariff143-ai/resumescore
+
+### 6. FarmaLink-AI — Direct Agricultural Marketplace SaaS
 - **Domain**: Full-Stack Agricultural Marketplace & Escrow Transactions
 - **Stack**: Next.js 15, React 19, TypeScript, Prisma, Supabase, Vercel
 - **Problem**: Agricultural supply chain exploitation by intermediaries, opaque pricing, and lack of crop disease diagnostics.
@@ -94,7 +100,7 @@ Shaik Mahammad Shariff is an undergraduate engineer specializing in artificial i
 ---
 
 ## Contact Information
-- Email: [OWNER: contact email]
+- Contact: Direct form at https://mahammadshariff.vercel.app/#contact-form (Subject: "Privacy request")
 - Portfolio Website: https://mahammadshariff.vercel.app/
 - LinkedIn: https://linkedin.com/in/mahammad-shariff-shaik-32903934a
 - GitHub: https://github.com/skmdshariff143-ai

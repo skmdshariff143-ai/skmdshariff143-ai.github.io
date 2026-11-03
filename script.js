@@ -892,16 +892,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.removeChild(a);
             showToast('Downloading official résumé PDF...');
         }},
-        { id: 'act-copy-email', title: 'Copy Verified Email Address', group: 'Quick Actions', icon: 'fas fa-copy', shortcut: 'Copy', action: () => {
-            const email = '[OWNER: contact email]';
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(email).then(() => {
-                    showToast('Copied ' + email + ' to clipboard!');
-                }).catch(() => {
-                    showToast('Email: ' + email);
-                });
-            } else {
-                showToast('Email: ' + email);
+        { id: 'act-copy-email', title: 'Contact via Form / Inquiries', group: 'Quick Actions', icon: 'fas fa-envelope', shortcut: 'Contact', action: () => {
+            const contactSection = document.getElementById('contact-form') || document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+                showToast('Navigating to contact form...');
             }
         }},
         { id: 'act-toggle-motion', title: 'Toggle Motion & Visual Effects', group: 'Quick Actions', icon: 'fas fa-magic', shortcut: 'Toggle', action: () => {
