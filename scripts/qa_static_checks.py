@@ -311,8 +311,24 @@ def main():
               "formspree.io" in priv_html.lower() or "formspree" in priv_html.lower())
         check("privacy.html discloses Vercel edge access logs",
               "vercel" in priv_html.lower())
-        check("privacy.html discloses functional localStorage keys",
-              "portfolio-theme" in priv_html and "portfolio-motion-preference" in priv_html)
+        # Dynamic static scan: extract all localStorage and sessionStorage keys from JS files
+        js_storage_keys = set()
+        for root_dir, _, filenames in os.walk(ROOT):
+            if any(p in root_dir for p in [".git", "node_modules", ".gemini", "qa-artifacts"]):
+                continue
+            for fn in filenames:
+                if fn.endswith(".js"):
+                    with open(os.path.join(root_dir, fn), encoding="utf-8", errors="ignore") as jf:
+                        jcontent = jf.read()
+                        matches = re.findall(r'(?:localStorage|sessionStorage)\.(?:getItem|setItem|removeItem)\s*\(\s*[\'"]([a-zA-Z0-9_\-]+)[\'"]', jcontent)
+                        for m in matches:
+                            js_storage_keys.add(m)
+
+        missing_keys = [k for k in sorted(js_storage_keys) if k not in priv_html]
+        check("privacy.html discloses all functional web storage keys used in JS",
+              len(missing_keys) == 0, f"missing={missing_keys}, detected={sorted(js_storage_keys)}")
+        check("privacy.html does not list fictitious keys (portfolio-theme, portfolio-motion-preference)",
+              "portfolio-theme" not in priv_html and "portfolio-motion-preference" not in priv_html)
         check("privacy.html names Vercel Hobby plan for runtime log retention",
               "Hobby" in priv_html)
         check("privacy.html spells Formspree plans accurately (Free, Personal, Professional, Business)",
@@ -408,8 +424,14 @@ def main():
           "Strict-Transport-Security" not in root_headers)
     check("Permissions-Policy restricts sensitive device APIs",
           "Permissions-Policy" in root_headers and "camera=()" in root_headers["Permissions-Policy"])
-    check("Content-Security-Policy-Report-Only declared in report-only mode",
-          "Content-Security-Policy-Report-Only" in root_headers and "formspree.io" in root_headers["Content-Security-Policy-Report-Only"])
+    csp_header = root_headers.get("Content-Security-Policy") or root_headers.get("Content-Security-Policy-Report-Only")
+    check("CSP header declared (accepts Content-Security-Policy or Content-Security-Policy-Report-Only)",
+          csp_header is not None and "formspree.io" in csp_header)
+    if csp_header:
+        script_src_match = re.search(r"script-src\s+([^;]+)", csp_header)
+        if script_src_match:
+            check("script-src does not include unused cdnjs",
+                  "cdnjs.cloudflare.com" not in script_src_match.group(1))
 
     print("\n== 17. College Roll Number & PII Privacy Leak Guard ==")
     # Match roll number inside any string without word boundaries

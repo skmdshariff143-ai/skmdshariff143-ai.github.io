@@ -749,7 +749,7 @@ document.addEventListener('DOMContentLoaded', () => {
        ------------------------------------------------------------------ */
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
-    let lastSubmitTime = 0;
+    let isSubmitting = false;
     const SUBMIT_COOLDOWN_MS = 30000;
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
@@ -757,13 +757,21 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
+            // In-flight concurrency lock
+            if (isSubmitting) return;
+
+            // Cosmetic client-side cooldown check
+            const storedLast = sessionStorage.getItem('portfolio_last_submit_time');
+            const lastTime = storedLast ? parseInt(storedLast, 10) : 0;
             const now = Date.now();
-            if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
-                const remaining = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastSubmitTime)) / 1000);
+            if (now - lastTime < SUBMIT_COOLDOWN_MS) {
+                const remaining = Math.ceil((SUBMIT_COOLDOWN_MS - (now - lastTime)) / 1000);
                 if (formStatus) {
                     formStatus.style.display = 'block';
                     formStatus.style.color = '#ff9800';
                     formStatus.innerHTML = `<i class="fas fa-clock"></i> Please wait ${remaining}s before sending another message.`;
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
                 }
                 return;
             }
@@ -774,13 +782,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const gotcha = data.get('_gotcha');
             if (gotcha && gotcha.trim().length > 0) {
                 contactForm.reset();
-                contactForm.innerHTML = `
-                    <div class="form-success-message">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Message Sent!</h3>
-                        <p>Thanks! Your message has been sent — I'll get back to you soon.</p>
-                    </div>
-                `;
+                if (formStatus) {
+                    formStatus.style.display = 'block';
+                    formStatus.style.color = '#10b981';
+                    formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Thanks! Your message has been sent — I will get back to you soon.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
+                }
                 return;
             }
 
@@ -794,6 +802,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     formStatus.style.display = 'block';
                     formStatus.style.color = '#ff1744';
                     formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Name must be between 2 and 100 characters.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
                 }
                 return;
             }
@@ -803,6 +813,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     formStatus.style.display = 'block';
                     formStatus.style.color = '#ff1744';
                     formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email address.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
                 }
                 return;
             }
@@ -812,8 +824,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     formStatus.style.display = 'block';
                     formStatus.style.color = '#ff1744';
                     formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Message must be between 10 and 5000 characters.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
                 }
                 return;
+            }
+
+            // Lock submission and set trimmed values
+            isSubmitting = true;
+            data.set('name', nameVal);
+            data.set('email', emailVal);
+            data.set('message', msgVal);
+
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.setAttribute('aria-busy', 'true');
             }
 
             // Show sending status
@@ -833,26 +859,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    lastSubmitTime = Date.now();
+                    sessionStorage.setItem('portfolio_last_submit_time', String(Date.now()));
                     contactForm.reset();
-                    contactForm.innerHTML = `
-                        <div class="form-success-message">
-                            <i class="fas fa-check-circle"></i>
-                            <h3>Message Sent!</h3>
-                            <p>Thanks! Your message has been sent — I'll get back to you soon.</p>
-                        </div>
-                    `;
+                    if (formStatus) {
+                        formStatus.style.display = 'block';
+                        formStatus.style.color = '#10b981';
+                        formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Thanks! Your message has been sent — I will get back to you soon.';
+                        formStatus.setAttribute('tabindex', '-1');
+                        formStatus.focus();
+                    }
                 } else {
                     if (formStatus) {
-                        formStatus.style.color = '#ff1744'; // error red
+                        formStatus.style.display = 'block';
+                        formStatus.style.color = '#ff1744';
                         formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! Something went wrong. Please try reaching out via LinkedIn instead.';
+                        formStatus.setAttribute('tabindex', '-1');
+                        formStatus.focus();
                     }
                 }
             } catch (error) {
                 if (formStatus) {
+                    formStatus.style.display = 'block';
                     formStatus.style.color = '#ff1744';
                     formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Connection error. Please try reaching out via LinkedIn instead.';
+                    formStatus.setAttribute('tabindex', '-1');
+                    formStatus.focus();
                 }
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.removeAttribute('aria-busy');
+                }
+                isSubmitting = false;
             }
         });
     }

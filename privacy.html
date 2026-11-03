@@ -190,10 +190,10 @@
                         <td>Google Fonts (Google LLC) & cdnjs (Cloudflare Inc.)</td>
                     </tr>
                     <tr>
-                        <td><strong>UI State (Local Only)</strong></td>
-                        <td>Theme selection (<code>portfolio-theme</code>), motion toggle (<code>portfolio-motion-preference</code>)</td>
-                        <td>Preserving dark/light and reduced motion preferences locally on your browser.</td>
-                        <td>Client-side <code>localStorage</code> (device-only; never transmitted)</td>
+                        <td><strong>UI State & Form Safeguards (Client-Side Only)</strong></td>
+                        <td>Display preferences (<code>portfolio_reduced_motion</code>), form submission cooldown (<code>portfolio_last_submit_time</code>)</td>
+                        <td>Persisting reduced motion preferences across visits; preventing accidental duplicate form submissions via a cosmetic client-side cooldown.</td>
+                        <td>Client-side <code>localStorage</code> and <code>sessionStorage</code> (device-only; never transmitted)</td>
                     </tr>
                 </tbody>
             </table>
@@ -213,10 +213,10 @@
         <section class="privacy-section">
             <h2>4. Cookie & Local Storage Disclosure</h2>
             <p><strong>This site sets no cookies.</strong> No HTTP cookies (session, persistent, or third-party) are placed on your browser by this origin.</p>
-            <p>The site uses browser <code>localStorage</code> purely to remember client-side display preferences:</p>
+            <p>The site uses browser client-side web storage exclusively for device-local functional behavior:</p>
             <ul>
-                <li><code>portfolio-theme</code>: remembers light or dark theme toggle.</li>
-                <li><code>portfolio-motion-preference</code>: remembers whether Three.js 3D canvas animation is enabled or reduced.</li>
+                <li><code>localStorage</code> key <code>portfolio_reduced_motion</code>: stores boolean preference (<code>'true'</code> or <code>'false'</code>) when toggling motion settings, persisting whether Three.js 3D animations are enabled or reduced across visits.</li>
+                <li><code>sessionStorage</code> key <code>portfolio_last_submit_time</code>: stores the unix epoch millisecond timestamp of your latest message submission during the active session. This powers a cosmetic 30-second client-side cooldown timer to prevent accidental double-clicks. This control is cosmetic, operates strictly on your client device, and does not replace server-side spam or rate-limiting safeguards.</li>
             </ul>
             <p>These values reside purely on your device, are never transmitted to external servers, and can be cleared at any time via your browser settings.</p>
         </section>
