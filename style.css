@@ -1862,40 +1862,6 @@ img {
     line-height: 1.6;
 }
 
-.lang-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.75rem;
-}
-
-.lang-card {
-    text-align: center;
-    background: var(--bg-card);
-    padding: 2.25rem 1.5rem;
-    border-radius: var(--border-radius);
-    border: var(--border-subtle);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    transition: var(--transition-norm);
-}
-
-.lang-card:hover {
-    border-color: var(--accent-teal);
-    transform: translateY(-4px);
-    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 229, 255, 0.1);
-}
-
-.lang-card h3 {
-    font-size: 1.45rem;
-    margin-bottom: 0.5rem;
-}
-
-.lang-card p {
-    color: var(--accent-teal);
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
 /* --------------------------------------------------------------------------
    Contact Section & Direct Outreach
    -------------------------------------------------------------------------- */
@@ -2011,33 +1977,6 @@ img {
     font-size: 0.9rem;
     font-weight: 500;
     display: none;
-}
-
-.form-success-message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2.5rem 1rem;
-}
-
-.form-success-message i {
-    font-size: 3.5rem;
-    color: #10b981;
-    margin-bottom: 1.25rem;
-    filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4));
-}
-
-.form-success-message h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.65rem;
-    color: #ffffff;
-}
-
-.form-success-message p {
-    color: var(--text-secondary);
-    line-height: 1.6;
 }
 
 /* --------------------------------------------------------------------------
