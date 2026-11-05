@@ -29,6 +29,12 @@ test("ShaRecon explains why its stress cases no longer count as held out", async
   await expect(page.locator("main")).toContainText("Write a new, untouched stress set");
 });
 
+test("sentences keep their spaces", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".outcome")).toContainText("Reconciled. All three");
+  await expect(page.locator(".more")).toContainText("Also built: NeuroLearn AI");
+});
+
 test("hero shows the degree, college and CGPA", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator(".lede")).toContainText("B.Tech ECE student at VVIT, CGPA 8.21");
