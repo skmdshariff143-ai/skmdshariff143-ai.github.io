@@ -1,14 +1,167 @@
 ---
-import { getProfile } from "../lib/content";
+import Certificates from "../components/Certificates.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Ledger from "../components/Ledger.astro";
+import ResponsiveImage from "../components/ResponsiveImage.astro";
+import SettlementControl from "../components/SettlementControl.astro";
+import WorkLinks from "../components/WorkLinks.astro";
+import Base from "../layouts/Base.astro";
+import { getProfile, getProjects } from "../lib/content";
 
 const profile = getProfile();
+const [recoverflow, sharecon, resumescore] = getProjects("flagship");
+const research = getProjects("research");
+const mentions = getProjects("mention");
+if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship projects are required.");
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{profile.name}</title>
-  </head>
-  <body><h1>{profile.name} {profile.headline}</h1></body>
-</html>
+<Base
+  title={`${profile.name} | Builds AI products`}
+  description="Final-year engineering student building AI products for payment operations, with every result and limit stated."
+  preloadImage="/images/work-sharecon-1440.webp"
+>
+  <section class="hero" id="top">
+    <h1><span>{profile.name}</span> <span>{profile.headline}</span></h1>
+    <div class="hero-copy">
+      <p class="lede">{profile.lede}</p>
+      <div class="actions">
+        <a class="button" href="#work">See the work</a>
+        <a class="button quiet" href="/assets/resume.pdf" download="Shaik_Mahammad_Shariff_Resume.pdf">Download resume</a>
+      </div>
+    </div>
+    <figure class="hero-picture">
+      <ResponsiveImage
+        name="work-sharecon"
+        width={1440}
+        height={830}
+        sizes="(max-width: 960px) 100vw, 66vw"
+        eager
+        alt="ShaRecon AI control center showing processed volume, auto-reconciled records and the review queue"
+      />
+      <figcaption>ShaRecon AI, reconciling 180 synthetic payment records.</figcaption>
+    </figure>
+    <dl class="proof">
+      {profile.proof.map((item) => (
+        <div>
+          <dt>{item.figure}</dt>
+          <dd>{item.text}{item.href && <> <a href={item.href}>{item.linkText}</a></>}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="work" id="work">
+    <h2>Three products and their limits</h2>
+    <p class="section-lede">Reconciliation means three records must agree. Each project here gets the same test: what I built, how it was checked, and what it does not do.</p>
+
+    <article class="project lead-project" id={recoverflow.slug}>
+      <figure class="wide-picture">
+        <ResponsiveImage
+          name="work-recoverflow"
+          width={1440}
+          height={690}
+          sizes="100vw"
+          alt="RecoverFlow AI evaluation dashboard with revenue at risk, simulated recovery and predicted versus actual rates"
+        />
+      </figure>
+      <div class="project-heading">
+        <h3>{recoverflow.title}</h3>
+        <p>{recoverflow.summary}</p>
+        <WorkLinks project={recoverflow} />
+      </div>
+      <Ledger project={recoverflow} />
+    </article>
+
+    <article class="project split-project" id={sharecon.slug}>
+      <div class="project-heading">
+        <h3>{sharecon.title}</h3>
+        <p>{sharecon.summary}</p>
+        <WorkLinks project={sharecon} />
+        <Ledger project={sharecon} stacked />
+      </div>
+      <SettlementControl />
+    </article>
+
+    <article class="project reverse-project" id={resumescore.slug}>
+      <figure>
+        <ResponsiveImage
+          name="work-resumescore"
+          width={1440}
+          height={690}
+          sizes="(max-width: 960px) 100vw, 58vw"
+          alt="ResumeScore home page with a fictional sample showing resume quality and job match scores"
+        />
+      </figure>
+      <div class="project-heading">
+        <h3>{resumescore.title}</h3>
+        <p>{resumescore.summary}</p>
+        <WorkLinks project={resumescore} />
+        <p><b>Built:</b> {resumescore.built}</p>
+        <p><b>Limit:</b> {resumescore.limits}</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="depth" id="depth">
+    <h2>Models and research</h2>
+    <div class="depth-grid">
+      <table>
+        <caption>Results with their test conditions</caption>
+        <thead><tr><th scope="col">Project</th><th scope="col">Result</th><th scope="col">Condition and limit</th></tr></thead>
+        <tbody>
+          {research.map((project) => (
+            <tr>
+              <th scope="row">{project.demo ? <a href={project.demo}>{project.title}</a> : project.title}</th>
+              <td>{project.checked}</td>
+              <td>{project.limits}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <figure>
+        <ResponsiveImage
+          name="work-lfmt"
+          width={1440}
+          height={645}
+          sizes="(max-width: 960px) 100vw, 40vw"
+          alt="LFMT slag detection research portal"
+        />
+        <figcaption>The LFMT research portal, combining my ECE signal-processing work with software.</figcaption>
+      </figure>
+    </div>
+    <p class="more">
+      Also built:
+      {mentions.map((project, index) => (
+        <>
+          <a href={project.demo ?? project.code}>{project.title}</a>, {project.summary}{index === mentions.length - 1 ? "." : ", and "}
+        </>
+      ))}
+    </p>
+  </section>
+
+  <section class="about" id="about">
+    <h2>About</h2>
+    <div class="about-grid">
+      <img class="portrait" src="/assets/profile-photo.jpg" width="280" height="280" loading="lazy" alt={profile.name} />
+      <div class="about-text">
+        <p class="statement">{profile.statement}</p>
+        <h3>Internships</h3>
+        <ul>
+          {profile.internships.map((internship) => (
+            <li><b>{internship.role}.</b> {internship.dates}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="about-side">
+        <h3>Tools I have shipped with</h3>
+        <p>{profile.tools}</p>
+        <h3>Credentials</h3>
+        <p>AWS Certified Cloud Practitioner, GitHub Foundations, Palo Alto Networks Cybersecurity Fundamentals, Google Cloud Skills Boost.</p>
+        <h3>Beyond code</h3>
+        <p>{profile.leadership}</p>
+      </div>
+      <Certificates />
+    </div>
+  </section>
+
+  <ContactForm />
+</Base>

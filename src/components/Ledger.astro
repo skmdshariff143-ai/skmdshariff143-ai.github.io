@@ -1,0 +1,15 @@
+---
+import type { Project } from "../lib/content";
+
+interface Props {
+  project: Project;
+  stacked?: boolean;
+}
+
+const { project, stacked = false } = Astro.props;
+---
+<div class:list={["ledger", { stacked }]}>
+  <div><h4>What I built</h4><p>{project.built}</p></div>
+  <div><h4>How it was checked</h4><p>{project.checked}</p></div>
+  <div><h4>What it does not do</h4><p>{project.limits}</p></div>
+</div>
