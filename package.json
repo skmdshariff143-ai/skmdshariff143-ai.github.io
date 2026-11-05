@@ -1,0 +1,26 @@
+{
+  "name": "shariff-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --port 4321",
+    "check": "astro check",
+    "test": "playwright test",
+    "test:content": "playwright test tests/content.test.ts"
+  },
+  "dependencies": {
+    "astro": "^7.4.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@lhci/cli": "^0.16.0",
+    "@playwright/test": "^1.64.1",
+    "typescript": "^6.0.3"
+  }
+}

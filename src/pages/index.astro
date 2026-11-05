@@ -1,0 +1,14 @@
+---
+import { getProfile } from "../lib/content";
+
+const profile = getProfile();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{profile.name}</title>
+  </head>
+  <body><h1>{profile.name} {profile.headline}</h1></body>
+</html>

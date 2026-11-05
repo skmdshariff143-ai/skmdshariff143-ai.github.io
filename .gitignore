@@ -38,3 +38,11 @@ GEMINI.md
 .agents/
 graphify-out/
 
+
+# Astro build
+node_modules/
+dist/
+.astro/
+test-results/
+playwright-report/
+.lighthouseci/
