@@ -35,16 +35,16 @@
   "leadership": "NSS Student Coordinator for 20+ events and 100+ volunteers. Represented Andhra Pradesh at the National Integration Camp, Bihar.",
   "proof": [
     {
-      "figure": "97.1%",
-      "text": "link precision on 80 held-out stress cases,",
-      "linkText": "ShaRecon AI",
-      "href": "#sharecon-ai"
+      "figure": "2",
+      "text": "products built for the Razorpay AI Buildathon,",
+      "linkText": "RecoverFlow AI and ShaRecon AI",
+      "href": "#work"
     },
     {
-      "figure": "465",
-      "text": "unit and application tests in the release record,",
-      "linkText": "RecoverFlow AI",
-      "href": "#recoverflow-ai"
+      "figure": "97.1%",
+      "text": "link precision on 80 hand-written stress cases,",
+      "linkText": "ShaRecon AI",
+      "href": "#sharecon-ai"
     },
     {
       "figure": "AWS",
@@ -54,5 +54,6 @@
   "pitch": "I ship payment and finance tools where AI can advise, but rules decide.",
   "goal": "I am looking for AI product and software engineering roles.",
   "languages": "English (Professional), Telugu (Native), Urdu (Native), Hindi (Professional).",
-  "codechefSummary": "CodeChef 2-star, rating 1455, 901 problems solved."
+  "codechefSummary": "CodeChef 2-star, rating 1455, 901 problems solved.",
+  "education": "Final-year B.Tech ECE student at VVIT, CGPA 8.21"
 }

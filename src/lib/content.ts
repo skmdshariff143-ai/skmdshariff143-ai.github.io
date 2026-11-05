@@ -23,6 +23,7 @@ const profileSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
   headline: z.string().min(1),
+  education: z.string().min(1),
   pitch: z.string().min(1),
   goal: z.string().min(1),
   languages: z.string().min(1),
@@ -104,7 +105,7 @@ export function getProjects(level: ProjectLevel): Project[] {
 }
 
 export function getLede(): string {
-  return `Final-year engineering student, graduating ${profile.graduation}. ${profile.pitch}`;
+  return `${profile.education}, graduating ${profile.graduation}. ${profile.pitch}`;
 }
 
 export function getFeaturedCertificates(): Certificate[] {

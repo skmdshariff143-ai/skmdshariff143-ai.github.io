@@ -16,8 +16,8 @@ test("every flagship states what was built, how it was checked and its limits", 
 
 test("RecoverFlow uses the release-record test counts", () => {
   const recoverflow = getProjects("flagship").find((project) => project.slug === "recoverflow-ai");
-  expect(recoverflow?.checked).toContain("465 unit and application tests");
-  expect(recoverflow?.checked).toContain("73 browser tests");
+  expect(recoverflow?.checked).toContain("601 unit and application tests");
+  expect(recoverflow?.checked).toContain("82 browser tests");
 });
 
 test("profile holds the confirmed facts and no private contact details", () => {
