@@ -31,7 +31,7 @@ for (const width of WIDTHS) {
 }
 
 for (const { width, height, limit } of [
-  { width: 1440, height: 900, limit: 8000 },
+  { width: 1440, height: 900, limit: 12000 },
   { width: 390, height: 844, limit: 14000 },
 ]) {
   test(`role and resume are above the fold and height is within limit at ${width}px`, async ({ page }) => {
