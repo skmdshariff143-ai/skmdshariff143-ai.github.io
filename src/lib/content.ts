@@ -26,6 +26,7 @@ const profileSchema = z.object({
   education: z.string().min(1),
   pitch: z.string().min(1),
   aiNote: z.string().min(1),
+  ticker: z.array(z.string().min(1)).min(3),
   goal: z.string().min(1),
   languages: z.string().min(1),
   codechefSummary: z.string().min(1),

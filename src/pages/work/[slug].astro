@@ -9,6 +9,12 @@ export function getStaticPaths() {
   return getProjects("flagship").map((project) => ({ params: { slug: project.slug }, props: { project } }));
 }
 
+const FIELD_BY_SLUG: Record<string, string> = {
+  "recoverflow-ai": "field-forest",
+  "sharecon-ai": "field-cobalt",
+  resumescore: "field-bone",
+};
+
 const { project } = Astro.props;
 const study = getCaseStudy(project.slug);
 const flagships = getProjects("flagship");
@@ -19,7 +25,7 @@ const nextProject = flagships[(flagships.findIndex((item) => item.slug === proje
   description={project.summary}
   preloadImage={study.image.name}
 >
-  <article class="case">
+  <article class:list={["case", FIELD_BY_SLUG[project.slug]]}>
     <h1>{project.title}</h1>
     <p class="case-summary">{project.summary}</p>
     <WorkLinks project={project} showCaseStudy={false} />

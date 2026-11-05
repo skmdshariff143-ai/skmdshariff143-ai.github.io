@@ -15,8 +15,8 @@
     "test:content": "playwright test tests/content.test.ts"
   },
   "dependencies": {
-    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
     "@fontsource/instrument-sans": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
     "astro": "^7.4.5"
   },
   "devDependencies": {
