@@ -4,6 +4,8 @@ import { getProfile } from "../lib/content";
 const profile = getProfile();
 ---
 <footer>
-  <p class="footer-name">{profile.name}</p>
-  <p class="footer-note">{profile.location}. <a href="/privacy/">Privacy policy</a>.</p>
+  <div class="footer-inner">
+    <p class="footer-name">{profile.name}</p>
+    <p>{profile.location}. <a href="/privacy/">Privacy policy</a>.</p>
+  </div>
 </footer>

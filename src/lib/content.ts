@@ -17,16 +17,22 @@ const projectSchema = z.object({
   demo: httpsUrl.optional(),
   code: httpsUrl.optional(),
   video: httpsUrl.optional(),
+  value: z.string().min(1).optional(),
+  outcomes: z.array(z.string().min(1)).min(2).max(3).optional(),
+  role: z.string().min(1).optional(),
+  stack: z.string().min(1).optional(),
+  limitNote: z.string().min(1).optional(),
 });
 
 const profileSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
-  headline: z.string().min(1),
+  targetRole: z.string().min(1),
+  positioning: z.string().min(1),
+  availability: z.string().min(1),
   education: z.string().min(1),
   pitch: z.string().min(1),
   aiNote: z.string().min(1),
-  ticker: z.array(z.string().min(1)).min(3),
   goal: z.string().min(1),
   languages: z.string().min(1),
   codechefSummary: z.string().min(1),
@@ -38,7 +44,16 @@ const profileSchema = z.object({
   github: httpsUrl,
   codechef: httpsUrl,
   formEndpoint: httpsUrl,
-  internships: z.array(z.object({ role: z.string().min(1), dates: z.string(), proof: z.string().optional() })).min(1),
+  internships: z
+    .array(
+      z.object({
+        role: z.string().min(1),
+        organisation: z.string().min(1),
+        dates: z.string().min(1),
+        proof: z.string().optional(),
+      }),
+    )
+    .min(1),
   tools: z.string().min(1),
   leadership: z.string().min(1),
   proof: z
@@ -50,7 +65,8 @@ const profileSchema = z.object({
         href: z.string().optional(),
       }),
     )
-    .length(3),
+    .min(3)
+    .max(4),
 });
 
 const certificateSchema = z.object({

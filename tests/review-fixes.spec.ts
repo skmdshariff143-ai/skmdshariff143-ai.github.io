@@ -36,7 +36,7 @@ test("outcome label meets AA contrast", async ({ page }) => {
 test("printing shows content that has not been scrolled to", async ({ page }) => {
   await page.goto("/");
   await page.emulateMedia({ media: "print" });
-  await expect(page.locator("#about h2")).toHaveCSS("opacity", "1");
+  await expect(page.locator("#about .reveal").first()).toHaveCSS("opacity", "1");
 });
 
 test("a failed send offers a working LinkedIn link in the message", async ({ page }) => {

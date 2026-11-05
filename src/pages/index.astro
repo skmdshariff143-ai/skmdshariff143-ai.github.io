@@ -1,167 +1,205 @@
 ---
 import Certificates from "../components/Certificates.astro";
 import ContactForm from "../components/ContactForm.astro";
-import Ledger from "../components/Ledger.astro";
-import ProjectStage from "../components/ProjectStage.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 import ResponsiveImage from "../components/ResponsiveImage.astro";
 import SettlementControl from "../components/SettlementControl.astro";
 import Base from "../layouts/Base.astro";
 import { getFeaturedCertificates, getLede, getProfile, getProjects } from "../lib/content";
+
+const RESUME_PATH = "/assets/resume.pdf";
+const RESUME_FILE_NAME = "Shaik_Mahammad_Shariff_Resume.pdf";
 
 const profile = getProfile();
 const [recoverflow, sharecon, resumescore] = getProjects("flagship");
 const research = getProjects("research");
 const mentions = getProjects("mention");
 if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship projects are required.");
-const tickerItems = profile.ticker.concat(profile.ticker);
 ---
 <Base
-  title={`${profile.name} | Builds AI products`}
-  description="Final-year engineering student building AI products for payment operations, with every result and limit stated."
+  title={`${profile.name} | ${profile.targetRole}`}
+  description="Final-year engineering student building AI products for payment and finance operations, with every result and limit stated."
 >
-  <canvas class="scene-canvas" data-scene="pending" aria-hidden="true"></canvas>
   <section class="hero" id="top">
-    <h1><span><i>{profile.name}</i></span> <span><i>{profile.headline}</i></span></h1>
-    <div class="hero-row">
+    <div class="wrap">
+      <p class="kicker">{profile.name}</p>
+      <h1><em>{profile.targetRole}</em> {profile.positioning}</h1>
       <p class="lede">{getLede()}</p>
+      <p class="availability">{profile.availability}</p>
       <div class="actions">
-        <a class="button" href="#work">See the work</a>
-        <a class="button quiet" href="/assets/resume.pdf" download="Shaik_Mahammad_Shariff_Resume.pdf">Download resume</a>
+        <a class="button" href={RESUME_PATH} download={RESUME_FILE_NAME}>Download resume</a>
+        <a class="button quiet" href="#work">View work</a>
       </div>
+      <p class="hero-links">
+        <a href="#contact">Contact</a>
+        <a href={profile.linkedin}>LinkedIn</a>
+        <a href={profile.github}>GitHub</a>
+      </p>
     </div>
   </section>
 
-  <div class="ticker" aria-hidden="true">
-    <div>{tickerItems.map((item) => <span>{item}</span>)}</div>
-  </div>
-
-  <dl class="proof">
-    {profile.proof.map((item) => (
-      <div>
-        <dt>{item.figure}</dt>
-        <dd>{item.text}{item.href && <> <a href={item.href}>{item.linkText}</a></>}</dd>
-      </div>
-    ))}
-  </dl>
-
-  <section id="work">
-    <div class="section-intro">
-      <h2>Three products and their limits</h2>
-      <p class="section-lede">Each project lists what I built, how it was checked, and what it does not do. {profile.aiNote}</p>
-    </div>
-
-    <ProjectStage
-      project={recoverflow}
-      image="work-recoverflow"
-      imageWidth={1440}
-      imageHeight={690}
-      color="#0d3a2c"
-      field="stage-forest"
-      imageAlt="RecoverFlow AI evaluation dashboard with revenue at risk, simulated recovery and predicted versus actual rates"
-    />
-    <div class="project-detail field-forest"><Ledger project={recoverflow} /></div>
-
-    <ProjectStage
-      project={sharecon}
-      image="work-sharecon"
-      imageWidth={1440}
-      imageHeight={830}
-      color="#1433c7"
-      field="stage-cobalt"
-      imageAlt="ShaRecon AI control center showing processed volume, auto-reconciled records and the review queue"
-    />
-    <div class="project-detail field-cobalt split-detail">
-      <SettlementControl />
-      <Ledger project={sharecon} />
-    </div>
-
-    <ProjectStage
-      project={resumescore}
-      image="work-resumescore"
-      imageWidth={1440}
-      imageHeight={690}
-      color="#3a1206"
-      field="stage-ember"
-      imageAlt="ResumeScore home page with a fictional sample showing resume quality and job match scores"
-    />
-    <div class="project-detail field-bone"><Ledger project={resumescore} /></div>
-  </section>
-
-  <section class="depth" id="depth">
-    <h2>Models and research</h2>
-    <div class="depth-grid">
-      <table>
-        <caption>Results with their test conditions</caption>
-        <thead><tr><th scope="col">Project</th><th scope="col">Result</th><th scope="col">Condition and limit</th></tr></thead>
-        <tbody>
-          {research.map((project) => (
-            <tr>
-              <th scope="row">{project.demo ? <a href={project.demo}>{project.title}</a> : project.title}</th>
-              <td>{project.checked}</td>
-              <td>{project.limits}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <figure>
-        <ResponsiveImage
-          name="work-lfmt"
-          width={1440}
-          height={645}
-          sizes="(max-width: 960px) 100vw, 33vw"
-          alt="LFMT slag detection research portal"
-        />
-        <figcaption>The LFMT research portal, combining my ECE signal-processing work with software.</figcaption>
-      </figure>
-    </div>
-    <p class="more">
-      Also built:{" "}
-      {mentions.map((project, index) => (
-        <>
-          <a href={project.demo ?? project.code}>{project.title}</a>, {project.summary}{index === mentions.length - 1 ? "." : ", and "}
-        </>
+  <section class="proof" aria-label="Highlights">
+    <dl class="proof-grid">
+      {profile.proof.map((item) => (
+        <div>
+          <dt>{item.figure}</dt>
+          <dd>{item.text}{item.href && <> <a href={item.href}>{item.linkText}</a></>}</dd>
+        </div>
       ))}
-    </p>
+    </dl>
   </section>
 
-  <section class="about" id="about">
-    <h2>About</h2>
-    <div class="about-grid">
-      <img class="portrait" src="/assets/profile-photo.jpg" width="280" height="280" loading="lazy" alt={profile.name} />
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Selected work</p>
+        <h2>Three products, and where each one stops</h2>
+        <p class="section-lede">Each project says who it helps, how it was checked and what it does not do. {profile.aiNote}</p>
+      </div>
+
+      <ProjectCard
+        project={recoverflow}
+        number="01"
+        image="work-recoverflow"
+        imageWidth={1440}
+        imageHeight={690}
+        imageAlt="RecoverFlow AI evaluation dashboard with revenue at risk, simulated recovery and predicted versus actual rates"
+      />
+      <ProjectCard
+        project={sharecon}
+        number="02"
+        image="work-sharecon"
+        imageWidth={1440}
+        imageHeight={830}
+        imageAlt="ShaRecon AI control center showing processed volume, auto-reconciled records and the review queue"
+      >
+        <SettlementControl />
+      </ProjectCard>
+      <ProjectCard
+        project={resumescore}
+        number="03"
+        image="work-resumescore"
+        imageWidth={1440}
+        imageHeight={690}
+        imageAlt="ResumeScore home page with a fictional sample showing resume quality and job match scores"
+      />
+    </div>
+  </section>
+
+  <section class="section" id="depth">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Research</p>
+        <h2>Models and research</h2>
+      </div>
+      <div class="depth-grid">
+        <table>
+          <caption>Results with their test conditions</caption>
+          <thead><tr><th scope="col">Project</th><th scope="col">Result</th><th scope="col">Condition and limit</th></tr></thead>
+          <tbody>
+            {research.map((project) => (
+              <tr>
+                <th scope="row">{project.demo ? <a href={project.demo}>{project.title}</a> : project.title}</th>
+                <td>{project.checked}</td>
+                <td>{project.limits}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <figure>
+          <div class="shot">
+            <ResponsiveImage
+              name="work-lfmt"
+              width={1440}
+              height={645}
+              sizes="(max-width: 960px) 100vw, 380px"
+              alt="LFMT slag detection research portal"
+            />
+          </div>
+          <figcaption>The LFMT research portal, combining my ECE signal-processing work with software.</figcaption>
+        </figure>
+      </div>
+      <p class="more">
+        Also built:{" "}
+        {mentions.map((project, index) => (
+          <>
+            <a href={project.demo ?? project.code}>{project.title}</a>, {project.summary}{index === mentions.length - 1 ? "." : ", and "}
+          </>
+        ))}
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Experience</p>
+        <h2>Internships</h2>
+      </div>
+      <ol class="timeline">
+        {profile.internships.map((internship) => (
+          <li>
+            <p class="when">{internship.dates}</p>
+            <h3>{internship.role}</h3>
+            <p>{internship.organisation}</p>
+            {internship.proof && <a href={`/${internship.proof}`}>View certificate</a>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="credentials">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Credentials</p>
+        <h2>Certifications</h2>
+      </div>
+      <ul class="credential-list">
+        {getFeaturedCertificates().map((certificate) => (
+          <li>
+            <div>
+              <b><a href={encodeURI(`/${certificate.certificateFile}`)}>{certificate.title}</a></b>
+              <br />
+              <span>{certificate.issuer}</span>
+            </div>
+            {certificate.verificationUrl && <a href={certificate.verificationUrl}>Verify with AWS</a>}
+          </li>
+        ))}
+      </ul>
+      <Certificates />
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <h2>About</h2>
+        <img class="portrait" src="/assets/profile-photo.jpg" width="280" height="280" loading="lazy" alt={profile.name} />
+      </div>
       <div>
         <p class="statement">I am studying for a B.Tech in Electronics and Communication Engineering at VVIT, Guntur, with a CGPA of {profile.cgpa} out of 10. {profile.goal}</p>
         <div class="about-columns">
           <div>
-            <h3>Internships</h3>
-            <ul>
-              {profile.internships.map((internship) => (
-                <li><b>{internship.role}.</b> {internship.dates} {internship.proof && <a href={`/${internship.proof}`}>View certificate</a>}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
             <h3>Tools I have shipped with</h3>
             <p>{profile.tools}</p>
+          </div>
+          <div>
             <h3>Languages</h3>
             <p>{profile.languages}</p>
           </div>
           <div>
-            <h3>Credentials</h3>
-            <ul>{getFeaturedCertificates().map((certificate) => <li><a href={encodeURI(`/${certificate.certificateFile}`)}>{certificate.title}</a>, {certificate.issuer}{certificate.verificationUrl && <>. <a href={certificate.verificationUrl}>Verify with AWS</a></>}</li>)}</ul>
+            <h3>Leadership</h3>
+            <p>{profile.leadership}</p>
+          </div>
+          <div>
             <h3>Beyond code</h3>
-            <p>{profile.leadership} <a href={profile.codechef}>{profile.codechefSummary}</a></p>
+            <p><a href={profile.codechef}>{profile.codechefSummary}</a></p>
           </div>
         </div>
       </div>
-      <Certificates />
     </div>
   </section>
 
   <ContactForm />
 </Base>
-
-<script>
-  import { initSceneWhenIdle } from "../scripts/scene-loader";
-
-  initSceneWhenIdle();
-</script>

@@ -46,3 +46,23 @@ test("every certificate has a title, issuer and existing category", () => {
     expect(certificate.issuer.length).toBeGreaterThan(0);
   }
 });
+
+test("every flagship has a value statement, outcome facts, role, stack and limit note", () => {
+  for (const project of getProjects("flagship")) {
+    expect(project.value?.length, project.slug).toBeGreaterThan(0);
+    expect(project.outcomes?.length, project.slug).toBeGreaterThanOrEqual(2);
+    expect(project.role?.length, project.slug).toBeGreaterThan(0);
+    expect(project.stack?.length, project.slug).toBeGreaterThan(0);
+    expect(project.limitNote?.length, project.slug).toBeGreaterThan(0);
+  }
+});
+
+test("the profile states a target role, positioning and availability, with no unfilled placeholders", () => {
+  const profile = getProfile();
+  expect(profile.targetRole).toBe("AI Product Engineer");
+  expect(profile.positioning.length).toBeGreaterThan(0);
+  expect(profile.availability).toContain("May 2027");
+  expect(JSON.stringify(profile)).not.toMatch(/PLACEHOLDER/);
+  expect(profile.proof.length).toBeGreaterThanOrEqual(3);
+  expect(profile.proof.length).toBeLessThanOrEqual(4);
+});

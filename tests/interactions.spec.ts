@@ -40,7 +40,7 @@ test("reduced motion shows content without reveal transitions", async ({ browser
 test("scrolled content appears", async ({ page }) => {
   await page.goto("/");
   await page.locator("#about h2").scrollIntoViewIfNeeded();
-  await expect(page.locator("#about h2")).toHaveCSS("opacity", "1");
+  await expect(page.locator("#about .reveal").first()).toHaveCSS("opacity", "1");
 });
 
 async function fillForm(page: import("@playwright/test").Page): Promise<void> {

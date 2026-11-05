@@ -2,25 +2,32 @@
 import Base from "../layouts/Base.astro";
 ---
 <Base title="Privacy policy | Shaik Mahammad Shariff" description="How this portfolio handles contact messages and server logs.">
-  <article class="case">
+  <article class="wrap legal">
+    <p class="kicker">Legal</p>
     <h1>Privacy policy</h1>
-    <p class="case-summary">This site sets no cookies and has no advertising or analytics trackers.</p>
-    <p>Effective 5 November 2026. This notice describes how the site works. It is not legal advice.</p>
+    <p class="legal-summary">This site sets no cookies and has no advertising or analytics trackers.</p>
+    <p class="note">Effective 5 November 2026. This notice describes how the site works. It is not legal advice.</p>
     <div class="case-body">
-      <h2>Contact messages</h2>
-      <div><p>When you use the contact form, your name, email address and message go to Formspree Inc. so I can reply. Sending a message is voluntary.</p></div>
-
-      <h2>Server logs</h2>
-      <div><p>Vercel Inc. hosts this site. Its network may process your IP address, requested address, browser details, referrer and time, for delivery and security.</p></div>
-
-      <h2>Your device</h2>
-      <div><p>After you send a message, the key <code>portfolio_last_submit_time</code> is stored in your browser's session storage to prevent accidental repeat sends. It stays on your device.</p></div>
-
-      <h2>External links</h2>
-      <div><p>Demos, GitHub, LinkedIn and CodeChef are separate services with their own policies.</p></div>
-
-      <h2>Your requests</h2>
-      <div><p>To ask for your message to be inspected, corrected or deleted, use the <a href="/#contact">contact form</a> and start your message with "Privacy request". I aim to respond within 30 days.</p></div>
+      <section class="case-section">
+        <h2>Contact messages</h2>
+        <div class="case-copy"><p>When you use the contact form, your name, email address and message go to Formspree Inc. so I can reply. Sending a message is voluntary.</p></div>
+      </section>
+      <section class="case-section">
+        <h2>Server logs</h2>
+        <div class="case-copy"><p>Vercel Inc. hosts this site. Its network may process your IP address, requested address, browser details, referrer and time, for delivery and security.</p></div>
+      </section>
+      <section class="case-section">
+        <h2>Your device</h2>
+        <div class="case-copy"><p>After you send a message, the key <code>portfolio_last_submit_time</code> is stored in your browser's session storage to prevent accidental repeat sends. It stays on your device.</p></div>
+      </section>
+      <section class="case-section">
+        <h2>External links</h2>
+        <div class="case-copy"><p>Demos, GitHub, LinkedIn and CodeChef are separate services with their own policies.</p></div>
+      </section>
+      <section class="case-section">
+        <h2>Your requests</h2>
+        <div class="case-copy"><p>To ask for your message to be inspected, corrected or deleted, use the <a href="/#contact">contact form</a> and start your message with "Privacy request". I aim to respond within 30 days.</p></div>
+      </section>
     </div>
   </article>
 </Base>

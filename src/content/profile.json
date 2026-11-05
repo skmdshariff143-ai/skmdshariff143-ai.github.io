@@ -1,7 +1,6 @@
 {
   "name": "Shaik Mahammad Shariff",
   "shortName": "Shariff",
-  "headline": "builds AI products.",
   "cgpa": "8.21",
   "graduation": "May 2027",
   "location": "Guntur, Andhra Pradesh, India",
@@ -12,22 +11,26 @@
   "formEndpoint": "https://formspree.io/f/mvzjyllq",
   "internships": [
     {
-      "role": "AI/ML Domain Intern, SkillWallet / SmartBridge",
-      "dates": "June to 31 July 2026."
+      "role": "AI/ML Domain Intern",
+      "organisation": "SkillWallet / SmartBridge",
+      "dates": "June to 31 July 2026"
     },
     {
-      "role": "Artificial Intelligence Intern, CodTech IT Solutions",
-      "dates": "22 June to 20 July 2026.",
+      "role": "Artificial Intelligence Intern",
+      "organisation": "CodTech IT Solutions",
+      "dates": "22 June to 20 July 2026",
       "proof": "assets/certificates/codtech-internship.pdf"
     },
     {
-      "role": "Prompt Engineering Intern, SkillCraft Technology",
-      "dates": "1 to 30 June 2026.",
+      "role": "Prompt Engineering Intern",
+      "organisation": "SkillCraft Technology",
+      "dates": "1 to 30 June 2026",
       "proof": "assets/certificates/skillcraft-internship.pdf"
     },
     {
-      "role": "Data Engineering Virtual Intern, EduSkills / AICTE, AWS Academy curriculum",
-      "dates": "July to September 2025.",
+      "role": "Data Engineering Virtual Intern",
+      "organisation": "EduSkills / AICTE, AWS Academy curriculum",
+      "dates": "July to September 2025",
       "proof": "assets/certificates/aws-data-engineering.pdf"
     }
   ],
@@ -36,19 +39,25 @@
   "proof": [
     {
       "figure": "2",
-      "text": "products built for the Razorpay AI Buildathon,",
+      "text": "products built for the Razorpay AI Buildathon.",
       "linkText": "RecoverFlow AI and ShaRecon AI",
       "href": "#work"
     },
     {
       "figure": "97.1%",
-      "text": "link precision on 80 hand-written stress cases,",
+      "text": "link precision on 80 hand-written stress cases.",
       "linkText": "ShaRecon AI",
       "href": "#sharecon-ai"
     },
     {
+      "figure": "4",
+      "text": "internships completed between July 2025 and July 2026.",
+      "linkText": "Experience",
+      "href": "#experience"
+    },
+    {
       "figure": "AWS",
-      "text": "Certified Cloud Practitioner, valid through July 2029"
+      "text": "Certified Cloud Practitioner, valid through July 2029."
     }
   ],
   "pitch": "I ship payment and finance tools where AI can advise, but rules decide.",
@@ -57,12 +66,7 @@
   "codechefSummary": "CodeChef 2-star, rating 1455, 901 problems solved.",
   "education": "Final-year B.Tech ECE student at VVIT, CGPA 8.21",
   "aiNote": "I used AI coding tools, and I owned the design, review and verification.",
-  "ticker": [
-    "AI advises, rules decide",
-    "Razorpay AI Buildathon",
-    "601 unit tests in CI",
-    "AWS Certified Cloud Practitioner",
-    "97.1% link precision",
-    "Graduating May 2027"
-  ]
+  "targetRole": "AI Product Engineer",
+  "positioning": "building AI products for payments and finance operations.",
+  "availability": "Available for internships and full-time roles from May 2027"
 }
