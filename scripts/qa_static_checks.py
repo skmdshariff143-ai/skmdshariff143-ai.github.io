@@ -631,6 +631,18 @@ def main():
           'href="#main-content" class="skip-link"' in index_html
           and '<main id="main-content" tabindex="-1">' in index_html)
 
+    print("\n== 20b. Cache Busting & Menu Reachability ==")
+    check("every home page resume link carries a version token",
+          "assets/resume.pdf?v=" in index_html
+          and not re.search(r'assets/resume\.pdf(?!\?v=)', index_html))
+    check("first-party scripts carry a version token",
+          all(f'src="assets/js/{name}?v=' in index_html for name in
+              ("observatory-scene.js", "observatory-interactions.js", "portfolio-motion.js")))
+    with open(os.path.join(ROOT, "style.css"), encoding="utf-8") as fh:
+        nav_css = fh.read()
+    check("open navigation menu scrolls when taller than the screen",
+          "max-height: calc(100dvh - 76px)" in nav_css and "overflow-y: auto" in nav_css)
+
     print("\n== 21. Accurate Project Claims ==")
     banned_phrases = [
         "Production Metric", "Production Benchmarks", "Production SaaS Engine",

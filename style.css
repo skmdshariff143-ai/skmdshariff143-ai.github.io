@@ -463,6 +463,8 @@ img {
         text-align: center;
         border-bottom: var(--border-subtle);
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+        max-height: calc(100dvh - 76px);
+        overflow-y: auto;
     }
     .nav-links.active {
         display: flex;
