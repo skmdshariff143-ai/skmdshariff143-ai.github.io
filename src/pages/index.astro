@@ -2,9 +2,9 @@
 import Certificates from "../components/Certificates.astro";
 import ContactForm from "../components/ContactForm.astro";
 import Ledger from "../components/Ledger.astro";
+import ProjectStage from "../components/ProjectStage.astro";
 import ResponsiveImage from "../components/ResponsiveImage.astro";
 import SettlementControl from "../components/SettlementControl.astro";
-import WorkLinks from "../components/WorkLinks.astro";
 import Base from "../layouts/Base.astro";
 import { getFeaturedCertificates, getLede, getProfile, getProjects } from "../lib/content";
 
@@ -18,8 +18,8 @@ const tickerItems = profile.ticker.concat(profile.ticker);
 <Base
   title={`${profile.name} | Builds AI products`}
   description="Final-year engineering student building AI products for payment operations, with every result and limit stated."
-  preloadImage="work-sharecon"
 >
+  <canvas class="scene-canvas" data-scene="pending" aria-hidden="true"></canvas>
   <section class="hero" id="top">
     <h1><span><i>{profile.name}</i></span> <span><i>{profile.headline}</i></span></h1>
     <div class="hero-row">
@@ -29,16 +29,6 @@ const tickerItems = profile.ticker.concat(profile.ticker);
         <a class="button quiet" href="/assets/resume.pdf" download="Shaik_Mahammad_Shariff_Resume.pdf">Download resume</a>
       </div>
     </div>
-    <figure class="hero-picture" data-scroll-grow>
-      <ResponsiveImage
-        name="work-sharecon"
-        width={1440}
-        height={830}
-        sizes="100vw"
-        eager
-        alt="ShaRecon AI control center showing processed volume, auto-reconciled records and the review queue"
-      />
-    </figure>
   </section>
 
   <div class="ticker" aria-hidden="true">
@@ -60,57 +50,41 @@ const tickerItems = profile.ticker.concat(profile.ticker);
       <p class="section-lede">Each project lists what I built, how it was checked, and what it does not do. {profile.aiNote}</p>
     </div>
 
-    <article class="project field-forest" id={recoverflow.slug}>
-      <div class="project-heading">
-        <h3>{recoverflow.title}</h3>
-        <p>{recoverflow.summary}</p>
-        <WorkLinks project={recoverflow} />
-      </div>
-      <div class="project-body">
-        <figure>
-          <ResponsiveImage
-            name="work-recoverflow"
-            width={1440}
-            height={690}
-            sizes="(max-width: 960px) 100vw, 58vw"
-            alt="RecoverFlow AI evaluation dashboard with revenue at risk, simulated recovery and predicted versus actual rates"
-          />
-        </figure>
-        <Ledger project={recoverflow} />
-      </div>
-    </article>
+    <ProjectStage
+      project={recoverflow}
+      image="work-recoverflow"
+      imageWidth={1440}
+      imageHeight={690}
+      color="#0d3a2c"
+      field="stage-forest"
+      imageAlt="RecoverFlow AI evaluation dashboard with revenue at risk, simulated recovery and predicted versus actual rates"
+    />
+    <div class="project-detail field-forest"><Ledger project={recoverflow} /></div>
 
-    <article class="project field-cobalt" id={sharecon.slug}>
-      <div class="project-heading">
-        <h3>{sharecon.title}</h3>
-        <p>{sharecon.summary}</p>
-        <WorkLinks project={sharecon} />
-      </div>
-      <div class="project-body">
-        <SettlementControl />
-        <Ledger project={sharecon} />
-      </div>
-    </article>
+    <ProjectStage
+      project={sharecon}
+      image="work-sharecon"
+      imageWidth={1440}
+      imageHeight={830}
+      color="#1433c7"
+      field="stage-cobalt"
+      imageAlt="ShaRecon AI control center showing processed volume, auto-reconciled records and the review queue"
+    />
+    <div class="project-detail field-cobalt split-detail">
+      <SettlementControl />
+      <Ledger project={sharecon} />
+    </div>
 
-    <article class="project field-bone" id={resumescore.slug}>
-      <div class="project-heading">
-        <h3>{resumescore.title}</h3>
-        <p>{resumescore.summary}</p>
-        <WorkLinks project={resumescore} />
-      </div>
-      <div class="project-body">
-        <figure>
-          <ResponsiveImage
-            name="work-resumescore"
-            width={1440}
-            height={690}
-            sizes="(max-width: 960px) 100vw, 58vw"
-            alt="ResumeScore home page with a fictional sample showing resume quality and job match scores"
-          />
-        </figure>
-        <Ledger project={resumescore} />
-      </div>
-    </article>
+    <ProjectStage
+      project={resumescore}
+      image="work-resumescore"
+      imageWidth={1440}
+      imageHeight={690}
+      color="#3a1206"
+      field="stage-ember"
+      imageAlt="ResumeScore home page with a fictional sample showing resume quality and job match scores"
+    />
+    <div class="project-detail field-bone"><Ledger project={resumescore} /></div>
   </section>
 
   <section class="depth" id="depth">
@@ -185,3 +159,9 @@ const tickerItems = profile.ticker.concat(profile.ticker);
 
   <ContactForm />
 </Base>
+
+<script>
+  import { initSceneWhenIdle } from "../scripts/scene-loader";
+
+  initSceneWhenIdle();
+</script>

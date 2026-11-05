@@ -1,0 +1,41 @@
+---
+import type { Project } from "../lib/content";
+import ResponsiveImage from "./ResponsiveImage.astro";
+import WorkLinks from "./WorkLinks.astro";
+
+interface Props {
+  project: Project;
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageAlt: string;
+  color: string;
+  field: string;
+}
+
+const { project, image, imageWidth, imageHeight, imageAlt, color, field } = Astro.props;
+---
+<section
+  class:list={["stage", field]}
+  id={project.slug}
+  data-stage-image={image}
+  data-stage-aspect={(imageWidth / imageHeight).toFixed(3)}
+  data-stage-color={color}
+>
+  <div class="stage-sticky">
+    <div class="stage-copy">
+      <h3>{project.title}</h3>
+      <p>{project.summary}</p>
+      <WorkLinks project={project} />
+    </div>
+    <figure class="stage-fallback">
+      <ResponsiveImage
+        name={image}
+        width={imageWidth}
+        height={imageHeight}
+        sizes="(max-width: 960px) 100vw, 58vw"
+        alt={imageAlt}
+      />
+    </figure>
+  </div>
+</section>
