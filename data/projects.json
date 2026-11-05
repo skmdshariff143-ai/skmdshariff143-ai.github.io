@@ -16,7 +16,7 @@
     "techStack": ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "NVIDIA Nemotron", "Gemini API", "Playwright"],
     "verifiedResult": "Full test suite passing (typecheck, lint, unit tests, and 10 canonical benchmark evaluation topics)",
     "github": "https://github.com/skmdshariff143-ai/neurolearn-ai",
-    "liveDemo": "https://neurolearn-ai-pink.vercel.app",
+    "liveDemo": "",
     "status": "In Active Development",
     "screenshot": "assets/og-preview.png"
   },
@@ -59,7 +59,7 @@
     "techStack": ["Next.js 16", "React 19", "TypeScript 5", "Tailwind CSS 4", "Mozilla PDF.js", "Vitest", "Gemini API"],
     "verifiedResult": "35 automated Vitest tests passing; 100% client-side privacy architecture with zero data transmission",
     "github": "https://github.com/skmdshariff143-ai/resumescore",
-    "liveDemo": null,
+    "liveDemo": "https://resumescore-silk.vercel.app",
     "status": "Completed / Active",
     "screenshot": "assets/og-preview.png"
   },
