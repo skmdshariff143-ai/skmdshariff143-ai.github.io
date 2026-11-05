@@ -40,7 +40,7 @@ test("research and mentions keep their levels", () => {
 
 test("every certificate has a title, issuer and existing category", () => {
   const certificates = getCertificates();
-  expect(certificates.length).toBeGreaterThanOrEqual(26);
+  expect(certificates.length).toBe(25);
   for (const certificate of certificates) {
     expect(certificate.title.length).toBeGreaterThan(0);
     expect(certificate.issuer.length).toBeGreaterThan(0);

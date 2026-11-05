@@ -4,7 +4,9 @@
   "trailingSlash": true,
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/privacy.html", "destination": "/privacy/", "permanent": true }
+    { "source": "/privacy.html", "destination": "/privacy/", "permanent": true },
+    { "source": "/resume.pdf", "destination": "/assets/resume.pdf", "permanent": true },
+    { "source": "/assets/og-preview.png", "destination": "/images/og-default.png", "permanent": true }
   ],
   "headers": [
     {
@@ -16,7 +18,7 @@
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
         }
       ]
     },

@@ -12,7 +12,7 @@ const { name, alt, width, height, sizes, eager = false } = Astro.props;
 ---
 <img
   src={`/images/${name}-1440.webp`}
-  srcset={`/images/${name}-800.webp 800w, /images/${name}-1440.webp 1440w`}
+  srcset={`/images/${name}-800.webp 800w, /images/${name}-1440.webp ${width}w`}
   sizes={sizes}
   width={width}
   height={height}

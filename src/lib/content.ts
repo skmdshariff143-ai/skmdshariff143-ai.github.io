@@ -23,8 +23,10 @@ const profileSchema = z.object({
   name: z.string().min(1),
   shortName: z.string().min(1),
   headline: z.string().min(1),
-  lede: z.string().min(1),
-  statement: z.string().min(1),
+  pitch: z.string().min(1),
+  goal: z.string().min(1),
+  languages: z.string().min(1),
+  codechefSummary: z.string().min(1),
   cgpa: z.string().regex(/^\d\.\d{2}$/),
   graduation: z.string().min(1),
   location: z.string().min(1),
@@ -33,7 +35,7 @@ const profileSchema = z.object({
   github: httpsUrl,
   codechef: httpsUrl,
   formEndpoint: httpsUrl,
-  internships: z.array(z.object({ role: z.string().min(1), dates: z.string() })).min(1),
+  internships: z.array(z.object({ role: z.string().min(1), dates: z.string(), proof: z.string().optional() })).min(1),
   tools: z.string().min(1),
   leadership: z.string().min(1),
   proof: z
@@ -99,6 +101,14 @@ export function getCaseStudy(slug: string): CaseStudy {
 
 export function getProjects(level: ProjectLevel): Project[] {
   return projects.filter((project) => project.level === level);
+}
+
+export function getLede(): string {
+  return `Final-year engineering student, graduating ${profile.graduation}. ${profile.pitch}`;
+}
+
+export function getFeaturedCertificates(): Certificate[] {
+  return getCertificates().filter((certificate) => certificate.featured);
 }
 
 export function getProfile(): Profile {

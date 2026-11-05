@@ -6,7 +6,7 @@ import ResponsiveImage from "../components/ResponsiveImage.astro";
 import SettlementControl from "../components/SettlementControl.astro";
 import WorkLinks from "../components/WorkLinks.astro";
 import Base from "../layouts/Base.astro";
-import { getProfile, getProjects } from "../lib/content";
+import { getFeaturedCertificates, getLede, getProfile, getProjects } from "../lib/content";
 
 const profile = getProfile();
 const [recoverflow, sharecon, resumescore] = getProjects("flagship");
@@ -17,12 +17,13 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
 <Base
   title={`${profile.name} | Builds AI products`}
   description="Final-year engineering student building AI products for payment operations, with every result and limit stated."
-  preloadImage="/images/work-sharecon-1440.webp"
+  preloadImage="work-sharecon"
+  preloadSizes="(max-width: 960px) 100vw, 66vw"
 >
   <section class="hero" id="top">
     <h1><span>{profile.name}</span> <span>{profile.headline}</span></h1>
     <div class="hero-copy">
-      <p class="lede">{profile.lede}</p>
+      <p class="lede">{getLede()}</p>
       <div class="actions">
         <a class="button" href="#work">See the work</a>
         <a class="button quiet" href="/assets/resume.pdf" download="Shaik_Mahammad_Shariff_Resume.pdf">Download resume</a>
@@ -143,11 +144,11 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
     <div class="about-grid">
       <img class="portrait" src="/assets/profile-photo.jpg" width="280" height="280" loading="lazy" alt={profile.name} />
       <div class="about-text">
-        <p class="statement">{profile.statement}</p>
+        <p class="statement">I am studying for a B.Tech in Electronics and Communication Engineering at VVIT, Guntur, with a CGPA of {profile.cgpa} out of 10. {profile.goal}</p>
         <h3>Internships</h3>
         <ul>
           {profile.internships.map((internship) => (
-            <li><b>{internship.role}.</b> {internship.dates}</li>
+            <li><b>{internship.role}.</b> {internship.dates} {internship.proof && <a href={`/${internship.proof}`}>View certificate</a>}</li>
           ))}
         </ul>
       </div>
@@ -155,9 +156,11 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
         <h3>Tools I have shipped with</h3>
         <p>{profile.tools}</p>
         <h3>Credentials</h3>
-        <p>AWS Certified Cloud Practitioner, GitHub Foundations, Palo Alto Networks Cybersecurity Fundamentals, Google Cloud Skills Boost.</p>
+        <ul>{getFeaturedCertificates().map((certificate) => <li><a href={encodeURI(`/${certificate.certificateFile}`)}>{certificate.title}</a>, {certificate.issuer}{certificate.verificationUrl && <>. <a href={certificate.verificationUrl}>Verify with AWS</a></>}</li>)}</ul>
         <h3>Beyond code</h3>
-        <p>{profile.leadership}</p>
+        <p>{profile.leadership} <a href={profile.codechef}>{profile.codechefSummary}</a></p>
+        <h3>Languages</h3>
+        <p>{profile.languages}</p>
       </div>
       <Certificates />
     </div>

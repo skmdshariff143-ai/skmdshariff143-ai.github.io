@@ -9,7 +9,7 @@ const profile = getProfile();
     <p>Send a message here, or reach me on <a href={profile.linkedin}>LinkedIn</a>. My code is on <a href={profile.github}>GitHub</a>.</p>
     <a class="button quiet-dark" href="/assets/resume.pdf" download="Shaik_Mahammad_Shariff_Resume.pdf">Download resume</a>
   </div>
-  <form action={profile.formEndpoint} method="post" data-contact-form>
+  <form action={profile.formEndpoint} method="post" data-contact-form data-linkedin={profile.linkedin}>
     <label class="honeypot" aria-hidden="true">Leave this empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
     <label for="name">Your name</label>
     <input id="name" name="name" autocomplete="name" minlength="2" maxlength="100" required />

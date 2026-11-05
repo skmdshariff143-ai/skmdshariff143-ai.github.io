@@ -2,8 +2,6 @@
   "name": "Shaik Mahammad Shariff",
   "shortName": "Shariff",
   "headline": "builds AI products.",
-  "lede": "Final-year engineering student, graduating May 2027. I ship payment and finance tools where AI can advise, but rules decide.",
-  "statement": "I study Electronics and Communication Engineering at VVIT, Guntur, with a CGPA of 8.21 out of 10. I am looking for AI product and software engineering roles.",
   "cgpa": "8.21",
   "graduation": "May 2027",
   "location": "Guntur, Andhra Pradesh, India",
@@ -13,16 +11,48 @@
   "codechef": "https://www.codechef.com/users/vvit23bq1a04f2",
   "formEndpoint": "https://formspree.io/f/mvzjyllq",
   "internships": [
-    { "role": "AI/ML Domain Intern, SkillWallet / SmartBridge", "dates": "June to 31 July 2026." },
-    { "role": "Artificial Intelligence Intern, CodTech IT Solutions", "dates": "22 June to 20 July 2026." },
-    { "role": "Prompt Engineering Intern, SkillCraft Technology", "dates": "1 to 30 June 2026." },
-    { "role": "AWS Data Engineering Virtual Intern, EduSkills", "dates": "" }
+    {
+      "role": "AI/ML Domain Intern, SkillWallet / SmartBridge",
+      "dates": "June to 31 July 2026."
+    },
+    {
+      "role": "Artificial Intelligence Intern, CodTech IT Solutions",
+      "dates": "22 June to 20 July 2026.",
+      "proof": "assets/certificates/codtech-internship.pdf"
+    },
+    {
+      "role": "Prompt Engineering Intern, SkillCraft Technology",
+      "dates": "1 to 30 June 2026.",
+      "proof": "assets/certificates/skillcraft-internship.pdf"
+    },
+    {
+      "role": "Data Engineering Virtual Intern, EduSkills / AICTE, AWS Academy curriculum",
+      "dates": "July to September 2025.",
+      "proof": "assets/certificates/aws-data-engineering.pdf"
+    }
   ],
   "tools": "Python, TypeScript, Java, Next.js, React, Prisma, Flask, Scikit-Learn, LightGBM, SHAP, MATLAB, GitHub Actions, Docker, Vercel, Playwright.",
-  "leadership": "NSS Student Coordinator for 20+ events and 100+ volunteers. Represented Andhra Pradesh at the National Integration Camp, Bihar. CodeChef 2-star, rating 1455.",
+  "leadership": "NSS Student Coordinator for 20+ events and 100+ volunteers. Represented Andhra Pradesh at the National Integration Camp, Bihar.",
   "proof": [
-    { "figure": "97.1%", "text": "link precision on 80 held-out stress cases,", "linkText": "ShaRecon AI", "href": "#sharecon-ai" },
-    { "figure": "465", "text": "unit and application tests in the release record,", "linkText": "RecoverFlow AI", "href": "#recoverflow-ai" },
-    { "figure": "AWS", "text": "Certified Cloud Practitioner, valid through July 2029" }
-  ]
+    {
+      "figure": "97.1%",
+      "text": "link precision on 80 held-out stress cases,",
+      "linkText": "ShaRecon AI",
+      "href": "#sharecon-ai"
+    },
+    {
+      "figure": "465",
+      "text": "unit and application tests in the release record,",
+      "linkText": "RecoverFlow AI",
+      "href": "#recoverflow-ai"
+    },
+    {
+      "figure": "AWS",
+      "text": "Certified Cloud Practitioner, valid through July 2029"
+    }
+  ],
+  "pitch": "I ship payment and finance tools where AI can advise, but rules decide.",
+  "goal": "I am looking for AI product and software engineering roles.",
+  "languages": "English (Professional), Telugu (Native), Urdu (Native), Hindi (Professional).",
+  "codechefSummary": "CodeChef 2-star, rating 1455, 901 problems solved."
 }

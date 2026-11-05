@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getProfile, getProjects, type Project } from "../lib/content";
+import { getLede, getProfile, getProjects, type Project } from "../lib/content";
 
 function describeProject(project: Project): string {
   const links = [project.demo && `Demo: ${project.demo}`, project.code && `Code: ${project.code}`].filter(Boolean);
@@ -17,7 +17,7 @@ export const GET: APIRoute = () => {
   const projects = [...getProjects("flagship"), ...getProjects("research"), ...getProjects("mention")];
   const body = [
     `# ${profile.name}`,
-    `> ${profile.lede}`,
+    `> ${getLede()}`,
     `Website: ${profile.website}`,
     `LinkedIn: ${profile.linkedin}`,
     `GitHub: ${profile.github}`,

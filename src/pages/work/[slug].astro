@@ -17,7 +17,7 @@ const nextProject = flagships[(flagships.findIndex((item) => item.slug === proje
 <Base
   title={`${project.title} case study | Shaik Mahammad Shariff`}
   description={project.summary}
-  preloadImage={`/images/${study.image.name}-1440.webp`}
+  preloadImage={study.image.name}
 >
   <article class="case">
     <h1>{project.title}</h1>
@@ -33,6 +33,7 @@ const nextProject = flagships[(flagships.findIndex((item) => item.slug === proje
         alt={study.image.alt}
       />
     </figure>
+    <h2 class="visually-hidden">At a glance</h2>
     <Ledger project={project} headingTag="h3" />
 
     <div class="case-body">

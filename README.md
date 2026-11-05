@@ -8,7 +8,7 @@ Astro static output, strict TypeScript, validated JSON content, Playwright, Ligh
 
 ## Run locally
 
-Use Node.js 22 or newer.
+Use Node.js 22.23.4 or newer.
 
 ```bash
 npm ci

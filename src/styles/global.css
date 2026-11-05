@@ -5,7 +5,7 @@
   --field: #10291f;
   --field-step: #1a3a2d;
   --on-field: #eef1ec;
-  --accent: #d63a12;
+  --accent: #c2320e;
   --accent-ink: #ffffff;
   --link-on-field: #ffb59f;
   --margin: clamp(20px, 3vw, 44px);
@@ -80,7 +80,8 @@ h4, .ledger-heading { font: 600 17px/1.3 var(--text); letter-spacing: 0; margin:
 .settlement input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0; }
 .legs { list-style: none; padding: 0; margin: 0 0 16px; }
 .legs li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; background: var(--field); }
-.legs b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.legs span { min-width: 0; }
+.legs b { font-variant-numeric: tabular-nums; text-align: right; }
 .legs .gap { color: var(--link-on-field); }
 .outcome { background: var(--on-field); color: var(--ink); padding: 16px 18px; margin: 0; font-size: 18px; line-height: 1.35; }
 .outcome b { color: var(--accent); }
@@ -159,12 +160,19 @@ footer { padding: clamp(40px, 5vw, 72px) var(--margin) 28px; background: var(--g
 .form-status { min-height: 1.5em; margin: 8px 0 0; font-weight: 600; }
 .honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 main:focus { outline: none; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.about-side ul { padding-left: 18px; margin: 0; }
+
+@media print {
+  .reveal { opacity: 1; transform: none; }
+  .bar, .settlement fieldset { display: none; }
+}
 
 .case { padding: clamp(32px, 5vw, 72px) var(--margin) 0; }
 .case h1 { font-size: clamp(38px, 7.6vw, 118px); }
 .case-summary { font-size: clamp(20px, 2vw, 28px); line-height: 1.3; max-width: 38ch; margin: 22px 0 0; }
 .case-picture { margin-top: 36px; }
-.case-body { display: grid; grid-template-columns: 4fr 8fr; gap: 28px clamp(24px, 4vw, 64px); margin-top: clamp(48px, 6vw, 88px); }
+.case-body { display: grid; grid-template-columns: 4fr 8fr; gap: 56px clamp(24px, 4vw, 64px); margin-top: clamp(48px, 6vw, 88px); }
 .case-body h2 { font-size: clamp(26px, 2.8vw, 40px); line-height: 1.08; }
 .case-body > div { max-width: 66ch; }
 .case-body p { margin: 0 0 14px; }
