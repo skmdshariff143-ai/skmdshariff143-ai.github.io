@@ -4,9 +4,9 @@
     "level": "flagship",
     "title": "RecoverFlow AI",
     "summary": "A merchant console for failed-payment recovery, built for the Razorpay AI Buildathon.",
-    "built": "Next.js and TypeScript console with integer-paise money handling, a transactional outbox, and a SHA-256 audit chain. Amounts above ₹10,000 need two reviewers.",
-    "checked": "The release record lists 465 unit and application tests and 73 browser tests. On the synthetic benchmark, predicted recovery was 63.4% against 50% observed.",
-    "limits": "Live payment recovery and provider onboarding are not enabled. AI cannot authorize discounts, run payments or change audit history.",
+    "built": "Next.js and TypeScript console with integer-paise money handling and a SHA-256 audit chain. Cases routed to approval need two different reviewers.",
+    "checked": "CI on main passed 601 unit and application tests and 82 browser tests on 28 October 2026. In the live demo's 100-invoice synthetic batch, predicted recovery was 63.4% against 50% observed.",
+    "limits": "Live payment recovery and provider onboarding are not enabled. AI cannot run payments or change audit history.",
     "demo": "https://recoverflow-ai-kohl.vercel.app",
     "code": "https://github.com/skmdshariff143-ai/recoverflow-ai"
   },
@@ -16,8 +16,8 @@
     "title": "ShaRecon AI",
     "summary": "Three-way reconciliation of Razorpay payments, settlement batches and bank credits.",
     "built": "A control center with four-factor match scoring, exception triage, and a tamper-evident audit export.",
-    "checked": "97.1% link precision and recall on 80 held-out stress cases.",
-    "limits": "It moves no live money, and results come from controlled datasets. On held-out cases, 7 of 42 auto-resolutions were unsafe, a ₹28,100 exposure the app reports.",
+    "checked": "97.1% link precision and recall on 80 hand-written stress cases. CI on main passed 141 automated and 50 end-to-end tests.",
+    "limits": "It moves no live money, and results come from controlled datasets. The first run on those 80 cases had 7 unsafe auto-resolutions out of 42, a ₹28,100 exposure. Rules added in October removed them, so these cases can no longer count as held out.",
     "demo": "https://sharecon-ai.vercel.app",
     "code": "https://github.com/skmdshariff143-ai/sharecon-ai",
     "video": "https://youtu.be/tG-U4dJvXuQ"
@@ -27,7 +27,7 @@
     "level": "flagship",
     "title": "ResumeScore",
     "summary": "Resume and job-match review that runs in the browser by default, so the text stays on your device.",
-    "built": "PDF, DOCX and text extraction with review, scoring, local editing, and optional consent-based AI critique.",
+    "built": "PDF, DOCX and text extraction with review, scoring and local editing. Consent-gated AI critique code stays switched off in builds.",
     "checked": "Typecheck, lint, unit, browser and accessibility suites are defined in the repository.",
     "limits": "It does not predict hiring outcomes or certify ATS compatibility. Paid AI stays disabled, and the repository marks production as not yet approved.",
     "demo": "https://resumescore-silk.vercel.app",
@@ -50,7 +50,7 @@
     "title": "Amazon ML Challenge 2026",
     "summary": "Merchant entity resolution across noisy records.",
     "built": "Candidate index and a hard-negative LightGBM classifier.",
-    "checked": "0.8879 Macro F0.5",
+    "checked": "0.8879 Macro F0.5 (self-reported)",
     "limits": "19-feature LightGBM on a local 5,000-anchor holdout, not a leaderboard score. Code is private."
   },
   {
@@ -59,8 +59,8 @@
     "title": "LFMT slag detection",
     "summary": "Simulated infrared thermography for finding subsurface slag in mild steel.",
     "built": "Python and MATLAB thermal solvers with signal-processing pipelines and a research portal.",
-    "checked": "33.2% best overall detection; under 0.25% solver disagreement",
-    "limits": "Simulated thermal testing across 4,030 evaluations, not physical steel plates. Python and MATLAB solvers agree.",
+    "checked": "33.2% best overall detection (Python FEM benchmark)",
+    "limits": "Simulated thermal testing across 4,030 evaluations, not physical steel plates. A separate MATLAB benchmark reports different detection rates.",
     "demo": "https://web-kappa-woad-56.vercel.app",
     "code": "https://github.com/skmdshariff143-ai/lfmt-slag-detection"
   },
