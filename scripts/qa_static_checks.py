@@ -631,6 +631,21 @@ def main():
           'href="#main-content" class="skip-link"' in index_html
           and '<main id="main-content" tabindex="-1">' in index_html)
 
+    print("\n== 21. Accurate Project Claims ==")
+    banned_phrases = [
+        "Production Metric", "Production Benchmarks", "Production SaaS Engine",
+        "Production ML Pipeline", "production champion", "Production Champion",
+        "Production champion", "Production Flask", "Deployed production",
+        "Stabilized production", "multi-lingual", "farmalink-ai",
+        "39 verified unit and streaming test suites", "1.7M+ noisy commerce records",
+    ]
+    for claim_file in ("index.html", "data/projects.json", "llms.txt"):
+        with open(os.path.join(ROOT, claim_file.replace("/", os.sep)), encoding="utf-8") as fh:
+            claim_text = fh.read()
+        found_phrases = [phrase for phrase in banned_phrases if phrase in claim_text]
+        check(f"{claim_file} has no overstated or merged claims",
+              not found_phrases, f"found={found_phrases}")
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:

@@ -185,45 +185,38 @@
                             <div class="pipeline-step-item">
                                 <div class="pipeline-step-num" style="color: #00e5ff; border-color: rgba(0, 229, 255, 0.25)">01</div>
                                 <div class="pipeline-step-body">
-                                    <h5 class="pipeline-step-title">Data Ingestion</h5>
-                                    <p class="pipeline-step-desc">1.7M+ noisy commerce records & unstructured academic papers</p>
+                                    <h5 class="pipeline-step-title">Data Ingestion & Integrity</h5>
+                                    <p class="pipeline-step-desc">Real ~438k financial records with strict ECOA Reg B demographic fairness guards</p>
                                 </div>
                             </div>
                             <div class="pipeline-step-item">
                                 <div class="pipeline-step-num" style="color: #00e5ff; border-color: rgba(0, 229, 255, 0.25)">02</div>
                                 <div class="pipeline-step-body">
-                                    <h5 class="pipeline-step-title">Candidate Index & Features</h5>
-                                    <p class="pipeline-step-desc">Inverted token indexing with 19 pairwise similarity features</p>
+                                    <h5 class="pipeline-step-title">Calibration & Stratification</h5>
+                                    <p class="pipeline-step-desc">Sigmoid probability calibration reducing Brier score to 0.015387 (-14.0%)</p>
                                 </div>
                             </div>
                             <div class="pipeline-step-item">
                                 <div class="pipeline-step-num" style="color: #00e5ff; border-color: rgba(0, 229, 255, 0.25)">03</div>
                                 <div class="pipeline-step-body">
-                                    <h5 class="pipeline-step-title">Model Orchestration</h5>
-                                    <p class="pipeline-step-desc">LightGBM hard-negative ranker + NVIDIA Nemotron / Gemini</p>
+                                    <h5 class="pipeline-step-title">Cost-Sensitive Optimization</h5>
+                                    <p class="pipeline-step-desc">5:1 loss-weighted decision cutoff p*=0.0395 catching 35.8% default recall</p>
                                 </div>
                             </div>
                             <div class="pipeline-step-item">
                                 <div class="pipeline-step-num" style="color: #00e5ff; border-color: rgba(0, 229, 255, 0.25)">04</div>
                                 <div class="pipeline-step-body">
-                                    <h5 class="pipeline-step-title">Production Metric</h5>
-                                    <p class="pipeline-step-desc">0.8879 Macro F0.5 • 97.97% Accuracy • Calibrated Probabilities</p>
+                                    <h5 class="pipeline-step-title">Local SHAP Drivers</h5>
+                                    <p class="pipeline-step-desc">Deduplicated parent feature ranking with zero contradictory explanations</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Production Benchmarks & Verification -->
+                    <!-- Benchmarks & Verification -->
                     <div class="observatory-benchmarks-wrapper">
-                        <h4 class="observatory-subheading"><i class="fas fa-chart-line"></i> Production Benchmarks & Verification</h4>
+                        <h4 class="observatory-subheading"><i class="fas fa-chart-line"></i> Benchmarks & Verification</h4>
                         <div id="observatory-benchmarks-list" class="observatory-benchmarks-list">
-                            <div class="benchmark-card-item">
-                                <div class="benchmark-header">
-                                    <span class="benchmark-title">Amazon ML Challenge 2026</span>
-                                    <span class="benchmark-metric" style="color: #00e5ff; background: rgba(0, 229, 255, 0.1); border-color: rgba(0, 229, 255, 0.25)">0.8879 Macro F0.5</span>
-                                </div>
-                                <p class="benchmark-note">0.9563 Precision • 39 verified unit and streaming test suites passing</p>
-                            </div>
                             <div class="benchmark-card-item">
                                 <div class="benchmark-header">
                                     <span class="benchmark-title">CreditGuard AI</span>
@@ -576,7 +569,7 @@
                             </div>
                             <div class="cs-field">
                                 <span class="cs-label"><i class="fas fa-user-cog"></i> My Contribution:</span>
-                                <p>Engineered the universal Research-to-Teaching coordinator with SSRF-safe multi-source querying (Wikipedia, OpenAlex, Crossref, OpenStax, Tavily), deterministic multiple-choice grading, diagnostic roadmaps, and WCAG AA accessible UI with Hindi and Telugu multi-lingual support.</p>
+                                <p>Engineered the universal Research-to-Teaching coordinator with SSRF-safe multi-source querying (Wikipedia, OpenAlex, Crossref, OpenStax, Tavily), deterministic multiple-choice grading, diagnostic roadmaps, and WCAG AA accessible UI with Hindi and Telugu multilingual support.</p>
                             </div>
                         </div>
                         <div class="verified-result-banner">
@@ -638,7 +631,7 @@
                     <div class="project-card case-study-card tilt-card">
                         <div class="project-header">
                             <div class="project-title-group">
-                                <span class="status-badge badge-completed">Production SaaS Engine</span>
+                                <span class="status-badge badge-completed">Local-First Web App</span>
                                 <h3>ResumeScore — AI Resume Quality & ATS Match Engine</h3>
                             </div>
                             <div class="project-links">
@@ -678,7 +671,7 @@
                     <div class="project-card case-study-card tilt-card">
                         <div class="project-header">
                             <div class="project-title-group">
-                                <span class="status-badge badge-completed">Production ML Pipeline</span>
+                                <span class="status-badge badge-completed">End-to-End ML Project</span>
                                 <h3>Credit Card Approval Prediction (CreditGuard AI)</h3>
                             </div>
                             <div class="project-links">
@@ -694,7 +687,7 @@
                             </div>
                             <div class="cs-field">
                                 <span class="cs-label"><i class="fas fa-lightbulb"></i> Solution:</span>
-                                <p>Trained and benchmarked multiple classifiers (Random Forest, LightGBM, XGBoost, Logistic Regression); selected Calibrated Random Forest as the production champion achieving 97.97% accuracy, 0.7865 ROC-AUC, 0.015387 Brier score (-14.0% error improvement vs uncalibrated), and a cost-sensitive decision cutoff (p* = 0.0395 at 5:1 penalty) delivering 35.77% delinquency recall with local SHAP interpretability.</p>
+                                <p>Trained and benchmarked multiple classifiers (Random Forest, LightGBM, XGBoost, Logistic Regression); selected Calibrated Random Forest as the final model achieving 97.97% accuracy, 0.7865 ROC-AUC, 0.015387 Brier score (-14.0% error improvement vs uncalibrated), and a cost-sensitive decision cutoff (p* = 0.0395 at 5:1 penalty) delivering 35.77% delinquency recall with local SHAP interpretability.</p>
                             </div>
                             <div class="cs-field">
                                 <span class="cs-label"><i class="fas fa-user-cog"></i> My Contribution:</span>
@@ -779,11 +772,11 @@
                             </div>
                             <div class="cs-field">
                                 <span class="cs-label"><i class="fas fa-user-cog"></i> My Contribution:</span>
-                                <p>Architected Next.js 15 App Router pages, Prisma + Supabase schema definitions, Zustand store state management, and production CI/CD check guards.</p>
+                                <p>Architected Next.js 15 App Router pages, Prisma + Supabase schema definitions, Zustand store state management, and CI/CD check guards.</p>
                             </div>
                         </div>
                         <div class="verified-result-banner">
-                            <i class="fas fa-award"></i> <strong>Verified Result:</strong> Deployed production agricultural SaaS prototype
+                            <i class="fas fa-award"></i> <strong>Verified Result:</strong> Deployed agricultural SaaS prototype
                         </div>
                         <div class="project-tech">
                             <span class="tech-tag">Next.js 15</span>

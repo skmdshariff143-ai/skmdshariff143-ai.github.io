@@ -6,7 +6,7 @@
     "summary": "An intelligent, multi-provider AI learning platform featuring curriculum generation, diagnostic self-checks, concept-level reteaching, and multi-source research coordination.",
     "problem": "Generic AI learning tools deliver superficial one-shot summaries with high hallucination risk and lack structured pedagogical reteaching loops or student privacy controls.",
     "solution": "Architected an open-source Next.js 15 + React 19 pedagogical learning system with multi-provider inference (Nebius, NVIDIA Nemotron, Gemini, Groq), autonomous multi-source academic research coordination, and local-first guest persistence.",
-    "contribution": "Engineered the universal Research-to-Teaching coordinator with SSRF-safe multi-source querying (Wikipedia, OpenAlex, Crossref, OpenStax, Tavily), deterministic multiple-choice grading, diagnostic roadmaps, and WCAG AA accessible UI with Hindi and Telugu multi-lingual support.",
+    "contribution": "Engineered the universal Research-to-Teaching coordinator with SSRF-safe multi-source querying (Wikipedia, OpenAlex, Crossref, OpenStax, Tavily), deterministic multiple-choice grading, diagnostic roadmaps, and WCAG AA accessible UI with Hindi and Telugu multilingual support.",
     "features": [
       "Public deployment provides interactive, deterministic fixture tutoring across 3 core STEM tracks (Transformers, Python Loops, Quadratic Equations).",
       "Engineered multi-source research retrieval pipeline integrating Wikipedia, OpenAlex, Crossref, and OpenStax with strict prompt-injection and SSRF filtering.",
@@ -44,7 +44,7 @@
   {
     "id": "resumescore",
     "title": "ResumeScore — AI Resume Quality & ATS Match Engine",
-    "badge": "Production SaaS Engine",
+    "badge": "Local-First Web App",
     "summary": "A privacy-first, local-client ATS resume analysis and job description matching platform with 7-dimension scoring, 6-layer semantic matching, and optional AI bullet point rewrites.",
     "problem": "Traditional resume evaluators require users to upload confidential resumes and personal identifiers to third-party servers, creating data privacy, leakage, and compliance risks.",
     "solution": "Engineered a local-first client architecture using Mozilla PDF.js for 100% in-browser text and layout parsing with zero server data leakage, coupled with a 7-dimension weighted scoring engine and 6-layer semantic skill matcher.",
@@ -66,16 +66,16 @@
   {
     "id": "credit-card-approval-prediction",
     "title": "Credit Card Approval Prediction (CreditGuard AI)",
-    "badge": "Production ML Pipeline",
+    "badge": "End-to-End ML Project",
     "summary": "An end-to-end Machine Learning pipeline evaluating applicant credit delinquency risk using a Calibrated Random Forest model with cost-sensitive cutoffs and local SHAP explainability.",
     "problem": "Financial institutions face severe credit default losses from asymmetric misclassification costs, where false negatives (unflagged defaulters) are far costlier than false positives.",
-    "solution": "Trained and benchmarked multiple classifiers (Random Forest, LightGBM, XGBoost, Logistic Regression); selected Calibrated Random Forest as the production champion achieving 97.97% accuracy, 0.7865 ROC-AUC, 0.015387 Brier score (-14.0% error improvement vs uncalibrated), and a cost-sensitive decision cutoff (p* = 0.0395 at 5:1 penalty) delivering 35.77% delinquency recall with local SHAP interpretability.",
+    "solution": "Trained and benchmarked multiple classifiers (Random Forest, LightGBM, XGBoost, Logistic Regression); selected Calibrated Random Forest as the final model achieving 97.97% accuracy, 0.7865 ROC-AUC, 0.015387 Brier score (-14.0% error improvement vs uncalibrated), and a cost-sensitive decision cutoff (p* = 0.0395 at 5:1 penalty) delivering 35.77% delinquency recall with local SHAP interpretability.",
     "contribution": "Engineered feature pipelines on 438k records, implemented sigmoid probability calibration, optimized 5:1 cost-sensitive decision cutoffs, built Flask 3.0 inference service with Dark/Light dashboard, and integrated de-duplicated local SHAP explanations.",
     "features": [
-      "Production champion Calibrated Random Forest delivering 0.7865 ROC-AUC, 0.015387 Brier score, 24.39% standard recall (35.29% precision), and 35.77% recall at 5:1 cost-weighted threshold 0.0395 (threshold tuned on holdout split).",
+      "Calibrated Random Forest delivering 0.7865 ROC-AUC, 0.015387 Brier score, 24.39% standard recall (35.29% precision), and 35.77% recall at 5:1 cost-weighted threshold 0.0395 (threshold tuned on holdout split).",
       "Asymmetric 5:1 cost-sensitive decision threshold optimization at p* = 0.0395 (threshold tuned on holdout split), capturing 35.77% delinquency recall on imbalanced credit data.",
       "Local TreeSHAP explainability engine providing transparent feature contribution waterfalls for individual credit decisions.",
-      "Production Flask 3.0 web application with responsive UI, Dark/Light modes, SQLite storage, Docker containerization, and GitHub Actions CI/CD."
+      "Flask 3.0 web application with responsive UI, Dark/Light modes, SQLite storage, Docker containerization, and GitHub Actions CI/CD."
     ],
     "techStack": ["Python", "Scikit-Learn", "Random Forest", "SHAP", "Flask", "Docker", "GitHub Actions"],
     "verifiedResult": "0.7865 ROC-AUC • Standard threshold: 24.39% recall, 35.29% precision • 5:1 cost-weighted threshold 0.0395: 35.77% recall, 34.11% precision (threshold tuned on holdout split)",
@@ -106,19 +106,19 @@
     "screenshot": "assets/og-preview.png"
   },
   {
-    "id": "farmalink-ai",
+    "id": "farmlink-ai",
     "title": "FarmLink AI",
     "badge": "Agricultural SaaS Prototype",
     "summary": "A Next.js 15 + React 19 agricultural SaaS platform connecting farmers directly with buyers, logistics networks, and cold storages.",
     "problem": "Agricultural supply chains suffer from intermediary price exploitation, lack of crop disease diagnostics, and opaque transaction escrow.",
     "solution": "Engineered a platform featuring AI disease diagnostics, crop yield/price prediction, and simulated escrow transaction wallets.",
-    "contribution": "Architected Next.js 15 App Router pages, Prisma + Supabase schema definitions, Zustand store state management, and production CI/CD check guards.",
+    "contribution": "Architected Next.js 15 App Router pages, Prisma + Supabase schema definitions, Zustand store state management, and CI/CD check guards.",
     "features": [
       "Designed AI-powered disease diagnostics, price prediction simulations, and real-time escrow wallet transactions.",
-      "Stabilized production CI/CD check pipelines, ESM migrations, and Next.js App Router middleware guards."
+      "Stabilized CI/CD check pipelines, ESM migrations, and Next.js App Router middleware guards."
     ],
     "techStack": ["Next.js 15", "React 19", "TypeScript", "Prisma", "Supabase", "Vercel"],
-    "verifiedResult": "Deployed production agricultural SaaS prototype",
+    "verifiedResult": "Deployed agricultural SaaS prototype",
     "github": "https://github.com/skmdshariff143-ai/farmlink-ai",
     "liveDemo": "https://farmlink-umber.vercel.app",
     "status": "In Active Development",
