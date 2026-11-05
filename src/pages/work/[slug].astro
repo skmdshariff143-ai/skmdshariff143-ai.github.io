@@ -3,7 +3,7 @@ import Ledger from "../../components/Ledger.astro";
 import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import WorkLinks from "../../components/WorkLinks.astro";
 import Base from "../../layouts/Base.astro";
-import { getCaseStudy, getProjects } from "../../lib/content";
+import { getCaseStudy, getProfile, getProjects } from "../../lib/content";
 
 export function getStaticPaths() {
   return getProjects("flagship").map((project) => ({ params: { slug: project.slug }, props: { project } }));
@@ -44,7 +44,7 @@ const nextProject = flagships[(flagships.findIndex((item) => item.slug === proje
       <div>{study.problem.map((text) => <p>{text}</p>)}</div>
 
       <h2>What I did</h2>
-      <div>{study.contribution.map((text) => <p>{text}</p>)}</div>
+      <div>{study.contribution.map((text) => <p>{text}</p>)}<p>{getProfile().aiNote}</p></div>
 
       <h2>How it works</h2>
       <div><ol class="flow">{study.flow.map((step) => <li>{step}</li>)}</ol></div>

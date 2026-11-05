@@ -39,3 +39,11 @@ test("RecoverFlow names its earlier name and current CI counts", async ({ page }
   await expect(page.locator("main")).toContainText("PayBack AI");
   await expect(page.locator("main")).toContainText("601 unit and application tests");
 });
+
+test("home and case studies state how AI coding tools were used", async ({ page }) => {
+  const note = "I used AI coding tools, and I owned the design, review and verification.";
+  for (const path of ["/", "/work/recoverflow-ai/", "/work/sharecon-ai/", "/work/resumescore/"]) {
+    await page.goto(path);
+    await expect(page.locator("main")).toContainText(note);
+  }
+});
