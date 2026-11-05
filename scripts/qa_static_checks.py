@@ -595,6 +595,69 @@ def main():
     check("FarmLink AI uses correct branding without typo FarmaLink-AI",
           len(farmalink_hits) == 0, f"hits={farmalink_hits}")
 
+    print("\n== 19. Release Cache Rules ==")
+    cache_rules = []
+    for hgroup in vj.get("headers", []):
+        for h in hgroup.get("headers", []):
+            if h["key"] == "Cache-Control":
+                cache_rules.append((hgroup.get("source"), h["value"]))
+    rule_sources = [src for src, _ in cache_rules]
+    rule_values = dict(cache_rules)
+    check("changing assets revalidate instead of using immutable caching",
+          rule_values.get("/assets/(.*)") == "public, max-age=0, must-revalidate")
+    check("versioned vendor assets keep immutable caching and follow the general asset rule",
+          rule_values.get("/assets/vendor/(.*)") == "public, max-age=31536000, immutable"
+          and "/assets/(.*)" in rule_sources and "/assets/vendor/(.*)" in rule_sources
+          and rule_sources.index("/assets/vendor/(.*)") > rule_sources.index("/assets/(.*)"))
+    check("immutable caching applies only to versioned vendor assets",
+          [src for src, value in cache_rules if "immutable" in value] == ["/assets/vendor/(.*)"])
+
+    print("\n== 20. Contact Copy & Skip Link ==")
+    with open(os.path.join(ROOT, "index.html"), encoding="utf-8") as fh:
+        index_html = fh.read()
+    with open(os.path.join(ROOT, "privacy.html"), encoding="utf-8") as fh:
+        privacy_html = fh.read()
+    with open(os.path.join(ROOT, "data", "profile.json"), encoding="utf-8") as fh:
+        profile_raw = fh.read()
+    check("home page does not show privacy-request wording",
+          "Privacy request" not in index_html)
+    check("home page does not promise a missing email address",
+          "reach out directly via email" not in index_html)
+    check("profile data does not contain privacy-request wording",
+          "Privacy request" not in profile_raw)
+    check("privacy page keeps the privacy-request instruction",
+          "Privacy request" in privacy_html)
+    check("skip link targets main content",
+          'href="#main-content" class="skip-link"' in index_html
+          and '<main id="main-content" tabindex="-1">' in index_html)
+
+    print("\n== 20b. Cache Busting & Menu Reachability ==")
+    check("every home page resume link carries a version token",
+          "assets/resume.pdf?v=" in index_html
+          and not re.search(r'assets/resume\.pdf(?!\?v=)', index_html))
+    check("first-party scripts carry a version token",
+          all(f'src="assets/js/{name}?v=' in index_html for name in
+              ("observatory-scene.js", "observatory-interactions.js", "portfolio-motion.js")))
+    with open(os.path.join(ROOT, "style.css"), encoding="utf-8") as fh:
+        nav_css = fh.read()
+    check("open navigation menu scrolls when taller than the screen",
+          "max-height: calc(100dvh - 76px)" in nav_css and "overflow-y: auto" in nav_css)
+
+    print("\n== 21. Accurate Project Claims ==")
+    banned_phrases = [
+        "Production Metric", "Production Benchmarks", "Production SaaS Engine",
+        "Production ML Pipeline", "production champion", "Production Champion",
+        "Production champion", "Production Flask", "Deployed production",
+        "Stabilized production", "multi-lingual", "farmalink-ai",
+        "39 verified unit and streaming test suites", "1.7M+ noisy commerce records",
+    ]
+    for claim_file in ("index.html", "data/projects.json", "llms.txt"):
+        with open(os.path.join(ROOT, claim_file.replace("/", os.sep)), encoding="utf-8") as fh:
+            claim_text = fh.read()
+        found_phrases = [phrase for phrase in banned_phrases if phrase in claim_text]
+        check(f"{claim_file} has no overstated or merged claims",
+              not found_phrases, f"found={found_phrases}")
+
     print("\n" + "=" * 60)
     print(f"STATIC QA: {len(PASSES)} passed, {len(FAILURES)} failed")
     if FAILURES:

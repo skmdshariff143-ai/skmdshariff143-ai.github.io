@@ -56,7 +56,7 @@ Core skills verified against candidate résumé and portfolio stack:
 ### 4. Credit Card Approval Prediction (CreditGuard AI)
 - **Domain**: Calibrated Machine Learning Credit Risk Classification
 - **Stack**: Python, Scikit-Learn, Random Forest, SHAP, Flask, Docker, GitHub Actions
-- **Model**: Calibrated Random Forest (Production Champion from models/model_metrics.json)
+- **Model**: Calibrated Random Forest (Selected Model from models/model_metrics.json)
 - **Problem**: Financial institutions face severe credit default losses from asymmetric misclassification costs, where false negatives are far costlier than false positives.
 - **Solution & Architecture**: Trained and benchmarked multiple classifiers; selected Calibrated Random Forest achieving 97.97% accuracy, 0.7865 ROC-AUC, 0.015387 Brier score (-14.0% error improvement vs uncalibrated), and an asymmetric 5:1 cost-weighted decision cutoff (p* = 0.0395, threshold tuned on holdout split) delivering 35.77% recall with local SHAP interpretability.
 - **Verification**: 0.7865 ROC-AUC • Standard threshold: 24.39% recall, 35.29% precision • 5:1 cost-weighted threshold 0.0395: 35.77% recall, 34.11% precision (threshold tuned on holdout split).
@@ -84,7 +84,7 @@ Core skills verified against candidate résumé and portfolio stack:
 - **Stack**: Next.js 15, React 19, TypeScript, Prisma, Supabase, Vercel
 - **Problem**: Agricultural supply chains suffer from intermediary price exploitation, lack of crop disease diagnostics, and opaque transaction escrow.
 - **Solution & Architecture**: Built direct farmer-to-buyer platform with AI disease diagnostic tooling and simulated escrow payment workflows.
-- **Verification**: Deployed production agricultural SaaS prototype.
+- **Verification**: Deployed agricultural SaaS prototype.
 - **Repository**: https://github.com/skmdshariff143-ai/farmlink-ai
 - **Live Demo**: https://farmlink-umber.vercel.app
 
