@@ -643,6 +643,14 @@ def main():
     check("open navigation menu scrolls when taller than the screen",
           "max-height: calc(100dvh - 76px)" in nav_css and "overflow-y: auto" in nav_css)
 
+    print("\n== 20c. ResumeScore Demo Link ==")
+    resumescore_demo = "https://resumescore-silk.vercel.app"
+    with open(os.path.join(ROOT, "data", "projects.json"), encoding="utf-8") as fh:
+        projects_raw = fh.read()
+    check("ResumeScore demo link is in static HTML and project data",
+          f'href="{resumescore_demo}"' in index_html
+          and f'"liveDemo": "{resumescore_demo}"' in projects_raw)
+
     print("\n== 21. Accurate Project Claims ==")
     banned_phrases = [
         "Production Metric", "Production Benchmarks", "Production SaaS Engine",

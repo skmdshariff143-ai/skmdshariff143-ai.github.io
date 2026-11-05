@@ -51,6 +51,7 @@ Core skills verified against candidate résumé and portfolio stack:
 - **Solution & Architecture**: Engineered a local-first client architecture using Mozilla PDF.js for 100% in-browser text and layout parsing with zero server data leakage, coupled with a 7-dimension weighted scoring engine and 6-layer semantic skill matcher.
 - **Verification**: 35 automated Vitest unit and integration tests passing; 100% client-side privacy architecture with zero data transmission.
 - **Repository**: https://github.com/skmdshariff143-ai/resumescore
+- **Live Demo**: https://resumescore-silk.vercel.app
 - **Live Demo**: None (Client-only / repository release)
 
 ### 4. Credit Card Approval Prediction (CreditGuard AI)
