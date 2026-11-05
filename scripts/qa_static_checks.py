@@ -661,6 +661,7 @@ def main():
     outdated_facts = [
         "8.12", "1,000+ Volunteers", "1000+ Volunteers", "1,000+ volunteers", "Balosthav",
         "enterprise-grade", "Full-Stack SaaS", "Public deployment provides",
+        "601 ", "93 suites", "93 Suites", "82 Playwright",
     ]
     for fact_file in ("index.html", "data/profile.json", "data/projects.json", "llms.txt",
                       "assets/js/observatory-scene.js"):

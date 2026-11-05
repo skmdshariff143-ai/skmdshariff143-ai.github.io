@@ -51,10 +51,10 @@
                     { step: '01', title: 'Client & Edge Request', desc: 'Next.js 16 App Router & React 19 server components with integer-paise financial precision' },
                     { step: '02', title: 'Agent Recovery Engine', desc: 'Deterministic state-machine recovery with L2 calibration and Thompson Sampling dispatch' },
                     { step: '03', title: 'Transactional Outbox Pattern', desc: 'Idempotent state processing with SHA-256 audit chaining' },
-                    { step: '04', title: 'Automated Test Verification', desc: '601 Vitest unit/integration tests across 93 suites and 82 Playwright e2e tests passing' }
+                    { step: '04', title: 'Automated Test Verification', desc: '465 Vitest unit/application tests across 79 files and 73 Playwright e2e tests passing' }
                 ],
                 benchmarks: [
-                    { title: 'RecoverFlow AI', metric: '601 Tests Passing', note: 'Razorpay AI Buildathon Track 3: 93 Vitest suites & 82 Playwright e2e tests' },
+                    { title: 'RecoverFlow AI', metric: '465 Tests Passing', note: 'Razorpay AI Buildathon Track 3: 79 Vitest files & 73 Playwright e2e tests' },
                     { title: 'ResumeScore Engine', metric: '100% Client-Side', note: 'Privacy-first ATS resume match engine with Mozilla PDF.js & 35 passing tests' },
                     { title: 'FarmLink AI', metric: 'Full-Stack Prototype', note: 'Next.js 15 + React 19 agricultural tech with simulated escrow transactions' }
                 ],
@@ -63,7 +63,7 @@
                     { label: 'RecoverFlow AI Live', href: 'https://recoverflow-ai-kohl.vercel.app', icon: 'fas fa-external-link-alt', isPrimary: false }
                 ],
                 proofs: [
-                    { title: 'RecoverFlow AI', desc: 'Autonomous Revenue Recovery with 601 Vitest & 82 Playwright Tests' },
+                    { title: 'RecoverFlow AI', desc: 'Autonomous Revenue Recovery with 465 Vitest & 73 Playwright Tests' },
                     { title: 'ResumeScore Engine', desc: 'Client-Side ATS Evaluation & Semantic Job Matching' },
                     { title: 'FarmLink AI', desc: 'Next.js 15 + React 19 Agricultural Tech Platform' }
                 ]
@@ -352,7 +352,7 @@
                 ];
 
                 const chipDefinitions = [
-                    { label: 'RecoverFlow AI • 93 Suites', metric: '601 Tests Passing', color: '#00e5ff' },
+                    { label: 'RecoverFlow AI • 79 Files', metric: '465 Tests Passing', color: '#00e5ff' },
                     { label: 'CreditGuard AI • Champion Model', metric: '0.7865 ROC-AUC', color: '#3b82f6' },
                     { label: 'Validation ID: 59ea9ed98f8b', metric: 'AWS Certified Cloud Practitioner', color: '#ff9900' }
                 ];
