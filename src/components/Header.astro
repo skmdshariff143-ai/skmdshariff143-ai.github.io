@@ -1,0 +1,14 @@
+---
+import { getProfile } from "../lib/content";
+
+const profile = getProfile();
+---
+<header class="bar">
+  <a class="mark" href="/">{profile.shortName}</a>
+  <nav aria-label="Main">
+    <a href="/#work">Work</a>
+    <a href="/#depth">ML and research</a>
+    <a href="/#about">About</a>
+    <a class="bar-action" href="/#contact">Contact</a>
+  </nav>
+</header>

@@ -1,0 +1,16 @@
+---
+import { getCertificates } from "../lib/content";
+
+const certificates = getCertificates();
+---
+<details class="certificates" id="certificates">
+  <summary>View all {certificates.length} certificates</summary>
+  <ul>
+    {certificates.map((certificate) => (
+      <li>
+        <a href={encodeURI(`/${certificate.certificateFile}`)}>{certificate.title}</a>, {certificate.issuer}
+        {certificate.date ? ` (${certificate.date})` : ""}
+      </li>
+    ))}
+  </ul>
+</details>

@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "recoverflow-ai",
+    "level": "flagship",
+    "title": "RecoverFlow AI",
+    "summary": "A merchant console for failed-payment recovery, built for the Razorpay AI Buildathon.",
+    "built": "Next.js and TypeScript console with integer-paise money handling, a transactional outbox, and a SHA-256 audit chain. Amounts above ₹10,000 need two reviewers.",
+    "checked": "The release record lists 465 unit and application tests and 73 browser tests. On the synthetic benchmark, predicted recovery was 63.4% against 50% observed.",
+    "limits": "Live payment recovery and provider onboarding are not enabled. AI cannot authorize discounts, run payments or change audit history.",
+    "demo": "https://recoverflow-ai-kohl.vercel.app",
+    "code": "https://github.com/skmdshariff143-ai/recoverflow-ai"
+  },
+  {
+    "slug": "sharecon-ai",
+    "level": "flagship",
+    "title": "ShaRecon AI",
+    "summary": "Three-way reconciliation of Razorpay payments, settlement batches and bank credits.",
+    "built": "A control center with four-factor match scoring, exception triage, and a tamper-evident audit export.",
+    "checked": "97.1% link precision and recall on 80 held-out stress cases.",
+    "limits": "It moves no live money, and results come from controlled datasets. On held-out cases, 7 of 42 auto-resolutions were unsafe, a ₹28,100 exposure the app reports.",
+    "demo": "https://sharecon-ai.vercel.app",
+    "code": "https://github.com/skmdshariff143-ai/sharecon-ai",
+    "video": "https://youtu.be/tG-U4dJvXuQ"
+  },
+  {
+    "slug": "resumescore",
+    "level": "flagship",
+    "title": "ResumeScore",
+    "summary": "Resume and job-match review that runs in the browser by default, so the text stays on your device.",
+    "built": "PDF, DOCX and text extraction with review, scoring, local editing, and optional consent-based AI critique.",
+    "checked": "Typecheck, lint, unit, browser and accessibility suites are defined in the repository.",
+    "limits": "It does not predict hiring outcomes or certify ATS compatibility. Paid AI stays disabled, and the repository marks production as not yet approved.",
+    "demo": "https://resumescore-silk.vercel.app",
+    "code": "https://github.com/skmdshariff143-ai/resumescore"
+  },
+  {
+    "slug": "creditguard-ai",
+    "level": "research",
+    "title": "CreditGuard AI",
+    "summary": "Credit default risk model with calibrated probabilities and local explanations.",
+    "built": "Calibrated Random Forest, cost-sensitive threshold and local SHAP explanations.",
+    "checked": "0.7865 ROC-AUC; 35.77% default recall",
+    "limits": "Calibrated Random Forest, 7,292 holdout records, 1.7% defaults. A 5:1 cost threshold raises recall from 24.39%, and 64% of defaults are still missed.",
+    "demo": "https://creditguard-ai.vercel.app",
+    "code": "https://github.com/skmdshariff143-ai/Credit-Card-Approval-Prediction"
+  },
+  {
+    "slug": "amazon-ml-2026",
+    "level": "research",
+    "title": "Amazon ML Challenge 2026",
+    "summary": "Merchant entity resolution across noisy records.",
+    "built": "Candidate index and a hard-negative LightGBM classifier.",
+    "checked": "0.8879 Macro F0.5",
+    "limits": "19-feature LightGBM on a local 5,000-anchor holdout, not a leaderboard score. Code is private."
+  },
+  {
+    "slug": "lfmt-slag-detection",
+    "level": "research",
+    "title": "LFMT slag detection",
+    "summary": "Simulated infrared thermography for finding subsurface slag in mild steel.",
+    "built": "Python and MATLAB thermal solvers with signal-processing pipelines and a research portal.",
+    "checked": "33.2% best overall detection; under 0.25% solver disagreement",
+    "limits": "Simulated thermal testing across 4,030 evaluations, not physical steel plates. Python and MATLAB solvers agree.",
+    "demo": "https://web-kappa-woad-56.vercel.app",
+    "code": "https://github.com/skmdshariff143-ai/lfmt-slag-detection"
+  },
+  {
+    "slug": "neurolearn-ai",
+    "level": "mention",
+    "title": "NeuroLearn AI",
+    "summary": "a fixture-based multilingual learning demo in English, Telugu and Hindi",
+    "built": "Diagnostics, deterministic grading and a research coordinator.",
+    "checked": "Automated checks are defined in the repository.",
+    "limits": "The public demo uses fixtures. Provider inference is not verified live.",
+    "code": "https://github.com/skmdshariff143-ai/neurolearn-ai"
+  },
+  {
+    "slug": "farmlink-ai",
+    "level": "mention",
+    "title": "FarmLink AI",
+    "summary": "a full-stack marketplace prototype for farmers",
+    "built": "Next.js marketplace prototype with Prisma and Supabase.",
+    "checked": "Deployed as a prototype.",
+    "limits": "Escrow is simulated.",
+    "demo": "https://farmlink-umber.vercel.app",
+    "code": "https://github.com/skmdshariff143-ai/farmlink-ai"
+  }
+]

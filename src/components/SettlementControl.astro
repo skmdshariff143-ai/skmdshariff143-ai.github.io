@@ -1,0 +1,26 @@
+<form class="settlement" data-settlement aria-labelledby="settlement-title">
+  <h4 id="settlement-title">Follow one settlement</h4>
+  <fieldset hidden>
+    <legend>Choose what happens to a ₹5,000 payment</legend>
+    <label><input type="radio" name="case" value="clean" checked /> Everything arrives</label>
+    <label><input type="radio" name="case" value="missing" /> The bank credit is missing</label>
+    <label><input type="radio" name="case" value="collision" /> Two orders share an amount</label>
+  </fieldset>
+  <ol class="legs">
+    <li><span>Razorpay payment</span><b>₹5,000.00</b></li>
+    <li><span>Settlement after ₹118.00 fee and GST</span><b>₹4,882.00</b></li>
+    <li><span>Bank credit, UTR RBIP100000073</span><b data-bank>₹4,882.00</b></li>
+  </ol>
+  <p class="outcome" role="status" aria-live="polite">
+    <b data-outcome-label>Reconciled.</b>
+    <span data-outcome-detail>All three records agree, so no one needs to review it.</span>
+  </p>
+  <p class="note">A simplified illustration, not output from the engine.</p>
+</form>
+
+<script>
+  import { initSettlement } from "../scripts/settlement";
+
+  const form = document.querySelector<HTMLFormElement>("[data-settlement]");
+  if (form) initSettlement(form);
+</script>

@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /assets/certificates-backup/
-
-Sitemap: https://mahammadshariff.vercel.app/sitemap.xml

@@ -1,0 +1,16 @@
+---
+import type { Project } from "../lib/content";
+
+interface Props {
+  project: Project;
+  showCaseStudy?: boolean;
+}
+
+const { project, showCaseStudy = true } = Astro.props;
+---
+<p class="links">
+  {showCaseStudy && <a href={`/work/${project.slug}/`}>Read case study</a>}
+  {project.demo && <a href={project.demo}>Open demo</a>}
+  {project.code && <a href={project.code}>Read code</a>}
+  {project.video && <a href={project.video}>Watch pitch</a>}
+</p>

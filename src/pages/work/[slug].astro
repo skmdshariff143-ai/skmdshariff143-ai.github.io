@@ -1,0 +1,78 @@
+---
+import Ledger from "../../components/Ledger.astro";
+import ResponsiveImage from "../../components/ResponsiveImage.astro";
+import WorkLinks from "../../components/WorkLinks.astro";
+import Base from "../../layouts/Base.astro";
+import { getCaseStudy, getProjects } from "../../lib/content";
+
+export function getStaticPaths() {
+  return getProjects("flagship").map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const study = getCaseStudy(project.slug);
+const flagships = getProjects("flagship");
+const nextProject = flagships[(flagships.findIndex((item) => item.slug === project.slug) + 1) % flagships.length];
+---
+<Base
+  title={`${project.title} case study | Shaik Mahammad Shariff`}
+  description={project.summary}
+  preloadImage={study.image.name}
+>
+  <article class="case">
+    <h1>{project.title}</h1>
+    <p class="case-summary">{project.summary}</p>
+    <WorkLinks project={project} showCaseStudy={false} />
+    <figure class="case-picture">
+      <ResponsiveImage
+        name={study.image.name}
+        width={study.image.width}
+        height={study.image.height}
+        sizes="100vw"
+        eager
+        alt={study.image.alt}
+      />
+    </figure>
+    <h2 class="visually-hidden">At a glance</h2>
+    <Ledger project={project} headingTag="h3" />
+
+    <div class="case-body">
+      <h2>Who it is for</h2>
+      <div><p>{study.audience}</p></div>
+
+      <h2>The problem</h2>
+      <div>{study.problem.map((text) => <p>{text}</p>)}</div>
+
+      <h2>What I did</h2>
+      <div>{study.contribution.map((text) => <p>{text}</p>)}</div>
+
+      <h2>How it works</h2>
+      <div><ol class="flow">{study.flow.map((step) => <li>{step}</li>)}</ol></div>
+
+      <h2>Key decisions</h2>
+      <div>{study.decisions.map((decision) => <p><b>{decision.title}</b> {decision.text}</p>)}</div>
+
+      {study.incident && (
+        <>
+          <h2>{study.incident.title}</h2>
+          <div><p>{study.incident.text}</p></div>
+        </>
+      )}
+
+      <h2>Results</h2>
+      <div><ul>{study.results.map((result) => <li>{result}</li>)}</ul></div>
+
+      <h2>What it does not do</h2>
+      <div><ul>{study.limits.map((limit) => <li>{limit}</li>)}</ul></div>
+
+      <h2>What I would improve next</h2>
+      <div><p>{study.next}</p></div>
+    </div>
+  </article>
+
+  {nextProject && (
+    <section class="next-case">
+      <h2><a href={`/work/${nextProject.slug}/`}>Next: {nextProject.title}</a></h2>
+    </section>
+  )}
+</Base>
