@@ -2,7 +2,7 @@
   "name": "Shaik Mahammad Shariff",
   "title": "AI/ML & Software Engineer",
   "tagline": "AI/ML & Software Engineer building calibrated predictive models, autonomous agent systems, and resilient web architectures.",
-  "about": "Electronics and Communication Engineering undergraduate with a CGPA of 8.21/10 and strong foundations in Python, Java, Object-Oriented Programming, and Software Engineering.\n\nHands-on experience in Generative AI, Prompt Engineering, Large Language Models (LLMs), and cloud fundamentals through academic projects, virtual internships, and industry certifications.\n\nCareer Objective: Passionate about developing AI-powered applications and solving real-world problems using modern software engineering practices.",
+  "about": "Electronics and Communication Engineering undergraduate with a CGPA of 8.12/10 and strong foundations in Python, Java, Object-Oriented Programming, and Software Engineering.\n\nHands-on experience in Generative AI, Prompt Engineering, Large Language Models (LLMs), and cloud fundamentals through academic projects, virtual internships, and industry certifications.\n\nCareer Objective: Passionate about developing AI-powered applications and solving real-world problems using modern software engineering practices.",
   "email": "Use contact form",
   "email_status": "Contact form routing active",
   "linkedin": "https://linkedin.com/in/mahammad-shariff-shaik-32903934a",
@@ -16,10 +16,24 @@
       "institution": "Vasireddy Venkatadri Institute of Technology (VVIT)",
       "dates": "2023 \u2013 Expected May 2027",
       "description": "Pursuing Electronics and Communication Engineering.",
-      "badge": "CGPA: 8.21/10"
+      "badge": "CGPA: 8.12/10"
     }
   ],
   "experience": [
+    {
+      "title": "AIML Domain Intern",
+      "company": "SkillWallet / SmartBridge",
+      "type": "Internship",
+      "dates": "June 2026 – 31 July 2026",
+      "description": "Completed an AIML internship, working in Git-based workflows on machine learning applications in Python. Debugged and validated Scikit-learn feature engineering and data preprocessing pipelines, and documented implementation details.",
+      "skills": [
+        "Python",
+        "Scikit-learn",
+        "Machine Learning",
+        "Git"
+      ],
+      "certificateFile": ""
+    },
     {
       "title": "AWS Data Engineering Virtual Internship",
       "company": "EduSkills",
@@ -107,7 +121,7 @@
     ],
     "Engineering Leadership and Competitive Impact": [
       "2-Star CodeChef (900+ Problems Solved)",
-      "NSS Student Coordinator (Led 1,000+ Volunteers at Balosthav)",
+      "NSS Student Coordinator (20+ Events, 100+ Volunteers)",
       "National NSS Camp Representative",
       "System Design & Technical Communication"
     ]
@@ -139,11 +153,11 @@
     },
     {
       "name": "Urdu",
-      "proficiency": "Fluent"
+      "proficiency": "Native"
     },
     {
       "name": "Hindi",
-      "proficiency": "Conversational"
+      "proficiency": "Professional"
     }
   ]
 }

@@ -56,7 +56,7 @@
                 benchmarks: [
                     { title: 'RecoverFlow AI', metric: '601 Tests Passing', note: 'Razorpay AI Buildathon Track 3: 93 Vitest suites & 82 Playwright e2e tests' },
                     { title: 'ResumeScore Engine', metric: '100% Client-Side', note: 'Privacy-first ATS resume match engine with Mozilla PDF.js & 35 passing tests' },
-                    { title: 'FarmLink AI', metric: 'Full-Stack SaaS', note: 'Next.js 15 + React 19 agricultural tech with simulated escrow transactions' }
+                    { title: 'FarmLink AI', metric: 'Full-Stack Prototype', note: 'Next.js 15 + React 19 agricultural tech with simulated escrow transactions' }
                 ],
                 actions: [
                     { label: 'Explore Full-Stack Projects', href: '#projects', icon: 'fas fa-arrow-down', isPrimary: true },
