@@ -31,7 +31,6 @@ Core skills verified against candidate résumé and portfolio stack:
 - **Solution & Architecture**: Architected an open-source pedagogical learning system with multi-provider inference (Nebius, NVIDIA Nemotron, Gemini, Groq), autonomous academic research coordination (Wikipedia, OpenAlex, Crossref, OpenStax), deterministic grading, and local-first guest persistence.
 - **Verification**: Complete automated test suites passing across 10 canonical benchmark topics.
 - **Repository**: https://github.com/skmdshariff143-ai/neurolearn-ai
-- **Live Demo**: https://neurolearn-ai-pink.vercel.app
 
 ### 2. RecoverFlow AI
 - **README Overview**: "A merchant operations console for reviewing revenue recovery cases, controlling communication policy, and inspecting attributable decisions."

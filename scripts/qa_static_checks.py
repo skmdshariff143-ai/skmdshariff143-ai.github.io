@@ -650,6 +650,12 @@ def main():
     check("ResumeScore demo link is in static HTML and project data",
           f'href="{resumescore_demo}"' in index_html
           and f'"liveDemo": "{resumescore_demo}"' in projects_raw)
+    locked_demo_files = {}
+    for demo_file in ("index.html", "data/projects.json", "llms.txt", "assets/js/observatory-scene.js", "script.js"):
+        with open(os.path.join(ROOT, demo_file.replace("/", os.sep)), encoding="utf-8") as fh:
+            locked_demo_files[demo_file] = "neurolearn-ai-pink.vercel.app" in fh.read()
+    check("login-protected NeuroLearn demo is not linked",
+          not any(locked_demo_files.values()), f"files={locked_demo_files}")
 
     print("\n== 21. Accurate Project Claims ==")
     banned_phrases = [
