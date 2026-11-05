@@ -924,7 +924,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Quick Actions Group
         { id: 'act-resume', title: 'Download Official Résumé', group: 'Quick Actions', icon: 'fas fa-file-download', shortcut: 'PDF', action: () => {
             const a = document.createElement('a');
-            a.href = 'assets/resume.pdf?v=2026-11';
+            a.href = 'assets/resume.pdf?v=2026-11-05';
             a.download = 'Shaik_Mahammad_Shariff_Resume.pdf';
             document.body.appendChild(a);
             a.click();
