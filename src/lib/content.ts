@@ -1,4 +1,5 @@
 import { z } from "astro/zod";
+import caseStudiesJson from "../content/case-studies.json" with { type: "json" };
 import certificatesJson from "../content/certificates.json" with { type: "json" };
 import profileJson from "../content/profile.json" with { type: "json" };
 import projectsJson from "../content/projects.json" with { type: "json" };
@@ -64,9 +65,37 @@ export type ProjectLevel = Project["level"];
 export type Profile = z.infer<typeof profileSchema>;
 export type Certificate = z.infer<typeof certificateSchema>;
 
+const caseStudySchema = z.object({
+  slug: z.string().min(1),
+  image: z.object({
+    name: z.string().min(1),
+    width: z.number().int().positive(),
+    height: z.number().int().positive(),
+    alt: z.string().min(1),
+  }),
+  audience: z.string().min(1),
+  problem: z.array(z.string().min(1)).min(1),
+  contribution: z.array(z.string().min(1)).min(1),
+  flow: z.array(z.string().min(1)).min(2),
+  decisions: z.array(z.object({ title: z.string().min(1), text: z.string().min(1) })).min(2),
+  incident: z.object({ title: z.string().min(1), text: z.string().min(1) }).optional(),
+  results: z.array(z.string().min(1)).min(1),
+  limits: z.array(z.string().min(1)).min(1),
+  next: z.string().min(1),
+});
+
+export type CaseStudy = z.infer<typeof caseStudySchema>;
+
+const caseStudies = z.array(caseStudySchema).parse(caseStudiesJson);
 const projects = z.array(projectSchema).parse(projectsJson);
 const profile = profileSchema.parse(profileJson);
 const certificates = z.array(certificateSchema).parse(certificatesJson);
+
+export function getCaseStudy(slug: string): CaseStudy {
+  const study = caseStudies.find((item) => item.slug === slug);
+  if (!study) throw new Error(`Missing case study: ${slug}`);
+  return study;
+}
 
 export function getProjects(level: ProjectLevel): Project[] {
   return projects.filter((project) => project.level === level);

@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "recoverflow-ai",
+    "image": { "name": "work-recoverflow", "width": 1440, "height": 690, "alt": "RecoverFlow AI evaluation dashboard with revenue at risk, simulated recovery and predicted versus actual rates" },
+    "audience": "RecoverFlow AI is for merchant operations teams reviewing failed recurring payments.",
+    "problem": ["When recurring payments fail, retrying blindly can add fees, annoy customers and still lose the revenue. A merchant needs to know which cases are worth acting on, why, and who approved the action."],
+    "contribution": ["I built the Next.js and TypeScript console, the recovery domain logic, the Prisma data model and the test suites."],
+    "flow": ["Detect", "Diagnose", "Check eligibility", "Require approval", "Schedule", "Execute", "Record audit"],
+    "decisions": [
+      { "title": "Money is stored as integer paise.", "text": "Floating-point rounding is not acceptable in financial records, so amounts use 64-bit integer paise and probabilities use integer basis points." },
+      { "title": "AI can advise, but has no financial authority.", "text": "Models are limited to classification, diagnosis, drafting and recommendations. Their output must pass a schema check, and malformed output falls back to deterministic rules." },
+      { "title": "Safety rules are hard-coded.", "text": "Opt-outs stop messages at once, quiet hours run from 22:00 to 08:00, contact attempts are capped at three, and amounts above ₹10,000 need two reviewers." },
+      { "title": "Webhooks can repeat, so writes are transactional.", "text": "Events and their dispatch records are written in one database transaction, signatures are checked with HMAC-SHA256, and duplicate events are skipped." }
+    ],
+    "results": [
+      "The release record of 18 September 2026 lists 465 unit and application tests, 73 browser tests and 50 offline advisory scenarios as passing.",
+      "On the synthetic benchmark, predicted recovery was 63.4% against 50% observed, a 13.4-point gap, with a Brier score of 0.2448."
+    ],
+    "limits": [
+      "Live payment recovery and provider onboarding are not enabled.",
+      "Results come from synthetic data, not real merchants.",
+      "PostgreSQL and Redis suites were not run on the development workstation, according to the release record."
+    ],
+    "next": "Close the gap between predicted and observed recovery, then run the durable database suites before any live pilot."
+  },
+  {
+    "slug": "sharecon-ai",
+    "image": { "name": "work-sharecon-eval", "width": 1184, "height": 720, "alt": "ShaRecon AI evaluation lab with synthetic benchmark precision, recall and review-routing results" },
+    "audience": "ShaRecon AI is for finance teams matching Razorpay payments, settlement batches and bank credits. It was built for the Razorpay AI Buildathon's AI Finance Controller track.",
+    "problem": ["A ₹5,000 payment can reach the bank as ₹4,882 days later, with its reference truncated. Same-day matching breaks, and identical amounts can double-credit an order. Discrepancies can go unnoticed until month-end close."],
+    "contribution": ["I built the reconciliation engine, the control center, the evaluation lab and the audit export."],
+    "flow": ["Payments, settlements and bank credits", "Four-factor scoring", "1-to-1 collision solver", "Exception triage", "AI advisory note", "Human decision", "Audit export"],
+    "decisions": [
+      { "title": "AI never touches matching.", "text": "A deterministic engine scores and assigns matches. Gemini only writes advisory notes from the evidence, and a person makes the final call on exceptions." },
+      { "title": "Each record can be matched once.", "text": "A one-to-one assignment rule stops a settlement or bank credit from being linked twice, which prevents double-crediting." },
+      { "title": "Test data was kept separate from the engine.", "text": "Besides synthetic seeds, 80 hand-written stress cases across 14 failure modes were kept out of tuning, to avoid testing the matcher against its own generator." }
+    ],
+    "incident": {
+      "title": "What broke",
+      "text": "The policy simulator disagreed with the baseline at the same thresholds. It rebuilt bank statements from matched records, which removed 9 competing records from the collision check. Passing the raw records through one shared pipeline fixed it, and regression tests now require the two results to match."
+    },
+    "results": [
+      "On 80 held-out stress cases: 97.1% link precision and recall, and 91.3% exception detection accuracy.",
+      "The repository's badges report 71 automated tests and 41 Playwright end-to-end tests."
+    ],
+    "limits": [
+      "On held-out cases, 7 of 42 auto-resolutions were unsafe, a ₹28,100 exposure the app reports.",
+      "Results come from controlled datasets and do not establish production performance.",
+      "It moves no live money."
+    ],
+    "next": "Reduce the 7 unsafe auto-resolutions, then test against anonymized real settlement files."
+  },
+  {
+    "slug": "resumescore",
+    "image": { "name": "work-resumescore", "width": 1440, "height": 690, "alt": "ResumeScore home page with a fictional sample showing resume quality and job match scores" },
+    "audience": "ResumeScore is for candidates who want to review a resume against a job description without uploading it by default.",
+    "problem": ["Many resume checkers require uploading personal documents, then return a single score with little explanation. Candidates need feedback they can check, and control over where their text goes."],
+    "contribution": ["I built the extraction review, scoring, job matching, local editor and export workflow, along with the tests."],
+    "flow": ["Browser extraction", "Review", "Deterministic scoring", "Evidence dashboard", "Local editing", "Export"],
+    "decisions": [
+      { "title": "Analysis runs in the browser by default.", "text": "Browser-only analysis sends no resume or job text to application APIs. Server analysis and external AI are explained before use and need opt-in." },
+      { "title": "Unsupported skill mentions earn less credit.", "text": "Job matching separates required, preferred and optional terms, and reduces credit for skills that lack evidence." },
+      { "title": "Paid AI is locked at build time.", "text": "The build forces paid AI off whatever the environment says, so an accidental setting cannot start spending." }
+    ],
+    "results": [
+      "The repository defines typecheck, lint, unit, browser and cross-browser test commands, plus scoped accessibility automation.",
+      "It runs without provider keys for deterministic features."
+    ],
+    "limits": [
+      "It does not predict hiring outcomes or certify ATS compatibility.",
+      "Scores are heuristic. The repository marks production as not yet approved.",
+      "Live AI provider calls were not verified in the documented release."
+    ],
+    "next": "Complete independent validation of the scoring before calling it production-ready."
+  }
+]

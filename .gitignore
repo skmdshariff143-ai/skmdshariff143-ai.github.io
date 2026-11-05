@@ -15,7 +15,6 @@ Thumbs.db
 # Temp Files & Logs
 *.log
 *.tmp
-qa_results.json
 qa-artifacts/
 .tempmediaStorage/
 .gemini/
@@ -30,8 +29,6 @@ assets/compression-preview/
 PROJECT_ROADMAP.md
 CHECKPOINT*.md
 HANDOFF*.md
-RECONCILE-PROVENANCE.txt
-CERTIFICATE_WORKFLOW.md
 AGENTS.md
 GEMINI.md
 .agent/
