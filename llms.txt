@@ -39,7 +39,7 @@ Core skills verified against candidate résumé and portfolio stack:
 - **Problem**: Failed recurring subscription payments cause massive revenue leakage, while naïve retry storms trigger bank network penalties, high transaction fees, and customer churn.
 - **Solution & Architecture**: Architected an autonomous recovery platform with integer-paise financial math, L2 logistic recovery probability calibration, Thompson Sampling Multi-Armed Bandit channel dispatch, transactional outbox pattern, and SHA-256 audit chaining.
 - **Live Demo Persistence**: In the hosted evaluation demo, the application uses an in-memory sample store (MemoryDatabase) with instant dataset reset via Shift+R.
-- **Verification**: 601 Vitest unit and integration tests passing across 93 suites and 82 Playwright end-to-end tests; Razorpay AI Buildathon Track 3.
+- **Verification**: 465 Vitest unit and application tests passing across 79 files and 73 Playwright end-to-end tests; Razorpay AI Buildathon Track 3.
 - **Repository**: https://github.com/skmdshariff143-ai/recoverflow-ai
 - **Live Demo**: https://recoverflow-ai-kohl.vercel.app
 
