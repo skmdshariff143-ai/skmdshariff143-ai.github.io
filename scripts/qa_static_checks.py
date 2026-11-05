@@ -659,7 +659,7 @@ def main():
 
     print("\n== 20d. Owner-Confirmed Facts ==")
     outdated_facts = [
-        "8.21", "1,000+ Volunteers", "1000+ Volunteers", "1,000+ volunteers", "Balosthav",
+        "8.12", "1,000+ Volunteers", "1000+ Volunteers", "1,000+ volunteers", "Balosthav",
         "enterprise-grade", "Full-Stack SaaS", "Public deployment provides",
     ]
     for fact_file in ("index.html", "data/profile.json", "data/projects.json", "llms.txt",

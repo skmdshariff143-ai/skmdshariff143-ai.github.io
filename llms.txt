@@ -7,7 +7,7 @@
 > CodeChef: https://www.codechef.com/users/vvit23bq1a04f2 (Rating 1455, 2-Star | 900+ Problems Solved)
 > Location: Guntur, Andhra Pradesh, India
 > Academic Institution: Vasireddy Venkatadri Institute of Technology (VVIT)
-> Degree: B.Tech in Electronics & Communication Engineering (Expected May 2027, CGPA: 8.12/10)
+> Degree: B.Tech in Electronics & Communication Engineering (Expected May 2027, CGPA: 8.21/10)
 
 ## Professional Summary
 Shaik Mahammad Shariff is an undergraduate engineer building calibrated machine learning pipelines, autonomous agent systems, and resilient web architectures. His work spans pedagogical multi-provider LLM applications, high-throughput entity resolution pipelines, revenue recovery systems, and calibrated credit risk classification engines. He holds an active AWS Certified Cloud Practitioner credential and has solved 900+ competitive programming problems on CodeChef.
