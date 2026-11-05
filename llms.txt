@@ -98,17 +98,17 @@ Core skills verified against candidate résumé and portfolio stack:
    - Validity: July 17, 2026 – July 17, 2029
    - Verification: https://aws.amazon.com/verification
 
-2. **Google Cloud Computing Foundations**
-   - Issuer: Google Cloud Skills Boost
-   - Focus: Infrastructure, Big Data, Machine Learning, and VPC Networking
+2. **Generative AI by Google Cloud**
+   - Issuer: L4G
+   - Focus: 45 hours and 24 skill badges
 
-3. **AWS Data Engineering Virtual Internship**
-   - Issuer: EduSkills & AWS Academy
-   - Focus: Distributed ETL, Amazon S3 Lake, and Cloud Analytics
+3. **Data Engineering Virtual Internship**
+   - Issuer: EduSkills / AICTE, AWS Academy curriculum
+   - Focus: 10 weeks, July to September 2025
 
-4. **Palo Alto Cybersecurity Academy Graduate**
-   - Issuer: Palo Alto Networks
-   - Focus: Network Security, Cloud Security, and Threat Prevention
+4. **Cybersecurity Virtual Internship**
+   - Issuer: EduSkills / AICTE, supported by Palo Alto Networks
+   - Focus: 10 weeks, April to June 2025
 
 ---
 

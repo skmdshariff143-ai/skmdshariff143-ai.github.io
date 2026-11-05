@@ -679,6 +679,15 @@ def main():
           and any("SkillWallet" in role["company"] and "31 July 2026" in role["dates"]
                   for role in current_profile["experience"]))
 
+    print("\n== 20e. Certificate Labels Match Documents ==")
+    mislabelled = ["GitHub Foundations", "Google Cloud Skills Boost", "Google Cloud Computing Foundations",
+                   "Palo Alto Cybersecurity Academy", "Certified Academy Graduate", "Laptop 4 Good", "Online Platform"]
+    for label_file in ("index.html", "data/certificates.json", "data/profile.json", "llms.txt"):
+        with open(os.path.join(ROOT, label_file.replace("/", os.sep)), encoding="utf-8") as fh:
+            label_text = fh.read()
+        found_labels = [label for label in mislabelled if label in label_text]
+        check(f"{label_file} has no mislabelled certificates", not found_labels, f"found={found_labels}")
+
     print("\n== 21. Accurate Project Claims ==")
     banned_phrases = [
         "Production Metric", "Production Benchmarks", "Production SaaS Engine",
