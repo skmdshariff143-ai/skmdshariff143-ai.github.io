@@ -444,6 +444,32 @@ img {
     padding: 0.5rem;
 }
 
+.nav-container nav {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+@media (max-width: 1180px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        background: rgba(7, 9, 14, 0.98);
+        flex-direction: column;
+        padding: 2rem 0;
+        text-align: center;
+        border-bottom: var(--border-subtle);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .hamburger { display: block; }
+}
+
 /* --------------------------------------------------------------------------
    Hero Section & Executive Visual Presentation
    -------------------------------------------------------------------------- */
@@ -2102,6 +2128,7 @@ img {
    Responsive Design & Mobile Optimization
    -------------------------------------------------------------------------- */
 @media (max-width: 992px) {
+    #hero-3d-scene { opacity: 0.18; }
     .name { font-size: 3.2rem; }
     .hero-container { flex-direction: column-reverse; text-align: center; padding-top: 1.5rem; gap: 3rem; }
     .hero-actions { justify-content: center; }
@@ -2122,24 +2149,6 @@ img {
     :root {
         --section-pad-y: 4.5rem;
     }
-    
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 76px;
-        left: 0;
-        width: 100%;
-        background: rgba(7, 9, 14, 0.98);
-        flex-direction: column;
-        padding: 2rem 0;
-        text-align: center;
-        border-bottom: var(--border-subtle);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
-    }
-    .nav-links.active {
-        display: flex;
-    }
-    .hamburger { display: block; }
 
     .name { font-size: 2.6rem; }
     .role { font-size: 1.25rem; }
