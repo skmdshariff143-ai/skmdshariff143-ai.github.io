@@ -657,6 +657,27 @@ def main():
     check("login-protected NeuroLearn demo is not linked",
           not any(locked_demo_files.values()), f"files={locked_demo_files}")
 
+    print("\n== 20d. Owner-Confirmed Facts ==")
+    outdated_facts = [
+        "8.21", "1,000+ Volunteers", "1000+ Volunteers", "1,000+ volunteers", "Balosthav",
+        "enterprise-grade", "Full-Stack SaaS", "Public deployment provides",
+    ]
+    for fact_file in ("index.html", "data/profile.json", "data/projects.json", "llms.txt",
+                      "assets/js/observatory-scene.js"):
+        with open(os.path.join(ROOT, fact_file.replace("/", os.sep)), encoding="utf-8") as fh:
+            fact_text = fh.read()
+        stale_facts = [fact for fact in outdated_facts if fact in fact_text]
+        check(f"{fact_file} has no outdated facts", not stale_facts, f"found={stale_facts}")
+    with open(os.path.join(ROOT, "data", "profile.json"), encoding="utf-8") as fh:
+        current_profile = json.load(fh)
+    language_levels = {lang["name"]: lang["proficiency"] for lang in current_profile["languages"]}
+    check("language levels match owner confirmation",
+          language_levels.get("Urdu") == "Native" and language_levels.get("Hindi") == "Professional")
+    check("completed SkillWallet internship is shown with its end date",
+          "SkillWallet" in index_html and "31 July 2026" in index_html
+          and any("SkillWallet" in role["company"] and "31 July 2026" in role["dates"]
+                  for role in current_profile["experience"]))
+
     print("\n== 21. Accurate Project Claims ==")
     banned_phrases = [
         "Production Metric", "Production Benchmarks", "Production SaaS Engine",

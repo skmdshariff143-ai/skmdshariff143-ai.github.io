@@ -7,7 +7,7 @@
 > CodeChef: https://www.codechef.com/users/vvit23bq1a04f2 (Rating 1455, 2-Star | 900+ Problems Solved)
 > Location: Guntur, Andhra Pradesh, India
 > Academic Institution: Vasireddy Venkatadri Institute of Technology (VVIT)
-> Degree: B.Tech in Electronics & Communication Engineering (Expected May 2027, CGPA: 8.21/10)
+> Degree: B.Tech in Electronics & Communication Engineering (Expected May 2027, CGPA: 8.12/10)
 
 ## Professional Summary
 Shaik Mahammad Shariff is an undergraduate engineer building calibrated machine learning pipelines, autonomous agent systems, and resilient web architectures. His work spans pedagogical multi-provider LLM applications, high-throughput entity resolution pipelines, revenue recovery systems, and calibrated credit risk classification engines. He holds an active AWS Certified Cloud Practitioner credential and has solved 900+ competitive programming problems on CodeChef.
@@ -28,7 +28,7 @@ Core skills verified against candidate résumé and portfolio stack:
 - **Domain**: Pedagogical Curriculum Generation & Multi-LLM Router
 - **Stack**: Next.js 15, React 19, TypeScript, Tailwind CSS, NVIDIA Nemotron, Gemini API, Playwright
 - **Problem**: Superficial one-shot LLM summaries risk hallucinations and lack structured pedagogical reteaching loops or student privacy controls.
-- **Solution & Architecture**: Architected an open-source pedagogical learning system with multi-provider inference (Nebius, NVIDIA Nemotron, Gemini, Groq), autonomous academic research coordination (Wikipedia, OpenAlex, Crossref, OpenStax), deterministic grading, and local-first guest persistence.
+- **Solution & Architecture**: Architected an open-source pedagogical learning system with an optional multi-provider inference layer (Nebius, NVIDIA Nemotron, Gemini, Groq; the public demo uses fixtures, and live inference is not yet verified), autonomous academic research coordination (Wikipedia, OpenAlex, Crossref, OpenStax), deterministic grading, and local-first guest persistence.
 - **Verification**: Complete automated test suites passing across 10 canonical benchmark topics.
 - **Repository**: https://github.com/skmdshariff143-ai/neurolearn-ai
 
