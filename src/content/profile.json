@@ -51,7 +51,7 @@
     },
     {
       "figure": "4",
-      "text": "internships completed between July 2025 and July 2026.",
+      "text": "internships across AI/ML, prompt engineering and data engineering.",
       "linkText": "Experience",
       "href": "#experience"
     },
@@ -67,8 +67,8 @@
   "education": "Final-year B.Tech ECE student at VVIT, CGPA 8.21",
   "aiNote": "I used AI coding tools, and I owned the design, review and verification.",
   "targetRole": "AI Product Engineer",
-  "positioning": "building AI products for payments and finance operations.",
-  "availability": "Available for internships and full-time roles from May 2027",
+  "positioning": "shipping AI for payment recovery and reconciliation.",
+  "availability": "Open to internships now and full-time roles from May 2027",
   "buildLines": [
     "payment recovery tools",
     "reconciliation engines",
