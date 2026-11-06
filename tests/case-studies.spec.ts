@@ -3,14 +3,15 @@ import { findLockedLink } from "../scripts/check-links.mjs";
 
 const SLUGS = ["recoverflow-ai", "sharecon-ai", "resumescore"];
 const REQUIRED_HEADINGS = [
-  "Who it is for",
-  "The problem",
-  "What I did",
-  "How it works",
-  "Key decisions",
-  "Results",
-  "What it does not do",
-  "What I would improve next",
+  "Problem",
+  "Users",
+  "My role",
+  "Key decisions and trade-offs",
+  "What I built",
+  "How I validated it",
+  "Outcome",
+  "Limits",
+  "What I would do next",
 ];
 
 for (const slug of SLUGS) {

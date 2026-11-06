@@ -1,0 +1,53 @@
+---
+import type { Project } from "../lib/content";
+import ResponsiveImage from "./ResponsiveImage.astro";
+import WorkLinks from "./WorkLinks.astro";
+
+interface Props {
+  project: Project;
+  number: string;
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageAlt: string;
+}
+
+const { project, number, image, imageWidth, imageHeight, imageAlt } = Astro.props;
+const { value, outcomes, role, stack, limitNote } = project;
+if (!value || !outcomes || !role || !stack || !limitNote) {
+  throw new Error(`Project ${project.slug} needs value, outcomes, role, stack and limitNote.`);
+}
+---
+<article class="project" id={project.slug}>
+  <div class="project-head">
+    <span class="project-index" aria-hidden="true">{number}</span>
+    <div>
+      <h3>{project.title}</h3>
+      <p class="project-value">{value}</p>
+    </div>
+  </div>
+  <div class="project-body">
+    <div class="project-media">
+      <figure class="shot">
+        <ResponsiveImage
+          name={image}
+          width={imageWidth}
+          height={imageHeight}
+          sizes="(max-width: 960px) 100vw, 700px"
+          alt={imageAlt}
+        />
+      </figure>
+      <slot />
+    </div>
+    <div class="project-facts">
+      <h4>Outcomes</h4>
+      <ul class="facts-list">{outcomes.map((fact) => <li>{fact}</li>)}</ul>
+      <dl class="meta">
+        <div><dt>My role</dt><dd>{role}</dd></div>
+        <div><dt>Stack</dt><dd>{stack}</dd></div>
+        <div><dt>Limit</dt><dd>{limitNote}</dd></div>
+      </dl>
+      <WorkLinks project={project} />
+    </div>
+  </div>
+</article>

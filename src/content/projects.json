@@ -8,7 +8,21 @@
     "checked": "CI on main passed 601 unit and application tests and 82 browser tests on 28 October 2026. In the live demo's 100-invoice synthetic batch, predicted recovery was 63.4% against 50% observed.",
     "limits": "Live payment recovery and provider onboarding are not enabled. AI cannot run payments or change audit history.",
     "demo": "https://recoverflow-ai-kohl.vercel.app",
-    "code": "https://github.com/skmdshariff143-ai/recoverflow-ai"
+    "code": "https://github.com/skmdshariff143-ai/recoverflow-ai",
+    "value": "Helps merchant operations teams decide which failed recurring payments are worth recovering, and who approved each action.",
+    "outcomes": [
+      "601 unit and application tests and 82 browser tests passed in CI on 28 October 2026.",
+      "On a 100-invoice synthetic batch, predicted recovery was 63.4% against 50% observed.",
+      "Cases routed to approval need two different reviewers."
+    ],
+    "role": "Built the console, recovery logic, data model and test suites.",
+    "stack": "Next.js, TypeScript, Prisma, PostgreSQL, Redis",
+    "limitNote": "Live payment recovery is not enabled, and results come from synthetic data.",
+    "door": {
+      "plate": "Payment recovery",
+      "figure": "601 + 82",
+      "label": "unit and browser tests passed in CI"
+    }
   },
   {
     "slug": "sharecon-ai",
@@ -20,7 +34,21 @@
     "limits": "It moves no live money, and results come from controlled datasets. The first run on those 80 cases had 7 unsafe auto-resolutions out of 42, a ₹28,100 exposure. Rules added in October removed them, so these cases can no longer count as held out.",
     "demo": "https://sharecon-ai.vercel.app",
     "code": "https://github.com/skmdshariff143-ai/sharecon-ai",
-    "video": "https://youtu.be/tG-U4dJvXuQ"
+    "video": "https://youtu.be/tG-U4dJvXuQ",
+    "value": "Helps finance teams match Razorpay payments, settlement batches and bank credits, and hands every doubtful case to a person.",
+    "outcomes": [
+      "97.1% link precision and recall on 80 hand-written stress cases.",
+      "141 automated and 50 end-to-end tests passed in CI on 23 October 2026.",
+      "The AI only writes advisory notes. A deterministic engine assigns every match."
+    ],
+    "role": "Built the reconciliation engine, control center, evaluation lab and audit export.",
+    "stack": "TypeScript, Playwright, Gemini for advisory notes",
+    "limitNote": "It moves no live money, and results come from controlled datasets.",
+    "door": {
+      "plate": "Reconciliation",
+      "figure": "97.1%",
+      "label": "link precision and recall on 80 stress cases"
+    }
   },
   {
     "slug": "resumescore",
@@ -31,7 +59,21 @@
     "checked": "Typecheck, lint, unit, browser and accessibility suites are defined in the repository.",
     "limits": "It does not predict hiring outcomes or certify ATS compatibility. Paid AI stays disabled, and the repository marks production as not yet approved.",
     "demo": "https://resumescore-silk.vercel.app",
-    "code": "https://github.com/skmdshariff143-ai/resumescore"
+    "code": "https://github.com/skmdshariff143-ai/resumescore",
+    "value": "Helps candidates review a resume against a job description without uploading it anywhere by default.",
+    "outcomes": [
+      "Analysis runs in the browser by default, so the text stays on the device.",
+      "Deterministic features run without any provider keys.",
+      "Paid AI is locked off at build time."
+    ],
+    "role": "Built extraction review, scoring, job matching, the local editor and export, plus the tests.",
+    "stack": "TypeScript, in-browser PDF and DOCX extraction",
+    "limitNote": "It does not predict hiring outcomes, and production is not yet approved.",
+    "door": {
+      "plate": "Private resume AI",
+      "figure": "On-device",
+      "label": "analysis runs in the browser by default"
+    }
   },
   {
     "slug": "creditguard-ai",

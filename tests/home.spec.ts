@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 const WIDTHS = [320, 390, 768, 1440, 1920];
+const HERO_HEADING_MAX_LINES = 7;
 
 async function lineCount(page: Page, selector: string): Promise<number[]> {
   return page.locator(selector).evaluateAll((elements) =>
@@ -23,8 +24,11 @@ for (const width of WIDTHS) {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(0);
     expect(await page.locator("h1").count()).toBe(1);
-    for (const lines of await lineCount(page, "h1, h2")) {
+    for (const lines of await lineCount(page, "h2")) {
       expect(lines).toBeLessThanOrEqual(2);
+    }
+    for (const lines of await lineCount(page, "h1")) {
+      expect(lines).toBeLessThanOrEqual(HERO_HEADING_MAX_LINES);
     }
     expect(errors).toEqual([]);
   });
@@ -37,7 +41,7 @@ for (const { width, height, limit } of [
   test(`role and resume are above the fold and height is within limit at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height });
     await page.goto("/");
-    await expect(page.locator("h1")).toContainText("builds AI products.");
+    await expect(page.locator("h1")).toContainText("AI Product Engineer");
     const resume = page.locator(".hero .actions a[download]");
     const box = await resume.boundingBox();
     expect(box).not.toBeNull();
@@ -46,6 +50,46 @@ for (const { width, height, limit } of [
     expect(pageHeight).toBeLessThanOrEqual(limit);
   });
 }
+
+for (const { width, height } of [
+  { width: 1440, height: 900 },
+  { width: 390, height: 844 },
+]) {
+  test(`hero shows role, availability, resume and contact above the fold at ${width}x${height}`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto("/");
+    const hero = page.locator(".hero");
+    const visible = [
+      hero.getByRole("heading", { level: 1 }),
+      hero.locator(".availability"),
+      hero.getByRole("link", { name: "Download resume" }),
+      hero.getByRole("link", { name: "View work" }),
+      hero.getByRole("link", { name: "Contact" }),
+      hero.getByRole("link", { name: "LinkedIn" }),
+    ];
+    for (const element of visible) {
+      await expect(element).toBeVisible();
+      const box = await element.boundingBox();
+      expect((box?.y ?? height) + (box?.height ?? 0)).toBeLessThanOrEqual(height);
+    }
+    await expect(hero.locator("h1 em")).toHaveText("AI Product Engineer");
+    await expect(hero.locator(".availability")).toContainText("May 2027");
+    await expect(hero.getByRole("link", { name: "Download resume" })).toHaveAttribute("href", "/assets/resume.pdf");
+  });
+}
+
+test("the page uses the cinematic dark palette, with gradients only on headings and doors, and no 3D canvas", async ({ page }) => {
+  await page.goto("/");
+  expect(await page.locator("canvas").count()).toBe(0);
+  const background = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  expect(background).toBe("rgb(10, 11, 13)");
+  const gradients = await page.evaluate(() =>
+    [...document.querySelectorAll("*")]
+      .filter((element) => getComputedStyle(element).backgroundImage.includes("gradient"))
+      .filter((element) => !element.matches("h1, h2, .proof dt, .chrome, .door-frame, .door-frame *")).length,
+  );
+  expect(gradients).toBe(0);
+});
 
 test("skip link moves focus to main content", async ({ page }) => {
   await page.goto("/");

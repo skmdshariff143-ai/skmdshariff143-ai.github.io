@@ -1,7 +1,5 @@
 const REVEAL_SELECTOR =
-  "h2, .section-lede, .proof > div, .project-detail > *, .ledger > div, table, .depth figure, .more, .about-grid > *, .contact > *, .case-body > *, .case-picture";
-const DELAY_STEPS = 4;
-const DELAY_STEP_MS = 80;
+  ".section-head, .project, .depth-grid, .more, .timeline li, .credential-list, .certificates, .about-grid > *, .contact-grid > *, .case-section";
 
 function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -16,12 +14,11 @@ function revealOnEntry(): void {
         observer.unobserve(entry.target);
       }
     },
-    { rootMargin: "0px 0px -8% 0px" },
+    { rootMargin: "0px 0px -6% 0px" },
   );
 
-  document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR).forEach((target, index) => {
+  document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR).forEach((target) => {
     if (target.getBoundingClientRect().top < window.innerHeight) return;
-    target.style.setProperty("--delay", `${(index % DELAY_STEPS) * DELAY_STEP_MS}ms`);
     target.classList.add("reveal");
     observer.observe(target);
   });

@@ -1,5 +1,4 @@
 ---
-import Ledger from "../../components/Ledger.astro";
 import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import WorkLinks from "../../components/WorkLinks.astro";
 import Base from "../../layouts/Base.astro";
@@ -9,76 +8,105 @@ export function getStaticPaths() {
   return getProjects("flagship").map((project) => ({ params: { slug: project.slug }, props: { project } }));
 }
 
-const FIELD_BY_SLUG: Record<string, string> = {
-  "recoverflow-ai": "field-forest",
-  "sharecon-ai": "field-cobalt",
-  resumescore: "field-bone",
-};
-
 const { project } = Astro.props;
 const study = getCaseStudy(project.slug);
 const flagships = getProjects("flagship");
 const nextProject = flagships[(flagships.findIndex((item) => item.slug === project.slug) + 1) % flagships.length];
+const { role, stack } = project;
+if (!role || !stack) throw new Error(`Project ${project.slug} needs a role and stack.`);
 ---
 <Base
   title={`${project.title} case study | Shaik Mahammad Shariff`}
   description={project.summary}
   preloadImage={study.image.name}
 >
-  <article class:list={["case", FIELD_BY_SLUG[project.slug]]}>
-    <h1>{project.title}</h1>
-    <p class="case-summary">{project.summary}</p>
-    <WorkLinks project={project} showCaseStudy={false} />
-    <figure class="case-picture">
-      <ResponsiveImage
-        name={study.image.name}
-        width={study.image.width}
-        height={study.image.height}
-        sizes="100vw"
-        eager
-        alt={study.image.alt}
-      />
-    </figure>
-    <h2 class="visually-hidden">At a glance</h2>
-    <Ledger project={project} headingTag="h3" />
+  <article>
+    <header class="case-hero wrap">
+      <p class="kicker">Case study</p>
+      <h1>{project.title}</h1>
+      <p class="case-summary">{project.summary}</p>
+      <dl class="case-meta">
+        <div><dt>My role</dt><dd>{role}</dd></div>
+        <div><dt>Stack</dt><dd>{stack}</dd></div>
+        <div><dt>Links</dt><dd><WorkLinks project={project} showCaseStudy={false} /></dd></div>
+      </dl>
+    </header>
 
-    <div class="case-body">
-      <h2>Who it is for</h2>
-      <div><p>{study.audience}</p></div>
+    <div class="wrap">
+      <figure class="case-picture shot">
+        <ResponsiveImage
+          name={study.image.name}
+          width={study.image.width}
+          height={study.image.height}
+          sizes="(max-width: 1180px) 100vw, 1084px"
+          eager
+          alt={study.image.alt}
+        />
+      </figure>
 
-      <h2>The problem</h2>
-      <div>{study.problem.map((text) => <p>{text}</p>)}</div>
+      <div class="case-body">
+        <section class="case-section">
+          <h2>Problem</h2>
+          <div class="case-copy">{study.problem.map((text) => <p>{text}</p>)}</div>
+        </section>
 
-      <h2>What I did</h2>
-      <div>{study.contribution.map((text) => <p>{text}</p>)}<p>{getProfile().aiNote}</p></div>
+        <section class="case-section">
+          <h2>Users</h2>
+          <div class="case-copy"><p>{study.audience}</p></div>
+        </section>
 
-      <h2>How it works</h2>
-      <div><ol class="flow">{study.flow.map((step) => <li>{step}</li>)}</ol></div>
+        <section class="case-section">
+          <h2>My role</h2>
+          <div class="case-copy">{study.contribution.map((text) => <p>{text}</p>)}<p>{getProfile().aiNote}</p></div>
+        </section>
 
-      <h2>Key decisions</h2>
-      <div>{study.decisions.map((decision) => <p><b>{decision.title}</b> {decision.text}</p>)}</div>
+        <section class="case-section">
+          <h2>Key decisions and trade-offs</h2>
+          <div class="case-copy">{study.decisions.map((decision) => <p><b>{decision.title}</b> {decision.text}</p>)}</div>
+        </section>
 
-      {study.incident && (
-        <>
-          <h2>{study.incident.title}</h2>
-          <div><p>{study.incident.text}</p></div>
-        </>
-      )}
+        <section class="case-section">
+          <h2>What I built</h2>
+          <div class="case-copy">
+            <p>{project.built}</p>
+            <ol class="flow">{study.flow.map((step) => <li>{step}</li>)}</ol>
+          </div>
+        </section>
 
-      <h2>Results</h2>
-      <div><ul>{study.results.map((result) => <li>{result}</li>)}</ul></div>
+        <section class="case-section">
+          <h2>How I validated it</h2>
+          <div class="case-copy"><p>{project.checked}</p></div>
+        </section>
 
-      <h2>What it does not do</h2>
-      <div><ul>{study.limits.map((limit) => <li>{limit}</li>)}</ul></div>
+        {study.incident && (
+          <section class="case-section">
+            <h2>{study.incident.title}</h2>
+            <div class="case-copy"><p>{study.incident.text}</p></div>
+          </section>
+        )}
 
-      <h2>What I would improve next</h2>
-      <div><p>{study.next}</p></div>
+        <section class="case-section">
+          <h2>Outcome</h2>
+          <div class="case-copy"><ul>{study.results.map((result) => <li>{result}</li>)}</ul></div>
+        </section>
+
+        <section class="case-section">
+          <h2>Limits</h2>
+          <div class="case-copy"><ul>{study.limits.map((limit) => <li>{limit}</li>)}</ul></div>
+        </section>
+
+        <section class="case-section">
+          <h2>What I would do next</h2>
+          <div class="case-copy"><p>{study.next}</p></div>
+        </section>
+      </div>
     </div>
   </article>
 
   {nextProject && (
-    <section class="next-case">
-      <h2><a href={`/work/${nextProject.slug}/`}>Next: {nextProject.title}</a></h2>
+    <section class="wrap next-case">
+      <p class="kicker">Next case study</p>
+      <h2><a href={`/work/${nextProject.slug}/`}>{nextProject.title}</a></h2>
     </section>
   )}
 </Base>
