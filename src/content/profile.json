@@ -68,5 +68,38 @@
   "aiNote": "I used AI coding tools, and I owned the design, review and verification.",
   "targetRole": "AI Product Engineer",
   "positioning": "building AI products for payments and finance operations.",
-  "availability": "Available for internships and full-time roles from May 2027"
+  "availability": "Available for internships and full-time roles from May 2027",
+  "buildLines": [
+    "payment recovery tools",
+    "reconciliation engines",
+    "AI with guardrails",
+    "private, in-browser AI"
+  ],
+  "capabilities": [
+    {
+      "title": "AI with guardrails",
+      "text": "The AI writes advisory notes. A deterministic engine assigns every match.",
+      "href": "#sharecon-ai"
+    },
+    {
+      "title": "Payments and reconciliation",
+      "text": "Matches Razorpay payments, settlement batches and bank credits.",
+      "href": "#sharecon-ai"
+    },
+    {
+      "title": "Recovery workflows",
+      "text": "Failed recurring payments, with two different reviewers on approval cases.",
+      "href": "#recoverflow-ai"
+    },
+    {
+      "title": "Testing and evaluation",
+      "text": "601 unit and 82 browser tests in RecoverFlow AI. 80 hand-written stress cases in ShaRecon AI.",
+      "href": "#work"
+    },
+    {
+      "title": "Private, in-browser AI",
+      "text": "Resume analysis runs in the browser by default, so the text stays on the device.",
+      "href": "#resumescore"
+    }
+  ]
 }

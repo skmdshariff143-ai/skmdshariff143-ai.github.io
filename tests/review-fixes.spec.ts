@@ -26,9 +26,9 @@ test("outcome label meets AA contrast", async ({ page }) => {
     };
     const label = document.querySelector("[data-outcome-label]") as HTMLElement;
     const panel = document.querySelector(".outcome") as HTMLElement;
-    const lighter = luminance(getComputedStyle(panel).backgroundColor);
-    const darker = luminance(getComputedStyle(label).color);
-    return (lighter + 0.05) / (darker + 0.05);
+    const panelLuminance = luminance(getComputedStyle(panel).backgroundColor);
+    const labelLuminance = luminance(getComputedStyle(label).color);
+    return (Math.max(panelLuminance, labelLuminance) + 0.05) / (Math.min(panelLuminance, labelLuminance) + 0.05);
   });
   expect(ratio).toBeGreaterThanOrEqual(4.5);
 });

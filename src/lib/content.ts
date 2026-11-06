@@ -22,6 +22,9 @@ const projectSchema = z.object({
   role: z.string().min(1).optional(),
   stack: z.string().min(1).optional(),
   limitNote: z.string().min(1).optional(),
+  door: z
+    .object({ plate: z.string().min(1), figure: z.string().min(1), label: z.string().min(1) })
+    .optional(),
 });
 
 const profileSchema = z.object({
@@ -56,6 +59,11 @@ const profileSchema = z.object({
     .min(1),
   tools: z.string().min(1),
   leadership: z.string().min(1),
+  buildLines: z.array(z.string().min(1)).min(2).max(6),
+  capabilities: z
+    .array(z.object({ title: z.string().min(1), text: z.string().min(1), href: z.string().startsWith("#") }))
+    .min(3)
+    .max(6),
   proof: z
     .array(
       z.object({

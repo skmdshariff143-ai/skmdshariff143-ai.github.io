@@ -1,0 +1,24 @@
+---
+const READERS = [
+  { href: "#experience", mark: "R", name: "Recruiter", detail: "Experience, credentials, resume", tone: "tone-a" },
+  { href: "#depth", mark: "</>", name: "Engineer", detail: "Results, tests, code", tone: "tone-b" },
+  { href: "#work", mark: "◆", name: "Product lead", detail: "Problems, users, trade-offs", tone: "tone-c" },
+];
+---
+<section class="readers" aria-labelledby="readers-title">
+  <div class="wrap">
+    <h2 id="readers-title">Who's reading?</h2>
+    <p class="readers-lede">Pick one to jump to what you care about first. Everything stays on the page.</p>
+    <ul class="readers-grid">
+      {READERS.map((reader) => (
+        <li>
+          <a href={reader.href}>
+            <span class={`reader-tile ${reader.tone}`} aria-hidden="true">{reader.mark}</span>
+            <span class="reader-name">{reader.name}</span>
+            <span class="reader-detail">{reader.detail}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

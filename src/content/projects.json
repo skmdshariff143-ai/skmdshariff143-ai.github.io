@@ -17,7 +17,12 @@
     ],
     "role": "Built the console, recovery logic, data model and test suites.",
     "stack": "Next.js, TypeScript, Prisma, PostgreSQL, Redis",
-    "limitNote": "Live payment recovery is not enabled, and results come from synthetic data."
+    "limitNote": "Live payment recovery is not enabled, and results come from synthetic data.",
+    "door": {
+      "plate": "Payment recovery",
+      "figure": "601 + 82",
+      "label": "unit and browser tests passed in CI"
+    }
   },
   {
     "slug": "sharecon-ai",
@@ -38,7 +43,12 @@
     ],
     "role": "Built the reconciliation engine, control center, evaluation lab and audit export.",
     "stack": "TypeScript, Playwright, Gemini for advisory notes",
-    "limitNote": "It moves no live money, and results come from controlled datasets."
+    "limitNote": "It moves no live money, and results come from controlled datasets.",
+    "door": {
+      "plate": "Reconciliation",
+      "figure": "97.1%",
+      "label": "link precision and recall on 80 stress cases"
+    }
   },
   {
     "slug": "resumescore",
@@ -58,7 +68,12 @@
     ],
     "role": "Built extraction review, scoring, job matching, the local editor and export, plus the tests.",
     "stack": "TypeScript, in-browser PDF and DOCX extraction",
-    "limitNote": "It does not predict hiring outcomes, and production is not yet approved."
+    "limitNote": "It does not predict hiring outcomes, and production is not yet approved.",
+    "door": {
+      "plate": "Private resume AI",
+      "figure": "On-device",
+      "label": "analysis runs in the browser by default"
+    }
   },
   {
     "slug": "creditguard-ai",

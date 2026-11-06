@@ -1,15 +1,13 @@
 ---
-import "@fontsource/instrument-serif/400.css";
-import "@fontsource/instrument-serif/400-italic.css";
 import "@fontsource/instrument-sans/400.css";
 import "@fontsource/instrument-sans/500.css";
 import "@fontsource/instrument-sans/600.css";
+import "@fontsource/instrument-sans/700.css";
 import "../styles/global.css";
 import sansMedium from "@fontsource/instrument-sans/files/instrument-sans-latin-500-normal.woff2?url";
 import sansRegular from "@fontsource/instrument-sans/files/instrument-sans-latin-400-normal.woff2?url";
 import sansSemibold from "@fontsource/instrument-sans/files/instrument-sans-latin-600-normal.woff2?url";
-import serifItalic from "@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url";
-import serifRegular from "@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url";
+import sansBold from "@fontsource/instrument-sans/files/instrument-sans-latin-700-normal.woff2?url";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { getProfile } from "../lib/content";
@@ -22,7 +20,7 @@ interface Props {
   preloadSizes?: string;
 }
 
-const preloadedFonts = [serifRegular, serifItalic, sansRegular, sansMedium, sansSemibold];
+const preloadedFonts = [sansRegular, sansMedium, sansSemibold, sansBold];
 const { title, description, image = "/images/og-default.png", preloadImage, preloadSizes = "100vw" } = Astro.props;
 const profile = getProfile();
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -46,7 +44,7 @@ const structuredData = JSON.stringify({
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
-    <meta name="theme-color" content="#10241b" />
+    <meta name="theme-color" content="#0a0b0d" />
     {preloadedFonts.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -73,7 +71,15 @@ const structuredData = JSON.stringify({
     </main>
     <Footer />
     <script>
+      import { initClock } from "../scripts/clock";
+      import { initDoors } from "../scripts/doors";
+      import { initFlip } from "../scripts/flip";
+      import { initIntro } from "../scripts/intro";
       import { initReveal } from "../scripts/reveal";
+      initIntro();
+      initClock();
+      initDoors();
+      initFlip();
       initReveal();
     </script>
   </body>

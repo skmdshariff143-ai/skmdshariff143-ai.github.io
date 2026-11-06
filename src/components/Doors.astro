@@ -1,0 +1,35 @@
+---
+import type { Project } from "../lib/content";
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+<div class="doors">
+  {projects.map((project) => {
+    const { door, value } = project;
+    if (!door || !value) throw new Error(`Project ${project.slug} needs door and value content.`);
+    const roomId = `door-${project.slug}`;
+    return (
+      <div class="door-frame open" data-door-frame>
+        <div class="door-room" id={roomId} data-door-room>
+          <p class="door-figure">{door.figure}</p>
+          <p class="door-label">{door.label}</p>
+          <h3>{project.title}</h3>
+          <p class="door-value">{value}</p>
+          <p class="door-links">
+            <a href={`#${project.slug}`}>{`See the ${project.title} details`}</a>
+          </p>
+        </div>
+        <button class="door" type="button" aria-expanded="true" aria-controls={roomId} data-door>
+          <span class="visually-hidden">{project.title}:</span>
+          <span class="door-plate">{door.plate}</span>
+          <span class="door-knob" aria-hidden="true"></span>
+          <span class="door-hint">Open the door</span>
+        </button>
+      </div>
+    );
+  })}
+</div>

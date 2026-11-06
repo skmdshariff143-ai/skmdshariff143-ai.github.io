@@ -1,0 +1,17 @@
+---
+import { getProfile } from "../lib/content";
+
+const { capabilities } = getProfile();
+---
+<ol class="capabilities">
+  {capabilities.map((capability, index) => (
+    <li>
+      <a href={capability.href}>
+        <span class="cap-number">{String(index + 1).padStart(2, "0")}</span>
+        <span class="cap-title">{capability.title}</span>
+        <span class="cap-text">{capability.text}</span>
+        <span class="cap-go" aria-hidden="true">↗</span>
+      </a>
+    </li>
+  ))}
+</ol>

@@ -1,7 +1,11 @@
 ---
+import Capabilities from "../components/Capabilities.astro";
 import Certificates from "../components/Certificates.astro";
 import ContactForm from "../components/ContactForm.astro";
+import Doors from "../components/Doors.astro";
+import Intro from "../components/Intro.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import ReaderPicker from "../components/ReaderPicker.astro";
 import ResponsiveImage from "../components/ResponsiveImage.astro";
 import SettlementControl from "../components/SettlementControl.astro";
 import Base from "../layouts/Base.astro";
@@ -15,16 +19,26 @@ const [recoverflow, sharecon, resumescore] = getProjects("flagship");
 const research = getProjects("research");
 const mentions = getProjects("mention");
 if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship projects are required.");
+const flagships = [recoverflow, sharecon, resumescore];
 ---
 <Base
   title={`${profile.name} | ${profile.targetRole}`}
   description="Final-year engineering student building AI products for payment and finance operations, with every result and limit stated."
 >
+  <Intro />
   <section class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
-      <p class="kicker">{profile.name}</p>
+      <p class="kicker">Hi, I'm {profile.shortName}</p>
       <h1><em>{profile.targetRole}</em> {profile.positioning}</h1>
+      <p class="flip-line">
+        <span class="visually-hidden">I build {profile.buildLines.join(", ")}.</span>
+        <span aria-hidden="true">I build</span>
+        <span class="flip" aria-hidden="true">
+          <span class="flip-rings"></span>
+          <span class="flip-card" data-flip={profile.buildLines.join("|")}>{profile.buildLines[0]}</span>
+        </span>
+      </p>
       <p class="lede">{getLede()}</p>
       <p class="availability">{profile.availability}</p>
       <div class="actions">
@@ -62,6 +76,8 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
     </dl>
   </section>
 
+  <ReaderPicker />
+
   <section class="section" id="work">
     <div class="wrap">
       <div class="section-head">
@@ -69,6 +85,8 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
         <h2>Three products, and where each one stops</h2>
         <p class="section-lede">Each project says who it helps, how it was checked and what it does not do. {profile.aiNote}</p>
       </div>
+
+      <Doors projects={flagships} />
 
       <ProjectCard
         project={recoverflow}
@@ -96,6 +114,17 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
         imageHeight={690}
         imageAlt="ResumeScore home page with a fictional sample showing resume quality and job match scores"
       />
+    </div>
+  </section>
+
+  <section class="section" id="capabilities">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">What I do</p>
+        <h2>Capabilities</h2>
+        <p class="section-lede">Each row links to the project that shows it.</p>
+      </div>
+      <Capabilities />
     </div>
   </section>
 

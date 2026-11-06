@@ -1,0 +1,10 @@
+---
+import { getProfile } from "../lib/content";
+
+const profile = getProfile();
+---
+<div class="intro" data-intro>
+  <p class="intro-word chrome" aria-hidden="true">{profile.shortName}</p>
+  <p class="intro-word chrome" aria-hidden="true">Portfolio</p>
+  <button class="intro-skip" type="button" data-intro-skip>Skip intro</button>
+</div>

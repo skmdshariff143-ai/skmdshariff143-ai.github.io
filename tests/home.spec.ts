@@ -78,13 +78,15 @@ for (const { width, height } of [
   });
 }
 
-test("the page uses the ledger palette without gradients or a 3D canvas", async ({ page }) => {
+test("the page uses the cinematic dark palette, with gradients only on headings and doors, and no 3D canvas", async ({ page }) => {
   await page.goto("/");
   expect(await page.locator("canvas").count()).toBe(0);
   const background = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-  expect(background).toBe("rgb(251, 250, 246)");
+  expect(background).toBe("rgb(10, 11, 13)");
   const gradients = await page.evaluate(() =>
-    [...document.querySelectorAll("*")].filter((element) => getComputedStyle(element).backgroundImage.includes("gradient")).length,
+    [...document.querySelectorAll("*")]
+      .filter((element) => getComputedStyle(element).backgroundImage.includes("gradient"))
+      .filter((element) => !element.matches("h1, h2, .proof dt, .chrome, .door-frame, .door-frame *")).length,
   );
   expect(gradients).toBe(0);
 });
