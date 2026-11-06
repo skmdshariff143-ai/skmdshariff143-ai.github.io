@@ -21,7 +21,8 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
   description="Final-year engineering student building AI products for payment and finance operations, with every result and limit stated."
 >
   <section class="hero" id="top">
-    <div class="wrap">
+    <div class="wrap hero-grid">
+      <div>
       <p class="kicker">{profile.name}</p>
       <h1><em>{profile.targetRole}</em> {profile.positioning}</h1>
       <p class="lede">{getLede()}</p>
@@ -35,6 +36,18 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
         <a href={profile.linkedin}>LinkedIn</a>
         <a href={profile.github}>GitHub</a>
       </p>
+      </div>
+      <aside class="statement-card" aria-label="Summary">
+        <p class="statement-title">Statement of work</p>
+        <dl>
+          <div><dt>Role</dt><dd>{profile.targetRole}</dd></div>
+          <div><dt>Focus</dt><dd>Payments and finance operations</dd></div>
+          <div><dt>Degree</dt><dd>B.Tech ECE, VVIT</dd></div>
+          <div><dt>CGPA</dt><dd>{profile.cgpa}</dd></div>
+          <div><dt>Graduating</dt><dd>{profile.graduation}</dd></div>
+          <div><dt>Entries</dt><dd>3 products, {profile.internships.length} internships</dd></div>
+        </dl>
+      </aside>
     </div>
   </section>
 
@@ -52,14 +65,14 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
   <section class="section" id="work">
     <div class="wrap">
       <div class="section-head">
-        <p class="kicker">Selected work</p>
+        <p class="kicker">Selected work · 3 entries</p>
         <h2>Three products, and where each one stops</h2>
         <p class="section-lede">Each project says who it helps, how it was checked and what it does not do. {profile.aiNote}</p>
       </div>
 
       <ProjectCard
         project={recoverflow}
-        number="01"
+        number="PRJ-001"
         image="work-recoverflow"
         imageWidth={1440}
         imageHeight={690}
@@ -67,7 +80,7 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
       />
       <ProjectCard
         project={sharecon}
-        number="02"
+        number="PRJ-002"
         image="work-sharecon"
         imageWidth={1440}
         imageHeight={830}
@@ -77,7 +90,7 @@ if (!recoverflow || !sharecon || !resumescore) throw new Error("Three flagship p
       </ProjectCard>
       <ProjectCard
         project={resumescore}
-        number="03"
+        number="PRJ-003"
         image="work-resumescore"
         imageWidth={1440}
         imageHeight={690}

@@ -78,11 +78,11 @@ for (const { width, height } of [
   });
 }
 
-test("the page uses the classic editorial palette without gradients or a 3D canvas", async ({ page }) => {
+test("the page uses the ledger palette without gradients or a 3D canvas", async ({ page }) => {
   await page.goto("/");
   expect(await page.locator("canvas").count()).toBe(0);
   const background = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-  expect(background).toBe("rgb(247, 245, 240)");
+  expect(background).toBe("rgb(251, 250, 246)");
   const gradients = await page.evaluate(() =>
     [...document.querySelectorAll("*")].filter((element) => getComputedStyle(element).backgroundImage.includes("gradient")).length,
   );
